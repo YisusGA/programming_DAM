@@ -1,7 +1,7 @@
 package ejercicios_sentencia_iterativa;
 
 /**
- * 21.	Programa que solicite un número N e indique si es o no primo
+ * Programa que solicite un número N e indique si es o no primo
  */
 
 import java.util.Scanner;

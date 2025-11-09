@@ -1,8 +1,26 @@
+# Eclipse's setting files
+.classpath
+.project
+.settings/
+
+# Eclipse's specific files
+*.launch
+.metadata
+
+# Compiled file directories
+bin/
+target/
+
 # Compiled class file
 *.class
 
-# Log file
+# Log and temp files
 *.log
+*.tmp
+temp/
+
+# Windows files
+Thumbs.db
 
 # BlueJ files
 *.ctxt

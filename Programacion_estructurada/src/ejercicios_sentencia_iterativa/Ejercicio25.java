@@ -20,7 +20,7 @@ public class Ejercicio25 {
 		}
 		//Calculamos todos los números triangulares desde el 1 hasta el número n, y los vamos comparando con n. Si n == Ti, entonces n es triangular
 		for (int i = 1; i <= n; i++) {
-			int Ti = i * (i + 1) / 2;
+			int Ti = i * (i + 1) / 2; //Fórmula para calcular los números triangulares
 			if (n == Ti) {
 				esTriangular = true;
 				break;

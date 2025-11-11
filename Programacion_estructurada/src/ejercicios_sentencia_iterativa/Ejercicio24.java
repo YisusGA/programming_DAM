@@ -53,8 +53,10 @@ public class Ejercicio24 {
 			if (n == nRandom) {
 				System.out.println("¡Has acertado! El número generado era: " + nRandom);
 				break;
-			} else {
-				System.out.println("Ninguno de los números que has introducido coincide con el generador");
+			} else if (n > nRandom) {
+				System.out.println("Te has pasado, prueba con un número menor");
+			} else if (n < nRandom) {
+				System.out.println("Te has quedado corto, prueba con un número menor");
 			}
 		}
 		scan.close();

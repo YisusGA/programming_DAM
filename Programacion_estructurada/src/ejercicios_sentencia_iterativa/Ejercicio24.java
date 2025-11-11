@@ -38,8 +38,12 @@ public class Ejercicio24 {
 			intentos = scan.nextInt();
 		}
 		/*
-		 * Ver la explicación sobre cómo usar el generador de números aleatorios dentro de un rango en el cuaderno. Por decirlo en corto, se resta el max menos el min para sacar la distancia entre los extremos, y se suma uno para incluir el extremo de la derecha, pues si no, no se incluye.
-		 * Además, al resultado de esto se le suma el min del intervalo, el cual actúa como un offset. Si no hacemos esto, el generador de números aleatorios trabaja en un intervalo que comienza en el 0 y tantas posiciones desde el 0 como sea el número dentro de los paréntesis.
+		 * Ver la explicación sobre cómo usar el generador de números aleatorios dentro de un rango en el cuaderno. 
+		 * Por decirlo en corto, se resta el max menos el min para sacar la distancia entre los extremos, y se suma 
+		 * uno para incluir el extremo de la derecha, pues si no, no se incluye.
+		 * Además, al resultado de esto se le suma el min del intervalo, el cual actúa como un offset. Si no hacemos esto,
+		 *  el generador de números aleatorios trabaja en un intervalo que comienza en el 0 y tantas posiciones desde el 0 
+		 *  como sea el número dentro de los paréntesis.
 		 */
 		int nRandom = generador.nextInt(max - min + 1) + min;
 		for (int i = 1; i <= intentos; i++) {

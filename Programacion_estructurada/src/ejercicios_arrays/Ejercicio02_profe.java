@@ -6,7 +6,7 @@ package ejercicios_arrays;
 
 import java.util.Scanner;
 
-public class Ejercicio2_profe {
+public class Ejercicio02_profe {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);

@@ -6,7 +6,7 @@ package ejercicios_arrays;
 
 import java.util.Scanner;
 
-public class Ejercicio2_alternativo_NO_FUNCIONA {
+public class Ejercicio02 {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
@@ -15,18 +15,17 @@ public class Ejercicio2_alternativo_NO_FUNCIONA {
 		String trash = scan.nextLine();
 		String [] palabras = new String [numPalabras];
 		System.out.println ("Introduce una palabra");
-		boolean coincide = false;
 		for (int i = 0; i < palabras.length; i++) {
 			if (i > 0) {
 				System.out.println ("Introduce otra palabra");
 			}
-			palabras [i] = scan.nextLine();
-			for (int j = 0; j < palabras.length && i > 0; j++) {
-				for (int k = 0; k < palabras.length; k++) {
-					if (palabras [j].equals(palabras[k])) {
-						coincide = true;
-						break;
-					}
+			palabras [i] = scan.nextLine();			
+		}
+		boolean coincide = false;
+		for (int i = 0; i < palabras.length; i++) {
+			for (int j = 0; j < palabras.length; j++) {
+				if (palabras [i].equals(palabras[j])) {
+					coincide = true;
 				}
 			}
 		}

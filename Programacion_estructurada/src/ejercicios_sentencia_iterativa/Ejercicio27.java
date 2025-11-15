@@ -51,55 +51,61 @@ public class Ejercicio27 {
 				break;
 			}
 		//DECENAS
-		switch (cifras[1]) {
-		case 1, 2, 3:
-			for (int i = 1; i <= cifras[1]; i++) {
-				decenas += "X";
+		if (numOriginal >= 10) {
+			switch (cifras[1]) {
+				case 1, 2, 3:
+					for (int i = 1; i <= cifras[1]; i++) {
+						decenas += "X";
+					}
+				break;
+				case 4:
+					decenas = "XL";
+					break;
+				case 5:
+					decenas = "L";
+					break;
+				case 6, 7, 8:
+					decenas = "L";
+				for (int i = 6; i <= cifras[1]; i++) {
+					decenas += "X";
+				}
+				break;
+				case 9:
+					decenas = "XC";
+					break;
 			}
-		break;
-		case 4:
-			decenas = "XL";
-			break;
-		case 5:
-			decenas = "L";
-			break;
-		case 6, 7, 8:
-			decenas = "L";
-		for (int i = 6; i <= cifras[1]; i++) {
-			decenas += "X";
-		}
-		break;
-		case 9:
-			decenas = "XC";
-			break;
 		}
 		//CENTENAS
-		switch (cifras[2]) {
-		case 1, 2, 3:
-			for (int i = 1; i <= cifras[2]; i++) {
-				centenas += "C";
+		if (numOriginal >= 100) {
+			switch (cifras[2]) {
+				case 1, 2, 3:
+					for (int i = 1; i <= cifras[2]; i++) {
+						centenas += "C";
+					}
+				break;
+				case 4:
+					centenas = "CD";
+					break;
+				case 5:
+					centenas = "D";
+					break;
+				case 6, 7, 8:
+					centenas = "D";
+				for (int i = 6; i <= cifras[2]; i++) {
+					centenas += "C";
+				}
+				break;
+				case 9:
+					centenas = "CM";
+					break;
 			}
-		break;
-		case 4:
-			centenas = "CD";
-			break;
-		case 5:
-			centenas = "D";
-			break;
-		case 6, 7, 8:
-			centenas = "D";
-		for (int i = 6; i <= cifras[2]; i++) {
-			centenas += "C";
-		}
-		break;
-		case 9:
-			centenas = "CM";
-			break;
 		}
 		//MILES
-		for (int i = 1; i <= cifras[3]; i++) {
-			miles += "M";
-		}
+		if (numOriginal >= 1000) {
+			for (int i = 1; i <= cifras[3]; i++) {
+				miles += "M";
+			}
+		}	
 		System.out.println("El número romano de " + numOriginal + " es: " + miles + centenas + decenas + unidades);
 	}
 

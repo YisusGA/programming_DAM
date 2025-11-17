@@ -9,30 +9,24 @@ import java.util.Scanner;
 public class Ejercicio16 {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		int j = 0;
-		int[] numeros = new int[10];
-		for (int i = 0; i < 10; i++) {
+		int arraySize = 10;
+		int[] numeros = new int[arraySize];
+		for (int i = 0; i < arraySize; i++) {
 			System.out.println("Introduce un número entero");
 			numeros[i] = scan.nextInt();
 		}
-		int[] numerosNuevos = new int[10];
+		int[] numerosNuevos = new int[arraySize];
 		System.out.println("Introduce un número de desplazamientos N");
-		int N = Math.abs(scan.nextInt());
+		//Reducimos la N con % 10 para que entre al bucle más reducida y sea más eficiente computacionalmente 
+		int N = Math.abs(scan.nextInt()) % arraySize;
 		System.out.print("Array original: ");
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < arraySize; i++) {
 			System.out.print(numeros[i] + " ");
 		}
-		int num1Original = numeros[0];
-		for (int i = 0; i < 10; i++) {
-			int nuevaPosicion = ((i + N) % 9);
-			if (nuevaPosicion > 9) {
-				numerosNuevos[i] = numeros[nuevaPosicion - 9];
-			} else if (nuevaPosicion == 0) {	
-				numerosNuevos[i] = numeros[9];
-			} else {
-				numerosNuevos[i] = numeros[nuevaPosicion];
-			}
-		}
+		for (int i = 0; i < arraySize; i++) {	
+			//Colocamos en la posición avanzada del nuevo array, cada posición desde 0 a 9 del array original
+			numerosNuevos[(i + N) % arraySize] = numeros[i];
+		}	
 		System.out.println();
 		System.out.print("Array cambiado: ");
 		for (int i : numerosNuevos) {

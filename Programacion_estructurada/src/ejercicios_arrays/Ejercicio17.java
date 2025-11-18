@@ -1,7 +1,8 @@
 package ejercicios_arrays;
 
 /**
- * Leer 5 elementos numéricos que se introducirán ordenados de forma creciente. Éstos los guardaremos en un array de tamaño 10. 
+ * Leer 5 elementos numéricos que se introducirán ordenados de forma creciente. Si esto fuera el examen, asumimos que el usuario los va a introducir
+ * en orden, no haría falta hacer toda la parte de comprobación que yo he hecho. Éstos los guardaremos en un array de tamaño 10. 
  * Leer un número N, e insertarlo en el lugar adecuado para que el array continúe ordenado
  */
 

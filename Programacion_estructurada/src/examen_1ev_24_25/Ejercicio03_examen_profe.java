@@ -2,7 +2,7 @@ package examen_1ev_24_25;
 
 import java.util.Scanner;
 
-public class Ejercicio03 {
+public class Ejercicio03_examen_profe {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);

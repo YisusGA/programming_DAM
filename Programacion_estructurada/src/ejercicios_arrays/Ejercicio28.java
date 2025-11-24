@@ -37,12 +37,12 @@ public class Ejercicio28 {
 		
 		//Mostramos todos los alumnos que hay en la lista, excluyendo las posiciones vacías(null). Contamos cuántas posiciones no vacías hay
 		int contadorAlumnosLista = 0;
-		System.out.print("La lista de alumnos actual es: ");
+		System.out.println("La lista de alumnos actual es: ");
+		int c = 0;
 		for (String i : alumnos) {
-			if (!(i == null)) {
-				System.out.print(i + ", ");
+				System.out.println(c + "- " + i + ", ");
 				contadorAlumnosLista++;
-			}
+				c++;
 		}
 		
 		//Eliminamos las posiciones que quiera el usuario de los arrays de alumnos y notaMedia. Para eliminarlas, añadimos el valor null en el caso del array de alumnos, y 0 en el caso del array de notaMedia 
@@ -53,11 +53,11 @@ public class Ejercicio28 {
 		String eliminar = scan.nextLine();
 		if (eliminar.equals("Sí") || eliminar.equals("Si") || eliminar.equals("sí") || eliminar.equals("si")) {
 			int posicionEliminar = 0;
-			while (posicionEliminar >= 0) {
+			while (posicionEliminar >= 0 && posicionEliminar <= 19) {
 				System.out.println("Qué posición quieres eliminar. Valores admitidos: 0-" + (contadorAlumnosLista - 1));
 				System.out.println("Introduce -1 si ya no quieres eliminar más alumnos");
 				posicionEliminar = scan.nextInt();
-				if (posicionEliminar >= 0) {
+				if (posicionEliminar >= 0 && posicionEliminar <= 19) {
 					alumnos[posicionEliminar] = null;
 					notaMedia [posicionEliminar] = 0;
 					contadorAlumnosEliminados++;

@@ -33,17 +33,9 @@ public class Ejercicio28 {
 		}
 		
 		//Mostramos cuántos alumnos se han añadido a la lista
+		System.out.println();
 		System.out.println("Se han añadido " + numeroAlumnosNuevos + " alumnos nuevos");
 		
-		//Mostramos todos los alumnos que hay en la lista, excluyendo las posiciones vacías(null). Contamos cuántas posiciones no vacías hay
-		int contadorAlumnosLista = 0;
-		System.out.println("La lista de alumnos actual es: ");
-		int c = 0;
-		for (String i : alumnos) {
-				System.out.println(c + "- " + i + ", ");
-				contadorAlumnosLista++;
-				c++;
-		}
 		
 		//Eliminamos las posiciones que quiera el usuario de los arrays de alumnos y notaMedia. Para eliminarlas, añadimos el valor null en el caso del array de alumnos, y 0 en el caso del array de notaMedia 
 		System.out.println();
@@ -54,8 +46,16 @@ public class Ejercicio28 {
 		if (eliminar.equals("Sí") || eliminar.equals("Si") || eliminar.equals("sí") || eliminar.equals("si")) {
 			int posicionEliminar = 0;
 			while (posicionEliminar >= 0 && posicionEliminar <= 19) {
-				System.out.println("Qué posición quieres eliminar. Valores admitidos: 0-" + (contadorAlumnosLista - 1));
-				System.out.println("Introduce -1 si ya no quieres eliminar más alumnos");
+				//Mostramos todos los alumnos que hay en la lista, excluyendo las posiciones vacías(null). Mostramos la posición física de cada alumno dentro del array, contando los null también
+				System.out.println("La lista de alumnos junto a sus posiciones es la siguiente:");
+				int posicionArray = 0;
+				for (String i : alumnos) {
+						if (i != null) {
+							System.out.println(posicionArray + "-" + i + ", ");
+						}
+						posicionArray++;
+				}
+				System.out.println("Qué posición quieres eliminar. Introduce -1 si ya no quieres eliminar más alumnos");
 				posicionEliminar = scan.nextInt();
 				if (posicionEliminar >= 0 && posicionEliminar <= 19) {
 					alumnos[posicionEliminar] = null;
@@ -82,12 +82,17 @@ public class Ejercicio28 {
 		if (consultar.equals("Sí") || consultar.equals("Si") || consultar.equals("sí") || consultar.equals("si")) {
 			String nombre = "";
 			while (!nombre.equals("stop")) {
+				boolean aparece = false;
 				System.out.println("Introduce el nombre del alumno a consultar. Introduce stop si quieres parar la consulta");
 				nombre = scan.nextLine();
 				for (int i = 0; i < alumnos.length && !nombre.equals("stop"); i++) {
 					if (!(alumnos[i] == null) && alumnos[i].equals(nombre)) {
 						System.out.println("La posición del alumno introducido es: " + i);
-					} 
+						aparece = true;
+					}
+				}
+				if (!aparece && !nombre.equals("stop")) {
+					System.err.println("El nombre introducido no figura en la lista");
 				}
 			}
 		}

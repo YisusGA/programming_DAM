@@ -55,6 +55,7 @@ public class Ejercicio01 {
 			precio *= 0.9; 
 		}
 		System.out.printf(" Has pedido: %n %d menus %n %d primeros platos %n %d segundos platos %n %d postres. %n Te has gastado: %.2f", contadorMenu, contadorPlato1, contadorPlato2, contadorPostre, precio);
+		//Otra forma de imprimir esto con la triple comilla
 //		System.out.printf("""
 //							 Has pedido: 
 //							 %d menus

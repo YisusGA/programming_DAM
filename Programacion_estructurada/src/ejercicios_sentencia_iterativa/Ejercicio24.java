@@ -46,18 +46,22 @@ public class Ejercicio24 {
 		 *  como sea el número dentro de los paréntesis.
 		 */
 		int nRandom = generador.nextInt(max - min + 1) + min;
+		boolean acierto = false;
 		for (int i = 1; i <= intentos; i++) {
-			boolean acierto = false;
 			System.out.println("Prueba suerte. Introduce un número");
 			int n = scan.nextInt();
 			if (n == nRandom) {
 				System.out.println("¡Has acertado! El número generado era: " + nRandom);
+				acierto = true;
 				break;
 			} else if (n > nRandom) {
 				System.out.println("Te has pasado, prueba con un número menor");
 			} else if (n < nRandom) {
-				System.out.println("Te has quedado corto, prueba con un número menor");
+				System.out.println("Te has quedado corto, prueba con un número mayor");
 			}
+		}
+		if(!acierto) {
+			System.err.println("No has acertado el número generado en el número de intentos. Ejecuta de nuevo el programa");
 		}
 		scan.close();
 	}

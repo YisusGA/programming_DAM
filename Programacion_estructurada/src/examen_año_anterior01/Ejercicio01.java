@@ -1,8 +1,8 @@
-package examen_1ev_24_25;
+package examen_año_anterior01;
 
 import java.util.Scanner;
 
-public class Ejercicio01_examen_profe {
+public class Ejercicio01 {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);

@@ -21,8 +21,8 @@ public class Ejercicio19 {
 		System.out.println("Array 1");
 		System.out.println("Introduce un número entero. El orden debe ser creciente");
 		num1[0] = scan.nextInt();
-		for (int i = 1; i < arraySize; i++) {
-			int n;
+		for (int i = 1, n = 0; i < arraySize; i++) {
+			System.out.println("Introduce otro número");
 			while ((n = scan.nextInt()) < num1[i - 1]) {
 				System.out.println("El número introducido no es válido, debe ser mayor que el anterior");
 			}
@@ -32,8 +32,8 @@ public class Ejercicio19 {
 		System.out.println("Array 2");
 		System.out.println("Introduce un número entero. El orden debe ser creciente");
 		num2[0] = scan.nextInt();
-		for (int i = 1; i < arraySize; i++) {
-			int n;
+		for (int i = 1, n = 0; i < arraySize; i++) {
+			System.out.println("Introduce otro número");
 			while ((n = scan.nextInt()) < num2[i - 1]) {
 				System.out.println("El número introducido no es válido, debe ser mayor que el anterior");
 			}
@@ -64,16 +64,12 @@ public class Ejercicio19 {
 		
 		//Si quedan elementos de num1, los incorporamos a num3
 		while (i < arraySize) {
-			num3[k] = num1[i];
-			i++;
-			k++;
+			num3[k++] = num1[i++];
 		}
 		
 		//Si quedan elementos de num2, los incorporamos a num3
 		while (j < arraySize) {
-			num3[k] = num2[j];
-			j++;
-			k++;
+			num3[k++] = num2[j++];
 		}
 		
 		//Imprimimos todos los valores de num3

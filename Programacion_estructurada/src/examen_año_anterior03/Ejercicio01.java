@@ -15,7 +15,7 @@ public class Ejercicio01 {
 		double preciocontadorPostre = 5;
 		double precioMenu = 20;
 		int contadorMenu = 0;
-		while(!cuenta) {
+		while (!cuenta) {
 			int opcion;
 			System.out.println("""
 					Bienvenido al Restaurante de Yisus
@@ -36,7 +36,7 @@ public class Ejercicio01 {
 			case 3:
 				contadorPostre++;
 				break;
-			case 4:	
+			case 4:
 				cuenta = true;
 				break;
 			default:
@@ -45,17 +45,20 @@ public class Ejercicio01 {
 			}
 		}
 		while (contadorPlato1 > 0 && contadorPlato2 > 0 && contadorPostre > 0) {
-				contadorMenu++;
-				contadorPlato1--;
-				contadorPlato2--;
-				contadorPostre--;
+			contadorMenu++;
+			contadorPlato1--;
+			contadorPlato2--;
+			contadorPostre--;
 		}
-		double precio = precioMenu * contadorMenu + precioPrimero * contadorPlato1 + precioSegundo * contadorPlato2 + preciocontadorPostre * contadorPostre;
+		double precio = precioMenu * contadorMenu + precioPrimero * contadorPlato1 + precioSegundo * contadorPlato2
+				+ preciocontadorPostre * contadorPostre;
 		if (precio >= 51) {
-			precio *= 0.9; 
+			precio *= 0.9;
 		}
-		System.out.printf(" Has pedido: %n %d menus %n %d primeros platos %n %d segundos platos %n %d postres. %n Te has gastado: %.2f", contadorMenu, contadorPlato1, contadorPlato2, contadorPostre, precio);
-		//Otra forma de imprimir esto con la triple comilla
+		System.out.printf(
+				" Has pedido: %n %d menus %n %d primeros platos %n %d segundos platos %n %d postres. %n Te has gastado: %.2f",
+				contadorMenu, contadorPlato1, contadorPlato2, contadorPostre, precio);
+		// Otra forma de imprimir esto con la triple comilla
 //		System.out.printf("""
 //							 Has pedido: 
 //							 %d menus
@@ -64,7 +67,7 @@ public class Ejercicio01 {
 //							 %d postres
 //							 Te has gastado: %.2f""", 
 //							 contadorMenu, contadorPlato1, contadorPlato2, contadorPostre, precio);
-//		scan.close();
+		scan.close();
 	}
 
 }

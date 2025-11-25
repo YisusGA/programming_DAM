@@ -22,12 +22,12 @@ public class Ejercicio08 {
 			num2[i] = scan.nextInt();
 		}
 		System.out.print("Array 3: ");
-		for (int i = 0, j = 0; j < num1.length; i++) {
-			num3[j] = num1[i];
-			System.out.print(num3[j] + " ");
-			j++;
-			num3[j] = num2[i];
-			System.out.print(num3[j] + " ");
+		for (int i = 0, j = 0; j < num3.length; i++) {
+			num3[j++] = num1[i];
+			num3[j++] = num2[i];
+		}
+		for (int i : num3) {
+			System.out.print(i + ", ");
 		}
 		scan.close();
 

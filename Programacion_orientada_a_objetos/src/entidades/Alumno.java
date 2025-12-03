@@ -25,4 +25,14 @@ public class Alumno {
 			System.out.println("Es menor de edad");
 		}
 	}
+	//Si el método retorna algún valor, hay que poner el tipo de dato de ese valor resultante, en lugar de void
+	int getCodigoMatricula() { //Podríamos poner un array de enteros. int[] getCodigoMatricula	
+		int result = matricula.codigo;
+		return result;
+		//Podríamos poner directamente 
+		//return matricula.codigo;
+		//Sería una malísima práctica poner aquí un print, porque entonces nuestro método sólo podría hacer print.
+		//Haciendo que entregue un resultado, luego ya con eso podemos hacer lo que queramos: operar, imprimir, etc.
+		//Esto es lo que se llama hacer métodos desacoplados. El método esMayorEdad() de arriba es un método acoplado
+	}
 }

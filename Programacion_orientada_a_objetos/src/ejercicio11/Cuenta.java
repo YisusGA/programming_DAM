@@ -1,8 +1,11 @@
 package ejercicio11;
 
 class Cuenta {
-	String titular;
-	double cantidad;
+	String titular; //Nombre del titular de la cuenta
+	double cantidad; //Cantidad de dinero que tiene la cuenta
+	
+	
+	//Método para gestionar los ingresos de dinero
 	double ingresar(double cantidadIngresar) {
 		if (cantidad > 0) {
 		cantidad += cantidadIngresar;
@@ -18,6 +21,8 @@ class Cuenta {
 //		}
 //		return cantidad;
 //	}
+	
+	//Método para gestionar las retiradas de dinero
 	double retirar(double cantidadRetirar) {
 		cantidad -= cantidadRetirar;
 		if (cantidad < 0) {

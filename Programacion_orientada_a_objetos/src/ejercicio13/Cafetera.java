@@ -24,7 +24,9 @@ class Cafetera {
 	}
 	//Otra versión de hacer un constructor
 //	Cafetera(int capacidadMaxima, int cantidadActual) {
-//		
+//		this.capacidadMaxima = capacidadMaxima; //Acordarse de que el this. hace que se refiere a la variable que hemos declarado al principio de esta clase.
+//	                                            //No poner this. hace que se refiera a la variable local del método (la que va entre paréntesis).
+//		this.cantidadActual = cantidadActual;
 //	}
 	
 	//Métodos

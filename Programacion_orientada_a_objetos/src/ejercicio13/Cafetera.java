@@ -9,8 +9,9 @@ class Cafetera {
 	//MÉTODO CONSTRUCTOR: es un método que se ejecuta una única vez, cuando se instancia el objeto
 	//Debe llamarse obligatoriamente igual que la clase (mayúsculas y minúsculas incluidas).
 	//Nunca devuelve nada. Así que ni siquiera hay que poner el void (de hecho, si ponemos void, está mal)
-	Cafetera() {
-		Scanner scan = new Scanner(System.in);
+	Cafetera(Scanner scan) { //Lo ideal es instanciar la clase Scanner en el método main, y cerrarla al terminar el método main. El método constructor va a funcionar si ponemos como parámetro
+							//Scanner scan entre los paréntesis, pues usará la clase Scanner que instanciemos en la clase main. Esto hace que cuando se instancie la clase Cafetera en el método main,
+							//tengamos que poner scan (o el nombre de la instancia que creemos para la clase Scanner) entre los paréntesis (ver línea 9 de la clase Principal de este package) 
 		System.out.println("¿Cuál es la capacidad de la cafetera?");
 		while ((capacidadMaxima = scan.nextInt()) <= 0) {
 			System.err.println("El valor introducido debe ser mayor que 0");

@@ -6,7 +6,7 @@ public class Principal {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		Cafetera cafetera = new Cafetera();
+		Cafetera cafetera = new Cafetera(scan); //Es necesario poner esto cuando en el método constructor leemos algo por Scanner
 		boolean salir = false;
 		while (!salir) {
 			System.out.println("""

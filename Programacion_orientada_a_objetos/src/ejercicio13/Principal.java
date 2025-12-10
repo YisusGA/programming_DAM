@@ -6,8 +6,21 @@ public class Principal {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		Cafetera cafetera = new Cafetera(scan); //Es necesario poner esto cuando en el método constructor leemos algo por Scanner
+		System.out.println("¿Cuál es la capacidad de la cafetera?");
+		int capacidadMaxima;
+		int cantidadActual;
+		while ((capacidadMaxima = scan.nextInt()) <= 0) {
+			System.err.println("El valor introducido debe ser mayor que 0");
+			System.out.println("Prueba de nuevo");
+		}
+		System.out.println("¿Qué cantidad de café tiene actualmente la cafetera?");
+		while ((cantidadActual = scan.nextInt()) < 0) {
+			System.err.println("El valor introducido debe ser mayor o igual que 0");
+			System.out.println("Prueba de nuevo");
+		}
+		Cafetera cafetera = new Cafetera(capacidadMaxima, cantidadActual); //Es necesario poner esto cuando en el método constructor leemos algo por Scanner
 		boolean salir = false;
+		int opcion = 0; //Inicializamos la variable de la opción que escogerá el usuario
 		while (!salir) {
 			System.out.println("""
 					
@@ -22,29 +35,31 @@ public class Principal {
 					5-Salir
 					
 					""");
-			switch(scan.nextInt()) {
+			switch(opcion = scan.nextInt()) {
 				case 1 -> {
-					cafetera.llenarCafetera();
+					System.out.println(cafetera.llenarCafetera());
 				}
 				case 2 -> {
 					System.out.println("¿Cuál es la capacidad de la taza?");
-					cafetera.servirTaza(scan.nextInt());
+					System.out.println(cafetera.servirTaza(scan.nextInt()));
 				}
 				case 3 -> {
-					cafetera.vaciarCafetera();
+					System.out.println(cafetera.vaciarCafetera());
 				}
 				case 4 -> {
 					System.out.println("¿Qué cantidad de café quieres agregar a la cafetera?");
-					cafetera.agregarCafe(scan.nextInt());
+					System.out.println(cafetera.agregarCafe(scan.nextInt()));
 				}
 				case 5 -> {
 					salir = true;
 				}
 				default -> {
-					System.out.println("El valor introducido no es admitido");
+					System.err.println("El valor introducido no es admitido");
 				}
 			}
-			System.out.printf("%n%nLa cantidad actual de café en la cafetera es: %d %n %n", cafetera.cantidadActual);
+			if (opcion != 5) {
+				System.out.printf("%n%nLa cantidad actual de café en la cafetera es: %d %n %n", cafetera.cantidadActual);
+			}
 		}
 		if (salir) {
 			System.out.printf("Gracias por confiar en Yisus & Friends Coffe S.L. %nHasta la próxima");

@@ -53,7 +53,7 @@ public class Main {
 					System.out.println(partitura1.cuentaInstrumentos());
 				}
 				case 'f' -> {
-					System.out.printf("%nLa partitura tiene los siguientes parámetros actualmente: %nAutor: %s | Instrumento(s): %s | Tempo: %d | Número de instrumentos: %d %n %n", partitura1.autor, partitura1.instrumento, partitura1.tempo, partitura1.numInstrumentos);
+					System.out.println("La partitura tiene los siguientes parámetros actualmente: " + partitura1.toString());
 				}
 				case 'g' -> {
 					salir = true;

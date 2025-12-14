@@ -41,11 +41,7 @@ class CafeteraAlt {
 	 * Llenar la cafetera al máximo. Se actualiza la cantidad de café en la cafetera
 	 * @return Un mensaje sobre la operación que se ha realizado en función de la cantidad de café que tenía la cafetera
 	 */
-	String llenarCafetera() { //Es importante mencionar que para poder usar el valor actualizado de una propiedad (como cantidadActual) no es necesario hacer que el método haga un return de esa variable. Por lo tanto, si tan sólo
-		                      //queremos actualizar el valor de una variable mediante una asignación con operadores, podemos hacer que el método sea void. En este caso concreto, queremos que muestre un mensaje con la operación que
-		                      //se ha realizado, así que hacemos que el método devuelva un String. Aquí hay que destacar 2 cosas: lo primero, devolver un String en lugar de hacer un print por consola es una buena práctica, dado que nos permite
-		                      //luego decidir cómo vamos a mostrar ese String en la clase main, sin necesidad de venir a modificar la clase; lo segundo, si queremos que el método devuelva un String, todas las ramas condicionales dentro del 
-		                      //método deben devolver obligatoriamente un String, de lo contrario, la JVM nos mostrará error de compilación
+	String llenarCafetera() { 
 		String mensaje;
 		if (cantidadActual == capacidadMaxima) {
 			mensaje = "La cafetera ya estaba llena, no se hará nada";

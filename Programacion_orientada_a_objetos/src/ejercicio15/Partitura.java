@@ -21,9 +21,9 @@ class Partitura {
 		tempo -= 10;
 		return mensaje = "Tempo reducido en 10";
 	}
-	String aString() {
-		String partituraString = autor + ", " + instrumento + ", " + tempo;
-		return partituraString;
+	public String toString() {
+		return "Partitura [autor=" + autor + ", instrumento=" + instrumento + ", tempo=" + tempo + ", numInstrumentos="
+				+ numInstrumentos + "]";
 	}
 	String cambiaInstrumento (String instrumento) {
 		String mensaje;

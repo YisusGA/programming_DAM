@@ -18,7 +18,7 @@ public class Principal {
 			System.err.println("El valor introducido debe ser mayor o igual que 0");
 			System.out.println("Prueba de nuevo");
 		}
-		Cafetera cafetera = new Cafetera(capacidadMaxima, cantidadActual); //Es necesario poner esto cuando en el método constructor leemos algo por Scanner
+		Cafetera cafetera = new Cafetera(capacidadMaxima, cantidadActual);
 		boolean salir = false;
 		int opcion = 0; //Inicializamos la variable de la opción que escogerá el usuario
 		while (!salir) {

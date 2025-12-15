@@ -11,7 +11,7 @@ public class Main {
 
 		// Problema de los arrays: le tenemos que dar un tamaño en el momento en el que
 		// lo instanciamos.
-		// Le damos
+		// Le damos en este caso un tamaño de 100, que debería ser lo suficientemente grande por ahora.
 		Cliente[] clientes = new Cliente[100];
 		int siguientePosicionLibre = 0;
 		int codigoPedido = 0;
@@ -24,10 +24,10 @@ public class Main {
 			System.out.println("3. Agregar pedido a cliente");
 			System.out.println("4. Generar factura");
 			System.out.println("5. Mostrar cliente con más pedidos");
-			System.out.println("6. Localizar pedido dando un código");
 			//6. Mostrar datos del cliente que hizo ese pedido
-			System.out.println("7. Rebajar 10% el precio de los pedidos que se hayan pedido más de 10 veces (buscar por descripción)");
+			System.out.println("6. Localizar pedido dando un código");
 			//7. Hay que buscar pedidos por descripción, pues el código de pedido es único
+			System.out.println("7. Rebajar 10% el precio de los pedidos que se hayan pedido más de 10 veces (buscar por descripción)");
 			System.out.println("0. Salir");
 			/*
 			 * Nombre cliente
@@ -44,9 +44,9 @@ public class Main {
 				String nif = scan.nextLine();
 				System.out.println("nombre de cliente");
 				String nombre = scan.nextLine();
-				// c es una variable local, pero la dejamos almacenada en el array, el cual no
+				
+				// c es una variable local y desaparecerá, pero dejamos almacenado su valor en el array, el cual no
 				// es local
-
 				Cliente c = new Cliente(nif, nombre); // Usamos el constructor que sólo tiene nif y nombre, para no
 														// tener que meter pedidos aún
 														// Si usáramos el constructor que tiene pedidos, podríamos poner
@@ -63,13 +63,11 @@ public class Main {
 				// sólo hasta donde esté lleno,
 				// así no mostramos las posiciones vacías del array
 				for (int i = 0; i < siguientePosicionLibre; i++) {
-					// No hace falta poner c.toString() porque el syso sólo muestra Strings, y asume
+					// No hace falta poner clientes[i].toString() porque el syso sólo muestra Strings, y asume
 					// que queremos usar
 					// el método toString de Cliente. Eso sí, hemos tenido que crear el método
-					// toString en Cliente. Si
-					// No hubiéramos creado el método toString en cliente, se haría un toString por
-					// defecto, pero nos
-					// mostraría cosas muy raras ese toString por defecto
+					// toString en Cliente. Si no hubiéramos creado el método toString en cliente, se haría un 
+					//toString por defecto, pero nos mostraría cosas muy raras ese toString por defecto
 					System.out.println(clientes[i]);
 				}
 			}
@@ -115,6 +113,32 @@ public class Main {
 				}
 				if (!encontradoCliente) {
 					System.out.println("Cliente no encontrado");
+				}
+			}
+			case 5 -> {
+				int max = Integer.MIN_VALUE;
+				Cliente clienteMasPedidos = new Cliente("1", "1");
+				for (int i = 0; i < siguientePosicionLibre; i++) {
+					if (clientes[i].getPedidos() != null && clientes[i].getPedidos().length > max) {
+						max = clientes[i].getPedidos().length;
+						clienteMasPedidos = clientes[i];
+					}
+				}
+				System.out.println("El cliente con más pedidos es: " + clienteMasPedidos);
+			}
+			case 6 -> {
+				boolean encontradoPedido = false;
+				Cliente clientePedidoEncontrado = new Cliente("1", "1");
+				System.out.println("Introduce el código de pedido a buscar");
+				int codigoBuscar = scan.nextInt();
+				for (int i = 0; !encontradoPedido && i < siguientePosicionLibre; i++) {
+					encontradoPedido = clientes[i].encontrarCodigoPedido(codigoBuscar);
+					clientePedidoEncontrado = clientes[i];
+				}
+				if (encontradoPedido) {
+					System.out.println("El pedido se ha encontrado. Lo ha hecho el cliente " + clientePedidoEncontrado);
+				} else {
+					System.err.println("No se ha encontrado el pedido solicitado");
 				}
 			}
 			case 0 -> {

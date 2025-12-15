@@ -41,14 +41,13 @@ public class Cliente {
 		this.pedidos = pedidos;
 	}
 
-	public String toString() { // Es necesario meter este ternario porque si el num pedidos es 0, nos daría
-								// error NullPointer si no metemos este ternario
-		return "Cliente [nif=" + nif + ", nombre=" + nombre + ", num pedidos="
-				+ ((pedidos == null) ? 0 : pedidos.length) + "]";
+	public String toString() {                                                    // Es necesario meter este ternario porque si el num pedidos es 0, nos daría
+								                                                  // error NullPointer si no metemos este ternario
+		return "Cliente [nif=" + nif + ", nombre=" + nombre + ", num pedidos=" + ((pedidos == null) ? 0 : pedidos.length) + "]";
 	}
 
 	public void agregarPedido(Pedido p) {
-		//Si aún no hay pedidos, añadimos una posición al array
+		//Si aún no hay pedidos, añadimos una posición al array y la rellenamos
 		if (pedidos == null) {
 			pedidos = new Pedido[1];
 			pedidos[0] = p;
@@ -73,6 +72,18 @@ public class Cliente {
 		}
 		System.out.println("***********************");
 		System.out.println("Total a pagar: " + suma);
+	}
+	
+	public boolean encontrarCodigoPedido (int codigoPedido) {
+		boolean encontradoPedido = false;
+		if (pedidos != null) {
+			for (Pedido p : pedidos) {
+				if (codigoPedido == p.getCodigo()) {
+					encontradoPedido = true;
+				}
+			}
+		}
+		return encontradoPedido;
 	}
 
 }

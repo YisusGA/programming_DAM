@@ -1,0 +1,78 @@
+package ejercicio22.modelo;
+
+public class Cliente {
+
+	private String nif, nombre;
+	private Pedido[] pedidos; // Aquí no se instancia nada, estamos declarando una variable array de tipo
+								// Pedido
+
+	public Cliente(String nif, String nombre, Pedido[] pedidos) {
+		this.nif = nif;
+		this.nombre = nombre;
+		this.pedidos = pedidos;
+	}
+
+	public Cliente(String nif, String nombre) {
+		this.nif = nif;
+		this.nombre = nombre;
+	}
+
+	public String getNif() {
+		return nif;
+	}
+
+	public void setNif(String nif) {
+		this.nif = nif;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Pedido[] getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(Pedido[] pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	public String toString() { // Es necesario meter este ternario porque si el num pedidos es 0, nos daría
+								// error NullPointer si no metemos este ternario
+		return "Cliente [nif=" + nif + ", nombre=" + nombre + ", num pedidos="
+				+ ((pedidos == null) ? 0 : pedidos.length) + "]";
+	}
+
+	public void agregarPedido(Pedido p) {
+		//Si aún no hay pedidos, añadimos una posición al array
+		if (pedidos == null) {
+			pedidos = new Pedido[1];
+			pedidos[0] = p;
+		//Si ya hay pedidos, hacemos el array más grande en 1 posición y agregamos el pedido a la nueva posición	
+		} else {
+			Pedido[] aux = new Pedido[pedidos.length + 1]; // Creamos un array aux
+			for (int i = 0; i < pedidos.length; i++) {
+				aux[i] = pedidos[i];
+			}
+			aux[aux.length - 1] = p;
+			pedidos = aux;
+		}
+	}
+	
+	public void mostrarFactura() {
+		System.out.println("Nombre: " + nombre);
+		System.out.println("**********************");
+		double suma = 0;
+		for (Pedido p : pedidos) {
+			System.out.println(p.getDescripcion() + "-" + p.getPrecio());
+			suma += p.getPrecio();
+		}
+		System.out.println("***********************");
+		System.out.println("Total a pagar: " + suma);
+	}
+
+}

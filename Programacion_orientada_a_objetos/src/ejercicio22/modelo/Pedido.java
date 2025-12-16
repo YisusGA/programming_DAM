@@ -6,6 +6,7 @@ public class Pedido {
 	private String descripcion;
 	private double precio;
 	
+	public static double IVA; //Variable estática para el IVA. Se inicializa en el main
 	
 	//Método constructor
 	public Pedido(int codigo, String descripcion, double precio) {
@@ -44,6 +45,13 @@ public class Pedido {
 		return "Pedido [codigo=" + codigo + ", descripcion=" + descripcion + ", precio=" + precio + "]";
 	}
 	
+	//El método de debajo sólo utiliza propiedades static de la clase, no toca ninguna otra propiedad.
+	//Aunque no sea obligatorio, podemos hacer que el método sea static. Esto nos da la ventaja de que luego
+	//podemos llamar a ese método directamente con el nombre de la clase, sin necesidad de instanciar la clase
+	public static void modificaIVA(double iva) {
+		IVA = iva;
+		System.out.println("Comunicando cambios...");
+	}
 		
 	
 	

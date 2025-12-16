@@ -8,12 +8,15 @@ public class Main {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("Introduzca el IVA que aplica");
+		Pedido.IVA = scan.nextDouble(); //Asi inicializamos una variable estática
 
 		// Problema de los arrays: le tenemos que dar un tamaño en el momento en el que
 		// lo instanciamos.
 		// Le damos en este caso un tamaño de 100, que debería ser lo suficientemente grande por ahora.
 		Cliente[] clientes = new Cliente[100];
-		int siguientePosicionLibre = 0;
+		int siguientePosicionLibre = 0; //Esta variable me contabiliza cuántos clientes tengo siempre, para evitar los null
 		int codigoPedido = 0;
 
 		int opcion;
@@ -24,10 +27,13 @@ public class Main {
 			System.out.println("3. Agregar pedido a cliente");
 			System.out.println("4. Generar factura");
 			System.out.println("5. Mostrar cliente con más pedidos");
-			//6. Mostrar datos del cliente que hizo ese pedido
-			System.out.println("6. Localizar pedido dando un código");
-			//7. Hay que buscar pedidos por descripción, pues el código de pedido es único
-			System.out.println("7. Rebajar 10% el precio de los pedidos que se hayan pedido más de 10 veces (buscar por descripción)");
+			System.out.println("6. Mostrar cliente que más ha gastado");
+			//7. Mostrar datos del cliente que hizo ese pedido
+			System.out.println("7. Localizar pedido dando un código");
+			System.out.println("8. Consultar la lista de pedidos hecha por todos los clientes");
+			//9. Hay que buscar pedidos por descripción, pues el código de pedido es único
+			System.out.println("9. Rebajar 10% el precio de los pedidos que se hayan pedido más de 10 veces (buscar por descripción)");
+			System.out.println("10. Cambiar IVA");
 			System.out.println("0. Salir");
 			/*
 			 * Nombre cliente
@@ -116,19 +122,38 @@ public class Main {
 				}
 			}
 			case 5 -> {
-				int max = Integer.MIN_VALUE;
-				Cliente clienteMasPedidos = new Cliente("1", "1");
+				int max = 0;
+				Cliente clienteMasPedidos = null; //Puedes inicializar un objeto de tipo Cliente con un null, mejor que darle valores ficticios,
+				                                  //que sería básicamente hacer Cliente clienteMasPedidos = new Cliente("1", "1")
 				for (int i = 0; i < siguientePosicionLibre; i++) {
-					if (clientes[i].getPedidos() != null && clientes[i].getPedidos().length > max) {
+					if (clientes[i].getPedidos() != null && clientes[i].getPedidos().length > max) { //Importante el diferente de null, y que vaya al principio y con el doble &
 						max = clientes[i].getPedidos().length;
 						clienteMasPedidos = clientes[i];
 					}
 				}
 				System.out.println("El cliente con más pedidos es: " + clienteMasPedidos);
+				
+//				Esta es la forma cómo lo hizo Raquel, que en principio es mejor
+//				Cliente clienteMax = clientes[0];
+//				for (int i = 1; i < siguientePosicionLibre; i++) {
+//					if (clientes[i].getPedidos() != null && clientes[i].getPedidos().length > clienteMax.getPedidos().length) {
+//						clienteMax = clientes[i];
+//					}
+//				}
+//				System.out.println("El cliente con más pedidos es: " + clienteMax);
 			}
 			case 6 -> {
+				Cliente clienteMax = clientes[0];
+				for (int i = 1; i < siguientePosicionLibre; i++) {
+					if (clientes[i].getPedidos() != null && clientes[i].gastoTotal() > clienteMax.gastoTotal()) {
+						clienteMax = clientes[i];
+					}
+				}
+				System.out.println("El cliente que más ha gastado es: " + clienteMax);
+			}
+			case 7 -> {
 				boolean encontradoPedido = false;
-				Cliente clientePedidoEncontrado = new Cliente("1", "1");
+				Cliente clientePedidoEncontrado = null;
 				System.out.println("Introduce el código de pedido a buscar");
 				int codigoBuscar = scan.nextInt();
 				for (int i = 0; !encontradoPedido && i < siguientePosicionLibre; i++) {
@@ -140,6 +165,23 @@ public class Main {
 				} else {
 					System.err.println("No se ha encontrado el pedido solicitado");
 				}
+			}
+			case 8 -> {
+				for (int i = 0; i < siguientePosicionLibre; i++) {
+					System.out.println(clientes[i].toString() + " Pedidos realizados: " + clientes[i].mostrarPedidosCliente());
+				}
+			}
+			case 9 -> {
+				for (int i = 0; i < siguientePosicionLibre; i++) {
+					
+				}
+			}
+			case 10 -> {
+				System.out.println("Introduce el nuevo valor de IVA");
+				double iva = scan.nextDouble();
+				//Con esta línea de debajo valdría, pero vamos a hacer más cosas para practicar con métodos estáticos
+//				Pedido.IVA = iva;
+				Pedido.modificaIVA(iva); //Podemos llamar al método estático directamente con el nombre de la clase, sin necesidad de instanciar la clase
 			}
 			case 0 -> {
 				// Aquí volcaríamos los datos en una base de datos

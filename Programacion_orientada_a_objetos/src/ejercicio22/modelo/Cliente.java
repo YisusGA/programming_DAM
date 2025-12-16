@@ -85,5 +85,27 @@ public class Cliente {
 		}
 		return encontradoPedido;
 	}
+	public String mostrarPedidosCliente () {
+		String listaPedidos = "";
+		if (pedidos != null) {
+			for (Pedido p : pedidos) {
+				listaPedidos += p.getDescripcion() + " - ";
+			}
+		} else {
+			listaPedidos = "Este cliente no ha realizado pedidos aún";
+		}
+		return listaPedidos;
+	}
+	public double gastoTotal() {
+		if (pedidos == null) {
+			return 0; //Un return devuelve un valor y además termina el método automáticamente. Por tanto, no hace falta meter un else aquí
+		}	
+			double suma = 0;
+			for (Pedido p : pedidos) {
+				suma += p.getPrecio();
+			}
+			suma += suma * Pedido.IVA / 100;
+			return suma;
+	}
 
 }

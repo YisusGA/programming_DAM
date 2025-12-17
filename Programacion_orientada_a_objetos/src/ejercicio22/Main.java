@@ -5,9 +5,12 @@ import ejercicio22.modelo.Pedido;
 import java.util.Scanner;
 
 public class Main {
+	
+	static Scanner scan = new Scanner(System.in); //Como lo usamos varias veces, podemos declararlo como propiedad de la clase.
+	                                              //Como lo usamos en el método main, que es static, la variable tiene que ser static.
+												  //Como no necesitamos varios objetos de tipo Scanner en la clase, sino sólo 1, tiene sentido que sea static	
 
 	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("Introduzca el IVA que aplica");
 		Pedido.IVA = scan.nextDouble(); //Asi inicializamos una variable estática
@@ -22,25 +25,8 @@ public class Main {
 		int opcion;
 
 		do {
-			System.out.println("1. Registrar cliente");
-			System.out.println("2. Listado de clientes");
-			System.out.println("3. Agregar pedido a cliente");
-			System.out.println("4. Generar factura");
-			System.out.println("5. Mostrar cliente con más pedidos");
-			System.out.println("6. Mostrar cliente que más ha gastado");
-			//7. Mostrar datos del cliente que hizo ese pedido
-			System.out.println("7. Localizar pedido dando un código");
-			System.out.println("8. Consultar la lista de pedidos hecha por todos los clientes");
-			//9. Hay que buscar pedidos por descripción, pues el código de pedido es único
-			System.out.println("9. Rebajar 10% el precio de los pedidos que se hayan pedido más de 10 veces (buscar por descripción)");
-			System.out.println("10. Cambiar IVA");
-			System.out.println("0. Salir");
-			/*
-			 * Nombre cliente
-			 * Listado pedidos
-			 * Total a pagar
-			 */
-			opcion = scan.nextInt();
+		
+			opcion = Main.mostrarMenu();;
 			scan.nextLine();
 
 			switch (opcion) {
@@ -190,6 +176,30 @@ public class Main {
 			}
 		} while (opcion != 0);
 
+	} //Aquí termina mi main
+	
+	//Esté método también es static, porque no depende de propiedades de la clase. Al ser static, lo puedo llamar con el nombre de la clase donde yo quiera
+	private static int mostrarMenu() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("1. Registrar cliente");
+		System.out.println("2. Listado de clientes");
+		System.out.println("3. Agregar pedido a cliente");
+		System.out.println("4. Generar factura");
+		System.out.println("5. Mostrar cliente con más pedidos");
+		System.out.println("6. Mostrar cliente que más ha gastado");
+		//7. Mostrar datos del cliente que hizo ese pedido
+		System.out.println("7. Localizar pedido dando un código");
+		System.out.println("8. Consultar la lista de pedidos hecha por todos los clientes");
+		//9. Hay que buscar pedidos por descripción, pues el código de pedido es único
+		System.out.println("9. Rebajar 10% el precio de los pedidos que se hayan pedido más de 10 veces (buscar por descripción)");
+		System.out.println("10. Cambiar IVA");
+		System.out.println("0. Salir");
+		/*
+		 * Nombre cliente
+		 * Listado pedidos
+		 * Total a pagar
+		 */
+		return scan.nextInt();
 	}
 
 }

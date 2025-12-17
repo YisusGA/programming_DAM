@@ -26,7 +26,7 @@ public class Main {
 
 		do {
 		
-			opcion = Main.mostrarMenu();;
+			opcion = Main.mostrarMenu();
 			scan.nextLine();
 
 			switch (opcion) {

@@ -2,34 +2,23 @@ package ejercicio16;
 
 public class Asignatura {
 	private String nombre;
-	private String curso;
-	private enum curso { //Clase especial enum para que la propiedad curso tenga un conjunto determinado de valores posibles
-		primero,
-		segundo
-	}	
+	private Curso curso;
 	private double nota;
 	
 	
 	//Constructor para inicializar todas las propiedades
-	public Asignatura(String nombre, double nota, String curso) {
+	public Asignatura(String nombre, double nota, Curso curso) {
 		this.nombre = nombre;
-		this.curso = curso;
 		this.nota = nota;
+		this.curso = curso;
 	}
 	
 	//Constructor para inicializar todas las propiedades menos la nota
-	public Asignatura(String nombre, String curso) {
+	public Asignatura(String nombre, Curso curso) {
 		this.nombre = nombre;
 		this.curso = curso;
 		nota = -1;
 	}
-
-	//Método para consultar los posibles valores que puede tomar la variable de tipo enum curso
-//	public void consultarValoresPosiblesCurso() {
-//		for (curso i : curso.values()) {
-//			System.out.println("Curso: " + i);
-//		}
-//	}
 	
 	/**
 	 * Getter para asignar nota en la asignatura
@@ -56,14 +45,30 @@ public class Asignatura {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
+	public double getNota() {
+		return nota;
+	}
+
+	public void setNota(double nota) {
+		this.nota = nota;
+	}
 
 	/**
 	 * Devuelve un String con la representación de la asignatura
 	 */
 	public String toString() {
-		//faltaría el curso
-		return "Asignatura [nombre=" + nombre + ", nota=" + nota + "]";
+		return "Asignatura [nombre=" + nombre + ", curso=" + curso + ", nota=" + nota + "]";
 	}
+	
 
 	
 	

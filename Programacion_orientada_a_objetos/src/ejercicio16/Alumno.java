@@ -15,8 +15,32 @@ public class Alumno {
 	}
 	
 	public String asignaAsignatura (Asignatura asignatura) {
-		this.asignatura = asignatura.setNombre(asignatura.nombre);
+		this.asignatura = asignatura;
+		return "Asignatura asignada correctamente";
 	}
+	
+	public String asignaAsignatura (String nombreAsignatura, Curso curso, double nota) {
+		asignatura.setNombre(nombreAsignatura);
+		asignatura.setNota(nota);
+		asignatura.setCurso(curso);
+		return "Asignatura asignada correctamente";
+	}
+	
+	public String cambiaNota(double nota) {
+		if (asignatura != null) {
+			asignatura.setNota(nota);
+			return "Nota cambiada correctamente";
+		} else {
+			return "El alumno no tiene ninguna asignatura asignada";
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Alumno [nombre=" + nombre + ", asignatura=" + asignatura + ", nota=" + asignatura.getNota() + "]";
+	}
+	
+	
 	
 	
 }

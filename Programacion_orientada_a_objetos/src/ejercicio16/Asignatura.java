@@ -61,6 +61,15 @@ public class Asignatura {
 	public void setNota(double nota) {
 		this.nota = nota;
 	}
+	
+	//Método para consultar los posibles valores que puede tomar la clase especial enum
+		public String consultarValoresPosiblesCurso() {
+			String valoresCurso = "Curso: ";
+			for (Curso i : curso.values()) {
+				valoresCurso += i + ", ";
+			}
+			return valoresCurso;
+		}
 
 	/**
 	 * Devuelve un String con la representación de la asignatura

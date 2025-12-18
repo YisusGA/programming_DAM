@@ -107,5 +107,17 @@ public class Cliente {
 			suma += suma * Pedido.IVA / 100;
 			return suma;
 	}
+	
+	public int numeroPedidos () {
+		int numeroPedidos = 0;
+		if (pedidos != null) {
+			for (int i = 0; i < pedidos.length; i++) {
+				if (pedidos[i] != null) {
+					numeroPedidos++;
+				}
+			}
+		}
+		return numeroPedidos;
+	}
 
 }

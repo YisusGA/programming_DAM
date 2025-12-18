@@ -30,6 +30,7 @@ public class Main {
 			scan.nextLine();
 
 			switch (opcion) {
+			
 
 			case 1 -> {
 				System.out.println("nif");
@@ -158,8 +159,22 @@ public class Main {
 				}
 			}
 			case 9 -> {
-				for (int i = 0; i < siguientePosicionLibre; i++) {
-					
+				int numeroPedidosTienda = 0;
+				if (clientes != null) {
+					for (int i = 0; i < siguientePosicionLibre; i++) {
+						numeroPedidosTienda += clientes[i].numeroPedidos();
+					}
+				} else {
+					System.err.println("No existe ningún cliente registrado");
+				}
+				if (numeroPedidosTienda != 0) {
+					Pedido[] pedidosTienda = new Pedido[numeroPedidosTienda];
+					System.out.println(clientes[0].getPedidos());
+					for (int i = 0; i < siguientePosicionLibre; i++) {
+						
+					}
+				} else {
+					System.err.println("Aún no se ha realizado ningún pedido en la tienda");
 				}
 			}
 			case 10 -> {

@@ -63,7 +63,7 @@ public class Alumno {
 	@Override
 	public String toString() {
 		if (asignatura != null) {
-			return "Alumno [nombre=" + nombre + ", asignatura=" + asignatura + ", nota=" + asignatura.getNota() + "]";
+			return "Alumno [nombre=" + nombre + ", asignatura=" + asignatura + "]";
 		} else {
 			return "Alumno [nombre=" + nombre + "]";
 		}

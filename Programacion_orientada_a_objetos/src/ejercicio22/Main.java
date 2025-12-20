@@ -203,12 +203,15 @@ public class Main {
 				}
 			}
 			case 9 -> {
+				
+				//Contamos el número de pedidos que hay en total en la tienda
 				int numeroPedidosTienda = 0;
 				if (siguientePosicionLibre > 0) {
 					for (int i = 0; i < siguientePosicionLibre; i++) {
 						numeroPedidosTienda += clientes[i].numeroPedidos();
 					}
-					System.out.println(numeroPedidosTienda);
+					
+					//Si hay algún pedido en la tienda, añadimos todos los pedidos de todos los clientes a un array común para toda la tienda
 					if (numeroPedidosTienda != 0) {
 						int contador = 0;
 						Pedido[] pedidosTienda = new Pedido[numeroPedidosTienda];
@@ -221,8 +224,50 @@ public class Main {
 								pedidosTienda[contador++] = aux[k];
 							}
 						}
-						for (Pedido p : pedidosTienda) {
-							System.out.println(p.toString());
+						
+						
+//						Comprobar que se han añadido correctamente todos los pedidos de los clientes a un array común de toda la tienda
+//						for (Pedido p : pedidosTienda) {
+//							System.out.println(p.toString());
+//						}
+						
+						
+						//Iteramos sobre el array que hemos creado antes para buscar aquellos pedidos cuya descripción aparezca más de 10 veces.
+						//De haber un pedido cuya descripción aparezca más de 10 veces, añadimos dicho pedido a un array de objetos Pedido
+						Pedido[] pedidosMasDe10 = new Pedido[numeroPedidosTienda];
+						int posicionPedidosMasDe10 = 0;
+						boolean existePedidoMasDe10 = false;
+						for (int i = 0; i < pedidosTienda.length; i++) {
+							int contador2 = 0;
+							for (int j = 0; j < pedidosTienda.length; j++) {
+								//pedidosTienda[i] != null && pedidosTienda[j] != null && 
+								if (pedidosTienda[i].getDescripcion().equals(pedidosTienda[j].getDescripcion())) {
+									contador2++;
+									pedidosTienda[j] = null;
+								}
+							}
+							if (contador2 > 10) {
+								pedidosMasDe10[posicionPedidosMasDe10++] = pedidosTienda[i];
+								existePedidoMasDe10 = true;
+							}
+						}
+						
+						
+						if (existePedidoMasDe10) {
+							for (int i = 0; i < pedidosMasDe10.length; i++) {
+								for (int j = 0; j < clientes.length; j++) {
+									Pedido[] aux = new Pedido[clientes[j].numeroPedidos()];
+									aux = clientes[j].getPedidos();
+									for (int k = 0; k < aux.length; k++) {
+										if (pedidosMasDe10[i].getDescripcion().equals(aux[k].getDescripcion())) {
+											clientes[j].modificarPrecioPedido(k, aux[k].getPrecio() * 0.9);
+										}
+									}
+								}
+							}
+							System.out.println("Precio(s) modificados con un descuento del 10%");
+						} else {
+							System.err.println("No se ha pedido nada más de 10 veces, no se ofrece descuento");
 						}
 					} else {
 						System.err.println("Aún no se ha realizado ningún pedido en la tienda");

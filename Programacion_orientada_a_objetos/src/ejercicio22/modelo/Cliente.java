@@ -119,5 +119,9 @@ public class Cliente {
 		}
 		return numeroPedidos;
 	}
+	
+	public void modificarPrecioPedido (int posicion, double nuevoPrecio) {
+		pedidos[posicion].setPrecio(nuevoPrecio);
+	}
 
 }

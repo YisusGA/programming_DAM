@@ -23,7 +23,7 @@ public class Main {
 		// Le damos en este caso un tamaño de 100, que debería ser lo suficientemente
 		// grande por ahora.
 		Cliente[] clientes = new Cliente[100];
-		int siguientePosicionLibre = 0; // Esta variable me contabiliza cuántos clientes tengo siempre, para evitar los
+		int siguientePosicionLibreCliente = 0; // Esta variable me contabiliza cuántos clientes tengo siempre, para evitar los
 										// null
 		int codigoPedido = 0;
 
@@ -52,16 +52,16 @@ public class Main {
 
 				// Almaceno el cliente c en el array y luego incremento la
 				// siguientePosicionLibre
-				clientes[siguientePosicionLibre++] = c;
+				clientes[siguientePosicionLibreCliente++] = c;
 				System.out.println("Cliente registrado");
 			}
 
 			case 2 -> {
-				if (siguientePosicionLibre > 0) {
+				if (siguientePosicionLibreCliente > 0) {
 					// Hacemos un for con contador y no un for-each, para poder recorrer el array
 					// sólo hasta donde esté lleno,
 					// así no mostramos las posiciones vacías del array
-					for (int i = 0; i < siguientePosicionLibre; i++) {
+					for (int i = 0; i < siguientePosicionLibreCliente; i++) {
 						// No hace falta poner clientes[i].toString() porque el syso sólo muestra
 						// Strings, y asume
 						// que queremos usar
@@ -78,7 +78,7 @@ public class Main {
 			}
 
 			case 3 -> {
-				if (siguientePosicionLibre > 0) {
+				if (siguientePosicionLibreCliente > 0) {
 					System.out.println("Descripción del pedido");
 					String descripcion = scan.nextLine();
 					System.out.println("Precio");
@@ -94,7 +94,7 @@ public class Main {
 					// Agregar un pedido p a un cliente
 					// Mucho mejor crear un método en Cliente y usarlo que meter muchas líneas en el
 					// main
-					for (int i = 0; i < siguientePosicionLibre && !encontradoCliente; i++) {
+					for (int i = 0; i < siguientePosicionLibreCliente && !encontradoCliente; i++) {
 						if (clientes[i].getNif().equals(nifC)) {
 							clientes[i].agregarPedido(p);
 							encontradoCliente = true;
@@ -110,12 +110,12 @@ public class Main {
 				}
 			}
 			case 4 -> {
-				if (siguientePosicionLibre > 0) {
+				if (siguientePosicionLibreCliente > 0) {
 					System.out.println("Introduce el nif del cliente para generar la factura");
 					String nifC = scan.nextLine();
 					Cliente c;
 					boolean encontradoCliente = false;
-					for (int i = 0; i < siguientePosicionLibre && !encontradoCliente; i++) {
+					for (int i = 0; i < siguientePosicionLibreCliente && !encontradoCliente; i++) {
 						if (clientes[i].getNif().equals(nifC)) {
 							encontradoCliente = true;
 							clientes[i].mostrarFactura();
@@ -129,14 +129,14 @@ public class Main {
 				}
 			}
 			case 5 -> {
-				if (siguientePosicionLibre > 0) {
+				if (siguientePosicionLibreCliente > 0) {
 					int max = 0;
 					Cliente clienteMasPedidos = null; // Puedes inicializar un objeto de tipo Cliente con un null, mejor
 														// que
 														// darle valores ficticios,
 														// que sería básicamente hacer Cliente clienteMasPedidos = new
 														// Cliente("1", "1")
-					for (int i = 0; i < siguientePosicionLibre; i++) {
+					for (int i = 0; i < siguientePosicionLibreCliente; i++) {
 						if (clientes[i].getPedidos() != null && clientes[i].getPedidos().length > max) { // Importante
 																											// el
 																											// diferente
@@ -168,9 +168,9 @@ public class Main {
 				}
 			}
 			case 6 -> {
-				if (siguientePosicionLibre > 0) {
+				if (siguientePosicionLibreCliente > 0) {
 				Cliente clienteMax = clientes[0];
-				for (int i = 1; i < siguientePosicionLibre; i++) {
+				for (int i = 1; i < siguientePosicionLibreCliente; i++) {
 					if (clientes[i].getPedidos() != null && clientes[i].gastoTotal() > clienteMax.gastoTotal()) {
 						clienteMax = clientes[i];
 					}
@@ -186,7 +186,7 @@ public class Main {
 				Cliente clientePedidoEncontrado = null;
 				System.out.println("Introduce el código de pedido a buscar");
 				int codigoBuscar = scan.nextInt();
-				for (int i = 0; !encontradoPedido && i < siguientePosicionLibre; i++) {
+				for (int i = 0; !encontradoPedido && i < siguientePosicionLibreCliente; i++) {
 					encontradoPedido = clientes[i].encontrarCodigoPedido(codigoBuscar);
 					clientePedidoEncontrado = clientes[i];
 				}
@@ -197,7 +197,7 @@ public class Main {
 				}
 			}
 			case 8 -> {
-				for (int i = 0; i < siguientePosicionLibre; i++) {
+				for (int i = 0; i < siguientePosicionLibreCliente; i++) {
 					System.out.println(
 							clientes[i].toString() + " Pedidos realizados: " + clientes[i].mostrarPedidosCliente());
 				}
@@ -206,8 +206,8 @@ public class Main {
 				
 				//Contamos el número de pedidos que hay en total en la tienda
 				int numeroPedidosTienda = 0;
-				if (siguientePosicionLibre > 0) {
-					for (int i = 0; i < siguientePosicionLibre; i++) {
+				if (siguientePosicionLibreCliente > 0) {
+					for (int i = 0; i < siguientePosicionLibreCliente; i++) {
 						numeroPedidosTienda += clientes[i].numeroPedidos();
 					}
 					
@@ -215,7 +215,7 @@ public class Main {
 					if (numeroPedidosTienda != 0) {
 						int contador = 0;
 						Pedido[] pedidosTienda = new Pedido[numeroPedidosTienda];
-						for (int i = 0; i < siguientePosicionLibre; i++) {
+						for (int i = 0; i < siguientePosicionLibreCliente; i++) {
 							Pedido[] aux = new Pedido[clientes[i].numeroPedidos()];
 							for (int j = 0; j < aux.length; j++) {
 								aux = clientes[i].getPedidos();
@@ -240,10 +240,11 @@ public class Main {
 						for (int i = 0; i < pedidosTienda.length; i++) {
 							int contador2 = 0;
 							for (int j = 0; j < pedidosTienda.length; j++) {
-								//pedidosTienda[i] != null && pedidosTienda[j] != null && 
-								if (pedidosTienda[i].getDescripcion().equals(pedidosTienda[j].getDescripcion())) {
+								if (pedidosTienda[i] != null && pedidosTienda[j] != null && pedidosTienda[i].getDescripcion().equals(pedidosTienda[j].getDescripcion())) {
 									contador2++;
-									pedidosTienda[j] = null;
+									if (j != i) {
+										pedidosTienda[j] = null;
+									}
 								}
 							}
 							if (contador2 > 10) {
@@ -254,8 +255,8 @@ public class Main {
 						
 						
 						if (existePedidoMasDe10) {
-							for (int i = 0; i < pedidosMasDe10.length; i++) {
-								for (int j = 0; j < clientes.length; j++) {
+							for (int i = 0; pedidosMasDe10[i] != null && i < pedidosMasDe10.length; i++) {
+								for (int j = 0; j < siguientePosicionLibreCliente; j++) {
 									Pedido[] aux = new Pedido[clientes[j].numeroPedidos()];
 									aux = clientes[j].getPedidos();
 									for (int k = 0; k < aux.length; k++) {

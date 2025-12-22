@@ -72,6 +72,8 @@ public class Cliente {
 		}
 		System.out.println("***********************");
 		System.out.println("Total a pagar: " + suma);
+		System.out.println("***********************");
+		System.out.println();
 	}
 	
 	public boolean encontrarCodigoPedido (int codigoPedido) {

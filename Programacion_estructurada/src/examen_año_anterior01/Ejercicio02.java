@@ -24,7 +24,6 @@ public class Ejercicio02 {
 						Bienvenido a Yisus Software S.L.
 						Escoge una de las siguientes opciones introduciendo el número correspondiente;
 						1-Establecer/cambiar contraseña
-						2-Hacer login
 						3-Hacer logout
 						0-Salir
 						""");
@@ -55,6 +54,9 @@ public class Ejercicio02 {
 						}
 						if (contadorMay > 0 && contadorMin > 0 && contadorNum > 0) {
 							validPassword = true;
+							System.out.println("Contraseña establecida correctamente");
+						} else {
+							System.err.println("La contraseña debe tener al menos una mayúscula, al menos una minúscula y al menos un número");
 						}
 					}
 					passwordExists = true;
@@ -66,6 +68,9 @@ public class Ejercicio02 {
 						String intentoPassword = scan.nextLine();
 						if (password.equals(intentoPassword)) {
 							passwordCoincide = true;
+							System.out.println("Contraseña introducida correctamente");
+						} else {
+							System.err.println("La contraseña introducida no coincide con tu contraseña actual");
 						}
 					}
 					while (!validPassword) {
@@ -88,6 +93,9 @@ public class Ejercicio02 {
 						}
 						if (contadorMay > 0 && contadorMin > 0 && contadorNum > 0) {
 							validPassword = true;
+							System.out.println("Contraseña cambiada correctamente");
+						} else {
+							System.err.println("La contraseña debe tener al menos una mayúscula, al menos una minúscula y al menos un número");
 						}
 					}
 				}
@@ -103,11 +111,11 @@ public class Ejercicio02 {
 							passwordCoincide = true;
 							logged = true;
 						} else {
-							System.out.printf("La contraseña no coincide %n");
+							System.err.printf("La contraseña no coincide %n");
 						}
 					}
 				} else {
-					System.out.println("No se ha establecido ninguna contraseña previamente");
+					System.err.println("No se ha establecido ninguna contraseña previamente");
 				}
 				break;
 			case 3:
@@ -120,7 +128,7 @@ public class Ejercicio02 {
 				salir = true;
 				break;
 			default:
-				System.out.println("La opción introducida no es válida");
+				System.err.println("La opción introducida no es válida");
 				break;
 			}
 		}

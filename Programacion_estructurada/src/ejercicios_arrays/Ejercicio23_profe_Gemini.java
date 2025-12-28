@@ -20,7 +20,7 @@ public class Ejercicio23_profe_Gemini {
 		int[] arrayOrdenado = new int[arraySize];
 
 		//Llenamos el arrayOriginal
-		for (int i = 0; i < arraySize; i++) {
+		for (int i = 0; i < arrayOriginal.length; i++) {
 			System.out.println("Introduce un número entero");
 			arrayOriginal[i] = scan.nextInt();
 		}
@@ -30,7 +30,7 @@ public class Ejercicio23_profe_Gemini {
 		for (int i : arrayOriginal) {
 			System.out.print(i + ", ");
 		}
-		for (int i = 0; i <arraySize; i++) {
+		for (int i = 0; i < arrayOrdenado.length; i++) { //Contador de posiciones con i para el arrayOrdenado
 			//Encontramos el mínimo del arrayOriginal
 			int min = arrayOriginal[0];
 			int minIndex = 0;

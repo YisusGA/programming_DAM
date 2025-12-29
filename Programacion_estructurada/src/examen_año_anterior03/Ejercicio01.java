@@ -12,7 +12,7 @@ public class Ejercicio01 {
 		int contadorPostre = 0;
 		double precioPrimero = 8;
 		double precioSegundo = 10;
-		double preciocontadorPostre = 5;
+		double precioPostre = 5;
 		double precioMenu = 20;
 		int contadorMenu = 0;
 		while (!cuenta) {
@@ -51,7 +51,7 @@ public class Ejercicio01 {
 			contadorPostre--;
 		}
 		double precio = precioMenu * contadorMenu + precioPrimero * contadorPlato1 + precioSegundo * contadorPlato2
-				+ preciocontadorPostre * contadorPostre;
+				+ precioPostre * contadorPostre;
 		if (precio >= 51) {
 			precio *= 0.9;
 		}

@@ -40,9 +40,8 @@ public class Ejercicio02 {
 				}
 			}
 		}
-		if (igual) {
-			System.out.println("El programa ha finalizado");
-		}
+		
+		System.out.println("El programa ha finalizado");
 	}
 
 }

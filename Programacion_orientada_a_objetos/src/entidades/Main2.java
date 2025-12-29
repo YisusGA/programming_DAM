@@ -24,7 +24,7 @@ public class Main2 {
 		alumno2.edad = 12;
 		alumno2.esMayorEdad(); //Se usan los datos de alumno2 para ejecutar el método esMayorEdad
 		
-		//Quiero mostrar el código de matrícula de alumno2
+		//Quiero mostrar el código de matrícula de alumno1
 		int codigoAlumno = alumno1.getCodigoMatricula();
 		System.out.println("El código de matrícula es: " + codigoAlumno);
 		//Si queremos simplemente mostrar el valor, podríamos directamente poner lo siguiente

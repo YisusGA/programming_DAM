@@ -27,7 +27,7 @@ class Main {
 		//¿Qué alumno es mayor?
 		if (alumno1.edad > alumno2.edad) {
 			System.out.println("Es mayor el primero");
-		} else if (alumno1.edad > alumno2.edad) {
+		} else if (alumno1.edad < alumno2.edad) {
 			System.out.println("Es mayor el segundo");
 		} else {
 			System.out.println("Tienen la misma edad");

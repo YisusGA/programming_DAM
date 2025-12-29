@@ -6,9 +6,10 @@ public class Principal {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("¿Cuál es la capacidad de la cafetera?");
 		int capacidadMaxima;
 		int cantidadActual;
+		
+		System.out.println("¿Cuál es la capacidad de la cafetera?");
 		while ((capacidadMaxima = scan.nextInt()) <= 0) {
 			System.err.println("El valor introducido debe ser mayor que 0");
 			System.out.println("Prueba de nuevo");

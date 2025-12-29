@@ -9,18 +9,19 @@ import java.util.Random;
 public class Ejercicio09 {
 
 	public static void main(String[] args) {
-		int[] num1 = new int[12];
-		int[] num2 = new int[12];
-		int[] num3 = new int[24];
+		int arraySize = 12;
+		int[] num1 = new int[arraySize];
+		int[] num2 = new int[arraySize];
+		int[] num3 = new int[arraySize * 2];
 		Random generador = new Random();
 		System.out.println("Array 1: ");
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < num1.length; i++) {
 			num1[i] = generador.nextInt();
 			System.out.print(num1[i] + " ");
 		}
 		System.out.println();
 		System.out.println("Array 2: ");
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < num2.length; i++) {
 			num2[i] = generador.nextInt();
 			System.out.print(num2[i] + " ");
 		}
@@ -29,7 +30,7 @@ public class Ejercicio09 {
 		int i1 = 0; //Contador de posición del array 1
 		int i2 = 0; //Contador de posición del array 2
 		int j = 0; //Contador de posición del array 3
-		while (j < 24) {
+		while (j < num3.length) {
 			for (int k = 0; k < 3; i1++, j++, k++) {
 				num3[j] = num1[i1];
 				System.out.print(num3[j] + " ");

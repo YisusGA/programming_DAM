@@ -2,8 +2,8 @@ package ejercicio14OK;
 
 public class Punto {
 	
-	double x; //Coordenada x de un punto en el espacio
-	double y; //Coordenada y de un punto en el espacio
+	private double x; //Coordenada x de un punto en el espacio
+	private double y; //Coordenada y de un punto en el espacio
 	
 	//Método constructor
 	public Punto(double x, double y) {
@@ -11,6 +11,31 @@ public class Punto {
 		this.y = y;
 	}
 	
+	
+	public double getX() {
+		return x;
+	}
+
+
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+
+
+	public double getY() {
+		return y;
+	}
+
+
+
+	public void setY(double y) {
+		this.y = y;
+	}
+
+
+
 	/**
 	 * Calcular la distancia entre dos puntos
 	 * @param Una instancia de la clase Punto

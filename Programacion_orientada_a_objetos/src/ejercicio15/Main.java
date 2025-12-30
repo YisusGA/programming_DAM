@@ -51,6 +51,8 @@ public class Main {
 				}
 				case 'e' -> {
 					System.out.println(partitura1.cuentaInstrumentos());
+					//Con esta línea de debajo, contamos los instrumentos usando un método que usa el método split
+					//System.out.println("Instrumentos contados con el método split: " + partitura1.cuentaInstrumentos_v2());
 				}
 				case 'f' -> {
 					System.out.println("La partitura tiene los siguientes parámetros actualmente: " + partitura1.toString());

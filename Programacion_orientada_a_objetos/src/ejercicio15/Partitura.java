@@ -32,13 +32,22 @@ class Partitura {
 	}
 	String addInstrumento (String instrumento) {
 		String mensaje;
-		this.instrumento += ", " + instrumento;
+		this.instrumento += "," + instrumento;
 		numInstrumentos++;
 		return mensaje = "Instrumento añadido. Ahora están los siguientes instrumentos: " + this.instrumento;
 	}
 	String cuentaInstrumentos() {
 		String mensaje = "Hay " + numInstrumentos;
 		return mensaje;
+	}
+	
+	public int cuentaInstrumentos_v2() {
+		//Método split para dividir un String en un array de Strings mediante el reconocimiento de un patrón regular, una coma en este caso.
+		//Ver explicación más detallada en los apuntes del cuaderno
+		String[] instrumentos = instrumento.split(",");
+		for(String inst : instrumentos)
+			System.out.println(inst);
+		return instrumentos.length;
 	}
 
 }

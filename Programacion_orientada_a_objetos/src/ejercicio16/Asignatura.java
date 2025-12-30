@@ -17,11 +17,11 @@ public class Asignatura {
 	public Asignatura(String nombre, Curso curso) {
 		this.nombre = nombre;
 		this.curso = curso;
-		nota = -1;
+		this.nota = -1;
 	}
 	
 	/**
-	 * Getter para asignar nota en la asignatura
+	 * Setter para asignar nota en la asignatura
 	 * @param Nota obtenida en la asignatura
 	 * @return String indicando que se ha asignado correctamente la nota
 	 */
@@ -63,13 +63,13 @@ public class Asignatura {
 	}
 	
 	//Método para consultar los posibles valores que puede tomar la clase especial enum
-		public String consultarValoresPosiblesCurso() {
-			String valoresCurso = "Curso: ";
-			for (Curso i : curso.values()) {
-				valoresCurso += i + ", ";
-			}
-			return valoresCurso;
+	public String consultarValoresPosiblesCurso() {
+		String valoresCurso = "Curso: ";
+		for (Curso i : curso.values()) {
+			valoresCurso += i + ", ";
 		}
+		return valoresCurso;
+	}
 
 	/**
 	 * Devuelve un String con la representación de la asignatura

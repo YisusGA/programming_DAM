@@ -10,8 +10,6 @@ public class Main {
 		
 		Alumno alumno1 = new Alumno(null, null);
 		
-		Asignatura asignatura = new Asignatura(null, null);
-		
 		int opcion;
 		
 		do {
@@ -26,62 +24,91 @@ public class Main {
 				System.out.println("Alumno añadido correctamente");
 			}
 			
+			case 2 -> {
+				if (alumno1.getNombre() == null) {
+					System.err.println("No se ha añadido ningún alumno aún");
+				} else {	
+					Asignatura asignatura = new Asignatura(null, null);
+					System.out.println("Introduce el nombre de la asignatura");
+					asignatura.setNombre(scan.nextLine());
+					boolean cursoValido = false;
+					do {
+						System.out.println("Introduce el curso en el que se imparte la asignatura");
+						System.out.printf("Valores posibles para curso:%nPRIMERO%nSEGUNDO%n");
+						String cursoIntroducido = scan.nextLine();
+						if (cursoIntroducido.equals("PRIMERO")) {
+							asignatura.setCurso(Curso.PRIMERO);
+							cursoValido = true;
+						} else if (cursoIntroducido.equals("SEGUNDO")) {
+							asignatura.setCurso(Curso.SEGUNDO);
+							cursoValido = true;
+						} else {
+							System.err.println("El curso introducido no es válido");
+						}
+					} while (!cursoValido);
+					System.out.println(alumno1.asignaAsignatura(asignatura));
+				}
+			}
+			
+			//Esta opción es muy parecida a la anterior, con la diferencia de que usa el otro método constructor que se pide
+			//en el ejercicio, y además añade la nota al crear y asignar la asignatura al alumno
+			case 3 -> {
+				if (alumno1.getNombre() == null) {
+					System.err.println("No se ha añadido ningún alumno aún");
+				} else {	
+					System.out.println("Introduce el nombre de la asignatura");
+					String nombreAsignatura = scan.nextLine();
+					Curso curso = null;
+					boolean cursoValido = false;
+					do {
+						System.out.println("Introduce el curso en el que se imparte la asignatura");
+						System.out.printf("Valores posibles para curso:%nPRIMERO%nSEGUNDO%n");
+						String cursoIntroducido = scan.nextLine();
+						if (cursoIntroducido.equals("PRIMERO")) {
+							curso = Curso.PRIMERO;
+							cursoValido = true;
+						} else if (cursoIntroducido.equals("SEGUNDO")) {
+							curso = Curso.SEGUNDO;
+							cursoValido = true;
+						} else {
+							System.err.println("El curso introducido no es válido");
+						}
+					} while (!cursoValido);
+					System.out.println("Introduce la nota del alumno en esta asignatura");
+					double nota = scan.nextDouble();
+					System.out.println(alumno1.asignaAsignatura(nombreAsignatura, nota, curso));
+				}
+			}
+
+			case 4 -> {
+				if (alumno1.getNombre() == null) {
+					System.err.println("No se ha añadido ningún alumno aún");
+				} else {	
+					System.out.println("Asignaturas en las que está matriculado el alumno");
+					System.out.println(alumno1.boletinNotas());
+					System.out.println("¿De qué asignatura quieres cambiar la nota?");
+					String asignatura = scan.nextLine();
+					System.out.println("¿Cuál es la nueva nota de la asignatura?");
+					double nota;
+					while ((nota = scan.nextDouble()) < 0) {
+						System.err.println("La nota introducida debe ser mayor o igual que 0");
+					}
+					alumno1.cambiaNota(asignatura, nota);
+				}
+			}
+			
+			case 5 -> {
+				if (alumno1.getNombre() == null) {
+					System.err.println("No se ha añadido ningún alumno aún");
+				} else {
+					System.out.println(alumno1.boletinNotas());
+				}
+			}
+			
 			case 0 -> {
 				System.out.println("Cerrando programa...");
 			}
 			
-			case 2 -> {
-				System.out.println("Introduce el nombre de la asignatura");
-				String nombreAsignatura = scan.nextLine();
-				Curso curso = null;
-				boolean cursoValido = false;
-				do {
-					System.out.println("Introduce el curso en el que se imparte la asignatura");
-					System.out.println("Valores posibles para curso: " + asignatura.consultarValoresPosiblesCurso());
-					String cursoIntroducido = scan.nextLine();
-					if (cursoIntroducido.equals("PRIMERO")) {
-						curso = Curso.PRIMERO;
-						cursoValido = true;
-					} else if (cursoIntroducido.equals("SEGUNDO")) {
-						curso = Curso.SEGUNDO;
-						cursoValido = true;
-					} else {
-						System.err.println("El curso introducido no es válido");
-					}
-				} while (!cursoValido);
-				asignatura.setNombre(nombreAsignatura);
-				asignatura.setCurso(curso);
-				System.out.println("Asignatura creada correctamente");
-			}
-			
-			case 3 -> {
-				System.out.println(asignatura.toString());
-			}
-			
-			case 4 -> {
-				System.out.println(alumno1.toString());
-			}
-			
-			case 5 -> {
-				if (alumno1.getNombre() != null && asignatura.getNombre() != null) {
-					System.out.println(alumno1.asignaAsignatura(asignatura));
-				} else if (alumno1.getNombre() == null) {
-					System.err.println("Aún no se ha añadido ningún alumno");
-				} else {
-					System.err.println("Aún no se ha añadido nunguna asignatura");
-				}
-			}
-			
-			case 6 -> {
-				if (asignatura != null && alumno1.getAsignatura() != null) {
-					System.out.println("Introduce la nota de la asignatura");
-					double nota = scan.nextDouble();
-					asignatura.setNota(nota);
-					System.out.printf("Nota asignada correctamente a %s del alumno %s%n%n", asignatura.getNombre(), alumno1.getNombre());
-				} else {
-					System.err.println("No existe ninguna asignatura aún");
-				}
-			}
 			default -> {
 				System.out.println("La opción introducida no es válida");
 			}
@@ -93,11 +120,10 @@ public class Main {
 	private static int mostrarMenu() {
 		System.out.println("""
 				1. Añadir Alumno
-				2. Añade una asignatura al sistema
-				3. Consultar asignatura
-				4. Consultar alumno
-				5. Asignar una asignatura existente a un alumno
-				6. Poner nota en asignatura
+				2. Crea una asignatura y añádela al alumno (sin nota)
+				3. Añadir los datos de una asignatura y su nota a un alumno
+				4. Poner/cambiar nota en asignatura del alumno
+				5. Consultar datos del alumno
 				0. Salir del programa
 				""");
 		return scan.nextInt();

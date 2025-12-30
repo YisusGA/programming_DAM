@@ -2,7 +2,7 @@ package ejercicio16;
 
 public class Alumno {
 	private String nombre;
-	private Asignatura asignatura;
+	private Asignatura[] asignaturas;
 	
 	
 	
@@ -19,9 +19,9 @@ public class Alumno {
 	 * @param Nombre del alumno
 	 * @param Asignatura asignada al alumno
 	 */
-	public Alumno(String nombre, Asignatura asignatura) {
+	public Alumno(String nombre, Asignatura[] asignatura) {
 		this.nombre = nombre;
-		this.asignatura = asignatura;
+		this.asignaturas = asignatura;
 	}
 	
 	
@@ -35,37 +35,61 @@ public class Alumno {
 	}
 
 	public String asignaAsignatura (Asignatura asignatura) {
-		this.asignatura = asignatura;
-		return "Asignatura asignada correctamente";
+		if (this.asignaturas == null) {
+			asignaturas = new Asignatura[1];
+			this.asignaturas[0] = asignatura;
+		} else {
+			Asignatura[] aux = new Asignatura[this.asignaturas.length + 1];
+			for (int i = 0; i < this.asignaturas.length; i++) {
+				aux[i] = this.asignaturas[i];
+			}
+			aux[aux.length - 1] = asignatura;
+			this.asignaturas = aux;
+		}
+		return "Asignatura creada y asignada correctamente";
 	}
 	
-	
-	public Asignatura getAsignatura() {
-		return asignatura;
+	public Asignatura[] getAsignatura() {
+		return asignaturas;
 	}
 
-	public String asignaAsignatura (String nombreAsignatura, Curso curso, double nota) {
-		asignatura.setNombre(nombreAsignatura);
-		asignatura.setNota(nota);
-		asignatura.setCurso(curso);
-		return "Asignatura asignada correctamente";
+	public String asignaAsignatura (String nombreAsignatura, double nota, Curso curso) {
+		if (this.asignaturas == null) {
+			asignaturas = new Asignatura[1];
+			this.asignaturas[0] = new Asignatura(nombreAsignatura, nota, curso);
+		} else {
+			Asignatura[] aux = new Asignatura[this.asignaturas.length + 1];
+			for (int i = 0; i < this.asignaturas.length; i++) {
+				aux[i] = this.asignaturas[i];
+			}
+			aux[aux.length - 1] = new Asignatura(nombreAsignatura, nota, curso);
+			this.asignaturas = aux;
+		}
+		return "Asignatura añadida y evaluada correctamente";
 	}
 	
-	public String cambiaNota(double nota) {
-		if (asignatura != null) {
-			asignatura.setNota(nota);
-			return "Nota cambiada correctamente";
+	public String cambiaNota(String asignatura, double nota) {
+		if (this.asignaturas == null) {
+			return "No existe ninguna asignatura asociada al alumno, asígnale una primero";
 		} else {
-			return "El alumno no tiene ninguna asignatura asignada";
+			for (int i = 0; i < this.asignaturas.length; i++) {
+				if (this.asignaturas[i].getNombre().equals(asignatura)) {
+					this.asignaturas[i].setNota(nota);
+				}
+			}
+			return "Nota cambiada correctamente";
 		}
 	}
 
-	@Override
-	public String toString() {
-		if (asignatura != null) {
-			return "Alumno [nombre=" + nombre + ", asignatura=" + asignatura + "]";
+	public String boletinNotas() {
+		if (asignaturas != null) {
+			String result = "Asignaturas [";
+			for (int i = 0; i < asignaturas.length; i ++) {
+				result += asignaturas[i].getNombre() + " -> Nota: " + asignaturas[i].getNota() + ", ";
+			}
+			return "Alumno [Nombre=" + nombre + "] " + result + "]";
 		} else {
-			return "Alumno [nombre=" + nombre + "]";
+			return "El alumno no tiene asignada ninguna asignatura";
 		}
 	}
 	

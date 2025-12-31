@@ -303,7 +303,9 @@ public class Main {
 	// Esté método también es static, porque no depende de propiedades de la clase.
 	// Al ser static, lo puedo llamar con el nombre de la clase donde yo quiera
 	private static int mostrarMenu() {
-		Scanner scan = new Scanner(System.in);
+//		Scanner scan = new Scanner(System.in); CUIDADO: No hay que poner esto, porque ya hemos creado una variable estática de Scanner (scan), que podemos usar
+//		cuando queramos dentro de la clase Main, llamando al método que haga falta tras el nombre de la variable (scan.nextInt(), scan.nextLine(), etc.).
+//		Si ponemos un nuevo Scanner scan = new Scanner(System.in), va a dar problemas al hacer el escaneo.
 		System.out.println("1. Registrar cliente");
 		System.out.println("2. Listado de clientes");
 		System.out.println("3. Agregar pedido a cliente");

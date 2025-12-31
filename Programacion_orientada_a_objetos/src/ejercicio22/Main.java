@@ -310,16 +310,11 @@ public class Main {
 		System.out.println("4. Generar factura");
 		System.out.println("5. Mostrar cliente con más pedidos");
 		System.out.println("6. Mostrar cliente que más ha gastado");
-		// 7. Mostrar datos del cliente que hizo ese pedido
 		System.out.println("7. Localizar pedido dando un código");
 		System.out.println("8. Consultar la lista de pedidos hecha por todos los clientes");
-		// 9. Hay que buscar pedidos por descripción, pues el código de pedido es único
 		System.out.println("9. Rebajar 10% el precio de los pedidos que se hayan pedido más de 10 veces (buscar por descripción)");
 		System.out.println("10. Cambiar IVA");
 		System.out.println("0. Salir");
-		/*
-		 * Nombre cliente Listado pedidos Total a pagar
-		 */
 		return scan.nextInt();
 	}
 

@@ -63,17 +63,22 @@ public class Cliente {
 	}
 	
 	public void mostrarFactura() {
-		System.out.println("Nombre: " + nombre);
-		System.out.println("**********************");
-		double suma = 0;
-		for (Pedido p : pedidos) {
-			System.out.println(p.getDescripcion() + "-" + p.getPrecio());
-			suma += p.getPrecio();
+		if (pedidos == null) {
+			System.err.println("Este cliente aún no ha realizado pedidos");
+			System.out.println();
+		} else {
+			System.out.println("Nombre: " + nombre);
+			System.out.println("**********************");
+			double suma = 0;
+			for (Pedido p : pedidos) {
+				System.out.println(p.getDescripcion() + "-" + p.getPrecio());
+				suma += p.getPrecio();
+			}
+			System.out.println("***********************");
+			System.out.println("Total a pagar: " + suma);
+			System.out.println("***********************");
+			System.out.println();
 		}
-		System.out.println("***********************");
-		System.out.println("Total a pagar: " + suma);
-		System.out.println("***********************");
-		System.out.println();
 	}
 	
 	public boolean encontrarCodigoPedido (int codigoPedido) {
@@ -106,7 +111,7 @@ public class Cliente {
 			for (Pedido p : pedidos) {
 				suma += p.getPrecio();
 			}
-			suma += suma * Pedido.IVA / 100;
+			suma = suma * Pedido.IVA / 100;
 			return suma;
 	}
 	

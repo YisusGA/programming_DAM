@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 /**
  * Con esta clase, hacemos métodos que nos van a permitir leer int, double y String por teclado sin el problema de que escaneemos una línea vacía al hacer
  * un scan.nextLine() tras haber hecho un scan.nextInt(). Como la clase es static, la podemos llamar directamente con el nombre de la clase.Metodo, sin
- * necesidad de hacer import.
+ * necesidad de crear una instancia de la clase.
  */
 
 public class Teclado {

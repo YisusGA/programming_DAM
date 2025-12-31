@@ -6,7 +6,7 @@ public class Pedido {
 	private String descripcion;
 	private double precio;
 	
-	public static double IVA; //Variable estática para el IVA. Se inicializa en el main
+	public static double IVA; //Variable estática para el IVA. Las variables estáticas se suelen hacer public. Luego se inicializa en el main
 	
 	//Método constructor
 	public Pedido(int codigo, String descripcion, double precio) {

@@ -1,7 +1,5 @@
 package ejercicios_arrays;
 
-import java.lang.reflect.Array;
-
 //Dado un array de n enteros pasados por teclado, ordenarlo (sin usar otro array. Se ordenará el mismo array creado anteriormente).
 
 import java.util.Scanner;

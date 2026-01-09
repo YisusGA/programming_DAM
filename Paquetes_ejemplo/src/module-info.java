@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * 
- */
-module Paquetes_ejemplo {
-}

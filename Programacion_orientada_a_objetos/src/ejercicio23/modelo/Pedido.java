@@ -46,7 +46,7 @@ public class Pedido {
 		IVA = iva;
 	}
 	
-	public String addItems (Item item) {
+	public String addItems (Item item) { //Queda añadir la comprobación de que el item añadido existe, así como mostrar la lista de items disponibles en la tienda
 		if (items == null) {
 			Item items [] = new Item[1];
 			items[0] = item;

@@ -5,15 +5,15 @@ public class Pedido {
 	private String nombre;
 	private Item[] items;
 	private static double IVA;
-	
-	//Método constructor
+
+	// Método constructor
 	public Pedido(int codigo, String nombre, Item[] items) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.items = items;
 	}
 
-	//Getter and setters
+	// Getter and setters
 	public int getCodigo() {
 		return codigo;
 	}
@@ -45,10 +45,13 @@ public class Pedido {
 	public static void setIVA(double iva) {
 		IVA = iva;
 	}
-	
-	public String addItems (Item item) { //Queda añadir la comprobación de que el item añadido existe, así como mostrar la lista de items disponibles en la tienda
+
+	public String addItems(Item item) { // Mostrar la lista de items disponibles en la tienda en el
+										// main, usando el método mostrarListaItems() de Tienda. Y hacer la comprobación
+										// de que el item introducido existe o no en el main, usando el método
+										// comprobarSiExiste(String item)de Tienda
 		if (items == null) {
-			Item items [] = new Item[1];
+			Item items[] = new Item[1];
 			items[0] = item;
 		} else {
 			Item[] aux = new Item[items.length + 1];
@@ -60,7 +63,7 @@ public class Pedido {
 		}
 		return "Item añadido correctamente";
 	}
-	
+
 	public String removeItem(int codigo) {
 		if (items == null) {
 			return "No existe ningún item aún";

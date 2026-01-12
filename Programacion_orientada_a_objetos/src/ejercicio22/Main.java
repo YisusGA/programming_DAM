@@ -13,65 +13,46 @@ public class Main {
 													// Como no necesitamos varios objetos de tipo Scanner en la clase,
 													// sino sólo 1, tiene sentido que sea static
 
+	//Sacamos el array de clientes fuera del método main para que el método auxiliar mostrarClientes() pueda acceder a él. Debemos hacer que sea static
+	//para que el main pueda usarlo. No hay problema en que sea static, pues sólo vamos a usar un array de clientes común para toda la clase
+	// Problema de los arrays: le tenemos que dar un tamaño en el momento en el que lo instanciamos.
+	// Le damos en este caso un tamaño de 100, que debería ser lo suficientemente
+	// grande por ahora.
+	static Cliente[] clientes = new Cliente[100];
+	
+	static int siguientePosicionLibreCliente = 0; // Esta variable me contabiliza cuántos clientes tengo siempre, para evitar los
+	                                      // null
+	
 	public static void main(String[] args) {
 
 		System.out.println("Introduzca el IVA que aplica");
 		Pedido.IVA = scan.nextDouble(); // Asi inicializamos una variable estática
 
-		// Problema de los arrays: le tenemos que dar un tamaño en el momento en el que
-		// lo instanciamos.
-		// Le damos en este caso un tamaño de 100, que debería ser lo suficientemente
-		// grande por ahora.
-		Cliente[] clientes = new Cliente[100];
-		int siguientePosicionLibreCliente = 0; // Esta variable me contabiliza cuántos clientes tengo siempre, para evitar los
-										// null
+		
 		int codigoPedido = 0;
 
 		int opcion;
 
 		do {
 
-			opcion = Main.mostrarMenu();
+			opcion = Main.mostrarMenu(); //Como el método mostrarMenu() está dentro de esta misma clase, 
+			                             //podría omitir el nombre de la clase (Main) al llamarlo
 			scan.nextLine();
 
 			switch (opcion) {
 
 			case 1 -> {
-				System.out.println("nif");
-				String nif = scan.nextLine();
-				System.out.println("nombre de cliente");
-				String nombre = scan.nextLine();
-
-				// c es una variable local y desaparecerá, pero dejamos almacenado su valor en
-				// el array, el cual no
-				// es local
-				Cliente c = new Cliente(nif, nombre); // Usamos el constructor que sólo tiene nif y nombre, para no
-														// tener que meter pedidos aún
-														// Si usáramos el constructor que tiene pedidos, podríamos poner
-														// Cliente c = new Cliente(nif, nombre, null)
+				
 
 				// Almaceno el cliente c en el array y luego incremento la
 				// siguientePosicionLibre
-				clientes[siguientePosicionLibreCliente++] = c;
+				clientes[siguientePosicionLibreCliente++] = leerCliente();
 				System.out.println("Cliente registrado");
 			}
 
 			case 2 -> {
 				if (siguientePosicionLibreCliente > 0) {
-					// Hacemos un for con contador y no un for-each, para poder recorrer el array
-					// sólo hasta donde esté lleno,
-					// así no mostramos las posiciones vacías del array
-					for (int i = 0; i < siguientePosicionLibreCliente; i++) {
-						// No hace falta poner clientes[i].toString() porque el syso sólo muestra
-						// Strings, y asume
-						// que queremos usar
-						// el método toString de Cliente. Eso sí, hemos tenido que crear el método
-						// toString en Cliente. Si no hubiéramos creado el método toString en cliente,
-						// se haría un
-						// toString por defecto, pero nos mostraría cosas muy raras ese toString por
-						// defecto
-						System.out.println(clientes[i]);
-					}
+					mostrarClientes();
 				} else {
 					System.err.println("No hay ningún cliente registrado");
 				}
@@ -300,6 +281,8 @@ public class Main {
 
 	} // Aquí termina mi main
 
+	//Lo de debajo son métodos auxiliares dentro de la clase Main
+	
 	// Esté método también es static, porque no depende de propiedades de la clase.
 	// Al ser static, lo puedo llamar con el nombre de la clase donde yo quiera
 	private static int mostrarMenu() {
@@ -318,6 +301,34 @@ public class Main {
 		System.out.println("10. Cambiar IVA");
 		System.out.println("0. Salir");
 		return scan.nextInt();
+	}
+	
+	private static Cliente leerCliente() {
+		System.out.println("nif");
+		String nif = scan.nextLine();
+		System.out.println("nombre de cliente");
+		String nombre = scan.nextLine();
+
+		// c es una variable local y desaparecerá, pero dejamos almacenado su valor en
+		// el array, el cual no
+		// es local
+		Cliente c = new Cliente(nif, nombre); // Usamos el constructor que sólo tiene nif y nombre, para no
+												// tener que meter pedidos aún
+												// Si usáramos el constructor que tiene pedidos, podríamos poner
+												// Cliente c = new Cliente(nif, nombre, null)
+		return c;
+	}
+	
+	//
+	private static void mostrarClientes() {
+		// Hacemos un for con contador y no un for-each, para poder recorrer el array
+		// sólo hasta donde esté lleno,
+		// así no mostramos las posiciones vacías del array
+		for (int i = 0; i < siguientePosicionLibreCliente; i++) {
+			System.out.println(clientes[i]); //Le pasamos un objeto complejo al print. Como la clase Cliente tiene un método toString, porque lo hicimos, el print
+			                       //va a llamar a ese método toString de Cliente automáticamente para hacer el print. Si no hubiéramos creado el método
+			                       //toString en Cliente, mostraría direcciones de memoria
+		}
 	}
 
 }

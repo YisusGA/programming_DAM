@@ -64,10 +64,8 @@ public class Pedido {
 		return "Item añadido correctamente";
 	}
 
-	public String removeItem(int codigo) {
-		if (items == null) {
-			return "No existe ningún item aún";
-		} else {
+	public void eliminarItems(int codigo) {
+		if (items != null) {
 			int contadorEliminados = 0;
 			for (int i = 0; i < items.length; i++) {
 				if (items[i].getCodigo() == codigo) {
@@ -81,7 +79,42 @@ public class Pedido {
 					aux[j++] = items[i];
 				}
 			}
-			return "Item eliminado correctamente";
+		}
+	}
+	
+	public String mostrarItems() {
+		if (items == null) {
+			return "No existe ningún item aún";
+		} else {
+			String listaItems = "Items: ";
+			for (int i = 0; i < items.length; i++) {
+				listaItems += "[Código: " + items[i].getCodigo() + ", Nombre: " + items[i].getNombre() + ", Precio: " + items[i].getPrecio() + "€]";
+			}
+			return listaItems;
+		}
+	}
+	
+	public boolean buscarItem (int codigo) {
+		boolean encontrado = false;
+		if (items != null) {
+			for (int i = 0; !encontrado && i < items.length; i++) {
+				if (items[i].getCodigo() == codigo) {
+					encontrado = true;
+				}
+			}
+		}
+		return encontrado;
+	}
+	
+	public double gastoPedido () {
+		if (items == null) {
+			return 0;
+		} else {
+			double gastoPedido = 0;
+			for (int i = 0; i < items.length; i++) {
+				gastoPedido += items[i].getPrecio();
+			}
+			return gastoPedido * IVA / 100;
 		}
 	}
 }

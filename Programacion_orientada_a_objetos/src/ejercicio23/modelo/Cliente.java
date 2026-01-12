@@ -48,18 +48,78 @@ public class Cliente {
 		} else {
 			boolean encontrado = false;
 			int posicion = 0;
-			while (!encontrado && posicion < pedidos.length) {
-				if (pedidos[posicion].getCodigo() == codigo) {
+			for (int i = 0; !encontrado && i < pedidos.length; i++) {
+				if (pedidos[i].getCodigo() == codigo) {
 					encontrado = true;
+					posicion = i;
 				}
 			}
 			if (encontrado) {
-				//Me he quedado aquí
+				Pedido[] aux = new Pedido[pedidos.length - 1];
+				for (int i = 0; i < pedidos.length; i++) {
+					if (i != posicion) {
+						aux[i] = pedidos[i];
+					}
+				}
+				pedidos = aux;
 				return "Pedido eliminado correctamente";
 			} else {
 				return "El código de pedido no existe para este cliente";
 			}
 		}
 	}
+	
+	public String mostrarPedidos() {
+		if (pedidos == null) {
+			return "No existen pedidos asociados al cliente";
+		} else { 
+			String listaPedidos = "Pedidos: ";
+			for (int i = 0; i < pedidos.length; i++) {
+				listaPedidos += "[Código: " + pedidos[i].getCodigo() + ", Nombre: " + pedidos[i].getNombre() + ". " + pedidos[i].mostrarItems() + "]";
+			}
+			return listaPedidos;
+		}
+	}
+	
+	public boolean buscarItem(int codigo) {
+		if (pedidos == null) {
+			return false;
+		} else {
+			boolean encontrado = false;
+			for (int i = 0; !encontrado && i < pedidos.length; i++) {
+				if (pedidos[i].buscarItem(codigo)) {
+					encontrado = true;
+				}
+			}
+			return encontrado;
+		}
+	}
+	
+	public void eliminarItems (int codigo) {
+		if (pedidos != null) {
+			for (int i = 0; i < pedidos.length; i++) {
+				pedidos[i].eliminarItems(codigo);
+			}
+		} 
+	}
+	
+	public double gastoTotal () {
+		if (pedidos == null) {
+			return 0;
+		} else {
+			double gastoTotal = 0;
+			for (int i = 0; i < pedidos.length; i++) {
+				gastoTotal += pedidos[i].gastoPedido();
+			}
+			return gastoTotal;
+		}
+	}
+
+	
+	public String toString() {
+		return "Cliente [nombre=" + nombre + ", nif=" + nif + "]";
+	}
+	
+	
 	
 }

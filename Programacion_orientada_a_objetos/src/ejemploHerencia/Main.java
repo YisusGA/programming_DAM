@@ -30,13 +30,18 @@ public class Main {
 		//como se sus subclases
 		Cliente[] clientes = new Cliente[100];
 		clientes[0] = new Cliente();
+		clientes[0].setNif("4444");
+		clientes[0].setNombre("Pascual");
 		clientes[1] = new ClienteVIP();
+		clientes[1].setNif("5555");
+		clientes[1].setNombre("Javi");
 		((ClienteVIP)clientes[1]).setDireccion("Barcelona");
 		
 		//Con un mismo método, podemos mostrar los datos de diferentes tipos de Cliente
 		mostrarDatosCliente(c1);
 		mostrarDatosCliente(c2);
 		mostrarDatosCliente(c3);
+		mostrarDatosCliente(clientes[1]); //Como el casting ya lo hace el método para mostrar la dirección, no hace falta hacerlo aquí
 
 	}
 	

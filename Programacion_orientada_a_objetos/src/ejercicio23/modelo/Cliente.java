@@ -27,7 +27,7 @@ public class Cliente {
 		this.nif = nif;
 	}
 	
-	public String añadirPedido(Pedido pedido) {
+	public void añadirPedido(Pedido pedido) {
 		if (pedidos == null) {
 			pedidos = new Pedido[1];
 			pedidos[0] = pedido;
@@ -39,7 +39,6 @@ public class Cliente {
 			aux[aux.length - 1] = pedido;
 			pedidos = aux;
 		}
-		return "Pedido añadido correctamente";
 	}
 	
 	public String eliminarPedido(int codigo) {

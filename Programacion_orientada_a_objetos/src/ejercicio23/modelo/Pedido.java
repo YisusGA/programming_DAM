@@ -1,13 +1,13 @@
 package ejercicio23.modelo;
 
 public class Pedido {
-	private int codigo;
+	private int codigo = 0;
 	private String nombre;
 	private Item[] items;
 	private static double IVA;
 
 	// Método constructor
-	public Pedido(int codigo, String nombre, Item[] items) {
+	public Pedido(int codigo, String nombre) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.items = items;
@@ -46,12 +46,12 @@ public class Pedido {
 		IVA = iva;
 	}
 
-	public String addItems(Item item) { // Mostrar la lista de items disponibles en la tienda en el
-										// main, usando el método mostrarListaItems() de Tienda. Y hacer la comprobación
-										// de que el item introducido existe o no en el main, usando el método
-										// comprobarSiExiste(String item)de Tienda
+	public int generarCodigoPedido () {
+		return this.codigo++;
+	}
+	public void addItems(Item item) { 
 		if (items == null) {
-			Item items[] = new Item[1];
+			items = new Item[1];
 			items[0] = item;
 		} else {
 			Item[] aux = new Item[items.length + 1];
@@ -61,7 +61,7 @@ public class Pedido {
 			aux[aux.length - 1] = item;
 			items = aux;
 		}
-		return "Item añadido correctamente";
+		//return "Item añadido correctamente";
 	}
 
 	public void eliminarItems(int codigo) {

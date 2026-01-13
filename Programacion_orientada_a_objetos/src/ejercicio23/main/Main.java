@@ -72,16 +72,18 @@ public class Main {
 					// Comprobar si existe cliente con nif
 					System.out.println("Introduce tu nif");
 					String nif = scan.nextLine();
-					if (yisusStore.buscarCliente(nif) != 0) { //Me he quedado aquí, no funciona
+					if (yisusStore.buscarCliente(nif) >= 0) {
 						System.out.println(yisusStore.añadirPedido(yisusStore.buscarCliente(nif), p));
 					} else {
 						System.out.println("No hay ningún cliente registrado con ese nif");
-					}
-
-					// Añadir pedido a cliente
+					}					
 				} else {
 					System.err.println("No hay clientes registrados en la tienda");
 				}
+			}
+			
+			case 4 -> { //Me he quedado aquí
+				
 			}
 
 			case 7 -> {

@@ -80,7 +80,7 @@ public class Tienda {
 			return 0;
 		} else {
 			boolean encontrado = false;
-			int posicionCliente = 0;
+			int posicionCliente = -1;
 			for (int i = 0; !encontrado && i < clientes.length; i++) {
 				if (clientes[i].getNif().equals(nif)) {
 					encontrado = true;

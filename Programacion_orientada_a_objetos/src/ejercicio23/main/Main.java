@@ -19,7 +19,7 @@ public class Main {
 		System.out.println("Introduce el IVA (%) que aplica");
 		double IVA = 0;
 		;
-		while ((scan.nextDouble()) <= 0) {
+		while ((IVA= scan.nextDouble()) <= 0) {
 			System.out.println("El valor de IVA introducido debe ser mayor que 0");
 		}
 		Pedido.setIVA(IVA);
@@ -33,7 +33,7 @@ public class Main {
 
 			case 1 -> {
 				System.out.println("Introduce el IVA (%) que aplica");
-				while ((scan.nextDouble()) <= 0) {
+				while ((IVA = scan.nextDouble()) <= 0) {
 					System.out.println("El valor de IVA introducido debe ser mayor que 0");
 				}
 				Pedido.setIVA(IVA);
@@ -96,8 +96,45 @@ public class Main {
 					System.err.println("No hay clientes registrados en la tienda");
 				}
 			}
-
+			
+			case 5 -> {
+				if (yisusStore.comprobarSiHayClientes()) {
+					System.out.println("Introduce el código del item a eliminar");
+					int codigo;
+					while ((codigo = scan.nextInt()) < 0) {
+						System.err.println("El código introducido no es válido, debe ser igual o mayor que 0");
+					}
+					System.out.println(yisusStore.eliminarItems(codigo));
+				} else {
+					System.err.println("No hay clientes registrados en la tienda");
+				}
+			}
+			
+			case 6 -> {
+				if (yisusStore.comprobarSiHayClientes()) {
+					System.out.println(yisusStore.clienteMayorGasto());
+				} else {
+					System.err.println("No hay clientes registrados en la tienda");
+				}
+			}
+			
 			case 7 -> {
+				if (yisusStore.comprobarSiHayClientes()) {
+					System.out.println("Introduce tu nif");
+					String nif = scan.nextLine();
+					if (yisusStore.buscarCliente(nif) >= 0) {
+						System.out.println("Introduce código de pedido a eliminar");
+						int codigo = scan.nextInt();
+						System.out.println(yisusStore.eliminarPedidoCliente(nif, codigo));
+					} else {
+						System.out.println("No hay ningún cliente registrado con ese nif");
+					}
+				} else {
+					System.err.println("No hay clientes registrados en la tienda");
+				}
+			}
+
+			case 8 -> {
 				boolean acceso = false;
 				System.out.println("Introduce contraseña");
 				if (yisusStore.passwordValida(scan.nextLine())) {
@@ -172,7 +209,8 @@ public class Main {
 				4. Mostrar pedidos de un cliente
 				5. Eliminar item de todos los clientes que lo hayan pedido en alguno de sus pedidos
 				6. Mostrar el cliente que más dinero ha gastado en la tienda
-				7. Menu de administrador
+				7. Eliminar pedido dado nif de cliente
+				8. Menu de administrador
 				0. Salir del programa
 				""");
 		return scan.nextInt();

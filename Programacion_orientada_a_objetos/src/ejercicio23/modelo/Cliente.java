@@ -41,10 +41,21 @@ public class Cliente {
 		}
 	}
 	
-	public String eliminarPedido(int codigo) {
-		if (pedidos == null) {
-			return "Este cliente aún no tiene pedidos";
-		} else {
+	public boolean buscarPedido(int codigo) {
+		boolean encontrado = false;
+		 if (pedidos != null) {
+			int posicion = 0;
+			for (int i = 0; !encontrado && i < pedidos.length; i++) {
+				if (pedidos[i].getCodigo() == codigo) {
+					encontrado = true;
+				}
+			}
+		 }
+		 return encontrado;
+	}
+	
+	public void eliminarPedido(int codigo) {
+		 if (pedidos != null) {
 			boolean encontrado = false;
 			int posicion = 0;
 			for (int i = 0; !encontrado && i < pedidos.length; i++) {
@@ -55,17 +66,14 @@ public class Cliente {
 			}
 			if (encontrado) {
 				Pedido[] aux = new Pedido[pedidos.length - 1];
-				for (int i = 0; i < pedidos.length; i++) {
+				for (int i = 0, j = 0; i < pedidos.length; i++) {
 					if (i != posicion) {
-						aux[i] = pedidos[i];
+						aux[j++] = pedidos[i];
 					}
 				}
 				pedidos = aux;
-				return "Pedido eliminado correctamente";
-			} else {
-				return "El código de pedido no existe para este cliente";
 			}
-		}
+		 }
 	}
 	
 	public String mostrarPedidos() {
@@ -74,7 +82,7 @@ public class Cliente {
 		} else { 
 			String listaPedidos = "Pedidos: ";
 			for (int i = 0; i < pedidos.length; i++) {
-				listaPedidos += "[Código: " + pedidos[i].getCodigo() + ", Nombre: " + pedidos[i].getNombre() + ". " + pedidos[i].mostrarItems() + "]";
+				listaPedidos += "PEDIDO[Código: " + pedidos[i].getCodigo() + ", Nombre: " + pedidos[i].getNombre() + ". " + pedidos[i].mostrarItems() + "]";
 			}
 			return listaPedidos;
 		}

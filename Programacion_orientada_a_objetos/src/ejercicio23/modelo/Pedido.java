@@ -87,6 +87,7 @@ public class Pedido {
 					aux[j++] = items[i];
 				}
 			}
+			items = aux;
 		}
 	}
 	
@@ -96,7 +97,7 @@ public class Pedido {
 		} else {
 			String listaItems = "Items: ";
 			for (int i = 0; i < items.length; i++) {
-				listaItems += "[Código: " + items[i].getCodigo() + ", Nombre: " + items[i].getNombre() + ", Precio: " + items[i].getPrecio() + "€]";
+				listaItems += "ITEM[Código: " + items[i].getCodigo() + ", Nombre: " + items[i].getNombre() + ", Precio: " + items[i].getPrecio() + "€]";
 			}
 			return listaItems;
 		}
@@ -122,7 +123,7 @@ public class Pedido {
 			for (int i = 0; i < items.length; i++) {
 				gastoPedido += items[i].getPrecio();
 			}
-			return gastoPedido * IVA / 100;
+			return gastoPedido += gastoPedido * IVA / 100;
 		}
 	}
 }

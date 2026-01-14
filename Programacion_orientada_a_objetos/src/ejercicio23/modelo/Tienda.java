@@ -63,7 +63,6 @@ public class Tienda {
 		if (clientes == null) {
 			clientes = new Cliente[1];
 			clientes[0] = c;
-			return "test";
 		} else {
 			Cliente[] aux = new Cliente[clientes.length + 1];
 			for (int i = 0; i < clientes.length; i++) {
@@ -88,6 +87,32 @@ public class Tienda {
 				}
 			}
 			return posicionCliente;
+		}
+
+	}
+	
+	public String eliminarPedidoCliente(String nif, int codigo) {
+		if (clientes == null) {
+			return "No hay clientes registrados en la tienda";
+		} else {
+			boolean encontrado = false;
+			int posicionCliente = -1;
+			for (int i = 0; !encontrado && i < clientes.length; i++) {
+				if (clientes[i].getNif().equals(nif)) {
+					encontrado = true;
+					posicionCliente = i;
+				}
+			}
+			if (encontrado) {
+				if (clientes[posicionCliente].buscarPedido(codigo)) {
+					clientes[posicionCliente].eliminarPedido(codigo);
+					return "Pedido eliminado correctamente";
+				} else {
+					return "El pedido con ese código no se encuentra en este cliente"; 
+				}
+			} else {
+				return "Cliente no encontrado";
+			}
 		}
 
 	}
@@ -167,7 +192,7 @@ public class Tienda {
 					clienteMayorGasto = i;
 				}
 			}
-			return "El cliente que más ha gastado es" + clientes[clienteMayorGasto].toString() + ". Ha gastado: "
+			return "El cliente que más ha gastado es " + clientes[clienteMayorGasto].toString() + ". Ha gastado: "
 					+ mayorGasto + "€";
 		}
 	}

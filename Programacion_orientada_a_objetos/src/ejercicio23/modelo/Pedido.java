@@ -1,10 +1,11 @@
 package ejercicio23.modelo;
 
 public class Pedido {
-	private int codigo = 0;
+	private int codigo;
 	private String nombre;
 	private Item[] items;
 	private static double IVA;
+	private static int codigoPedidoNuevo = 0; //Esto es necesario para que funcione el método generarCodigoPedido()
 
 	// Método constructor
 	public Pedido(int codigo, String nombre) {
@@ -46,8 +47,9 @@ public class Pedido {
 		IVA = iva;
 	}
 
-	public int generarCodigoPedido () { //Esto no funciona
-		return this.codigo++;
+	public static int generarCodigoPedido() { //Para que esto funcione, tenemos que usar un método estático que use una variable estática para
+		                                       //el código de pedido
+		return codigoPedidoNuevo++;
 	}
 	public void addItems(Item item) { 
 		if (items == null) {

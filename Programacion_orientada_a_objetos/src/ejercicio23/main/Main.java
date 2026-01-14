@@ -55,7 +55,8 @@ public class Main {
 					Pedido p = new Pedido(0, null);
 					System.out.println("Introduce el nombre del pedido");
 					String nombre = scan.nextLine();
-					p = new Pedido(p.generarCodigoPedido(), nombre);
+					p = new Pedido(p.generarCodigoPedido(), nombre); // No se está generando un código de pedido
+																		// diferente para cada pedido
 					String codigo;
 					do {
 						System.out.println(
@@ -76,14 +77,24 @@ public class Main {
 						System.out.println(yisusStore.añadirPedido(yisusStore.buscarCliente(nif), p));
 					} else {
 						System.out.println("No hay ningún cliente registrado con ese nif");
-					}					
+					}
 				} else {
 					System.err.println("No hay clientes registrados en la tienda");
 				}
 			}
-			
-			case 4 -> { //Me he quedado aquí
-				
+
+			case 4 -> { // Me he quedado aquí
+				if (yisusStore.comprobarSiHayClientes()) {
+					System.out.println("Introduce tu nif");
+					String nif = scan.nextLine();
+					if (yisusStore.buscarCliente(nif) >= 0) {
+						System.out.println(yisusStore.mostrarPedidos(yisusStore.buscarCliente(nif)));
+					} else {
+						System.out.println("No hay ningún cliente registrado con ese nif");
+					}
+				} else {
+					System.err.println("No hay clientes registrados en la tienda");
+				}
 			}
 
 			case 7 -> {

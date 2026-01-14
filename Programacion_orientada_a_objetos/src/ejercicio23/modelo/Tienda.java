@@ -101,6 +101,14 @@ public class Tienda {
 		}
 	}
 	
+	public String mostrarPedidos(int posicionCliente) {
+		if (clientes == null) {
+			return "No hay clientes registrados en la tienda";
+		} else {
+			return clientes[posicionCliente].mostrarPedidos();
+		}
+	}
+	
 	public boolean comprobarSiHayClientes() {
 		if (clientes == null) {
 			return false;

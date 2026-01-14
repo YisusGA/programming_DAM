@@ -46,7 +46,7 @@ public class Pedido {
 		IVA = iva;
 	}
 
-	public int generarCodigoPedido () {
+	public int generarCodigoPedido () { //Esto no funciona
 		return this.codigo++;
 	}
 	public void addItems(Item item) { 

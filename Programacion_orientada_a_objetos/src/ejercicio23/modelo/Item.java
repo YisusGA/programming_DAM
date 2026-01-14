@@ -12,6 +12,10 @@ public class Item {
 		this.nombre = nombre;
 		this.precio = precio;
 	}
+	
+	//Método constructor vacío
+		public Item() {
+		}
 
 	//Getter and setters
 	public int getCodigo() {

@@ -52,11 +52,11 @@ public class Main {
 				if (yisusStore.comprobarSiHayClientes()) {
 					System.out.println("Estos son los items disponibles en la tienda");
 					System.out.println(yisusStore.mostrarListaItems());
-					Pedido p = new Pedido(0, null);
+					Pedido p = new Pedido();
 					System.out.println("Introduce el nombre del pedido");
 					String nombre = scan.nextLine();
-					p = new Pedido(p.generarCodigoPedido(), nombre); // No se está generando un código de pedido
-																		// diferente para cada pedido
+					p.setCodigo(p.generarCodigoPedido());
+					p.setNombre(nombre);
 					String codigo;
 					do {
 						System.out.println(

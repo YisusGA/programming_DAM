@@ -5,13 +5,19 @@ public class Pedido {
 	private String nombre;
 	private Item[] items;
 	private static double IVA;
-	private static int codigoPedidoNuevo = 0; //Esto es necesario para que funcione el método generarCodigoPedido()
+	private static int codigoPedidoNuevo = 0; //Esto es necesario para que funcione el método generarCodigoPedido(), porque si no, cada vez que
+											  //cada vez que se instancie un objeto Pedido, si usamos this.codigo, tendrá valor 0 y el método
+											  //generarCodigoPedido() no hará nada
 
 	// Método constructor
 	public Pedido(int codigo, String nombre) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.items = items;
+	}
+	
+	// Método constructor vacío
+	public Pedido() {
 	}
 
 	// Getter and setters

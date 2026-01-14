@@ -4,7 +4,7 @@ public class Tienda {
 	Cliente[] clientes;
 	Item[] items = { new Item(0, "PC", 800), new Item(1, "RAM", 200), };
 	private String password = "12345";
-	private int codigoItem = 2; //Aquí no haría falta que fuera static como en el caso de Pedido, pues sólo vamos a tener una tienda
+	private int codigoItem = 2; //Aquí no haría falta que fuera static como en el caso de Pedido, pues sólo vamos a tener un objeto tienda
 
 	public boolean passwordValida(String password) {
 		if (password.equals(this.password)) {
@@ -49,7 +49,7 @@ public class Tienda {
 
 	public Item pasarItem(int codigo) {
 		boolean encontrado = false;
-		Item item = new Item(0, null, 0);
+		Item item = new Item();
 		for (int i = 0; !encontrado && i < items.length; i++) {
 			if (items[i].getCodigo() == codigo) {
 				encontrado = true;

@@ -7,7 +7,7 @@ public class ClienteVIP extends Cliente {
 	//Constructor de la subclase. Si ya tengo el constructor generado en la superclase, al hacer click derecho en la subclase > Source
 	//> Generate Constructor, ya genera automáticamente el super
 	public ClienteVIP(String nombre, String nif, String direccion) { 
-		super(nombre, nif); //Llamar a la superclase. Si se llama sin más, se refiere al constructor
+		super(nombre, nif); //super es una forma de llamar a la superclase. Si se llama sin más, se refiere al constructor
 		this.direccion = direccion;
 	}
 	
@@ -33,13 +33,13 @@ public class ClienteVIP extends Cliente {
 	//superclase o si es el Override
 	@Override
 	public void mostrarDatos() {
-		//Si hago esto, me da error el compilador, porque nombre y nif sn privadas de Cliente, y no son accesibles ni siquiera para sus subclases
+		//Si hago esto, me da error el compilador, porque nombre y nif eran privadas de Cliente, y no eran accesibles ni siquiera para sus subclases
 //		System.out.printf("Hola, soy el cliente %s, mi nif es %s y mi dirección es %s%n", nombre, nif, direccion);
 		
 		//Podría solucionarlo con los getters, aunque queda feo
 //		System.out.printf("Hola, soy el cliente %s, mi nif es %s y mi dirección es %s%n", getNombre(), getNif(), direccion);
 		
-		//La mejor forma de solucionarlo es poner el modificador Protected en las propiedades de la superclase
+		//La mejor forma de solucionarlo es poner el modificador protected en las propiedades de la superclase
 		System.out.printf("Hola, soy el cliente %s, mi nif es %s y mi dirección es %s%n", nombre, nif, direccion);
 		
 	}

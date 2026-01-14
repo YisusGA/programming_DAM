@@ -43,11 +43,14 @@ public class Main {
 		//Con un mismo método, podemos mostrar los datos de diferentes tipos de Cliente
 		mostrarDatosCliente(c1); //Con este, llamo al método auxiliar del main. Esto no es lo adecuado, pues no tiene sentido crear un método
 		                         //de Cliente dentro del main
-		c1.mostrarDatos(); //Con este, uso el método de Cliente. Esto está bien hecho así
+		c1.mostrarDatos(); //Con este, uso el método de Cliente. Esto está bien hecho así. En este caso, usa el método mostrarDatos() de la superclase (Cliente)
 		mostrarDatosCliente(c2);
-		c2.mostrarDatos();
+		c2.mostrarDatos(); //En este caso, usa el método mostrarDatos() de la subclase (ClienteVIP). Al poner el ratón encima, nos muestra la anotación Overrride que puse
 		mostrarDatosCliente(c3);
 		mostrarDatosCliente(clientes[1]); //Como el casting ya lo hace el método para mostrar la dirección, no hace falta hacerlo aquí
+		clientes[1].mostrarDatos(); //Aquí no aparece el Override, porque el compilador sólo puede ver que clientes[1] está dentro de un array de la clase Cliente. Pero en tiempo
+									//de ejecución, sí que ve que clientes[1] es un objeto de ClienteVIP y usa el método de la subclase (polimorfismo). De esta forma, no es necesario
+									//hacer casting de los objetos como se ve en el método mostrarDatosCliente(Cliente c) de esta clase Main
 		
 		//Transformar un Cliente normal en un ClienteVIP, creando y rellenando un objeto aux de la clase ClienteVIP
 		//aux es local de este bloque, y dejará de existir fuera del if. c1 ya estaba declarado antes de este bloque, no es local

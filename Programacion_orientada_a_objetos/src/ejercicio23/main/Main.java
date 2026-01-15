@@ -83,7 +83,7 @@ public class Main {
 				}
 			}
 
-			case 4 -> { // Me he quedado aquí
+			case 4 -> {
 				if (yisusStore.comprobarSiHayClientes()) {
 					System.out.println("Introduce tu nif");
 					String nif = scan.nextLine();

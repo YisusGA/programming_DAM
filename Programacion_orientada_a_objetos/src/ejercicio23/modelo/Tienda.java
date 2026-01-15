@@ -4,8 +4,19 @@ public class Tienda {
 	Cliente[] clientes;
 	Item[] items = { new Item(0, "PC", 800), new Item(1, "RAM", 200), };
 	private String password = "12345";
-	private int codigoItem = 2; //Aquí no haría falta que fuera static como en el caso de Pedido, pues sólo vamos a tener un objeto tienda
+	private int codigoItem; // Aquí no haría falta que fuera static como en el caso de Pedido, pues sólo
+							// vamos a tener un objeto tienda
 
+	// Métodos
+
+	/**
+	 * Método para comprobar si la contraseña de administrador introducida es
+	 * correcta
+	 * 
+	 * @param String con la password
+	 * @return boolean indicando si la contraseña introducida es correcta (true) o
+	 *         no (false)
+	 */
 	public boolean passwordValida(String password) {
 		if (password.equals(this.password)) {
 			return true;
@@ -14,10 +25,34 @@ public class Tienda {
 		}
 	}
 
+	/**
+	 * Este método genera un código de Item (incrementando desde el máximo valor de
+	 * entre los objetos Item que haya en el catálogo) para cada Item nuevo que se
+	 * añada al catálogo de la Tienda
+	 * 
+	 * @return Un int que identifica a cada Item del catálogo de la Tienda de forma
+	 *         única
+	 */
 	public int generarCodigoItem() {
-		return codigoItem++;
+		if (items == null) {
+			return -1;
+		} else {
+			codigoItem = 0;
+			for (int i = 0; i < items.length; i++) {
+				if (items[i].getCodigo() > codigoItem) {
+					codigoItem = items[i].getCodigo();
+				}
+			}
+			return codigoItem;
+		}
 	}
 
+	/**
+	 * Método para registrar un nuevo Item en el catálogo de la Tienda
+	 * 
+	 * @param Objeto Item
+	 * @return Mensaje indicando que se ha añadido correctamente el Item
+	 */
 	public String registrarItem(Item item) {
 		Item[] aux = new Item[items.length + 1];
 		for (int i = 0; i < items.length; i++) {
@@ -28,6 +63,12 @@ public class Tienda {
 		return "Item registrado correctamente en la tienda";
 	}
 
+	/**
+	 * Método para mostrar los objetos Item disponibles en el catálogo de la Tienda
+	 * 
+	 * @return String con los datos de los Item disponibles en el catálogo de la
+	 *         Tienda
+	 */
 	public String mostrarListaItems() {
 		String listaItems = "La lista de items disponibles en la tienda es: ";
 		for (int i = 0; i < items.length; i++) {
@@ -37,6 +78,12 @@ public class Tienda {
 		return listaItems;
 	}
 
+	/**
+	 * Método para comprobar si un Item existe en el catálogo de la Tienda
+	 * 
+	 * @param codigo del Item a buscar
+	 * @return boolean indicando si se ha encontrado el Item (true) o no (false)
+	 */
 	public boolean comprobarSiExiste(int codigo) {
 		boolean existe = false;
 		for (int i = 0; i < items.length; i++) {
@@ -47,6 +94,12 @@ public class Tienda {
 		return existe;
 	}
 
+	/**
+	 * Método para pasar un objeto Item dado un código de Item
+	 * 
+	 * @param codigo de Item
+	 * @return Objeto Item
+	 */
 	public Item pasarItem(int codigo) {
 		boolean encontrado = false;
 		Item item = new Item();
@@ -90,7 +143,7 @@ public class Tienda {
 		}
 
 	}
-	
+
 	public String eliminarPedidoCliente(String nif, int codigo) {
 		if (clientes == null) {
 			return "No hay clientes registrados en la tienda";
@@ -108,7 +161,7 @@ public class Tienda {
 					clientes[posicionCliente].eliminarPedido(codigo);
 					return "Pedido eliminado correctamente";
 				} else {
-					return "El pedido con ese código no se encuentra en este cliente"; 
+					return "El pedido con ese código no se encuentra en este cliente";
 				}
 			} else {
 				return "Cliente no encontrado";
@@ -116,7 +169,7 @@ public class Tienda {
 		}
 
 	}
-	
+
 	public String añadirPedido(int posicionCliente, Pedido p) {
 		if (clientes == null) {
 			return "No hay clientes registrados en la tienda";
@@ -125,7 +178,7 @@ public class Tienda {
 			return "Pedido asignado correctamente al cliente";
 		}
 	}
-	
+
 	public String mostrarPedidos(int posicionCliente) {
 		if (clientes == null) {
 			return "No hay clientes registrados en la tienda";
@@ -133,7 +186,7 @@ public class Tienda {
 			return clientes[posicionCliente].mostrarPedidos();
 		}
 	}
-	
+
 	public boolean comprobarSiHayClientes() {
 		if (clientes == null) {
 			return false;

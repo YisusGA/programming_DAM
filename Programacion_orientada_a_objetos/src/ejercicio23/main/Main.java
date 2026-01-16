@@ -19,7 +19,7 @@ public class Main {
 		System.out.println("Introduce el IVA (%) que aplica");
 		double IVA = 0;
 		;
-		while ((IVA= scan.nextDouble()) <= 0) {
+		while ((IVA = scan.nextDouble()) <= 0) {
 			System.out.println("El valor de IVA introducido debe ser mayor que 0");
 		}
 		Pedido.setIVA(IVA);
@@ -96,8 +96,20 @@ public class Main {
 					System.err.println("No hay clientes registrados en la tienda");
 				}
 			}
-			
+
 			case 5 -> {
+				if (yisusStore.comprobarSiHayClientes()) {
+					System.out.println("Introduce tu nif");
+					String nif = scan.nextLine();
+					System.out.println("Introduce el código del pedido");
+					int codigo = scan.nextInt();
+					System.out.println(yisusStore.eliminarPedidoCliente(nif, codigo));
+				} else {
+					System.err.println("No hay clientes registrados en la tienda");
+				}
+			}
+
+			case 6 -> {
 				if (yisusStore.comprobarSiHayClientes()) {
 					System.out.println("Introduce el código del item a eliminar");
 					int codigo;
@@ -109,16 +121,16 @@ public class Main {
 					System.err.println("No hay clientes registrados en la tienda");
 				}
 			}
-			
-			case 6 -> {
+
+			case 7 -> {
 				if (yisusStore.comprobarSiHayClientes()) {
 					System.out.println(yisusStore.clienteMayorGasto());
 				} else {
 					System.err.println("No hay clientes registrados en la tienda");
 				}
 			}
-			
-			case 7 -> {
+
+			case 8 -> {
 				if (yisusStore.comprobarSiHayClientes()) {
 					System.out.println("Introduce tu nif");
 					String nif = scan.nextLine();
@@ -134,7 +146,7 @@ public class Main {
 				}
 			}
 
-			case 8 -> {
+			case 9 -> {
 				boolean acceso = false;
 				System.out.println("Introduce contraseña");
 				if (yisusStore.passwordValida(scan.nextLine())) {
@@ -160,7 +172,7 @@ public class Main {
 							System.out.println("Lista de items disponibles en la tienda");
 							System.out.println(yisusStore.mostrarListaItems());
 							System.out.println("Introduce el código del producto a eliminar");
-							System.out.println(yisusStore.eliminarItemsTienda(scan.nextInt()));
+							System.out.println(yisusStore.eliminarItemTienda(scan.nextInt()));
 						}
 
 						case 3 -> {
@@ -207,10 +219,11 @@ public class Main {
 				2. Insertar nuevo cliente (sin pedidos)
 				3. Generar pedido y asignar a cliente
 				4. Mostrar pedidos de un cliente
-				5. Eliminar item de todos los clientes que lo hayan pedido en alguno de sus pedidos
-				6. Mostrar el cliente que más dinero ha gastado en la tienda
-				7. Eliminar pedido dado nif de cliente
-				8. Menu de administrador
+				5. Eliminar pedido de un cliente
+				6. Eliminar item de todos los clientes que lo hayan pedido en alguno de sus pedidos
+				7. Mostrar el cliente que más dinero ha gastado en la tienda
+				8. Eliminar pedido dado nif de cliente
+				9. Menu de administrador
 				0. Salir del programa
 				""");
 		return scan.nextInt();

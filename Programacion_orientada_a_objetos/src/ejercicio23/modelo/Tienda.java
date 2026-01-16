@@ -112,6 +112,12 @@ public class Tienda {
 		return item;
 	}
 
+	/**
+	 * Método para registrar un nuevo Cliente en la Tienda
+	 * 
+	 * @param Objeto Cliente
+	 * @return String indicando que el Cliente ha sido registrado
+	 */
 	public String registrarCliente(Cliente c) {
 		if (clientes == null) {
 			clientes = new Cliente[1];
@@ -127,9 +133,15 @@ public class Tienda {
 		return "Cliente registrado correctamente";
 	}
 
+	/**
+	 * Método para buscar un Cliente dado su nif
+	 * 
+	 * @param String con el nif
+	 * @return La posición del Cliente dentro del array de clientes
+	 */
 	public int buscarCliente(String nif) {
 		if (clientes == null) {
-			return 0;
+			return -1;
 		} else {
 			boolean encontrado = false;
 			int posicionCliente = -1;
@@ -144,6 +156,13 @@ public class Tienda {
 
 	}
 
+	/**
+	 * Método para eliminar un Pedido de un Cliente
+	 * 
+	 * @param nif    del Cliente
+	 * @param codigo de Pedido
+	 * @return String indicando lo que ha ocurrido tras ejecutar el método
+	 */
 	public String eliminarPedidoCliente(String nif, int codigo) {
 		if (clientes == null) {
 			return "No hay clientes registrados en la tienda";
@@ -170,6 +189,15 @@ public class Tienda {
 
 	}
 
+	/**
+	 * Método para añadir un pedido a un Cliente
+	 * 
+	 * @param posicionCliente dentro del array clientes. Esta posición debería venir
+	 *                        tras ejecutar el método de Tienda buscarCliente(String
+	 *                        nif)
+	 * @param Objeto          Pedido
+	 * @return String indicando lo que ha hecho el método
+	 */
 	public String añadirPedido(int posicionCliente, Pedido p) {
 		if (clientes == null) {
 			return "No hay clientes registrados en la tienda";
@@ -179,6 +207,14 @@ public class Tienda {
 		}
 	}
 
+	/**
+	 * Método para los datos de todos los objetos Pedido de un Cliente
+	 * 
+	 * @param posicionCliente dentro del array clientes. Esta posición debería venir
+	 *                        tras ejecutar el método de Tienda buscarCliente(String
+	 *                        nif)
+	 * @return String con los datos de todos los objetos Pedido del Cliente
+	 */
 	public String mostrarPedidos(int posicionCliente) {
 		if (clientes == null) {
 			return "No hay clientes registrados en la tienda";
@@ -187,6 +223,11 @@ public class Tienda {
 		}
 	}
 
+	/**
+	 * Método para comprobar si hay clientes registrados en la Tienda
+	 * 
+	 * @return boolean con valor true si hay clientes o false si no los hay
+	 */
 	public boolean comprobarSiHayClientes() {
 		if (clientes == null) {
 			return false;
@@ -195,6 +236,13 @@ public class Tienda {
 		}
 	}
 
+	/**
+	 * Método para eliminar un Item de todos los objetos Pedido de todos los objetos
+	 * Cliente
+	 * 
+	 * @param codigo de Item
+	 * @return String con lo que ha hecho el método
+	 */
 	public String eliminarItems(int codigo) {
 		if (clientes == null) {
 			return "No existen clientes registrados en la tienda";
@@ -206,7 +254,13 @@ public class Tienda {
 		}
 	}
 
-	public String eliminarItemsTienda(int codigo) {
+	/**
+	 * Método para eliminar un Item del catálogo de la Tienda
+	 * 
+	 * @param codigo del Item a eliminar
+	 * @return String con lo que ha sucedido tras ejecutar el método
+	 */
+	public String eliminarItemTienda(int codigo) {
 		if (items != null) {
 			boolean encontrado = false;
 			int posicion = 0;
@@ -233,6 +287,12 @@ public class Tienda {
 		}
 	}
 
+	/**
+	 * Método para calcular y mostrar los datos del Cliente que más ha gastado en la
+	 * Tienda
+	 * 
+	 * @return String con los datos del Cliente que más ha gastado en la Tienda
+	 */
 	public String clienteMayorGasto() {
 		if (clientes == null) {
 			return "No hay clientes registrados en la tienda";

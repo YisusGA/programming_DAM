@@ -4,8 +4,6 @@ public class Gerente extends Empleado {
 
 	private double bonus;
 
-	
-
 	public Gerente(String nombre, double salario, String fecha, double bonus) {
 		super(nombre, salario, fecha);
 		this.bonus = bonus;
@@ -24,6 +22,12 @@ public class Gerente extends Empleado {
 
 	public void setBonus(double bonus) {
 		this.bonus = bonus;
+	}
+
+	@Override
+	public double getSalario() {
+		this.salario += this.bonus;
+		return this.salario;
 	}
 
 }

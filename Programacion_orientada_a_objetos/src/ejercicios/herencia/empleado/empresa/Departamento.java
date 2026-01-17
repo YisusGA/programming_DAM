@@ -41,9 +41,7 @@ public class Departamento {
 
 	public double getSalarioDepartamento() {
 		double salario = 0;
-		if (empleados == null) {
-			return salario;
-		} else {
+		if (empleados != null) {
 			for (int i = 0; i < empleados.length; i++) {
 				salario += empleados[i].getSalario();
 			}

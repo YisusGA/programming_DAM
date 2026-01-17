@@ -36,14 +36,28 @@ public class Empresa {
 
 	public double getSalarioEmpresa() {
 		double salario = 0;
-		if (departamentos == null) {
-			return salario;
-		} else {
+		if (departamentos != null) {
 			for (int i = 0; i < departamentos.length; i++) {
 				salario += departamentos[i].getSalarioDepartamento();
 			}
 		}
 		return salario;
+	}
+
+	public String departamentoMayorGasto() {
+		double maximo = 0;
+		String departamento = "";
+		if (departamentos != null) {
+			for (int i = 0; i < departamentos.length; i++) {
+				if (departamentos[i].getSalarioDepartamento() > maximo) {
+					maximo = departamentos[i].getSalarioDepartamento();
+					departamento = departamentos[i].getNombre();
+				}
+			}
+			return "El departamento con mayor gasto es " + departamento + ", con un gasto de " + maximo + " €";
+		} else {
+			return "No se han añadido aún empleados ni departamentos";
+		}
 	}
 
 }

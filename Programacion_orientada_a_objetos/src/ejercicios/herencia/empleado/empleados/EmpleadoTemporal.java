@@ -15,4 +15,12 @@ public class EmpleadoTemporal extends Empleado {
 	public EmpleadoTemporal() {
 	}
 
+	public String getFechaFinContrato() {
+		return fechaFinContrato;
+	}
+
+	public void setFechaFinContrato(String fechaFinContrato) {
+		this.fechaFinContrato = fechaFinContrato;
+	}
+
 }

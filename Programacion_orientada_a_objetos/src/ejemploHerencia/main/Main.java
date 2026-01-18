@@ -84,6 +84,16 @@ public class Main {
 			aux.setDireccion("Bélgica");
 			c1 = aux;
 		}
+		// Comparar dos objetos para ver si son iguales
+		// Primera forma que se nos podría ocurrir
+		// if (c1 == c2) No funciona porque lo que estamos comparando son direcciones de
+		// memoria, igual que ocurre cuando comparamos 2 variables String de esta forma
+
+		// Segunda forma: tal cual no funciona, pero si hacemos un Override del método
+		// equals() de Object.class, aplicando el criterio que nosotros definamos para
+		// que dos objetos de nuestra clase sean el mismo, sí funciona. Fijarse en que
+		// aparece un Override al pasar el ratón por encima del equals
+		System.out.println(c1.equals(c2));
 
 	}
 

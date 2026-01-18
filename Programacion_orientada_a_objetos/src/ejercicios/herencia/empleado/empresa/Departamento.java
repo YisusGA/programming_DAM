@@ -24,7 +24,7 @@ public class Departamento {
 		this.nombre = nombre;
 	}
 
-	public String addEmpleado(Empleado e) {
+	public void addEmpleado(Empleado e) {
 		if (empleados == null) {
 			empleados = new Empleado[1];
 			empleados[0] = e;
@@ -36,7 +36,6 @@ public class Departamento {
 			aux[aux.length - 1] = e;
 			empleados = aux;
 		}
-		return "Empleado añadido correctamente";
 	}
 
 	public double getSalarioDepartamento() {

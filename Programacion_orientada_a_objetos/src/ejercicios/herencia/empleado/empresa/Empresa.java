@@ -1,5 +1,7 @@
 package ejercicios.herencia.empleado.empresa;
 
+import ejercicios.herencia.empleado.empleados.Empleado;
+
 public class Empresa {
 	String nombre;
 	Departamento[] departamentos;
@@ -32,6 +34,26 @@ public class Empresa {
 			departamentos = aux;
 		}
 		return "Departamento añadido correctamente";
+	}
+
+	public String addEmpleadoADepartamento(Empleado e, String nombre) {
+		if (departamentos == null) {
+			return "Aún no existe ningún departamento";
+		} else {
+			boolean encontrado = false;
+			for (int i = 0; !encontrado && i < departamentos.length; i++) {
+				if (departamentos[i].getNombre().equals(nombre)) {
+					encontrado = true;
+					departamentos[i].addEmpleado(e);
+
+				}
+			}
+			if (encontrado) {
+				return "Empleado añadido correctamente al departamento";
+			} else {
+				return "No se ha encontrado el departamento";
+			}
+		}
 	}
 
 	public double getSalarioEmpresa() {

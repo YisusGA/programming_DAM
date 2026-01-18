@@ -27,18 +27,18 @@ public class Main {
 			case 1 -> {
 				System.out.println("Introduce el nombre del departamento");
 				Departamento d = new Departamento(scan.nextLine());
-				empresa.addDepartamento(d);
+				System.out.println(empresa.addDepartamento(d));
 			}
 			case 2 -> {
 				System.out.println("Introduce el nombre del departamento");
 				String nombreDepartamento = scan.nextLine();
-				Empleado e = new Empleado();
+				Empleado e;
 				System.out.println("Introduce el nombre del empleado");
-				e.setNombre(scan.nextLine());
+				String nombre = scan.nextLine();
 				System.out.println("Introduce le fecha de inicio de contrato. Formato dd-mm-aaaa");
-				e.setFecha(scan.nextLine());
+				String fecha = scan.nextLine();
 				System.out.println("¿Cuál es el salario del empleado?");
-				e.setSalario(scan.nextDouble());
+				double salario = scan.nextDouble();
 				System.out.println("""
 						¿Qué tipo de empleado quieres añadir? Introduce número
 						1. Normal
@@ -49,16 +49,19 @@ public class Main {
 				scan.nextLine();
 				switch (tipoEmpleado) {
 				case 1 -> {
+					e = new Empleado(nombre, salario, fecha);
 					System.out.println(empresa.addEmpleadoADepartamento(e, nombreDepartamento));
 				}
 				case 2 -> {
 					System.out.println("¿Cuál es el bonus del gerente?");
-					((Gerente) e).setBonus(scan.nextDouble()); // Da error al hacer el casting
+					double bonus = scan.nextDouble();
+					e = new Gerente(nombre, salario, fecha, bonus);
 					System.out.println(empresa.addEmpleadoADepartamento(e, nombreDepartamento));
 				}
 				case 3 -> {
 					System.out.println("¿Cual es la fecha de finalización del contrato? Formato dd-mm-aaaa");
-					((EmpleadoTemporal) e).setFechaFinContrato(scan.nextLine()); // Da error al hacer el casting
+					String fechaFin = scan.nextLine();
+					e = new EmpleadoTemporal(nombre, salario, fecha, fechaFin);
 					System.out.println(empresa.addEmpleadoADepartamento(e, nombreDepartamento));
 				}
 				default -> {

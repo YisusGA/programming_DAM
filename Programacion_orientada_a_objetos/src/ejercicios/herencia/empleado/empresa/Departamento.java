@@ -7,7 +7,12 @@ public class Departamento {
 	private Empleado[] empleados;
 
 	// ¿Por qué no se puede hacer esto?
+	// Porque es una sentencia de código, y una sentencia de código no puede estar
+	// fuera de un método.
 	// empleados = new Empleado[1];
+
+	// Pero sí que puede hacerse esto, porque es una incialización de una propiedad
+	// private Empleado[] empleados = new Empleado[1];
 
 	public Departamento(String nombre) {
 		this.nombre = nombre;

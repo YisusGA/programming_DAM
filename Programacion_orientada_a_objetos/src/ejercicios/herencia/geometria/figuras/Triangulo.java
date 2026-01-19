@@ -1,0 +1,29 @@
+package ejercicios.herencia.geometria.figuras;
+
+public class Triangulo extends FiguraGeometrica {
+	private double lado1;
+	private double lado2;
+	private double lado3;
+
+	public Triangulo(String nombre, int numeroLados, double lado1, double lado2, double lado3) {
+		super(nombre, numeroLados);
+		this.lado1 = lado1;
+		this.lado2 = lado2;
+		this.lado3 = lado3;
+	}
+
+	public Triangulo() {
+	}
+
+	@Override
+	public double getPerimetro() {
+		return lado1 + lado2 + lado3;
+	}
+	@Override
+	public double getArea() {
+		double semip = (this.lado1 + this.lado2 + this.lado3) / 2;
+		double area = Math.sqrt(semip * (semip - lado1) * (semip - lado2) * (semip - lado3));
+		return area;
+	}
+
+}

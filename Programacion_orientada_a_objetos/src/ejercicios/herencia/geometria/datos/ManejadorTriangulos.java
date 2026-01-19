@@ -1,15 +1,15 @@
 package ejercicios.herencia.geometria.datos;
 
-import ejercicios.herencia.geometria.figuras.Cuadrado;
 import ejercicios.herencia.geometria.figuras.FiguraGeometrica;
+import ejercicios.herencia.geometria.figuras.Triangulo;
 
-public class ManejadorCuadrados extends ManejadorFiguras {
+public class ManejadorTriangulos extends ManejadorFiguras {
 
-	public ManejadorCuadrados(FiguraGeometrica[] figuras) {
+	public ManejadorTriangulos(FiguraGeometrica[] figuras) {
 		super(figuras);
 	}
 
-	public ManejadorCuadrados() {
+	public ManejadorTriangulos() {
 
 	}
 
@@ -17,7 +17,7 @@ public class ManejadorCuadrados extends ManejadorFiguras {
 	public double getAreaTotalFiguras() {
 		double area = 0;
 		for (int i = 0; i < figuras.length; i++) {
-			if (figuras[i] instanceof Cuadrado) {
+			if (figuras[i] instanceof Triangulo) {
 				area += figuras[i].getArea();
 			}
 

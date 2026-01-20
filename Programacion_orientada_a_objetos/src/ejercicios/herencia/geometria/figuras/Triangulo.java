@@ -5,8 +5,8 @@ public class Triangulo extends FiguraGeometrica {
 	private double lado2;
 	private double lado3;
 
-	public Triangulo(String nombre, int numeroLados, double lado1, double lado2, double lado3) {
-		super(nombre, numeroLados);
+	public Triangulo(String nombre, double lado1, double lado2, double lado3) {
+		super(nombre);
 		this.lado1 = lado1;
 		this.lado2 = lado2;
 		this.lado3 = lado3;

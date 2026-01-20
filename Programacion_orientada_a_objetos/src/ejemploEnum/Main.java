@@ -10,7 +10,7 @@ public class Main {
 		System.out.println(cita.dia.name());
 		System.out.println(cita.dia.ordinal());
 
-		// Puedo leer por teclado aquí un valor y en función de eso, hacer una
+		// Podría leer por teclado aquí un valor y en función de eso, hacer una
 		// asignación de valor al enum. Pero mejor usar un método que creemos en la
 		// clase enum
 

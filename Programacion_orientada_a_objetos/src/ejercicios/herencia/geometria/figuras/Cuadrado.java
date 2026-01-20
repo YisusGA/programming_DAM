@@ -3,8 +3,8 @@ package ejercicios.herencia.geometria.figuras;
 public class Cuadrado extends FiguraGeometrica {
 	private double lado;
 
-	public Cuadrado(String nombre, int numeroLados, double lado) {
-		super(nombre, numeroLados);
+	public Cuadrado(String nombre, double lado) {
+		super(nombre);
 		this.lado = lado;
 	}
 

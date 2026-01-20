@@ -9,11 +9,9 @@ public abstract class FiguraGeometrica { // Tiene que ser clase asbtracta para p
 											// nueva subclase, no me voy a olvidar de implementar el método, porque me
 											// saldrá el error de compilación
 	protected String nombre;
-	protected int numeroLados;
 
-	public FiguraGeometrica(String nombre, int numeroLados) {
+	public FiguraGeometrica(String nombre) {
 		this.nombre = nombre;
-		this.numeroLados = numeroLados;
 	}
 
 	public FiguraGeometrica() {
@@ -25,14 +23,6 @@ public abstract class FiguraGeometrica { // Tiene que ser clase asbtracta para p
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public int getNumeroLados() {
-		return numeroLados;
-	}
-
-	public void setNumeroLados(int numeroLados) {
-		this.numeroLados = numeroLados;
 	}
 
 	public abstract double getPerimetro(); // Un método asbtracto es un método por definir. Y puede ser sobreescrito por

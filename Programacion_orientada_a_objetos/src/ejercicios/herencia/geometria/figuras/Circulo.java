@@ -4,7 +4,7 @@ public class Circulo extends FiguraGeometrica {
 	private double radio;
 
 	public Circulo(String nombre, double radio) {
-		super(nombre, 0); // Número de lados es 0 en un círculo
+		super(nombre);
 		this.radio = radio;
 	}
 

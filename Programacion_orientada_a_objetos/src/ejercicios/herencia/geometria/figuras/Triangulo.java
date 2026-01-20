@@ -66,4 +66,10 @@ public class Triangulo extends FiguraGeometrica {
 		return area;
 	}
 
+	@Override
+	public String toString() {
+		return "Triangulo [lado1=" + lado1 + ", lado2=" + lado2 + ", lado3=" + lado3 + ", getPerimetro()="
+				+ getPerimetro() + ", getArea()=" + getArea() + "]";
+	}
+
 }

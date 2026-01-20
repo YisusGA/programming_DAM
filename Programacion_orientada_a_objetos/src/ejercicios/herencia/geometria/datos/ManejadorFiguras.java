@@ -13,6 +13,14 @@ public class ManejadorFiguras {
 
 	}
 
+	public FiguraGeometrica[] getFiguras() {
+		return figuras;
+	}
+
+	public void setFiguras(FiguraGeometrica[] figuras) {
+		this.figuras = figuras;
+	}
+
 	public double getPerimetroTotalFiguras() {
 		double perimetro = 0;
 		for (int i = 0; i < figuras.length; i++) {

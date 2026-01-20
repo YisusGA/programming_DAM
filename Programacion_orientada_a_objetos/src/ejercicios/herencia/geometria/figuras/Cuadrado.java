@@ -33,4 +33,12 @@ public class Cuadrado extends FiguraGeometrica {
 	public double getArea() {
 		return lado * lado;
 	}
+
+	@Override
+	public String toString() {
+		return "Cuadrado [lado=" + lado + ", getPerimetro()=" + getPerimetro() + ", getArea()=" + getArea() + "]";
+	}
+
+	
+
 }

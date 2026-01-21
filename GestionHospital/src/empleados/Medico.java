@@ -20,8 +20,8 @@ public class Medico extends Empleado {
 
 	@Override
 	public String mostrarDatos() {
-		return "Empleado [nombre=" + nombre + ", dni=" + dni + ", salario=" + salario + ", especialidad" + especialidad
-				+ "número de guardias" + numeroGuardias + "]";
+		return "Empleado [nombre=" + nombre + ", dni=" + dni + ", salario base=" + salario + ", especialidad=" + especialidad
+				+ ", número de guardias=" + numeroGuardias + "]";
 	}
 
 }

@@ -22,18 +22,26 @@ public class Hospital {
 		return "Empleado agregado correctamente";
 	}
 
+	public boolean hayEmpleados() {
+		if (empleados.length > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void mostrarEmpleados() {
 		for (int i = 0; i < empleados.length; i++) {
 			System.out.println(empleados[i].mostrarDatos());
 		}
 	}
 
-	public double calcularGastoTotal() {
+	public String calcularGastoTotal() {
 		double gasto = 0;
 		for (int i = 0; i < empleados.length; i++) {
-			gasto += empleados[i].getSalario();
+			gasto += empleados[i].calcularSalario();
 		}
-		return gasto;
+		return "EL gasto total de empleados en el hospital es: " + gasto;
 
 	}
 

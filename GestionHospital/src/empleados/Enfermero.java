@@ -23,15 +23,15 @@ public class Enfermero extends Empleado {
 
 	@Override
 	public double calcularSalario() {
-		if (this.turno == Turnos.NOCHE) {
+		if (this.turno == Turnos.NOCHE) { // Ver explicación de esto en los apuntes del cuaderno, en el día 21/01/2026
 			return this.salario * 1.2;
 		}
 		return this.salario;
 	}
-	
+
 	@Override
 	public String mostrarDatos() {
-		return "Empleado [nombre=" + nombre + ", dni=" + dni + ", salario=" + salario + ", turno" + turno.name() + "]";
+		return "Empleado [nombre=" + nombre + ", dni=" + dni + ", salario base=" + salario + ", turno=" + turno.name() + "]";
 	}
 
 }

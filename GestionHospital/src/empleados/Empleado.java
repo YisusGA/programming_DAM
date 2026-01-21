@@ -1,8 +1,11 @@
 package empleados;
 
+import hospital.TipoEmpleado;
+
 public abstract class Empleado {
 	protected String nombre, dni;
 	protected double salario;
+	protected TipoEmpleado tipo;
 
 	public Empleado(String nombre, String dni, double salario) {
 		this.nombre = nombre;
@@ -35,6 +38,14 @@ public abstract class Empleado {
 
 	public void setSalario(double salario) {
 		this.salario = salario;
+	}
+
+	public TipoEmpleado getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoEmpleado tipo) {
+		this.tipo = tipo;
 	}
 
 	public abstract double calcularSalario();

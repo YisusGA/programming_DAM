@@ -13,6 +13,8 @@ public enum DiaSemana {
 		for (DiaSemana dia : dias) { // También se podría poner directamente for (DiaSemana dia : values()) {, sin
 										// necesidad de almacenarlo en un array
 			if (dia.name().equalsIgnoreCase(input)) { // equalsIgnoreCase() para ignorar mayúsculas y minúsculas
+														// .name() es un método que tiene un objeto de tipo enum para
+														// conseguir su nombre
 				return dia;
 			}
 		}

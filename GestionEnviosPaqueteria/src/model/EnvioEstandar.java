@@ -6,8 +6,8 @@ public class EnvioEstandar extends Envio implements Rastreable {
 	private int diasEstimados;
 	EstadoEnvio estado = EstadoEnvio.CREADO;
 
-	public EnvioEstandar(double peso, String origen, String destino, int diasEstimados) {
-		super(peso, origen, destino);
+	public EnvioEstandar(int codigo, double peso, String origen, String destino, int diasEstimados) {
+		super(codigo, peso, origen, destino);
 		this.diasEstimados = diasEstimados;
 	}
 

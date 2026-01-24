@@ -9,7 +9,7 @@ public enum EstadoEnvio {
 		String input = Teclado2.leerCadena();
 		EstadoEnvio[] estados = values();
 		for (EstadoEnvio estado : estados) {
-			if (estado.name().equals(input)) {
+			if (estado.name().equalsIgnoreCase(input)) {
 				return estado;
 			}
 		}

@@ -5,7 +5,8 @@ public abstract class Envio {
 	protected double peso;
 	protected String origen, destino;
 
-	public Envio(double peso, String origen, String destino) {
+	public Envio(int codigo, double peso, String origen, String destino) {
+		this.codigo = codigo;
 		this.peso = peso;
 		this.origen = origen;
 		this.destino = destino;

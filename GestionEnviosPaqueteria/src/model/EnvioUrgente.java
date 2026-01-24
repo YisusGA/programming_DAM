@@ -7,8 +7,8 @@ public class EnvioUrgente extends Envio implements Rastreable, Asegurable {
 	private double recargo;
 	private EstadoEnvio estado = EstadoEnvio.CREADO;
 
-	public EnvioUrgente(double peso, String origen, String destino, double recargo) {
-		super(peso, origen, destino);
+	public EnvioUrgente(int codigo, double peso, String origen, String destino, double recargo) {
+		super(codigo,peso, origen, destino);
 		this.recargo = recargo;
 	}
 

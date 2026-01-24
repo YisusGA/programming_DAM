@@ -5,8 +5,8 @@ import interfaces.Asegurable;
 public class EnvioRefrigerado extends Envio implements Asegurable {
 	private double temperatura;
 
-	public EnvioRefrigerado(double peso, String origen, String destino, double temperatura) {
-		super(peso, origen, destino);
+	public EnvioRefrigerado(int codigo, double peso, String origen, String destino, double temperatura) {
+		super(codigo, peso, origen, destino);
 		this.temperatura = temperatura;
 	}
 

@@ -4,7 +4,7 @@ package others;
 
 import java.util.Scanner;
 
-public class Ordenar_array_enteros {
+public class OrdenarArrayEnteros {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
@@ -23,9 +23,9 @@ public class Ordenar_array_enteros {
 		for (int i = 0; i < array.length; i++) {
 			for (int j = i + 1; j < array.length; j++) {
 				if (array [j] < array[i]) {
-					min = array[i];
-					array[i] = array[j];
-					array[j] = min;
+					min = array[j];
+					array[j] = array[i];
+					array[i] = min;
 				}
 				
 			}

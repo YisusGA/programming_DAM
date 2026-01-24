@@ -5,8 +5,7 @@ public abstract class Envio {
 	protected double peso;
 	protected String origen, destino;
 
-	public Envio(int codigo, double peso, String origen, String destino) {
-		this.codigo = codigo;
+	public Envio(double peso, String origen, String destino) {
 		this.peso = peso;
 		this.origen = origen;
 		this.destino = destino;
@@ -19,7 +18,7 @@ public abstract class Envio {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	private void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
@@ -27,8 +26,8 @@ public abstract class Envio {
 		return peso;
 	}
 
-	public void setPerso(int perso) {
-		this.peso = perso;
+	public void setPeso(double peso) {
+		this.peso = peso;
 	}
 
 	public String getOrigen() {
@@ -49,7 +48,7 @@ public abstract class Envio {
 
 	@Override
 	public String toString() {
-		return "Envio [codigo=" + codigo + ", perso=" + peso + ", origen=" + origen + ", destino=" + destino + "]";
+		return "Envio [codigo=" + codigo + ", peso=" + peso + ", origen=" + origen + ", destino=" + destino + "]";
 	}
 
 	public abstract double calcularCoste();

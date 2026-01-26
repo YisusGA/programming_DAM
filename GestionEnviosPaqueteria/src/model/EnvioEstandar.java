@@ -28,6 +28,14 @@ public class EnvioEstandar extends Envio implements Rastreable {
 		this.diasEstimados = diasEstimados;
 	}
 
+	public EstadoEnvio getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoEnvio estado) {
+		this.estado = estado;
+	}
+
 	@Override
 	public double calcularCoste() {
 		double precio = 3 + peso * 1.2;

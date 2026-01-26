@@ -1,8 +1,6 @@
 package model;
 
-import interfaces.Rastreable;
-
-public abstract class EnvioRastreable extends Envio implements Rastreable {
+public abstract class EnvioRastreable extends Envio  {
 	EstadoEnvio estado = EstadoEnvio.CREADO;
 
 	public EnvioRastreable(int codigo, double peso, String origen, String destino, EstadoEnvio estado) {
@@ -28,11 +26,4 @@ public abstract class EnvioRastreable extends Envio implements Rastreable {
 	public abstract EstadoEnvio obtenerEstado();
 
 	public abstract void actualizarEstado(EstadoEnvio estado);
-
-	@Override
-	public double calcularCoste() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

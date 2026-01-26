@@ -1,7 +1,5 @@
 package model;
 
-import interfaces.Rastreable;
-
 public class EnvioEstandar extends EnvioRastreable {
 	private int diasEstimados;
 

@@ -1,7 +1,6 @@
 package model;
 
 import interfaces.Asegurable;
-import interfaces.Rastreable;
 
 public class EnvioUrgente extends EnvioRastreable implements Asegurable {
 	private double recargo;

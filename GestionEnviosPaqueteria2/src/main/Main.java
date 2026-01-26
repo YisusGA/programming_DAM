@@ -1,18 +1,13 @@
 package main;
 
 import empresa.CentralEnvios;
-import model.Envio;
-import model.EnvioEstandar;
-import model.EnvioRefrigerado;
-import model.EnvioUrgente;
 import model.EstadoEnvio;
-import model.TipoEnvio;
+import repositorio.RepositorioEnvios;
 import teclado.Teclado2;
 
 public class Main {
 
 	public static void main(String[] args) {
-		CentralEnvios central = new CentralEnvios();
 		int opcion;
 
 		do {
@@ -20,24 +15,24 @@ public class Main {
 
 			switch (opcion) {
 			case 1 -> {
-				System.out.println(central.registrarEnvio());
+				System.out.println(CentralEnvios.registrarEnvio());
 			}
 			case 2 -> {
-				if (central.hayEnvios()) {
-					central.listarEnvios();
+				if (RepositorioEnvios.hayEnvios()) {
+					CentralEnvios.listarEnvios();
 				} else {
 					System.err.println("No hay pedidos registrados");
 				}
 
 			}
 			case 3 -> {
-				System.out.printf("El coste total de todos los pedidos es: %.2f %n", central.costeTotal());
+				System.out.printf("El coste total de todos los pedidos es: %.2f %n", CentralEnvios.costeTotal());
 			}
 			case 4 -> {
-				System.out.printf("El coste total de todos los seguros es: %.2f %n", central.costeTotalSeguros());
+				System.out.printf("El coste total de todos los seguros es: %.2f %n", CentralEnvios.costeTotalSeguros());
 			}
 			case 5 -> {
-				if (central.hayEnvios()) {
+				if (RepositorioEnvios.hayEnvios()) {
 					System.out.println("¿Introduce el código de pedido?");
 					int codigo = Teclado2.leerEntero();
 					EstadoEnvio estado;
@@ -46,7 +41,7 @@ public class Main {
 								"Introduce un nuevo estado de envío válido: CREADO, ENVIADO, RECIBIDO, DEVUELTO");
 						estado = EstadoEnvio.leerTeclado();
 					} while (estado == null);
-					System.out.println(central.actualizarEstadoEnvio(estado, codigo));
+					System.out.println(CentralEnvios.actualizarEstadoEnvio(estado, codigo));
 				} else {
 					System.err.println("No hay pedidos registrados");
 				}

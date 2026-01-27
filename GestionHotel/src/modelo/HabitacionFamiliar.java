@@ -1,0 +1,32 @@
+package modelo;
+
+public class HabitacionFamiliar extends Habitacion {
+	private int numeroCamasDobles;
+
+	public HabitacionFamiliar(int numeroHabitacion, int numeroCamas, double precio, int numeroCamasDobles) {
+		super(numeroHabitacion, numeroCamas, precio);
+		this.numeroCamasDobles = numeroCamasDobles;
+	}
+
+	public HabitacionFamiliar(int numeroCamasDobles) {
+		this.numeroCamasDobles = numeroCamasDobles;
+	}
+
+	public HabitacionFamiliar() {
+
+	}
+
+	public int getNumeroCamasDobles() {
+		return numeroCamasDobles;
+	}
+
+	public void setNumeroCamasDobles(int numeroCamasDobles) {
+		this.numeroCamasDobles = numeroCamasDobles;
+	}
+
+	@Override
+	public int plazasTotales() {
+		return numeroCamas + numeroCamasDobles * 2;
+	}
+
+}

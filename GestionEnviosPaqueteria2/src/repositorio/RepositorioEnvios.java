@@ -2,6 +2,7 @@ package repositorio;
 
 import model.Envio;
 import model.EnvioEstandar;
+import model.EnvioRastreable;
 import model.EnvioRefrigerado;
 import model.EnvioUrgente;
 import model.EstadoEnvio;
@@ -25,7 +26,10 @@ public class RepositorioEnvios {
 		envios = aux;
 	}
 
-	public static String registrarEnvio() {
+	public static Envio crearEnvio() { // Por diseño, lo ideal sería sacar esto de aquí, y llevarlo o bien a la
+		// clase CentralEnvios cómo método auxiliar (al que luego llamaría el método
+		// registrarEnvio de esa clase), o bien dividir los métodos por clases: una
+		// para calcular costes, otra para gestionar envíos, etc.
 		Envio envio;
 		TipoEnvio tipo;
 		do {
@@ -65,7 +69,14 @@ public class RepositorioEnvios {
 			envio = null;
 		}
 		}
-		if (envio != null) {
+
+		return envio;
+	}
+
+	public static String registrarEnvio() {
+
+		Envio envio;
+		if ((envio = crearEnvio()) != null) {
 			Envio[] aux = new Envio[envios.length + 1];
 			for (int i = 0; i < envios.length; i++) {
 				aux[i] = envios[i];
@@ -137,12 +148,9 @@ public class RepositorioEnvios {
 			}
 		}
 		if (encontrado) {
-			if (envios[posicion] instanceof EnvioUrgente) {
-				((EnvioUrgente) envios[posicion]).actualizarEstado(estado);
-				return "Estado actualizado correctamente";
-			}
-			if (envios[posicion] instanceof EnvioEstandar) {
-				((EnvioEstandar) envios[posicion]).actualizarEstado(estado);
+			if (envios[posicion] instanceof EnvioRastreable) {
+				((EnvioRastreable) envios[posicion]).actualizarEstado(estado); // Misma explicación que en el método
+																				// costeTotalSeguros() de CentralEnvios
 				return "Estado actualizado correctamente";
 			}
 			return "Este tipo de envío no admite rastreo";

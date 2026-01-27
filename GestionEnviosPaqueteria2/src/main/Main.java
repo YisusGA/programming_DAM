@@ -46,6 +46,19 @@ public class Main {
 					System.err.println("No hay pedidos registrados");
 				}
 			}
+			case 6 -> {
+				if (RepositorioEnvios.hayEnvios()) {
+					System.out.println("Introduce el código del envío a eliminar");
+					int codigo = Teclado2.leerEntero();
+					if (RepositorioEnvios.eliminarEnvio(codigo)) {
+						System.out.println("Pedido eliminado correctamente");
+					} else {
+						System.err.println("No se ha encontrado el pedido con el código introducido");
+					}
+				} else {
+					System.err.println("No hay pedidos registrados");
+				}
+			}
 			case 0 -> {
 				System.out.println("Finalizando el programa...");
 			}
@@ -66,6 +79,7 @@ public class Main {
 				3. Calcular el coste total de todos los pedidos
 				4. Calcular el coste total de todos los seguros contratados
 				5. Actualizar el estado de un envío rastreable
+				6. Eliminar pedido
 				0. Salir del programa
 				""");
 		return Teclado2.leerEntero();

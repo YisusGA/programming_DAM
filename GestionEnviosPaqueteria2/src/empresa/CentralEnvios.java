@@ -1,5 +1,6 @@
 package empresa;
 
+import interfaces.Asegurable;
 import model.Envio;
 import model.EnvioRefrigerado;
 import model.EnvioUrgente;
@@ -39,13 +40,21 @@ public class CentralEnvios {
 		for (Envio e : RepositorioEnvios.findAll()) {
 			// Si hubiera muchos tipos, habría que hacer muchos if. Veremos una forma de
 			// generalizar esto de mejor forma
-			if (e instanceof EnvioUrgente) {
-				coste += ((EnvioUrgente) e).calcularCosteSeguro();
+			if (e instanceof Asegurable) {
+				coste += ((Asegurable) e).calcularCosteSeguro(); // Para no meter un if para EnvioRefrigerado y
+																	// EnvioUrgente, podemos hacer un instanceof de la
+																	// interface. El compilador mira que está declarado
+																	// como Asegurable, que tiene un método
+																	// calcularCosteSeguro() vacío. Pero en tiempo de
+																	// ejecución del programa, mirará cómo se ha
+																	// instanciado el objeto. No se pueden crear
+																	// instancias de Asegurable, pues es una clase
+																	// abstracta, así que el objeto se habrá instanciado
+																	// como alguno de los tipos de envío (urgente,
+																	// estandar o refrigerado). Y si se ha instanciado
+																	// como EnvioEstandar o EnvioUrgente (que son
+																	// Asegurables), entonces entrará dentro del if.
 			}
-			if (e instanceof EnvioRefrigerado) {
-				coste += ((EnvioRefrigerado) e).calcularCosteSeguro();
-			}
-
 		}
 		return coste;
 	}

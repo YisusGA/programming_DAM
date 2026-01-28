@@ -19,7 +19,7 @@ public class Habitacion {
 		return numeroHabitacion;
 	}
 
-	public void setNumeroHabitacion(int numeroHabitacion) {
+	private void setNumeroHabitacion(int numeroHabitacion) {
 		this.numeroHabitacion = numeroHabitacion;
 	}
 

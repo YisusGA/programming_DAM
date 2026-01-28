@@ -14,9 +14,9 @@ public class GestorHotel {
 		int numeroHabitacion;
 		System.out.println(habitacionesExistentes());
 		do {
-			System.out.println("Introduce el número de habitación. No debe ser un número de habitación que ya exista");
+			System.out.println("Introduce el número de habitación. Debe ser un número de habitación que no exista ya");
 			numeroHabitacion = Teclado.leerEntero();
-		} while (numeroHabitacion < 0 && comprobarSiExisteHabitacion(numeroHabitacion));
+		} while (numeroHabitacion < 0 && !nuevoNumeroHabitacionValido(numeroHabitacion));
 		System.out.println("Introduce el número de camas individuales");
 		int numeroCamas = Teclado2.leerEntero();
 		System.out.println("Introduce el precio");
@@ -57,6 +57,15 @@ public class GestorHotel {
 		return false;
 	}
 
+	public static boolean nuevoNumeroHabitacionValido(int numeroHabitacion) {
+		for (int i = 0; i < habitaciones.length; i++) {
+			if (habitaciones[i].getNumeroHabitacion() == numeroHabitacion) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public static String habitacionesExistentes() {
 		String habitacionesExistentes = "Las habitaciones que ya existen son: ";
 		for (Habitacion habitacion : habitaciones) {
@@ -86,7 +95,7 @@ public class GestorHotel {
 		return "No se ha encontrado la habitación con ese número";
 	}
 
-	public String actualizarDatosHabitacion(int numeroHabitacion) {
+	public static String actualizarDatosHabitacion(int numeroHabitacion) {
 		if (comprobarSiExisteHabitacion(numeroHabitacion)) {
 			Habitacion habitacion = devolverHabitacion(numeroHabitacion);
 			System.out.println(habitacion);

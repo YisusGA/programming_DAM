@@ -7,13 +7,13 @@ import modelo.Habitacion;
 public class ReservaLarga extends Reserva {
 	LocalDate fechaFin;
 
-	public ReservaLarga(LocalDate fecha, Habitacion[] habitacionesReservadas, int numeroPersonas, LocalDate fechaFin) {
-		super(fecha, habitacionesReservadas, numeroPersonas);
+	public ReservaLarga(LocalDate fecha, Habitacion[] habitacionesReservadas, int numeroPersonas, int codigo, LocalDate fechaFin) {
+		super(fecha, habitacionesReservadas, numeroPersonas, codigo);
 		this.fechaFin = fechaFin;
 	}
 
-	public ReservaLarga(LocalDate fecha, int numeroPersonas, LocalDate fechaFin) {
-		super(fecha, numeroPersonas);
+	public ReservaLarga(LocalDate fecha, int numeroPersonas, int codigo, LocalDate fechaFin) {
+		super(fecha, numeroPersonas, codigo);
 		this.fechaFin = fechaFin;
 	}
 

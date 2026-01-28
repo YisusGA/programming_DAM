@@ -8,16 +8,19 @@ public class Reserva {
 	protected LocalDate fecha;
 	protected Habitacion[] habitacionesReservadas;
 	protected int numeroPersonas;
+	int codigo;
 
-	public Reserva(LocalDate fecha, Habitacion[] habitacionesReservadas, int numeroPersonas) {
+	public Reserva(LocalDate fecha, Habitacion[] habitacionesReservadas, int numeroPersonas, int codigo) {
 		this.fecha = fecha;
 		this.habitacionesReservadas = habitacionesReservadas;
 		this.numeroPersonas = numeroPersonas;
+		this.codigo = codigo;
 	}
 
-	public Reserva(LocalDate fecha, int numeroPersonas) {
+	public Reserva(LocalDate fecha, int numeroPersonas, int codigo) {
 		this.fecha = fecha;
 		this.numeroPersonas = numeroPersonas;
+		this.codigo = codigo;
 	}
 
 	public Reserva() {

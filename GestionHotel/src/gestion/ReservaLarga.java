@@ -7,7 +7,8 @@ import modelo.Habitacion;
 public class ReservaLarga extends Reserva {
 	LocalDate fechaFin;
 
-	public ReservaLarga(LocalDate fecha, Habitacion[] habitacionesReservadas, int numeroPersonas, int codigo, LocalDate fechaFin) {
+	public ReservaLarga(LocalDate fecha, Habitacion[] habitacionesReservadas, int numeroPersonas, int codigo,
+			LocalDate fechaFin) {
 		super(fecha, habitacionesReservadas, numeroPersonas, codigo);
 		this.fechaFin = fechaFin;
 	}
@@ -22,11 +23,18 @@ public class ReservaLarga extends Reserva {
 	}
 
 	@Override
-	public Habitacion[] compruebaReserva(LocalDate fecha) {
-		if (fecha.equals(this.fecha) || fecha.equals(this.fechaFin) || (fecha.isAfter(this.fecha) && fecha.isBefore(this.fechaFin))) {
+	public Habitacion[] getHabitacionesReservadas(LocalDate fecha) {
+		if (fecha.equals(this.fecha) || fecha.equals(this.fechaFin)
+				|| (fecha.isAfter(this.fecha) && fecha.isBefore(this.fechaFin))) {
 			return habitacionesReservadas;
 		}
 		return null;
+	}
+
+	@Override
+	public boolean comprobarFechaReserva(LocalDate fecha) {
+		return fecha.equals(this.fecha) || fecha.equals(this.fechaFin)
+				|| (fecha.isAfter(this.fecha) && fecha.isBefore(this.fechaFin));
 	}
 
 }

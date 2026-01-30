@@ -10,6 +10,8 @@ public class Habitacion {
 		this.numeroCamas = numeroCamas;
 		this.precio = precio;
 		this.tipo = tipo;
+		// No tiene sentido meter una propiedad boolean disponible porque la
+		// disponibilidad depende de la fecha
 	}
 
 	public Habitacion() {

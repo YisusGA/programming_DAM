@@ -15,9 +15,9 @@ public class MiArrayChulo<T> {
 	public T get(int posicion) {
 		if (posicion > datos.length - 1 || posicion < 0) {
 			return null;
-		} else {
-			return datos[posicion];
 		}
+		return datos[posicion];
+
 	}
 
 	public int size() {
@@ -25,7 +25,15 @@ public class MiArrayChulo<T> {
 	}
 
 	public void delete(int posicion) {
-		// ToDo
+		if (posicion > 0 && posicion < datos.length - 1) {
+			T[] aux = (T[]) new Object[datos.length - 1];
+			for (int i = 0, j = 0; i < datos.length; i++) {
+				if (i != posicion) {
+					aux[j++] = datos[i];
+				}
+			}
+			datos = aux;
+		}
 	}
 
 }

@@ -16,9 +16,20 @@ public class Plato {
 	// NullPointerException, tenemos que inicializar la lista, y aquí ya sí que
 	// tenemos que comprometernos con ArrayList o LinkedList
 
+	public Plato(String nombre, Double precio, List<String> ingredientes) {
+		super();
+		this.nombre = nombre;
+		this.precio = precio;
+		this.ingredientes = ingredientes;
+	}
+
 	public Plato(String nombre, Double precio) {
 		this.nombre = nombre;
 		this.precio = precio;
+	}
+
+	public Plato() {
+
 	}
 
 	public String getNombre() {
@@ -69,9 +80,8 @@ public class Plato {
 	 */
 	public boolean removeIngredientesTodos(String ingrediente) {
 		// Esto sería un while que lo único que hace está dentro de la propia condición.
-		// No hace
-		// falta abrir y cerrar las llaves
-//		while (ingredientes.remove(ingrediente));
+		// No hace falta abrir y cerrar las llaves
+		// while (ingredientes.remove(ingrediente));
 
 		// Pero mejor si devolvemos un estado de lo que se ha hecho
 		boolean hay = false;
@@ -84,7 +94,7 @@ public class Plato {
 	public String listadoIngredientes() {
 		String lista = "";
 		for (int i = 0; i < ingredientes.size(); i++) {
-			lista += ingredientes.get(i) + "\n";
+			lista += ingredientes.get(i) + ", ";
 		}
 		// Otra forma
 //		for (String i : ingredientes) {
@@ -112,14 +122,20 @@ public class Plato {
 
 	// Una versión más enrevesada de hacer lo que hemos hecho con el método remove
 	// de antes
-	public boolean removeIngredientev2(String ingrediente) {
+	public boolean removeIngredientesv2(String ingrediente) {
 		boolean encontrado = false;
 		int posicion;
-		while ((posicion = ingredientes.indexOf(ingrediente)) != -1) {
+		while ((posicion = ingredientes.indexOf(ingrediente)) != -1) { // -1 porque indexOf devuelve -1 si no encuentra
+																		// nada
 			ingredientes.remove(posicion);
 			encontrado = true;
 		}
 		return encontrado;
+	}
+
+	@Override
+	public String toString() {
+		return "Plato [nombre=" + nombre + ", precio=" + precio + ", ingredientes=(" + listadoIngredientes() + ")]";
 	}
 
 }

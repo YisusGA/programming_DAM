@@ -2,6 +2,7 @@ package model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class Plato {
 	private String nombre;
@@ -131,6 +132,19 @@ public class Plato {
 			encontrado = true;
 		}
 		return encontrado;
+	}
+
+	@Override
+	public boolean equals(Object obj) { // Para generar automáticamente este método equals que sobreescribe al de la
+										// superclase, hacemos click derecho>Source>Generate hashCode() and equals()
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Plato other = (Plato) obj;
+		return Objects.equals(nombre, other.nombre);
 	}
 
 	@Override

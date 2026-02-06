@@ -1,11 +1,13 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Restaurante {
 	private String nombre;
-	private List<Plato> carta = new ArrayList<>(); // Inicializamos la lista como ArrayList, pues es más ventajosa para el
+	private List<Plato> carta = new ArrayList<>(); // Inicializamos la lista como ArrayList, pues es más ventajosa para
+													// el
 													// uso que le vamos a dar: normalmente no vamos a necesitar añadir o
 													// eliminar elementos (que es el punto flojo de las ArrayList), pero
 													// sí vamos a estar consultando continuamente elementos (que es el
@@ -60,13 +62,31 @@ public class Restaurante {
 
 	}
 
-	public boolean eliminarPlato(String nombre) {
-		for (int i = 0; i < carta.size(); i++) {
-			if (carta.get(i).getNombre().equals(nombre)) {
-				return carta.remove(carta.get(i));
-			}
-		}
-		return false;
+//	public boolean eliminarPlatov1(String nombre) {
+//		for (int i = 0; i < carta.size(); i++) {
+//			if (carta.get(i).getNombre().equals(nombre)) {
+//				return carta.remove(carta.get(i)); // Aquí hay sobre-iteración, porque estamos iterando en la carta con
+//													// el for y luego con el método remove. Esto genera problemas. La
+//													// solución es el método v2
+//			}
+//		}
+//		return false;
+//	}
+
+	public boolean eliminarPlatov2(String nombre) {
+		Plato p = new Plato(nombre, 0.0); // Creamos un plato cuyo nombre sea el pasado por parámetro
+		return carta.remove(p); // Y como hemos creado un método equals cuyo criterio de igualdad es el nombre,
+								// usamos el método remove, que podrá encontrar el plato que sea igual (tenga el
+								// mismo nombre) que el nombre pasado por parámetro
+	}
+
+	public boolean eliminarPlatov3(Plato plato) {
+		return carta.remove(plato); // ¿Qué criterio de igualdad sigue este método remove en el caso de comparar
+									// objetos Plato? Pues el que está implementado en la superclase List. Y lo que
+									// está implementado en List es que dos objetos son iguales si sus direcciones
+									// de memoria son la misma. Por lo tanto, SIEMPRE tenemos que sobreescribir el
+									// método equals en la clase de donde venga nuestra lista (Plato en este caso)
+									// para establecer nosotros el criterio de igualdad
 	}
 
 	public String getIngredientesPlato(String nombre) {
@@ -76,6 +96,16 @@ public class Restaurante {
 			}
 		}
 		return "Plato no encontrado";
+
+	}
+
+	public List<String> getIngredientesPlato2(String nombre) {
+		for (int i = 0; i < carta.size(); i++) {
+			if (carta.get(i).getNombre().equals(nombre)) {
+				return carta.get(i).getIngredientes();
+			}
+		}
+		return null;
 
 	}
 
@@ -89,6 +119,18 @@ public class Restaurante {
 			}
 		}
 		return "El plato más caro es: " + masCaro + " y cuesta: " + max;
+
+	}
+
+	public void eliminarPlatosContienen(String ingrediente) {
+		List<Plato> platos = new LinkedList<>();
+		for (Plato p : carta) {
+			if (p.contieneIngrediente(ingrediente)) {
+				platos.add(p);
+			}
+		}
+		carta.removeAll(platos);
+		
 
 	}
 

@@ -7,15 +7,28 @@ import java.util.Objects;
 public class Plato {
 	private String nombre;
 	private Double precio; // Aquí estamos declarando la variable con un wrapper. Esto me da, por ejemplo,
-							// la ventaja de tener un precio por definir, que tendría un null asignado
+							// la ventaja de tener un precio por definir, que tendría un null asignado. Hay
+							// que tener en cuenta que, al inicializar esta propiedad posteriormente en el
+							// main, al ser un wrapper, si metemos un int, la JVM nos dará un error porque
+							// no puede promocionar un tipo de dato primitivo int a un Double. Pero si
+							// metemos un double primitivo (por ejemplo, 6.0), sí que hará el casting
+							// automático a Double
 
 	private List<String> ingredientes = new LinkedList<>(); // Usamos la colección List de java.util en la declaración.
-															// Lo que hicimos nosotros creando la
-	// lista era simplemente un ejercicio para entenderlo. List es una interface.
-	// Cuando instanciemos la lista, habrá que hacerlo como ArrayList o como
-	// LinkedList, que ya son dos implementaciones de List. Pero si queremos evitar
-	// NullPointerException, tenemos que inicializar la lista, y aquí ya sí que
-	// tenemos que comprometernos con ArrayList o LinkedList
+															// Lo que hicimos nosotros creando las listas propias
+															// nuestras en los paquetes colecciones.arrayList y
+															// colecciones.linkedList del proyecto POO era simplemente
+															// un ejercicio para entenderlo. List es una interface.
+															// Cuando instanciemos la lista, habrá que hacerlo como
+															// ArrayList o como LinkedList, que ya son dos
+															// implementaciones de List. Pero si queremos evitar
+															// NullPointerException, tenemos que inicializar la lista
+															// desde ya, y aquí ya sí que tenemos que comprometernos con
+															// ArrayList o LinkedList. En este caso, es más ventajoso
+															// trabajar con LinkedList, ya que vamos a estar
+															// continuamente añadiendo o eliminando ingredientes, que
+															// son los 2 métodos en los que las LinkedList son más
+															// eficientes
 
 	public Plato(String nombre, Double precio, List<String> ingredientes) {
 		super();
@@ -81,7 +94,7 @@ public class Plato {
 	 */
 	public boolean removeIngredientesTodos(String ingrediente) {
 		// Esto sería un while que lo único que hace está dentro de la propia condición.
-		// No hace falta abrir y cerrar las llaves
+		// Y funcionaría perfectamente. No hace falta abrir y cerrar las llaves
 		// while (ingredientes.remove(ingrediente));
 
 		// Pero mejor si devolvemos un estado de lo que se ha hecho
@@ -107,7 +120,8 @@ public class Plato {
 	public boolean contieneIngrediente(String ingrediente) {
 		return ingredientes.contains(ingrediente); // Este método ya tiene un bucle que itera y compara objetos. Como en
 													// este caso, lo que comparamos son Strings, que ya tienen un
-													// criterio de igualdad, este contains funciona
+													// criterio de igualdad, este contains funciona sin hacer nada
+													// adicional
 	}
 
 	public boolean contieneIngredienteLargo(int numLetras) { // Aquí no se puede usar el contains, hay que hacerlo a la
@@ -123,20 +137,21 @@ public class Plato {
 
 	// Una versión más enrevesada de hacer lo que hemos hecho con el método remove
 	// de antes
-	public boolean removeIngredientesv2(String ingrediente) {
-		boolean encontrado = false;
-		int posicion;
-		while ((posicion = ingredientes.indexOf(ingrediente)) != -1) { // -1 porque indexOf devuelve -1 si no encuentra
-																		// nada
-			ingredientes.remove(posicion);
-			encontrado = true;
-		}
-		return encontrado;
-	}
+//	public boolean removeIngredientesv2(String ingrediente) {
+//		boolean encontrado = false;
+//		int posicion;
+//		while ((posicion = ingredientes.indexOf(ingrediente)) != -1) { // -1 porque indexOf devuelve -1 si no encuentra
+//																		// nada
+//			ingredientes.remove(posicion);
+//			encontrado = true;
+//		}
+//		return encontrado;
+//	}
 
 	@Override
 	public boolean equals(Object obj) { // Para generar automáticamente este método equals que sobreescribe al de la
-										// superclase, hacemos click derecho>Source>Generate hashCode() and equals()
+										// superclase, hacemos click derecho>Source>Generate hashCode() and equals(). Y
+										// de momento, podemos borrar el hashCode() que genera
 		if (this == obj)
 			return true;
 		if (obj == null)

@@ -56,7 +56,7 @@ public class Restaurante {
 		return resultado;
 	}
 
-	public String platosContienenIngrediente(String ingrediente) {
+	public String platosContienenIngredientev1(String ingrediente) {
 		String resultado = "Los platos que contienen el ingrediente " + ingrediente + " son los siguientes\n";
 		int contador = 0;
 		for (int i = 0; i < carta.size(); i++) {
@@ -72,12 +72,21 @@ public class Restaurante {
 
 	}
 
+	public List<String> platosCotienennIngredientev2(String ingrediente) {
+		List<String> result = new LinkedList<>();
+		for (Plato p : carta)
+			if (p.contieneIngrediente(ingrediente)) {
+				result.add(p.getNombre());
+			}
+		return result;
+	}
+
 //	public boolean eliminarPlatov1(String nombre) {
 //		for (int i = 0; i < carta.size(); i++) {
 //			if (carta.get(i).getNombre().equals(nombre)) {
 //				return carta.remove(carta.get(i)); // Aquí hay sobre-iteración, porque estamos iterando en la carta con
-//													// el for y luego con el método remove. Esto genera problemas en los extremos
-//	                                                // La solución es el método v2
+//													// el for y luego con el método remove. Esto genera problemas (errores 
+//													// de concurrencia) en los extremos. La solución es el método v2
 //			}
 //		}
 //		return false;
@@ -103,7 +112,7 @@ public class Restaurante {
 									// este caso en la clase Plato
 	}
 
-	public String getIngredientesPlato(String nombre) {
+	public String getIngredientesPlatov1(String nombre) {
 		for (int i = 0; i < carta.size(); i++) {
 			if (carta.get(i).getNombre().equals(nombre)) {
 				return carta.get(i).listadoIngredientes();
@@ -113,7 +122,7 @@ public class Restaurante {
 
 	}
 
-	public List<String> getIngredientesPlato2(String nombre) {
+	public List<String> getIngredientesPlatov2(String nombre) {
 		for (int i = 0; i < carta.size(); i++) {
 			if (carta.get(i).getNombre().equals(nombre)) {
 				return carta.get(i).getIngredientes();

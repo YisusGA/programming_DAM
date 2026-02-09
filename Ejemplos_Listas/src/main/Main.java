@@ -39,7 +39,7 @@ public class Main {
 
 		System.out.println(r.verCarta());
 		System.out.println("----------------");
-		System.out.println(r.platosContienenIngrediente("Queso"));
+		System.out.println(r.platosContienenIngredientev1("Queso"));
 
 		Plato p5 = new Plato("Pizza", 100.0);
 		System.out.println("Eliminamos pizza");

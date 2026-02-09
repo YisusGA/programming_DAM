@@ -121,7 +121,10 @@ public class Plato {
 		return ingredientes.contains(ingrediente); // Este método ya tiene un bucle que itera y compara objetos. Como en
 													// este caso, lo que comparamos son Strings, que ya tienen un
 													// criterio de igualdad, este contains funciona sin hacer nada
-													// adicional
+													// adicional. Importante tener en cuenta que para algunos tipos de
+													// datos (String, Integer, etc.), ya exixten criterios de igualdad
+													// hechos que funcionan. Pero si no existen, tenemos que crearlos
+													// nosotros (como en el caso de comparar objetos Plato)
 	}
 
 	public boolean contieneIngredienteLargo(int numLetras) { // Aquí no se puede usar el contains, hay que hacerlo a la

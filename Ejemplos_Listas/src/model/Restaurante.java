@@ -151,7 +151,8 @@ public class Restaurante {
 				platos.add(p);
 			}
 		}
-		carta.removeAll(platos);
+		carta.removeAll(platos); // Este removeAll(Collection<?> c) se basa en el método equals(Object obj) que
+									// hemos sobreescrito de la clase Object en la clase Plato
 
 	}
 

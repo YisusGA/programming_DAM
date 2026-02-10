@@ -45,7 +45,10 @@ public class Alumno {
 	}
 
 	public boolean aprobado() {
-		return this.nota >= 5;
+		if (this.nota != null) {
+			return this.nota >= 5;
+		}
+		return false;
 	}
 
 	// ¿Podría tener una utilidad para implementar bien el método de devolver una

@@ -20,76 +20,114 @@ public class Main {
 				do {
 					System.out.println("Escribe el dni del profesor, no debe existir uno igual");
 					profesor.setNif(Teclado2.leerCadena());
-				} while (profesores.contains(profesor)); // Parece que este contains no está usando el método equals que he sobreescrito en Profesor
+				} while (profesores.contains(profesor)); // Parece que este contains no está usando el método equals que
+															// he sobreescrito en Profesor
 				System.out.println("Escribe el nombre del profesor");
 				profesor.setNombre(Teclado2.leerCadena());
+				profesores.addLast(profesor);
 			}
 			case 2 -> {
-				Profesor profesor;
-				do {
-					System.out.println("Introduce el dni del profesor, debe existir");
-					profesor = devolverProfesor(Teclado2.leerCadena());
-				} while (profesor != null);
-				Alumno alumno = new Alumno();
-				do {
-					System.out.println("Escribe el dni del alumno, no debe existir uno igual");
-					alumno.setNif(Teclado2.leerCadena());
-				} while (profesor.getAlumnos().contains(alumno));
-				System.out.println("Inserta el nombre del alumno");
-				alumno.setNombre(Teclado2.leerCadena());
-				profesor.addAlumno(alumno);
+				if (profesores.size() > 0) {
+					Profesor profesor;
+					do {
+						System.out.println("Introduce el dni del profesor, debe existir");
+						profesor = devolverProfesor(Teclado2.leerCadena());
+					} while (profesor == null);
+					Alumno alumno = new Alumno();
+					do {
+						System.out.println("Escribe el dni del alumno, no debe existir uno igual");
+						alumno.setNif(Teclado2.leerCadena());
+					} while (profesor.getAlumnos().contains(alumno));
+					System.out.println("Inserta el nombre del alumno");
+					alumno.setNombre(Teclado2.leerCadena());
+					profesor.addAlumno(alumno);
+				} else {
+					System.err.println("Aún no se ha añadido ningún profesor");
+				}
 			}
 			case 3 -> {
-				Profesor profesor;
-				do {
-					System.out.println("Introduce el dni del profesor, debe existir");
-					profesor = devolverProfesor(Teclado2.leerCadena());
-				} while (profesor != null);
-				Alumno alumno;
-				do {
-					System.out.println("Introduce el dni del alumno, debe existir");
-					alumno = profesor.devolverAlumno(Teclado2.leerCadena());
-				} while (alumno != null);
-				double nota;
-				do {
-					System.out.println("Introduce la nota del alumno, debe estar comprendida entre 0 y 10");
-					nota = Teclado2.leerDecimal();
-				} while (nota < 0 || nota > 10);
+				if (profesores.size() > 0) {
+					Profesor profesor;
+					do {
+						System.out.println("Introduce el dni del profesor, debe existir");
+						profesor = devolverProfesor(Teclado2.leerCadena());
+					} while (profesor == null);
+					if (profesor.getAlumnos().size() > 0) {
+						Alumno alumno;
+						do {
+							System.out.println("Introduce el dni del alumno, debe existir");
+							alumno = profesor.devolverAlumno(Teclado2.leerCadena());
+						} while (alumno == null);
+						double nota;
+						do {
+							System.out.println("Introduce la nota del alumno, debe estar comprendida entre 0 y 10");
+							nota = Teclado2.leerDecimal();
+						} while (nota < 0 || nota > 10);
 
-				profesor.ponerNota(nota, alumno);
+						profesor.ponerNota(nota, alumno);
+					} else {
+						System.err.println("Este profesor no tiene asignado ningún alumno");
+					}
+				} else {
+					System.err.println("Aún no se ha añadido ningún profesor");
+				}
 
 			}
 			case 4 -> {
-				Profesor profesor;
-				do {
-					System.out.println("Introduce el dni del profesor, debe existir");
-					profesor = devolverProfesor(Teclado2.leerCadena());
-				} while (profesor != null);
-				System.out.println(profesor.porcentajeAprobados());
+				if (profesores.size() > 0) {
+					Profesor profesor;
+					do {
+						System.out.println("Introduce el dni del profesor, debe existir");
+						profesor = devolverProfesor(Teclado2.leerCadena());
+					} while (profesor == null);
+					if (profesor.getAlumnos().size() > 0) {
+						System.out.printf("%.2f por ciento%n", profesor.porcentajeAprobados());
+					} else {
+						System.err.println("Este profesor no tiene asignado ningún alumno");
+					}
+				} else {
+					System.err.println("Aún no se ha añadido ningún profesor");
+				}
 			}
 			case 5 -> {
 				// ToDo
 			}
 			case 6 -> {
-				Profesor profesor;
-				do {
-					System.out.println("Introduce el dni del profesor, debe existir");
-					profesor = devolverProfesor(Teclado2.leerCadena());
-				} while (profesor != null);
-				System.out.println(profesor.listadoOrdenadoAlumnos()); // ¿Esto funcionará así tal cual?
+				if (profesores.size() > 0) {
+					Profesor profesor;
+					do {
+						System.out.println("Introduce el dni del profesor, debe existir");
+						profesor = devolverProfesor(Teclado2.leerCadena());
+					} while (profesor == null);
+					if (profesor.getAlumnos().size() > 0) {
+						System.out.println(profesor.listadoOrdenadoAlumnos()); // ¿Esto funcionará así tal cual?
+					} else {
+						System.err.println("Este profesor no tiene asignado ningún alumno");
+					}
+				} else {
+					System.err.println("Aún no se ha añadido ningún profesor");
+				}
 			}
 			case 7 -> {
-				Profesor profesor;
-				do {
-					System.out.println("Introduce el dni del profesor, debe existir");
-					profesor = devolverProfesor(Teclado2.leerCadena());
-				} while (profesor != null);
-				Alumno alumno;
-				do {
-					System.out.println("Introduce el dni del alumno, debe existir");
-					alumno = profesor.devolverAlumno(Teclado2.leerCadena());
-				} while (alumno != null);
-				profesor.eliminarAlumno(alumno);
+				if (profesores.size() > 0) {
+					Profesor profesor;
+					do {
+						System.out.println("Introduce el dni del profesor, debe existir");
+						profesor = devolverProfesor(Teclado2.leerCadena());
+					} while (profesor == null);
+					if (profesor.getAlumnos().size() > 0) {
+						Alumno alumno;
+						do {
+							System.out.println("Introduce el dni del alumno, debe existir");
+							alumno = profesor.devolverAlumno(Teclado2.leerCadena());
+						} while (alumno == null);
+						profesor.eliminarAlumno(alumno);
+					} else {
+						System.err.println("Este profesor no tiene asignado ningún alumno");
+					}
+				} else {
+					System.err.println("Aún no se ha añadido ningún profesor");
+				}
 
 			}
 			case 0 -> {

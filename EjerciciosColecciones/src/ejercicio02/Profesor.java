@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import teclado.Teclado2;
+
 public class Profesor {
 	private String nif, nombre;
 	private List<Alumno> alumnos = new ArrayList<>();
@@ -86,13 +88,9 @@ public class Profesor {
 		return alumnos.remove(alumno);
 	}
 
-	public Alumno devolverAlumno(String nif) {
-		for (int i = 0; i < alumnos.size(); i++) {
-			if (alumnos.get(i).getNif().equals(nif)) {
-				return alumnos.get(i);
-			}
-		}
-		return null;
+	public int devolverIndexAlumno(String nif) {
+		Alumno alumno = new Alumno(nif);
+		return alumnos.indexOf(alumno);
 	}
 
 	public boolean tieneAlumno(Alumno alumno) {
@@ -154,8 +152,8 @@ public class Profesor {
 								// lo dejamos en null y no hemos sobreescrito el método compareTo(), nos va a
 								// dar un error
 				return aux;
-//		} else if (alumnos.size() == 1) { // Esto no hace falta hacerlo, porque si sólo hay 1 elemento, sort() automáticamente no hace nada
-//			return alumnos;
+			} else if (alumnos.size() == 1) {
+				return alumnos;
 			} else {
 				return null;
 			}
@@ -163,11 +161,46 @@ public class Profesor {
 			return null;
 		}
 	}
-	
+
+	public List<Alumno> listadoOrdenadoAlumnosv3() {
+		if (alumnos != null) {
+			if (alumnos.size() > 1) {
+				List<Alumno> aux = new ArrayList<>();
+				for (Alumno a : alumnos) {
+					aux.add(a);
+				}
+				aux.sort(new OrdenAlfabeticoAlumnos());
+				return aux;
+			} else if (alumnos.size() == 1) {
+				return alumnos;
+			} else {
+				return null;
+			}
+
+		} else {
+			return null;
+		}
+	}
+
 	public List<Alumno> listadoOrdenadoDescendenteNotas() {
 		// Para pasar un criterio específico, necesitamos un objeto de tipo comparator
-		alumnos.sort(new CriterioNotaDescendente()); // Aquí, pasamos como parámetro de sort un objeto de nuestra clase CriterioNotaDescendente
-		return alumnos;
+		if (alumnos != null) {
+			if (alumnos.size() > 1) {
+				List<Alumno> aux = new ArrayList<>();
+				for (Alumno a : alumnos) {
+					aux.add(a);
+				}
+				aux.sort(new CriterioNotaDescendente()); // Aquí, pasamos como parámetro de sort un objeto de nuestra
+															// clase CriterioNotaDescendente
+				return aux;
+			} else if (alumnos.size() == 1) {
+				return alumnos;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
 	}
 
 	@Override

@@ -25,6 +25,10 @@ public class Alumno implements Comparable<Alumno> { // Al implementar la interfa
 		this.nif = nif;
 		this.nombre = nombre;
 	}
+	
+	public Alumno(String nif) {
+		this.nif = nif;		
+	}
 
 	public Alumno() {
 	}

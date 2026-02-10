@@ -2,9 +2,7 @@ package ejercicio02;
 
 import java.util.Comparator;
 
-public class CriterioNotaDescendente implements Comparator<Alumno> { // Comparator es una interface funcional, lo que
-																		// quiere decir que tiene únicamente 1 método
-																		// abstracto
+public class OrdenAlfabeticoAlumnos implements Comparator<Alumno> {
 
 	@Override
 	/**
@@ -13,7 +11,7 @@ public class CriterioNotaDescendente implements Comparator<Alumno> { // Comparat
 	 * int
 	 */
 	public int compare(Alumno o1, Alumno o2) {
-		return (int) (o2.getNota() - o1.getNota());
+		return o1.getNombre().toLowerCase().charAt(0) - o2.getNombre().toLowerCase().charAt(0);
 	}
 
 }

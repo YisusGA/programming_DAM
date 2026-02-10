@@ -28,11 +28,7 @@ public class Main {
 			}
 			case 2 -> {
 				if (profesores.size() > 0) {
-					Profesor profesor;
-					do {
-						System.out.println("Introduce el dni del profesor, debe existir");
-						profesor = devolverProfesor(Teclado2.leerCadena());
-					} while (profesor == null);
+					Profesor profesor = devolverProfesor();
 					Alumno alumno = new Alumno();
 					do {
 						System.out.println("Escribe el dni del alumno, no debe existir uno igual");
@@ -48,17 +44,15 @@ public class Main {
 			}
 			case 3 -> {
 				if (profesores.size() > 0) {
-					Profesor profesor;
-					do {
-						System.out.println("Introduce el dni del profesor, debe existir");
-						profesor = devolverProfesor(Teclado2.leerCadena());
-					} while (profesor == null);
+					Profesor profesor = devolverProfesor();
 					if (profesor.getAlumnos().size() > 0) {
 						Alumno alumno;
+						int index;
 						do {
 							System.out.println("Introduce el dni del alumno, debe existir");
-							alumno = profesor.devolverAlumno(Teclado2.leerCadena());
-						} while (alumno == null);
+							index = profesor.devolverIndexAlumno(Teclado2.leerCadena());
+						} while (index < 0);
+						alumno = profesor.getAlumnos().get(index);
 						double nota;
 						do {
 							System.out.println("Introduce la nota del alumno, debe estar comprendida entre 0 y 10");
@@ -77,11 +71,7 @@ public class Main {
 			}
 			case 4 -> {
 				if (profesores.size() > 0) {
-					Profesor profesor;
-					do {
-						System.out.println("Introduce el dni del profesor, debe existir");
-						profesor = devolverProfesor(Teclado2.leerCadena());
-					} while (profesor == null);
+					Profesor profesor = devolverProfesor();
 					if (profesor.getAlumnos().size() > 0) {
 						System.out.println(profesor.porcentajeAprobados() + "%");
 					} else {
@@ -97,7 +87,6 @@ public class Main {
 					System.out.println("Introduce el dni del alumno");
 					String nif = Teclado2.leerCadena();
 					alumno.setNif(nif);
-					List<Profesor> aux = new ArrayList<>();
 					for (Profesor p : profesores) {
 						if (p.tieneAlumno(alumno)) {
 							System.out.println(p);
@@ -109,17 +98,18 @@ public class Main {
 			}
 			case 6 -> {
 				if (profesores.size() > 0) {
-					Profesor profesor;
-					do {
-						System.out.println("Introduce el dni del profesor, debe existir");
-						profesor = devolverProfesor(Teclado2.leerCadena());
-					} while (profesor == null);
+					Profesor profesor = devolverProfesor();
 					if (profesor.getAlumnos().size() > 0) {
-//						System.out.println("Método de ordenación v1");
-//						System.out.println(profesor.listadoOrdenadoAlumnosv1());
+						System.out.println("Método de ordenación v1");
+						System.out.println(profesor.listadoOrdenadoAlumnosv1());
+						System.out.println("----------------------------------");
 						System.out.println("Método de ordenación v2");
 						System.out.println(profesor.listadoOrdenadoAlumnosv2());
-						System.out.println("Método de ordenación v3: orden descendente de notas");
+						System.out.println("----------------------------------");
+						System.out.println("Método de ordenación v3");
+						System.out.println(profesor.listadoOrdenadoAlumnosv3());
+						System.out.println("----------------------------------");
+						System.out.println("Método de ordenación v3 según orden descendente de notas");
 						System.out.println(profesor.listadoOrdenadoDescendenteNotas());
 					} else {
 						System.err.println("Este profesor no tiene asignado ningún alumno");
@@ -130,17 +120,15 @@ public class Main {
 			}
 			case 7 -> {
 				if (profesores.size() > 0) {
-					Profesor profesor;
-					do {
-						System.out.println("Introduce el dni del profesor, debe existir");
-						profesor = devolverProfesor(Teclado2.leerCadena());
-					} while (profesor == null);
+					Profesor profesor = devolverProfesor();
 					if (profesor.getAlumnos().size() > 0) {
 						Alumno alumno;
+						int index;
 						do {
 							System.out.println("Introduce el dni del alumno, debe existir");
-							alumno = profesor.devolverAlumno(Teclado2.leerCadena());
-						} while (alumno == null);
+							index = profesor.devolverIndexAlumno(Teclado2.leerCadena());
+						} while (index < 0);
+						alumno = profesor.getAlumnos().get(index);
 						profesor.eliminarAlumno(alumno);
 						System.out.println("Alumno eliminado correctamente");
 					} else {
@@ -177,12 +165,24 @@ public class Main {
 		return Teclado2.leerEntero();
 	}
 
-	public static Profesor devolverProfesor(String nif) {
-		for (int i = 0; i < profesores.size(); i++) {
-			if (profesores.get(i).getNif().equals(nif)) {
-				return profesores.get(i);
-			}
-		}
-		return null;
+//	public static Profesor devolverProfesor(String nif) {
+//		for (int i = 0; i < profesores.size(); i++) {
+//			if (profesores.get(i).getNif().equals(nif)) {
+//				return profesores.get(i);
+//			}
+//		}
+//		return null;
+//	}
+
+	public static Profesor devolverProfesor() {
+		int index = -1;
+		do {
+			System.out.println("Introduce el dni del profesor, debe existir");
+			String input = Teclado2.leerCadena();
+			Profesor profe = new Profesor(input);
+			index = profesores.indexOf(profe);
+		} while (index < 0);
+		return profesores.get(index);
 	}
+
 }

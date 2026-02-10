@@ -61,7 +61,7 @@ public class Profesor {
 				contador++;
 			}
 		}
-		return ((double) contador / alumnos.size()) * 100;
+		return (contador / alumnos.size()) * 100;
 	}
 
 	public boolean ponerNota(double nota, Alumno alumno) {

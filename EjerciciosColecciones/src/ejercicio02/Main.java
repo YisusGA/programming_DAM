@@ -81,7 +81,7 @@ public class Main {
 						profesor = devolverProfesor(Teclado2.leerCadena());
 					} while (profesor == null);
 					if (profesor.getAlumnos().size() > 0) {
-						System.out.printf("%.2f por ciento%n", profesor.porcentajeAprobados());
+						System.out.println(profesor.porcentajeAprobados() + "%");
 					} else {
 						System.err.println("Este profesor no tiene asignado ningún alumno");
 					}

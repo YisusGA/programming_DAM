@@ -20,11 +20,11 @@ public class Main {
 				do {
 					System.out.println("Escribe el dni del profesor, no debe existir uno igual");
 					profesor.setNif(Teclado2.leerCadena());
-				} while (profesores.contains(profesor)); // Parece que este contains no está usando el método equals que
-															// he sobreescrito en Profesor
+				} while (profesores.contains(profesor));
 				System.out.println("Escribe el nombre del profesor");
 				profesor.setNombre(Teclado2.leerCadena());
 				profesores.addLast(profesor);
+				System.out.println("Profesor agregado correctamente");
 			}
 			case 2 -> {
 				if (profesores.size() > 0) {
@@ -41,6 +41,7 @@ public class Main {
 					System.out.println("Inserta el nombre del alumno");
 					alumno.setNombre(Teclado2.leerCadena());
 					profesor.addAlumno(alumno);
+					System.out.println("Profesor agregado correctamente");
 				} else {
 					System.err.println("Aún no se ha añadido ningún profesor");
 				}
@@ -65,6 +66,7 @@ public class Main {
 						} while (nota < 0 || nota > 10);
 
 						profesor.ponerNota(nota, alumno);
+						System.out.println("Nota asignada correctamente");
 					} else {
 						System.err.println("Este profesor no tiene asignado ningún alumno");
 					}
@@ -90,7 +92,20 @@ public class Main {
 				}
 			}
 			case 5 -> {
-				// ToDo
+				if (profesores.size() > 0) {
+					Alumno alumno = new Alumno();
+					System.out.println("Introduce el dni del alumno");
+					String nif = Teclado2.leerCadena();
+					alumno.setNif(nif);
+					List<Profesor> aux = new ArrayList<>();
+					for (Profesor p : profesores) {
+						if (p.tieneAlumno(alumno)) {
+							System.out.println(p);
+						}
+					}
+				} else {
+					System.err.println("Aún no se ha añadido ningún profesor");
+				}
 			}
 			case 6 -> {
 				if (profesores.size() > 0) {
@@ -100,7 +115,12 @@ public class Main {
 						profesor = devolverProfesor(Teclado2.leerCadena());
 					} while (profesor == null);
 					if (profesor.getAlumnos().size() > 0) {
-						System.out.println(profesor.listadoOrdenadoAlumnos()); // ¿Esto funcionará así tal cual?
+//						System.out.println("Método de ordenación v1");
+//						System.out.println(profesor.listadoOrdenadoAlumnosv1());
+						System.out.println("Método de ordenación v2");
+						System.out.println(profesor.listadoOrdenadoAlumnosv2());
+						System.out.println("Método de ordenación v3: orden descendente de notas");
+						System.out.println(profesor.listadoOrdenadoDescendenteNotas());
 					} else {
 						System.err.println("Este profesor no tiene asignado ningún alumno");
 					}
@@ -122,6 +142,7 @@ public class Main {
 							alumno = profesor.devolverAlumno(Teclado2.leerCadena());
 						} while (alumno == null);
 						profesor.eliminarAlumno(alumno);
+						System.out.println("Alumno eliminado correctamente");
 					} else {
 						System.err.println("Este profesor no tiene asignado ningún alumno");
 					}

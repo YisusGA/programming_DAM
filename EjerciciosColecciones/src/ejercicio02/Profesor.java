@@ -95,6 +95,10 @@ public class Profesor {
 		return null;
 	}
 
+	public boolean tieneAlumno(Alumno alumno) {
+		return alumnos.contains(alumno);
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -108,30 +112,67 @@ public class Profesor {
 	}
 
 	// Aunque esto es funcional, debería haber una forma más sencilla de hacer esto
-	public List<Alumno> listadoOrdenadoAlumnos() {
+	public List<Alumno> listadoOrdenadoAlumnosv1() {
 		if (alumnos.size() > 1) {
-			List<Alumno> aux1 = new ArrayList<>();
+			List<Alumno> aux = new ArrayList<>();
 			for (Alumno a : alumnos) {
-				aux1.add(a);
+				aux.add(a);
 			}
-			Alumno min = aux1.getFirst();
-			for (int i = 0; i < aux1.size(); i++) {
-				for (int j = i + 1; j < aux1.size(); j++) {
-					if (aux1.get(j).getNombre().toLowerCase().charAt(0) < aux1.get(i).getNombre().toLowerCase()
+			Alumno min = aux.getFirst();
+			for (int i = 0; i < aux.size(); i++) {
+				for (int j = i + 1; j < aux.size(); j++) {
+					if (aux.get(j).getNombre().toLowerCase().charAt(0) < aux.get(i).getNombre().toLowerCase()
 							.charAt(0)) {
-						min = aux1.get(j);
-						aux1.set(j, aux1.get(i));
-						aux1.set(i, min);
+						min = aux.get(j);
+						aux.set(j, aux.get(i));
+						aux.set(i, min);
 					}
 
 				}
 			}
-			return aux1;
+			return aux;
 		} else if (alumnos.size() == 1) {
 			return alumnos;
 		} else {
 			return null;
 		}
+	}
+
+	public List<Alumno> listadoOrdenadoAlumnosv2() {
+		if (alumnos != null) { // En este caso, sabemos que alumnos nunca va a ser null, pues hemos
+								// inicializado la lisa. Pero tenemos que pensar que mi método podría ser usado
+								// por otra persona en otro contexto, y podría ser que su lista pudiera ser
+								// null. Así que lo ideal, es meter siempre un comprobador de si mi lista es
+								// null o no
+			if (alumnos.size() > 1) {
+				List<Alumno> aux = new ArrayList<>();
+				for (Alumno a : alumnos) {
+					aux.add(a);
+				}
+				aux.sort(null); // Si lo dejamos en null, usa el comparador que tengan los objetos que estemos
+								// comparando (en este caso, el compareTo() que hemos sobreescrito en Alumno. Si
+								// lo dejamos en null y no hemos sobreescrito el método compareTo(), nos va a
+								// dar un error
+				return aux;
+//		} else if (alumnos.size() == 1) { // Esto no hace falta hacerlo, porque si sólo hay 1 elemento, sort() automáticamente no hace nada
+//			return alumnos;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	public List<Alumno> listadoOrdenadoDescendenteNotas() {
+		// Para pasar un criterio específico, necesitamos un objeto de tipo comparator
+		alumnos.sort(new CriterioNotaDescendente()); // Aquí, pasamos como parámetro de sort un objeto de nuestra clase CriterioNotaDescendente
+		return alumnos;
+	}
+
+	@Override
+	public String toString() {
+		return "Profesor [nif=" + nif + ", nombre=" + nombre + "]";
 	}
 
 }

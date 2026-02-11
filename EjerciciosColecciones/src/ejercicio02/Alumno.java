@@ -89,7 +89,7 @@ public class Alumno implements Comparable<Alumno> { // Al implementar la interfa
 
 	@Override
 	public int compareTo(Alumno o) {
-		return this.nombre.compareTo(o.nombre); // La clase String ya tiene un compareTo. Así que sacamos un compareTo
+		return this.nombre.compareToIgnoreCase(o.nombre); // La clase String ya tiene un compareTo. Así que sacamos un compareTo
 												// de Alumno apoyándonos en el compareTo de String
 	}
 

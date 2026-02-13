@@ -1,4 +1,4 @@
-package logic;
+package hashset;
 
 import java.util.Objects;
 

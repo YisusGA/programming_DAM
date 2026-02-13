@@ -25,9 +25,9 @@ public class Alumno implements Comparable<Alumno> { // Al implementar la interfa
 		this.nif = nif;
 		this.nombre = nombre;
 	}
-	
+
 	public Alumno(String nif) {
-		this.nif = nif;		
+		this.nif = nif;
 	}
 
 	public Alumno() {
@@ -75,6 +75,10 @@ public class Alumno implements Comparable<Alumno> { // Al implementar la interfa
 		return "Alumno [nif=" + nif + ", nombre=" + nombre + ", nota=" + nota + "]";
 	}
 
+	// Este método será el que usen métodos que necesiten igualdad entre objetos de
+	// Alumno, como remove() y contains(). Es importante subrayar que el método
+	// equals no tiene por qué apoyarse en las mismas propiedades de Alumno que el
+	// método compareTo, ambos son independientes
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -87,10 +91,14 @@ public class Alumno implements Comparable<Alumno> { // Al implementar la interfa
 		return Objects.equals(nif, other.nif);
 	}
 
+	// Este método será el que use el método sort(null) de objetos Alumno. Salvo que
+	// pasemos como parámetro de sort una clase que implementa Comparator, con un
+	// método compare que hayamos sobreescrito
 	@Override
 	public int compareTo(Alumno o) {
-		return this.nombre.compareToIgnoreCase(o.nombre); // La clase String ya tiene un compareTo. Así que sacamos un compareTo
-												// de Alumno apoyándonos en el compareTo de String
+		return this.nombre.compareToIgnoreCase(o.nombre); // La clase String ya tiene un compareTo. Así que sacamos un
+															// compareTo
+		// de Alumno apoyándonos en el compareTo de String
 	}
 
 }

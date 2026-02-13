@@ -35,6 +35,9 @@ public class Alumno {
 		return "Alumno [nif=" + nif + ", nota=" + nota + "]";
 	}
 
+	// El método hashCode() debe apoyarse en las mismas propiedades de Alumno que
+	// equals(). En cualquier caso, cuando creamos ambos métodos desde Source, ambos
+	// se crean en pack, o sea que es difícil cagarla
 	@Override
 	public int hashCode() {
 		return Objects.hash(nif);

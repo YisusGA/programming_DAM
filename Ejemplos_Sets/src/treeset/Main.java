@@ -19,14 +19,21 @@ public class Main {
 		insertAlumno(new Alumno("5678", "pepe", 8));
 		insertAlumno(new Alumno("9999", "aaaa", 6));
 		System.out.println("Nuevo listado");
-		System.out.println(listadoAlumnos());
+		System.out.println(listadoAlumnos()); // Esto va a salir impreso según el orden de iteración que aplique al
+												// TreeSet, que en este caso, es el de la clase que hemos creado que
+												// implementa Comparator (cuyo método compare de Alumno que hemos hecho
+												// es por nif). Por lo tanto, el orden en el que se va a imprimir es por
+												// nif (probar a cambiar el dni de aaaa por 0999, para ver cómo cambia
+												// el orden
 
 		List<Alumno> alumnosLista = new LinkedList<>();
 		alumnosLista.addAll(alumnos);
 
-		alumnosLista.sort(null);
+		alumnosLista.sort(null); // Esto se va a ordenar según el compareTo que hayamos implementado en la clase
+									// Alumno, que en nuestro caso, es por nombre (ordenamiento de Strings usando el
+									// compareTo de String)
 
-		System.out.println("Listado ordenado de alumnos"); // Esto usa el compareTo de Alumno, que usa el nif
+		System.out.println("Listado de alumnos ordenado por nombre");
 		for (Alumno a : alumnosLista) {
 			System.out.println(a + "");
 		}

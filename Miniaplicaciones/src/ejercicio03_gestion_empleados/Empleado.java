@@ -5,8 +5,9 @@ import java.util.Objects;
 public abstract class Empleado {
 	protected String nombre;
 	protected Double salarioBase;
+	TipoEmpleado tipo;
 
-	public Empleado(String nombre, Double salarioBase) {
+	public Empleado(String nombre, Double salarioBase, TipoEmpleado tipo) {
 		this.nombre = nombre;
 		this.salarioBase = salarioBase;
 	}
@@ -28,6 +29,14 @@ public abstract class Empleado {
 
 	public void setSalarioBase(Double salarioBase) {
 		this.salarioBase = salarioBase;
+	}
+
+	public TipoEmpleado getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoEmpleado tipo) {
+		this.tipo = tipo;
 	}
 
 	@Override

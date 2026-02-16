@@ -4,14 +4,14 @@ public class Diseñador extends Empleado {
 	private String herramientaDiseño;
 	private Double plusCreativo;
 
-	public Diseñador(String nombre, Double salarioBase, String herramientaDiseño, Double plusCreativo) {
-		super(nombre, salarioBase);
+	public Diseñador(String nombre, Double salarioBase, String herramientaDiseño, double plusCreativo, TipoEmpleado tipo) {
+		super(nombre, salarioBase, tipo);
 		this.herramientaDiseño = herramientaDiseño;
 		this.plusCreativo = plusCreativo;
 	}
 
-	public Diseñador(String nombre, Double salarioBase) {
-		super(nombre, salarioBase);
+	public Diseñador(String nombre, Double salarioBase, TipoEmpleado tipo) {
+		super(nombre, salarioBase, tipo);
 	}
 
 	public Diseñador() {
@@ -32,6 +32,12 @@ public class Diseñador extends Empleado {
 
 	public void setPlusCreativo(Double plusCreativo) {
 		this.plusCreativo = plusCreativo;
+	}
+
+	@Override
+	public String toString() {
+		return "Diseñador [nombre=" + nombre + ", salarioBase=" + salarioBase + ", tipo=" + tipo
+				+ ", herramientaDiseño=" + herramientaDiseño + ", plusCreativo=" + plusCreativo + "]";
 	}
 
 	@Override

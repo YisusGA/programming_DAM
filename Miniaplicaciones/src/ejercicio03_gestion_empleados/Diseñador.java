@@ -4,7 +4,8 @@ public class Diseñador extends Empleado {
 	private String herramientaDiseño;
 	private Double plusCreativo;
 
-	public Diseñador(String nombre, Double salarioBase, String herramientaDiseño, double plusCreativo, TipoEmpleado tipo) {
+	public Diseñador(String nombre, Double salarioBase, String herramientaDiseño, double plusCreativo,
+			TipoEmpleado tipo) {
 		super(nombre, salarioBase, tipo);
 		this.herramientaDiseño = herramientaDiseño;
 		this.plusCreativo = plusCreativo;

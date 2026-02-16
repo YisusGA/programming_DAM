@@ -4,7 +4,8 @@ public class Programador extends Empleado {
 	private String lenguajePrincipal;
 	private Double plusLenguaje;
 
-	public Programador(String nombre, Double salarioBase, String lenguajePrincipal, double plusLenguaje, TipoEmpleado tipo) {
+	public Programador(String nombre, Double salarioBase, String lenguajePrincipal, double plusLenguaje,
+			TipoEmpleado tipo) {
 		super(nombre, salarioBase, tipo);
 		this.lenguajePrincipal = lenguajePrincipal;
 		this.plusLenguaje = plusLenguaje;

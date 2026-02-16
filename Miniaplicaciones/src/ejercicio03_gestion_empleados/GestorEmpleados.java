@@ -1,6 +1,7 @@
 package ejercicio03_gestion_empleados;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GestorEmpleados {
@@ -29,15 +30,17 @@ public class GestorEmpleados {
 	}
 
 	public static Empleado devolverEmpleado(String nombre) {
-		// ToDo
+		boolean encontrado = false;
 		if (empleados != null && empleados.size() > 0) {
-			for (int i = 0; i < empleados.size(); i++) {
-				if (empleados[i].getNombre.equals(nombre)) {
-					return empleados.get(i);
+			Iterator<Empleado> iterador = empleados.iterator();
+			while (!encontrado && iterador.hasNext()) {
+				Empleado e = iterador.next();
+				if (e.getNombre().equalsIgnoreCase(nombre)) {
+					return e;
 				}
 			}
-			return null;
 		}
+		return null;
 
 	}
 
@@ -51,10 +54,17 @@ public class GestorEmpleados {
 		return salarios;
 	}
 
-	public static boolean eliminarEmpleado(Empleado empleado) {
+	public static boolean eliminarEmpleado(String nombre) {
 		boolean eliminado = false;
 		if (empleados != null && empleados.size() > 0) {
-			eliminado = empleados.remove(empleado);
+			Iterator<Empleado> iterador = empleados.iterator();
+			while (!eliminado && iterador.hasNext()) {
+				Empleado e = iterador.next();
+				if (e.getNombre().equalsIgnoreCase(nombre)) {
+					iterador.remove();
+					eliminado = true;
+				}
+			}
 		}
 		return eliminado;
 	}

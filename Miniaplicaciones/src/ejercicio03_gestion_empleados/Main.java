@@ -42,10 +42,8 @@ public class Main {
 				System.out.println(GestorEmpleados.calcularSalarios());
 			}
 			case 4 -> {
-				//ToDo
 				System.out.println("Introduce el nombre del empleado a eliminar");
-				String nombre = Teclado2.leerCadena();
-				if (GestorEmpleados.eliminarEmpleado(GestorEmpleados.devolverEmpleado(nombre))) {
+				if (GestorEmpleados.eliminarEmpleado(Teclado2.leerCadena())) {
 					System.out.println("Empleado eliminado correctamente");
 				} else {
 					System.err.println("El empleado no existe");

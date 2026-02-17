@@ -44,11 +44,44 @@ public class Baraja {
 		return "Baraja [cartasBaraja=" + cartasBaraja + "]";
 	}
 
+	public static int cartasRestantes() {
+		if (cartasBaraja != null) {
+			return cartasBaraja.size();
+		}
+		return 0;
+	}
+	
+	public static boolean tieneCartasPalo(String palo) {
+		Carta carta = null;
+		switch (palo) {
+		case "OROS" -> {
+			carta = new Carta(Palo.OROS);
+		}
+		case "COPAS" -> {
+			carta = new Carta(Palo.COPAS);
+		}
+		case "BASTOS" -> {
+			carta = new Carta(Palo.BASTOS);
+		}
+		case "ESPADAS" -> {
+			carta = new Carta(Palo.ESPADAS);
+		}
+		}
+		boolean encontrado = false;
+		for (Carta i : cartasBaraja) {
+			if (i.getPalo().equals(carta.getPalo())) {
+				encontrado = true;
+			}
+		}
+		return encontrado;
+	}
+
 	public static Carta repartirCarta() {
 		Carta carta = null;
 		Iterator<Carta> it = cartasBaraja.iterator();
 		if (it.hasNext()) {
 			carta = it.next();
+			it.remove();
 		}
 		return carta;
 	}

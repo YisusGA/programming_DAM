@@ -106,14 +106,50 @@ public class Jugador {
 		}
 		carta.setNumero(max);
 		if (encontrado) {
+			cartasMano.remove(carta);
 			return carta;
 		} else {
+			cartasMano.remove(0);
 			return null;
 		}
 	}
+
+	public List<Carta> mostrarMano() {
+		return this.cartasMano;
+	}
+
+	public String incrementarPuntuacion() {
+		this.puntuacion += 1;
+		return "Punto para: " + this.nombre;
+	}
+
+	public int numeroCartas() {
+		return this.cartasMano.size();
+	}
 	
-	public void mostrarMano() {
-		System.out.println(cartasMano);
+	public boolean tieneCartasPalo(String palo) {
+		Carta carta = null;
+		switch (palo) {
+		case "OROS" -> {
+			carta = new Carta(Palo.OROS);
+		}
+		case "COPAS" -> {
+			carta = new Carta(Palo.COPAS);
+		}
+		case "BASTOS" -> {
+			carta = new Carta(Palo.BASTOS);
+		}
+		case "ESPADAS" -> {
+			carta = new Carta(Palo.ESPADAS);
+		}
+		}
+		boolean encontrado = false;
+		for (Carta i : cartasMano) {
+			if (i.getPalo().equals(carta.getPalo())) {
+				encontrado = true;
+			}
+		}
+		return encontrado;
 	}
 
 }

@@ -29,12 +29,11 @@ public class GestorEmpleados {
 		return null;
 	}
 
+	// Para encontrar un empleado, es mejor usar la aproximación clásica de un
+	// for-each y devolver un empleado cuando se encuentre
 	public static Empleado devolverEmpleado(String nombre) {
-		boolean encontrado = false;
 		if (empleados != null && empleados.size() > 0) {
-			Iterator<Empleado> iterador = empleados.iterator();
-			while (!encontrado && iterador.hasNext()) {
-				Empleado e = iterador.next();
+			for (Empleado e : empleados) {
 				if (e.getNombre().equalsIgnoreCase(nombre)) {
 					return e;
 				}
@@ -54,6 +53,10 @@ public class GestorEmpleados {
 		return salarios;
 	}
 
+	// Para eliminar un empleado, es obligatorio usar la aproximación de crear un
+	// iterator y usar su método .remove() cuando se encuentre, pues así evitamos
+	// los problemas de concurrencia que se generarían si usáramos un for-each y el
+	// método .remove()
 	public static boolean eliminarEmpleado(String nombre) {
 		boolean eliminado = false;
 		if (empleados != null && empleados.size() > 0) {

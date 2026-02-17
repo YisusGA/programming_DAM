@@ -1,0 +1,56 @@
+package examen_anterior04_ejercicio01;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+public class Baraja {
+	static Set<Carta> cartasBaraja = new HashSet<>();
+
+	public Baraja(Set<Carta> cartas) {
+		this.cartasBaraja = cartas;
+	}
+
+	public Baraja() {
+		for (int i = 1; i < 11; i++) {
+			Carta carta = new Carta(Palo.OROS, i);
+			this.cartasBaraja.add(carta);
+		}
+		for (int i = 1; i < 11; i++) {
+			Carta carta = new Carta(Palo.COPAS, i);
+			this.cartasBaraja.add(carta);
+		}
+		for (int i = 1; i < 11; i++) {
+			Carta carta = new Carta(Palo.BASTOS, i);
+			this.cartasBaraja.add(carta);
+		}
+		for (int i = 1; i < 11; i++) {
+			Carta carta = new Carta(Palo.ESPADAS, i);
+			this.cartasBaraja.add(carta);
+		}
+
+	}
+
+	public Set<Carta> getCartasBaraja() {
+		return cartasBaraja;
+	}
+
+	public void setCartasBaraja(Set<Carta> cartasBaraja) {
+		this.cartasBaraja = cartasBaraja;
+	}
+
+	@Override
+	public String toString() {
+		return "Baraja [cartasBaraja=" + cartasBaraja + "]";
+	}
+
+	public static Carta repartirCarta() {
+		Carta carta = null;
+		Iterator<Carta> it = cartasBaraja.iterator();
+		if (it.hasNext()) {
+			carta = it.next();
+		}
+		return carta;
+	}
+
+}

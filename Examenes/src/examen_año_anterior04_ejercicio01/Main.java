@@ -1,4 +1,4 @@
-package examen_anterior04_ejercicio01;
+package examen_año_anterior04_ejercicio01;
 
 public class Main {
 

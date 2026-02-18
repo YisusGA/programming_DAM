@@ -6,6 +6,15 @@ public class MagoEstudiante extends MagoElemental implements Aprendiz {
 		super(nombre);
 	}
 
+	public MagoEstudiante() {
+
+	}
+
+	@Override
+	public String toString() {
+		return "MagoEstudiante [nombre=" + nombre + "]";
+	}
+
 	@Override
 	public String estudiar() {
 		return "Shhhh, estoy estudiando";

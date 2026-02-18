@@ -24,8 +24,13 @@ public class MagoAire extends MagoElemental {
 	}
 
 	@Override
+	public String toString() {
+		return "MagoAire [nombre=" + nombre + ", velocidad=" + velocidad + "]";
+	}
+
+	@Override
 	public String lanzarHechizo() {
-		return "He lanzado un hechizo de viento con la velocidad" + velocidad + " km/h";
+		return "He lanzado un hechizo de viento con la velocidad " + velocidad + " km/h";
 
 	}
 

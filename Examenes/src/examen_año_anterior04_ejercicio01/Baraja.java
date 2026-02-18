@@ -12,23 +12,13 @@ public class Baraja {
 	}
 
 	public Baraja() {
-		for (int i = 1; i < 11; i++) {
-			Carta carta = new Carta(Palo.OROS, i);
-			this.cartasBaraja.add(carta);
-		}
-		for (int i = 1; i < 11; i++) {
-			Carta carta = new Carta(Palo.COPAS, i);
-			this.cartasBaraja.add(carta);
-		}
-		for (int i = 1; i < 11; i++) {
-			Carta carta = new Carta(Palo.BASTOS, i);
-			this.cartasBaraja.add(carta);
-		}
-		for (int i = 1; i < 11; i++) {
-			Carta carta = new Carta(Palo.ESPADAS, i);
-			this.cartasBaraja.add(carta);
-		}
 
+		for (int i = 1; i < 11; i++) {
+			cartasBaraja.add(new Carta(Palo.OROS, i));
+			cartasBaraja.add(new Carta(Palo.COPAS, i));
+			cartasBaraja.add(new Carta(Palo.BASTOS, i));
+			cartasBaraja.add(new Carta(Palo.ESPADAS, i));
+		}
 	}
 
 	public Set<Carta> getCartasBaraja() {
@@ -50,7 +40,7 @@ public class Baraja {
 		}
 		return 0;
 	}
-	
+
 	public static boolean tieneCartasPalo(String palo) {
 		Carta carta = null;
 		switch (palo) {

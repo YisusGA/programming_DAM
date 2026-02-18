@@ -3,11 +3,15 @@ package ejercicios.herencia.geometria.figuras;
 public abstract class FiguraGeometrica { // Tiene que ser clase asbtracta para poder tener un método abstracto. La
 											// limitación de que sea una clase asbtracta es que no puedo instanciar
 											// objetos de esta clase. De todos modos, no necesito instanciar objetos de
-											// esta clase. Además, hacer una clase abstracta con un método asbtracto
-											// obliga a que todas sus subclases implementen ese método asbtracto. Si no
-											// se implementa, da error de compilación. Esto me ayuda a que si creo una
+											// esta clase. Tener en cuenta que esto, aparte de ser una limitación, es
+											// realmente una decisión de diseño, pues estoy mostrando que no quiero que
+											// se generen instancias de esa clase abstracta. Además, hacer una clase
+											// abstracta con un método asbtracto (que tiene que estar vacío) obliga a
+											// que todas sus subclases implementen ese método asbtracto. Si no se
+											// implementa, da error de compilación. Esto me ayuda a que si creo una
 											// nueva subclase, no me voy a olvidar de implementar el método, porque me
-											// saldrá el error de compilación
+											// saldrá el error de compilación. Una clase abstracta puede tener métodos
+											// no vacíos, y para estos no será obligatorios que se implementen
 	protected String nombre;
 
 	public FiguraGeometrica(String nombre) {

@@ -64,6 +64,9 @@ public class Main {
 				while (obiwan.numeroCartas() < 11) {
 					obiwan.robarCarta();
 				}
+				System.out.println();
+				System.out.println("Ambos roban cartas hasta volver a tener 10 cartas en sus manos");
+				System.out.println();
 			} else if (cartaAnakin == null) {
 				System.out.println(obiwan.incrementarPuntuacion());
 			} else {

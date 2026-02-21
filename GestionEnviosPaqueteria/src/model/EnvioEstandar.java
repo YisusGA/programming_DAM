@@ -6,6 +6,10 @@ public class EnvioEstandar extends Envio implements Rastreable {
 	private int diasEstimados;
 	EstadoEnvio estado = EstadoEnvio.CREADO;
 
+	// No incluimos la propiedad EstadoEnvio estado en el constructor porque quiero
+	// que por defecto, cuando instancie EnvioEstandar, su propiedad EstadoEnvio
+	// estado sea igual a EstadoEnvio.CREADO. Si no fuera así, sí que sería buena
+	// práctica incluirla en el constructor
 	public EnvioEstandar(int codigo, double peso, String origen, String destino, int diasEstimados) {
 		super(codigo, peso, origen, destino);
 		this.diasEstimados = diasEstimados;

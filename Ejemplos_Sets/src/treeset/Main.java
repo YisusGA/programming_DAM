@@ -7,7 +7,8 @@ import java.util.TreeSet;
 
 public class Main {
 
-	private static Set<Alumno> alumnos = new TreeSet<>(new ComparadorNif()); // Tenemos que haber implementado la clase
+	private static Set<Alumno> alumnos = new TreeSet<>(new ComparadorNif()); // Tenemos que haber sobreescrito el método
+																				// compareTo en la clase
 																				// Alumno, o pasarle un comparador como
 																				// parámetro. Ver explicación en el
 																				// compareTo(Alumno o) de Alumno

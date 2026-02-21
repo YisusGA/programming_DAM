@@ -7,6 +7,10 @@ public class EnvioUrgente extends Envio implements Rastreable, Asegurable {
 	private double recargo;
 	private EstadoEnvio estado = EstadoEnvio.CREADO;
 
+	// No incluimos la propiedad EstadoEnvio estado en el constructor porque quiero
+	// que por defecto, cuando instancie EnvioEstandar, su propiedad EstadoEnvio
+	// estado sea igual a EstadoEnvio.CREADO. Si no fuera así, sí que sería buena
+	// práctica incluirla en el constructor
 	public EnvioUrgente(int codigo, double peso, String origen, String destino, double recargo) {
 		super(codigo, peso, origen, destino);
 		this.recargo = recargo;

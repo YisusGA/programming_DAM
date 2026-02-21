@@ -42,23 +42,6 @@ public class Particula {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(posicion);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Particula other = (Particula) obj;
-		return Objects.equals(posicion, other.posicion);
-	}
-
-	@Override
 	public String toString() {
 		return "Carga: " + carga + ", Masa: " + masa + ", Posición: " + posicion;
 	}

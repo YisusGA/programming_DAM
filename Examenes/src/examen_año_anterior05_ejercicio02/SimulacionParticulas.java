@@ -48,7 +48,7 @@ public class SimulacionParticulas {
 				} else {
 					System.err.println("No hay partículas añadidas");
 				}
-				
+
 				break;
 			case 0:
 				System.out.println("Saliendo del programa...");
@@ -97,6 +97,16 @@ public class SimulacionParticulas {
 		return lista;
 	}
 
+	// Como en este caso no me interesa establecer un criterio de igualdad en la
+	// clase Particula, la forma que tengo de eliminar un elemento sin usar remove()
+	// es encontrarlo mediante un for clasico que itere sobre la lista. Es importante
+	// usar particulas.get(i) para poder seleccionar la particula de la posición del
+	// index i del for, pues al ser una lista y no un array, no se puede escribir
+	// como particulas[i]. Y luego ya accedo a las propiedades o métodos que quiera
+	// de ese elemento particula.get(i). Y cuando lo haya encontrado, entrará en el
+	// if y guardará la posición en la variable index que he declarado antes del
+	// método for. Y luego ya fuera del bucle, puedo usar el método remove(int
+	// index), que elimina un elemento de la lista según su posición
 	private boolean eliminarPorPosicion() {
 		if (particulas != null && particulas.size() > 0) {
 			System.out.print("Posición para eliminar (x): (double)");
@@ -105,13 +115,14 @@ public class SimulacionParticulas {
 			double y = scanner.nextDouble();
 			Punto posicion = new Punto(x, y);
 			double menorDistancia = Double.MAX_VALUE;
-			Particula particulaMasCercana = new Particula();
-			for (Particula i : particulas) {
-				if (calcularDistancia(i.getPosicion(), posicion) < menorDistancia) {
-					particulaMasCercana = i;
+			int index = -1;
+			for (int i = 0; i < particulas.size(); i++) {
+				if (calcularDistancia(particulas.get(i).getPosicion(), posicion) < menorDistancia) {
+					index = i;
 				}
 			}
-			return particulas.remove(particulaMasCercana);
+			particulas.remove(index);
+			return true;
 		} else {
 			return false;
 		}

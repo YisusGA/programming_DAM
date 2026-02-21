@@ -28,7 +28,11 @@ public class MiLinkedList<T> {
 		int size = 0;
 		Nodo<T> aux = inicio;
 		while (aux != null) { // Cuidado: aquí lo que buscamos es iterar hasta que el último elemento sea
-								// null, no hasta llegar al elemento que apunte a un null
+								// null, no hasta llegar al elemento que apunte a un null. Esto es así porque el
+								// size comienza en 0, y si no llegáramos hasta el elemento null, no contaríamos
+								// el primer elemento de la LinkedList, pues la primera vez que entramos en el
+								// bucle, ya pasamos al elemento con la segunda posición, pues antes de entrar
+								// en el bucle, ya hemos asignado a aux la dirección de memoria del primer nodo
 			aux = aux.siguiente;
 			size++;
 		}

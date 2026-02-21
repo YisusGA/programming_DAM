@@ -41,17 +41,19 @@ public class Cliente {
 		this.pedidos = pedidos;
 	}
 
-	public String toString() {                                                    // Es necesario meter este ternario porque si el num pedidos es 0, nos daría
-								                                                  // error NullPointer si no metemos este ternario
-		return "Cliente [nif=" + nif + ", nombre=" + nombre + ", num pedidos=" + ((pedidos == null) ? 0 : pedidos.length) + "]";
+	public String toString() { // Es necesario meter este ternario porque si el num pedidos es 0, nos daría
+								// error NullPointer si no metemos este ternario
+		return "Cliente [nif=" + nif + ", nombre=" + nombre + ", num pedidos="
+				+ ((pedidos == null) ? 0 : pedidos.length) + "]";
 	}
 
 	public void agregarPedido(Pedido p) {
-		//Si aún no hay pedidos, añadimos una posición al array y la rellenamos
+		// Si aún no hay pedidos, añadimos una posición al array y la rellenamos
 		if (pedidos == null) {
 			pedidos = new Pedido[1];
 			pedidos[0] = p;
-		//Si ya hay pedidos, hacemos el array más grande en 1 posición y agregamos el pedido a la nueva posición	
+			// Si ya hay pedidos, hacemos el array más grande en 1 posición y agregamos el
+			// pedido a la nueva posición
 		} else {
 			Pedido[] aux = new Pedido[pedidos.length + 1]; // Creamos un array aux
 			for (int i = 0; i < pedidos.length; i++) {
@@ -61,7 +63,7 @@ public class Cliente {
 			pedidos = aux;
 		}
 	}
-	
+
 	public void mostrarFactura() {
 		if (pedidos == null) {
 			System.err.println("Este cliente aún no ha realizado pedidos");
@@ -80,8 +82,8 @@ public class Cliente {
 			System.out.println();
 		}
 	}
-	
-	public boolean encontrarCodigoPedido (int codigoPedido) {
+
+	public boolean encontrarCodigoPedido(int codigoPedido) {
 		boolean encontradoPedido = false;
 		if (pedidos != null) {
 			for (Pedido p : pedidos) {
@@ -92,7 +94,8 @@ public class Cliente {
 		}
 		return encontradoPedido;
 	}
-	public String mostrarPedidosCliente () {
+
+	public String mostrarPedidosCliente() {
 		String listaPedidos = "";
 		if (pedidos != null) {
 			for (Pedido p : pedidos) {
@@ -103,19 +106,21 @@ public class Cliente {
 		}
 		return listaPedidos;
 	}
+
 	public double gastoTotal() {
 		if (pedidos == null) {
-			return 0; //Un return devuelve un valor y además termina el método automáticamente. Por tanto, no hace falta meter un else aquí
-		}	
-			double suma = 0;
-			for (Pedido p : pedidos) {
-				suma += p.getPrecio();
-			}
-			suma = suma * Pedido.IVA / 100;
-			return suma;
+			return 0; // Un return devuelve un valor y además termina el método automáticamente. Por
+						// tanto, no hace falta meter un else aquí
+		}
+		double suma = 0;
+		for (Pedido p : pedidos) {
+			suma += p.getPrecio();
+		}
+		suma += suma * Pedido.IVA / 100;
+		return suma;
 	}
-	
-	public int numeroPedidos () {
+
+	public int numeroPedidos() {
 		int numeroPedidos = 0;
 		if (pedidos != null) {
 			for (int i = 0; i < pedidos.length; i++) {
@@ -126,8 +131,8 @@ public class Cliente {
 		}
 		return numeroPedidos;
 	}
-	
-	public void modificarPrecioPedido (int posicion, double nuevoPrecio) {
+
+	public void modificarPrecioPedido(int posicion, double nuevoPrecio) {
 		pedidos[posicion].setPrecio(nuevoPrecio);
 	}
 

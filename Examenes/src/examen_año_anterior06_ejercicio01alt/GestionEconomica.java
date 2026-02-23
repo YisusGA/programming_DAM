@@ -1,4 +1,4 @@
-package examen_año_anterior06_ejercicio01;
+package examen_año_anterior06_ejercicio01alt;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -39,11 +39,9 @@ public class GestionEconomica {
 		do {
 			System.out.println("Introduce el año del código de apunte económico (4 primeras cifras)");
 			year = scan.nextInt();
-			System.out.println("Introduce el código serial de apunte económico (cifras de la 5 en adelante)");
-			ser = scan.nextInt();
-			code = ApunteEconomico.generarCode(year, ser);
+			code = ApunteEconomico.generarCode(year);
 			if (code == null) {
-				System.err.println("El serial debe ser un código único");
+				System.err.println("El año introducido no es válido");
 			}
 		} while (code == null);
 		System.out.println("Introduce el importe del apunte");

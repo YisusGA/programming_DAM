@@ -1,4 +1,4 @@
-package examen_año_anterior06_ejercicio01;
+package examen_año_anterior06_ejercicio01alt;
 
 import java.util.Objects;
 

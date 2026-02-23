@@ -1,4 +1,4 @@
-package examen_año_anterior06_ejercicio01;
+package examen_año_anterior06_ejercicio01alt;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,7 +16,7 @@ public abstract class ApunteEconomico {
 	protected double importe;
 	protected String concepto;
 	protected TipoApunte tipo;
-	private static Set<Integer> seriales = new HashSet<>();
+	protected static int serial = 0;
 
 	public ApunteEconomico(int code, double importe, String concepto, TipoApunte tipo) {
 		this.code = code;
@@ -88,15 +88,15 @@ public abstract class ApunteEconomico {
 		return year;
 	}
 
-	public static Integer generarCode(int year, int serial) {
+	public static Integer generarCode(int year) {
 		String input = null;
 		Integer codigo = null;
 		boolean generado = false;
-		if (seriales.add(serial) && (year > 1900 && year < 2100)) {
+		if (year > 1900 && year < 2100) {
 			generado = true;
 		}
 		if (generado) {
-			input = "" + year + serial;
+			input = "" + year + serial++;
 			codigo = Integer.parseInt(input);
 		}
 		return codigo;

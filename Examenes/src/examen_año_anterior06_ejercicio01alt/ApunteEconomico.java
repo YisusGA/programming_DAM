@@ -7,16 +7,18 @@ import java.util.Objects;
 import java.util.Set;
 
 public abstract class ApunteEconomico {
-	protected Integer code; // Lo más sencillo sería separar año de serial y que el serial fuera una
-							// propiedad static que se fuera incrementando sola, para así generar seriales
-							// únicos. Lo ideal es que todos los códigos que deben ser únicos sean números
-							// autoincrementados que se generen en la propia aplicación, y que no quede como
-							// responsabilidad del usuario. En el examen, trabajar con un código que se
-							// autoincremente
+	protected Integer code;
 	protected double importe;
 	protected String concepto;
 	protected TipoApunte tipo;
-	protected static int serial = 0;
+	protected static int serial = 0; // Si quisiéramos que el serial fuera una propiedad que sirviera como equals de
+										// la clase, al ser static, no podría usarse ni para equals ni para el
+										// constructor. En ese caso, lo ideal sería declarar en esta clase la propiedad
+										// serial como no static, y declarar una propiedad de tipo int como estática en
+										// la clase que implemente el main y pasársela al constructor de la clase
+										// ApunteEconómico como el serial cada vez que instanciemos un objeto. Y en esa
+										// misma clase que implementa el main, irla incrementando en 1 cada vez que se
+										// use
 
 	public ApunteEconomico(int code, double importe, String concepto, TipoApunte tipo) {
 		this.code = code;

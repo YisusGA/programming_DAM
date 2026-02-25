@@ -93,7 +93,7 @@ public class Main {
 		Random generador = new Random();
 		String palo = "OROS";
 		boolean valido = false;
-		int opcion = generador.nextInt(4 - 1 + 1) + 1;
+		int opcion = generador.nextInt(1, 4);
 		do {
 			switch (opcion) {
 			case 1 -> {

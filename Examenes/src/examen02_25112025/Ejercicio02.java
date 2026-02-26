@@ -1,4 +1,4 @@
-package examen2_25112025;
+package examen02_25112025;
 
 import java.util.Scanner;
 

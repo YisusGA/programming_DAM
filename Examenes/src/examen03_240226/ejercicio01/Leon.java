@@ -25,7 +25,7 @@ public class Leon extends Animal implements Depredador {
 										// método comer de esta clase (Leon). Pero si lo ponemos, pues queda más claro
 										// aún
 		} else {
-			this.energia = (this.energia /= 2) < 1 ? 1 : (this.energia /= 2); // La energía la pierde tanto si no ha
+			this.energia = (this.energia / 2) < 1 ? 1 : (this.energia / 2); // La energía la pierde tanto si no ha
 																				// logrado cazar a la presa, como si se
 																				// ha enfrentado a un animal que no es
 																				// Presa

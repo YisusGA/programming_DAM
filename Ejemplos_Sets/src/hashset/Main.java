@@ -67,8 +67,15 @@ public class Main {
 													// posición anterior a donde hay elemento
 		System.out.println("Imprimiendo con un iterator");
 		while (it.hasNext()) { // Mientras haya un elemento siguiente
+
 			String n = it.next(); // Cargamos el iterador con el elemento siguiente, y lo almacenamos en una
-									// variable
+									// variable. Cada vez que llamemos a it.next(), se avanza una posición en el
+									// iterador, así que cuidado con esto. Es recomendable almacenar el contenido de
+									// it.next() dentro de una variable para no tener que llamar varias veces a
+									// it.next(), pues si no lo hacemos así, podríamos estar avanzando varias
+									// posiciones dentro del iterador sin quererlo y estaríamos trabajando con un
+									// elemento que no es el que creemos que es
+
 			System.out.println(n); // Y hacemos lo que queramos con esa variable
 		}
 		System.out.println();
@@ -93,7 +100,10 @@ public class Main {
 		it = nombres.iterator();
 		while (it.hasNext()) {
 			String n = it.next();
-			if (n.charAt(0) == 'A') {
+			if (n.charAt(0) == 'A') { // Según lo explicado un poco más arriba sobre trabajar con el método it.next()
+										// de Iterator, si aquí usamos un it.next() después de haber usado un it.next()
+										// justo encima, tendríamos el problema de haber avanzado 2 posiciones en lugar
+										// de 1. Mucho cuidado con esto
 				it.remove();
 			}
 			// También se podría hacer así

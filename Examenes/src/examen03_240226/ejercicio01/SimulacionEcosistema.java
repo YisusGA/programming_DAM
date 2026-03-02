@@ -12,7 +12,7 @@ public class SimulacionEcosistema {
 		System.out.println(llenarLista());
 		System.out.println(rondaComida());
 		System.out.println(rondaCaza());
-		
+
 		System.out.println("La lista final de animales queda de la siguiente forma:");
 		for (Animal i : animales) {
 			System.out.println(i);
@@ -45,10 +45,12 @@ public class SimulacionEcosistema {
 		Depredador dep = null; // Aunque en este caso sólo Leon implementa Depredador, si queremos que el
 								// programa sea escalable, mejor trabajar con la interfaz que con la clase que
 								// la implementa, por si en un futuro hubiera más clases que implementen
-								// Depredador
+								// Depredador. Y como Animal es una clase abstracta, no podemos crear instancias
+								// de Animal
 		for (int i = 0; !encontrado && i < animales.size(); i++) {
 			if (animales.get(i) instanceof Depredador) {
-				dep = (Depredador) animales.get(i);
+				dep = (Depredador) animales.get(i); // Este casting es necesario, o el compilador da error
+				encontrado = true;
 			}
 		}
 		if (encontrado) {
@@ -57,8 +59,11 @@ public class SimulacionEcosistema {
 			Iterator<Animal> it = animales.iterator();
 			while (it.hasNext()) {
 				Animal a = it.next(); // Importante guardar el it.next() en un objeto Animal, pues cada vez que
-										// llamamos a it.next(), estamos avanzando una posición en el iterador, y no
-										// queremos eso
+										// llamamos a it.next(), estamos avanzando una posición en el iterador, y si
+										// usamos varias veces it.next() en lugar de almacenarlo en un objeto Animal (y
+										// luego usar ese objeto), puede que no estemos usando el elemento del iterador
+										// que creemos que estamos usando. Esto lo hice fatal durante el examen, si
+										// quiero ver cómo hacerlo mal, ver mi versión
 				if (dep.cazar(a)) {
 					it.remove();
 					haCazado = true;
@@ -66,10 +71,11 @@ public class SimulacionEcosistema {
 				}
 			}
 			if (!haCazado) {
-				animales.remove((Animal)dep);
+				animales.remove((Animal) dep);
 				resultadoCaza = "El depredador no ha cazado ninguna presa, así que ha sido eliminado";
 			} else {
-				resultadoCaza = "El depredador " + ((Animal)dep).getNombre() + " ha cazado con éxito a " + contadorCazasExito + " presas";
+				resultadoCaza = "El depredador " + ((Animal) dep).getNombre() + " ha cazado con éxito a "
+						+ contadorCazasExito + " presas";
 			}
 		} else {
 			resultadoCaza = "No hay depredadores a la vista";

@@ -46,13 +46,27 @@ public class SimulacionEcosistema {
 								// programa sea escalable, mejor trabajar con la interfaz que con la clase que
 								// la implementa, por si en un futuro hubiera más clases que implementen
 								// Depredador. Y como Animal es una clase abstracta, no podemos crear instancias
-								// de Animal
-		for (int i = 0; !encontrado && i < animales.size(); i++) {
+								// de Animal. Esto nos obliga a instanciar con un null, pues aún no sabemos qué
+								// tipo de depredador encontraría primero
+
+		for (int i = 0; !encontrado && i < animales.size(); i++) { // Si usamos un for clásico con índice, trabajamos
+																	// directamente con las instancias del objeto.
+																	// PREGUNTAR A LA PROFE
 			if (animales.get(i) instanceof Depredador) {
 				dep = (Depredador) animales.get(i); // Este casting es necesario, o el compilador da error
 				encontrado = true;
 			}
 		}
+
+		// Aunque esto de debajo puede hacerse y funciona, la profe dijo que mejor
+		// trabajar con un for clásico con índice. ¿Por qué?
+//		for (Animal i : animales) {
+//			if (!encontrado && i instanceof Depredador) {
+//				dep = (Depredador) i; // Este casting es necesario, o el compilador da error
+//				encontrado = true;
+//			}
+//		}
+
 		if (encontrado) {
 			int contadorCazasExito = 0;
 			boolean haCazado = false;

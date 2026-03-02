@@ -26,9 +26,10 @@ public class Leon extends Animal implements Depredador {
 										// aún
 		} else {
 			this.energia = (this.energia / 2) < 1 ? 1 : (this.energia / 2); // La energía la pierde tanto si no ha
-																				// logrado cazar a la presa, como si se
-																				// ha enfrentado a un animal que no es
-																				// Presa
+																			// logrado cazar a la presa, como si se
+																			// ha enfrentado a un animal que no es
+																			// Presa (Depredador)
+
 			if (presa instanceof Presa) { // Importante, pues si no ha entrado en el primer if, no sabemos qué condición
 											// ha sido la falsa, y tenemos que comprobar que esto sea cierto
 

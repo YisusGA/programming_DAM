@@ -59,23 +59,26 @@ public class Alumno implements Comparable<Alumno> {
 		return this.nombre.compareTo(o.nombre);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(nif);
-	}
+	// Como en este caso vamos a trabajar con un TreeSet en el main, no es necesario
+	// implementar hashCode y equals, pues TreeSet no los va a usar en absoluto
 
-	// El método equals no tiene por qué basarse en la misma propiedad que que el
-	// método compareTo (ver apuntes cuaderno 13/02/2026)
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Alumno other = (Alumno) obj;
-		return Objects.equals(nif, other.nif);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(nif);
+//	}
+//
+//	// El método equals no tiene por qué basarse en la misma propiedad que que el
+//	// método compareTo (ver apuntes cuaderno 13/02/2026)
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Alumno other = (Alumno) obj;
+//		return Objects.equals(nif, other.nif);
+//	}
 
 }

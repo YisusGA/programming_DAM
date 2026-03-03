@@ -17,6 +17,12 @@ public class Main {
 
 		insertAlumno(new Alumno("1234", "pepe", 10));
 		System.out.println(listadoAlumnos());
+		// Como el compare de la clase que implementa Comparator que le hemos pasado a
+		// TreeSet usa el nif como criterio de ordenación e igualdad, no nos va a dejar
+		// añadir el objeto de aquí debajo, pues el nif es el mismo
+		insertAlumno(new Alumno("1234", "pedro", 9));
+		System.out.println("intentamos añadir un objeto con el mismo nif");
+		System.out.println(listadoAlumnos());
 		insertAlumno(new Alumno("5678", "pepe", 8));
 		insertAlumno(new Alumno("9999", "aaaa", 6));
 		System.out.println("Nuevo listado");

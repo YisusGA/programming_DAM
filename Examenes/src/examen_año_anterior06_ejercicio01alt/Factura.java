@@ -4,20 +4,10 @@ public class Factura extends ApunteEconomico {
 	int idFactura;
 	String emisor;
 
-	public Factura(int code, double importe, String concepto, int idFactura, String emisor) {
-		super(code, importe, concepto);
+	public Factura(int year, double importe, String concepto, int idFactura, String emisor) {
+		super(year, importe, concepto);
 		this.idFactura = idFactura;
 		this.emisor = emisor;
-	}
-
-	public Factura(double importe, String concepto, int idFactura, String emisor) {
-		super(importe, concepto);
-		this.idFactura = idFactura;
-		this.emisor = emisor;
-	}
-
-	public Factura(int code, double importe, String concepto) {
-		super(code, importe, concepto);
 	}
 
 	public Factura() {

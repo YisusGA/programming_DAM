@@ -6,20 +6,10 @@ public class GastoEmpresarial extends ApunteEconomico {
 	LocalDate fecha;
 	String DNIResponsable;
 
-	public GastoEmpresarial(int code, double importe, String concepto, LocalDate fecha, String dNIResponsable) {
-		super(code, importe, concepto);
+	public GastoEmpresarial(int year, double importe, String concepto, LocalDate fecha, String dNIResponsable) {
+		super(year, importe, concepto);
 		this.fecha = fecha;
 		DNIResponsable = dNIResponsable;
-	}
-
-	public GastoEmpresarial(double importe, String concepto, LocalDate fecha, String dNIResponsable) {
-		super(importe, concepto);
-		this.fecha = fecha;
-		DNIResponsable = dNIResponsable;
-	}
-
-	public GastoEmpresarial(int code, double importe, String concepto) {
-		super(code, importe, concepto);
 	}
 
 	public GastoEmpresarial() {

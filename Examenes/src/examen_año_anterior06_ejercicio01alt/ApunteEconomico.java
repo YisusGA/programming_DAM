@@ -19,13 +19,8 @@ public abstract class ApunteEconomico {
 										// misma clase que implementa el main, irla incrementando en 1 cada vez que se
 										// use
 
-	public ApunteEconomico(int code, double importe, String concepto) {
-		this.code = code;
-		this.importe = importe;
-		this.concepto = concepto;
-	}
-
-	public ApunteEconomico(double importe, String concepto) {
+	public ApunteEconomico(int year, double importe, String concepto) {
+		this.code = generarCode(year);
 		this.importe = importe;
 		this.concepto = concepto;
 	}
@@ -87,16 +82,8 @@ public abstract class ApunteEconomico {
 	}
 
 	public static Integer generarCode(int year) {
-		String input = null;
-		Integer codigo = null;
-		boolean generado = false;
-		if (year > 1900 && year < 2100) {
-			generado = true;
-		}
-		if (generado) {
-			input = "" + year + serial++;
-			codigo = Integer.parseInt(input);
-		}
+		String input = "" + year + serial++;
+		Integer codigo = Integer.parseInt(input);
 		return codigo;
 	}
 

@@ -37,13 +37,9 @@ public class GestionEconomica {
 		int ser;
 		Integer code;
 		do {
-			System.out.println("Introduce el año del código de apunte económico (4 primeras cifras)");
+			System.out.println("Introduce el año del código de apunte económico (4 primeras cifras). Años válidos: [1900-2100]");
 			year = scan.nextInt();
-			code = ApunteEconomico.generarCode(year);
-			if (code == null) {
-				System.err.println("El año introducido no es válido");
-			}
-		} while (code == null);
+		} while (year <= 1900 || year >= 2100);
 		System.out.println("Introduce el importe del apunte");
 		double importe = scan.nextDouble();
 		scan.nextLine(); // Descartamos línea vacía
@@ -62,7 +58,7 @@ public class GestionEconomica {
 			System.out.println("Introduce el id de la factura");
 			int id = scan.nextInt();
 			scan.nextLine();
-			apunte = new Factura(code, importe, concepto, id, emisor);
+			apunte = new Factura(year, importe, concepto, id, emisor);
 			System.out.println("Factura añadida");
 		}
 		case GASTO -> {
@@ -70,7 +66,7 @@ public class GestionEconomica {
 			LocalDate fecha = LocalDate.parse(scan.nextLine());
 			System.out.println("Introduce el dni del emisor");
 			String dni = scan.nextLine();
-			apunte = new GastoEmpresarial(code, importe, concepto, fecha, dni);
+			apunte = new GastoEmpresarial(year, importe, concepto, fecha, dni);
 		}
 		}
 		apuntes.add(apunte);

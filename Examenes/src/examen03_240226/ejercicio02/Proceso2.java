@@ -34,7 +34,7 @@ public class Proceso2 implements Comparable<Proceso2> {
 		this.duracion = duracion;
 	}
 
-	// ¿Por qué no me deja implementar un hashCode y un equals por pid?
+	// ¿Por qué no me deja implementar un hashCode y un equals por pid y a la profe sí?
 	
 	@Override
 	public String toString() {

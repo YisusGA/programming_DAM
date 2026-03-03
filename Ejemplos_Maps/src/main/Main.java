@@ -26,7 +26,11 @@ public class Main {
 		alumnos.put("5678", new Alumno());
 		System.out.println("Número de alumnos: " + alumnos.size());
 
-		// Obtener valor (objeto) a partir de una clave
+		// Obtener valor (objeto) a partir de una clave. Este es uno de los grandes
+		// potenciales de los HashMap: no hace falta iterar dentro de una colección de
+		// objetos, mirando dentro de cada objeto, para encontrar el que queremos.
+		// Simplemente se itera en un HashSet de claves para encontrar la que buscamos,
+		// y a partir de ahí, accedemos al valor (objeto) asociado a dicha clave
 		alumnos.get("1224");
 
 	}

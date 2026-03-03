@@ -4,20 +4,20 @@ public class Factura extends ApunteEconomico {
 	int idFactura;
 	String emisor;
 
-	public Factura(int code, double importe, String concepto, TipoApunte tipo, int idFactura, String emisor) {
-		super(code, importe, concepto, tipo);
+	public Factura(int code, double importe, String concepto, int idFactura, String emisor) {
+		super(code, importe, concepto);
 		this.idFactura = idFactura;
 		this.emisor = emisor;
 	}
 
-	public Factura(double importe, String concepto, TipoApunte tipo, int idFactura, String emisor) {
-		super(importe, concepto, tipo);
+	public Factura(double importe, String concepto, int idFactura, String emisor) {
+		super(importe, concepto);
 		this.idFactura = idFactura;
 		this.emisor = emisor;
 	}
 
-	public Factura(int code, double importe, String concepto, TipoApunte tipo) {
-		super(code, importe, concepto, tipo);
+	public Factura(int code, double importe, String concepto) {
+		super(code, importe, concepto);
 	}
 
 	public Factura() {
@@ -41,8 +41,8 @@ public class Factura extends ApunteEconomico {
 
 	@Override
 	public String toString() {
-		return "Factura [code=" + code + ", importe=" + importe + ", concepto=" + concepto + ", tipo=" + tipo
-				+ ", idFactura=" + idFactura + ", emisor=" + emisor + "]";
+		return "Factura [code=" + code + ", importe=" + importe + ", concepto=" + concepto + ", idFactura=" + idFactura
+				+ ", emisor=" + emisor + "]";
 	}
 
 	@Override

@@ -6,14 +6,12 @@ public class Vehiculo implements Conducible {
 	protected String marca, modelo;
 	protected int velocidadMaxima;
 	private int matricula;
-	protected TipoVehiculo tipo;
 
-	public Vehiculo(String marca, String modelo, int velocidadMaxima, int matricula, TipoVehiculo tipo) {
+	public Vehiculo(String marca, String modelo, int velocidadMaxima, int matricula) {
 		this.marca = marca;
 		this.modelo = modelo;
 		this.velocidadMaxima = velocidadMaxima;
 		this.matricula = matricula;
-		this.tipo = tipo;
 	}
 
 	public Vehiculo() {
@@ -51,14 +49,6 @@ public class Vehiculo implements Conducible {
 		this.matricula = matricula;
 	}
 
-	public TipoVehiculo getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoVehiculo tipo) {
-		this.tipo = tipo;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(matricula);
@@ -79,17 +69,17 @@ public class Vehiculo implements Conducible {
 	@Override
 	public String toString() {
 		return "Vehiculo [marca=" + marca + ", modelo=" + modelo + ", velocidadMaxima=" + velocidadMaxima
-				+ ", matricula=" + matricula + ", tipo=" + tipo + "]";
+				+ ", matricula=" + matricula + "]";
 	}
 
 	@Override
 	public String arrancar() {
-		return "El vehículo " + this.tipo + " de la marca " + this.marca + " y modelo " + this.modelo + " arranca";
+		return "El vehículo " + " de la marca " + this.marca + " y modelo " + this.modelo + " arranca";
 	}
 
 	@Override
 	public String detener() {
-		return "El vehículo " + this.tipo + " de la marca " + this.marca + " y modelo " + this.modelo + " se detiene";
+		return "El vehículo " + " de la marca " + this.marca + " y modelo " + this.modelo + " se detiene";
 	}
 
 }

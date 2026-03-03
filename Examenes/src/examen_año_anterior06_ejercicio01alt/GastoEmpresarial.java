@@ -6,21 +6,20 @@ public class GastoEmpresarial extends ApunteEconomico {
 	LocalDate fecha;
 	String DNIResponsable;
 
-	public GastoEmpresarial(int code, double importe, String concepto, TipoApunte tipo, LocalDate fecha,
-			String dNIResponsable) {
-		super(code, importe, concepto, tipo);
+	public GastoEmpresarial(int code, double importe, String concepto, LocalDate fecha, String dNIResponsable) {
+		super(code, importe, concepto);
 		this.fecha = fecha;
 		DNIResponsable = dNIResponsable;
 	}
 
-	public GastoEmpresarial(double importe, String concepto, TipoApunte tipo, LocalDate fecha, String dNIResponsable) {
-		super(importe, concepto, tipo);
+	public GastoEmpresarial(double importe, String concepto, LocalDate fecha, String dNIResponsable) {
+		super(importe, concepto);
 		this.fecha = fecha;
 		DNIResponsable = dNIResponsable;
 	}
 
-	public GastoEmpresarial(int code, double importe, String concepto, TipoApunte tipo) {
-		super(code, importe, concepto, tipo);
+	public GastoEmpresarial(int code, double importe, String concepto) {
+		super(code, importe, concepto);
 	}
 
 	public GastoEmpresarial() {
@@ -44,8 +43,8 @@ public class GastoEmpresarial extends ApunteEconomico {
 
 	@Override
 	public String toString() {
-		return "GastoEmpresarial [code=" + code + ", importe=" + importe + ", concepto=" + concepto + ", tipo=" + tipo
-				+ ", fecha=" + fecha + ", DNIResponsable=" + DNIResponsable + "]";
+		return "GastoEmpresarial [code=" + code + ", importe=" + importe + ", concepto=" + concepto + ", fecha=" + fecha
+				+ ", DNIResponsable=" + DNIResponsable + "]";
 	}
 
 	@Override

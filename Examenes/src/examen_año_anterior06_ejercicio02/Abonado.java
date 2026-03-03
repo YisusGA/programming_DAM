@@ -7,19 +7,16 @@ import java.util.Set;
 public abstract class Abonado implements Acciones {
 	protected String nif, nombre;
 	protected Set<Actividad> actividades = new HashSet<>();
-	protected TipoAbonado tipo;
 
-	public Abonado(String nif, String nombre, Set<Actividad> actividades, TipoAbonado tipo) {
+	public Abonado(String nif, String nombre, Set<Actividad> actividades) {
 		this.nif = nif;
 		this.nombre = nombre;
 		this.actividades = actividades;
-		this.tipo = tipo;
 	}
 
-	public Abonado(String nif, String nombre, TipoAbonado tipo) {
+	public Abonado(String nif, String nombre) {
 		this.nif = nif;
 		this.nombre = nombre;
-		this.tipo = tipo;
 	}
 
 	public Abonado() {
@@ -78,7 +75,7 @@ public abstract class Abonado implements Acciones {
 
 	@Override
 	public String toString() {
-		return "Abonado [nif=" + nif + ", nombre=" + nombre + ", actividades=" + actividades + ", tipo=" + tipo + "]";
+		return "Abonado [nif=" + nif + ", nombre=" + nombre + ", actividades=" + actividades + "]";
 	}
 
 	@Override

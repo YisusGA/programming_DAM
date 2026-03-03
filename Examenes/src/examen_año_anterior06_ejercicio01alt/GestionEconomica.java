@@ -62,7 +62,7 @@ public class GestionEconomica {
 			System.out.println("Introduce el id de la factura");
 			int id = scan.nextInt();
 			scan.nextLine();
-			apunte = new Factura(code, importe, concepto, tipo, id, emisor);
+			apunte = new Factura(code, importe, concepto, id, emisor);
 			System.out.println("Factura añadida");
 		}
 		case GASTO -> {
@@ -70,7 +70,7 @@ public class GestionEconomica {
 			LocalDate fecha = LocalDate.parse(scan.nextLine());
 			System.out.println("Introduce el dni del emisor");
 			String dni = scan.nextLine();
-			apunte = new GastoEmpresarial(code, importe, concepto, tipo, fecha, dni);
+			apunte = new GastoEmpresarial(code, importe, concepto, fecha, dni);
 		}
 		}
 		apuntes.add(apunte);

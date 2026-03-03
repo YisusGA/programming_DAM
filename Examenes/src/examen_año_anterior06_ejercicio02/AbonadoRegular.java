@@ -5,12 +5,12 @@ import java.util.Set;
 public class AbonadoRegular extends Abonado {
 	public static int maximoActividades;
 
-	public AbonadoRegular(String nif, String nombre, Set<Actividad> actividades, TipoAbonado tipo) {
-		super(nif, nombre, actividades, tipo);
+	public AbonadoRegular(String nif, String nombre, Set<Actividad> actividades) {
+		super(nif, nombre, actividades);
 	}
 	
-	public AbonadoRegular(String nif, String nombre, TipoAbonado tipo) {
-		super(nif, nombre, tipo);
+	public AbonadoRegular(String nif, String nombre) {
+		super(nif, nombre);
 	}
 
 	public AbonadoRegular() {

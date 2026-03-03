@@ -15,20 +15,17 @@ public abstract class ApunteEconomico {
 							// autoincremente
 	protected double importe;
 	protected String concepto;
-	protected TipoApunte tipo;
 	private static Set<Integer> seriales = new HashSet<>();
 
-	public ApunteEconomico(int code, double importe, String concepto, TipoApunte tipo) {
+	public ApunteEconomico(int code, double importe, String concepto) {
 		this.code = code;
 		this.importe = importe;
 		this.concepto = concepto;
-		this.tipo = tipo;
 	}
 
-	public ApunteEconomico(double importe, String concepto, TipoApunte tipo) {
+	public ApunteEconomico(double importe, String concepto) {
 		this.importe = importe;
 		this.concepto = concepto;
-		this.tipo = tipo;
 	}
 
 	public ApunteEconomico() {
@@ -77,8 +74,7 @@ public abstract class ApunteEconomico {
 
 	@Override
 	public String toString() {
-		return "ApunteEconomico [code=" + code + ", importe=" + importe + ", concepto=" + concepto + ", tipo=" + tipo
-				+ "]";
+		return "ApunteEconomico [code=" + code + ", importe=" + importe + ", concepto=" + concepto + "]";
 	}
 
 	public int getEjercicioActual() {

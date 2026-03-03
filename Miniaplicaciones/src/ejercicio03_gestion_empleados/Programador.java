@@ -4,15 +4,14 @@ public class Programador extends Empleado {
 	private String lenguajePrincipal;
 	private Double plusLenguaje;
 
-	public Programador(String nombre, Double salarioBase, String lenguajePrincipal, double plusLenguaje,
-			TipoEmpleado tipo) {
-		super(nombre, salarioBase, tipo);
+	public Programador(String nombre, Double salarioBase, String lenguajePrincipal, double plusLenguaje) {
+		super(nombre, salarioBase);
 		this.lenguajePrincipal = lenguajePrincipal;
 		this.plusLenguaje = plusLenguaje;
 	}
 
-	public Programador(String nombre, Double salarioBase, TipoEmpleado tipo) {
-		super(nombre, salarioBase, tipo);
+	public Programador(String nombre, Double salarioBase) {
+		super(nombre, salarioBase);
 	}
 
 	public Programador() {
@@ -37,8 +36,8 @@ public class Programador extends Empleado {
 
 	@Override
 	public String toString() {
-		return "Programador [nombre=" + nombre + ", salarioBase=" + salarioBase + ", tipo=" + tipo
-				+ ", lenguajePrincipal=" + lenguajePrincipal + ", plusLenguaje=" + plusLenguaje + "]";
+		return "Programador [nombre=" + nombre + ", salarioBase=" + salarioBase + ", lenguajePrincipal="
+				+ lenguajePrincipal + ", plusLenguaje=" + plusLenguaje + "]";
 	}
 
 	@Override

@@ -41,10 +41,10 @@ public class GestionGimnasio {
 
 				switch (tipo) {
 				case REGULAR -> {
-					abonados.add(new AbonadoRegular(nif, nombre, tipo));
+					abonados.add(new AbonadoRegular(nif, nombre));
 				}
 				case VIP -> {
-					abonados.add(new AbonadoVIP(nif, nombre, tipo));
+					abonados.add(new AbonadoVIP(nif, nombre));
 				}
 				}
 				System.out.println("Nuevo abonado registrado");

@@ -10,7 +10,6 @@ public abstract class ApunteEconomico {
 	protected Integer code;
 	protected double importe;
 	protected String concepto;
-	protected TipoApunte tipo;
 	protected static int serial = 0; // Si quisiéramos que el serial fuera una propiedad que sirviera como equals de
 										// la clase, al ser static, no podría usarse ni para equals ni para el
 										// constructor. En ese caso, lo ideal sería declarar en esta clase la propiedad
@@ -20,17 +19,15 @@ public abstract class ApunteEconomico {
 										// misma clase que implementa el main, irla incrementando en 1 cada vez que se
 										// use
 
-	public ApunteEconomico(int code, double importe, String concepto, TipoApunte tipo) {
+	public ApunteEconomico(int code, double importe, String concepto) {
 		this.code = code;
 		this.importe = importe;
 		this.concepto = concepto;
-		this.tipo = tipo;
 	}
 
-	public ApunteEconomico(double importe, String concepto, TipoApunte tipo) {
+	public ApunteEconomico(double importe, String concepto) {
 		this.importe = importe;
 		this.concepto = concepto;
-		this.tipo = tipo;
 	}
 
 	public ApunteEconomico() {
@@ -79,8 +76,7 @@ public abstract class ApunteEconomico {
 
 	@Override
 	public String toString() {
-		return "ApunteEconomico [code=" + code + ", importe=" + importe + ", concepto=" + concepto + ", tipo=" + tipo
-				+ "]";
+		return "ApunteEconomico [code=" + code + ", importe=" + importe + ", concepto=" + concepto + ", tipo=" + "]";
 	}
 
 	public int getEjercicioActual() {

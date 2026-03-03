@@ -3,13 +3,11 @@ package modelo;
 public class Habitacion {
 	protected int numeroHabitacion, numeroCamas;
 	protected double precio;
-	TipoHabitacion tipo;
 
-	public Habitacion(int numeroHabitacion, int numeroCamas, double precio, TipoHabitacion tipo) {
+	public Habitacion(int numeroHabitacion, int numeroCamas, double precio) {
 		this.numeroHabitacion = numeroHabitacion;
 		this.numeroCamas = numeroCamas;
 		this.precio = precio;
-		this.tipo = tipo;
 		// No tiene sentido meter una propiedad boolean disponible porque la
 		// disponibilidad depende de la fecha
 	}
@@ -39,14 +37,6 @@ public class Habitacion {
 
 	public void setPrecio(double precio) {
 		this.precio = precio;
-	}
-
-	public TipoHabitacion getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoHabitacion tipo) {
-		this.tipo = tipo;
 	}
 
 	public int plazasTotales() {

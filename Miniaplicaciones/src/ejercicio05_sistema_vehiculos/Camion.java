@@ -3,13 +3,13 @@ package ejercicio05_sistema_vehiculos;
 public class Camion extends Vehiculo implements Conducible {
 	private int numeroEjes;
 
-	public Camion(String marca, String modelo, int velocidadMaxima, int matricula, TipoVehiculo tipo, int numeroEjes) {
-		super(marca, modelo, velocidadMaxima, matricula, tipo);
+	public Camion(String marca, String modelo, int velocidadMaxima, int matricula, int numeroEjes) {
+		super(marca, modelo, velocidadMaxima, matricula);
 		this.numeroEjes = numeroEjes;
 	}
 
-	public Camion(String marca, String modelo, int velocidadMaxima, int matricula, TipoVehiculo tipo) {
-		super(marca, modelo, velocidadMaxima, matricula, tipo);
+	public Camion(String marca, String modelo, int velocidadMaxima, int matricula) {
+		super(marca, modelo, velocidadMaxima, matricula);
 	}
 
 	public Camion() {
@@ -25,8 +25,7 @@ public class Camion extends Vehiculo implements Conducible {
 
 	@Override
 	public String toString() {
-		return "Camion [marca=" + marca + ", modelo=" + modelo + ", velocidadMaxima=" + velocidadMaxima + ", tipo="
-				+ tipo + ", numeroEjes=" + numeroEjes + "]";
+		return "Camion [marca=" + marca + ", modelo=" + modelo + ", velocidadMaxima=" + velocidadMaxima + ", numeroEjes=" + numeroEjes + "]";
 	}
 
 }

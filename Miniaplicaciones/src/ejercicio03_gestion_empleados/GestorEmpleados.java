@@ -12,10 +12,10 @@ public class GestorEmpleados {
 		Empleado empleado = null;
 		switch (tipo) {
 		case PROGRAMADOR -> {
-			empleado = new Programador(nombre, salarioBase, distintivo, plus, tipo);
+			empleado = new Programador(nombre, salarioBase, distintivo, plus);
 		}
 		case DISEÑADOR -> {
-			empleado = new Diseñador(nombre, salarioBase, distintivo, plus, tipo);
+			empleado = new Diseñador(nombre, salarioBase, distintivo, plus);
 		}
 		}
 		empleados.add(empleado);

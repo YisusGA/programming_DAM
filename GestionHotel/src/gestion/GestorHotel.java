@@ -29,12 +29,12 @@ public class GestorHotel {
 
 		switch (tipo) {
 		case HABITACION -> {
-			habitacion = new Habitacion(numeroHabitacion, numeroCamas, precio, tipo);
+			habitacion = new Habitacion(numeroHabitacion, numeroCamas, precio);
 		}
 		case HABITACIONFAMILIAR -> {
 			System.out.println("Introduce el número de camas dobles");
 			int numeroCamasDobles = Teclado2.leerEntero();
-			habitacion = new HabitacionFamiliar(numeroHabitacion, numeroCamas, precio, tipo, numeroCamasDobles);
+			habitacion = new HabitacionFamiliar(numeroHabitacion, numeroCamas, precio, numeroCamasDobles);
 		}
 		default -> {
 			habitacion = null;
@@ -99,7 +99,6 @@ public class GestorHotel {
 		if (comprobarSiExisteHabitacion(numeroHabitacion)) {
 			Habitacion habitacion = devolverHabitacion(numeroHabitacion);
 			System.out.println(habitacion);
-			TipoHabitacion tipo = habitacion.getTipo();
 			System.out.println("¿Qué dato(s) quieres actualizar?");
 			System.out.println("Datos habitación:" + habitacion);
 			int opcion;

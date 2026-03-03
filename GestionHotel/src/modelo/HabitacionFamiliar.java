@@ -3,8 +3,8 @@ package modelo;
 public class HabitacionFamiliar extends Habitacion {
 	private int numeroCamasDobles;
 
-	public HabitacionFamiliar(int numeroHabitacion, int numeroCamas, double precio, TipoHabitacion tipo,int numeroCamasDobles) {
-		super(numeroHabitacion, numeroCamas, precio, tipo);
+	public HabitacionFamiliar(int numeroHabitacion, int numeroCamas, double precio, int numeroCamasDobles) {
+		super(numeroHabitacion, numeroCamas, precio);
 		this.numeroCamasDobles = numeroCamasDobles;
 	}
 

@@ -49,21 +49,34 @@ public class SimulacionEcosistema {
 								// de Animal. Esto nos obliga a instanciar con un null, pues aún no sabemos qué
 								// tipo de depredador encontraría primero
 
-		for (int i = 0; !encontrado && i < animales.size(); i++) { // Si usamos un for clásico con índice, trabajamos
-																	// directamente con las instancias del objeto.
-																	// PREGUNTAR A LA PROFE
+		for (int i = 0; !encontrado && i < animales.size(); i++) { // Si usamos un for clásico con índice, podemos meter
+																	// una condición para que se detenga la iteración
+																	// sobre la colección cuando encuentre un objeto,
+																	// sin tener que usar un break. Además, como
+																	// trabajamos directamente con los elementos de la
+																	// lista, y no con copias, podemos modificar
+																	// directamente los objetos de la colección (no
+																	// ocurre así con un for-each). Ver apuntes cuaderno
+																	// 03-03-2026
 			if (animales.get(i) instanceof Depredador) {
 				dep = (Depredador) animales.get(i); // Este casting es necesario, o el compilador da error
 				encontrado = true;
 			}
 		}
 
-		// Aunque esto de debajo puede hacerse y funciona, la profe dijo que mejor
-		// trabajar con un for clásico con índice. ¿Por qué?
+		// Aunque esto de debajo puede hacerse y funciona, ya nos obliga a meter un
+		// break par evitar que recorra toda la colección, lo cual queda feo y no es
+		// buena práctica. Además, si quisiéramos cambiar un elemento de la colección,
+		// no podríamos, dado que estamos trabajando con copias de las direcciones de
+		// memoria de la colección, no con las direcciones de memoria guardadas en la
+		// colección. Un for-each se debe usar sólo para hacer consultas y cuando
+		// queramos que se recorra la colección entera. Ver apuntes cuaderno 03-03-2026
+
 //		for (Animal i : animales) {
 //			if (!encontrado && i instanceof Depredador) {
 //				dep = (Depredador) i; // Este casting es necesario, o el compilador da error
 //				encontrado = true;
+//		        break;
 //			}
 //		}
 

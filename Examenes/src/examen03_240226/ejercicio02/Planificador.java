@@ -3,12 +3,33 @@ package examen03_240226.ejercicio02;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 
 public class Planificador {
 	private static List<Proceso> pendientes = new ArrayList<>();
 	private static Set<Proceso> ejecucion = new HashSet<>();
+
+	// Podría ser más conveniente usar un TreeSet, metiéndole como criterio de
+	// ordenamiento CriterioOrdenPid, pues así el TreeSet tiene ya un orden y no
+	// tenemos que usar sort cada vez que listemos los procesos en ejecución
+//	private static Set<Proceso> ejecucion1 = new TreeSet<>(new CriterioOrdenPid());
+
+	// Si sólo vamos a usar el Comparator una vez nada más, podemos declarar una
+	// clase anónima, que es lo que se ve aquí debajo. Y así nos ahorramos tener
+	// otra clase en nuestro proyecto si sólo la vamos a usar una vez. Si hubiera
+	// que llamarla varias veces, entonce ya sí que compensa más crear la clase que
+	// implemente Comparator
+	
+//	private static Set<Proceso> ejecucion1 = new TreeSet<>(new Comparator<Proceso>() {
+//		@Override
+//		public int compare(Proceso o1, Proceso o2) {
+//			return o1.getPid() - o2.getPid();
+//		}
+//	});
+
 	private static Scanner scan = new Scanner(System.in);
 	private static int pidGenerado = 0;
 
@@ -89,6 +110,15 @@ public class Planificador {
 		Proceso aux = pendientes.get(0);
 		ejecucion.add(pendientes.get(0));
 		pendientes.remove(0);
+
+		// Esto de debajo también funcionaría
+//		Proceso aux = pendientes.get(0);
+//		ejecucion.add(aux);
+//		pendientes.remove(aux); // Esto funcionaría aunque no hubiésemos implementado un equals. Si hemos
+		// implementado equals, usaría el equals de nuestra implementación. Si no
+		// hubiésemos implementado un equals, usaría el equals de Object, que compara
+		// direcciones de memoria. Como a aux le hemos asignado la dirección de memoria
+		// de pendientes.get(0), funcionaría, pues la dirección de memoria es la misma
 		return "El proceso con pid " + aux.getPid() + " pasa a ejecutarse";
 	}
 

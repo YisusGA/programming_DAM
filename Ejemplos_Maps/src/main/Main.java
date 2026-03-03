@@ -15,15 +15,20 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		alumnos.put("1234", new Alumno());
+		// Fijarse que ahora el método de añadir no es add, sino put
+		alumnos.put("1234", new Alumno("1234")); // De esta forma, hago que tanto la propiedad nif de Alumno (su clave
+													// primaria) como la clave del valor en el HashMap, coincidan.
+													// Porque aunque no sea obligatorio técnicamente que coincidan,
+													// conceptualmente no tiene sentido que sean diferentes. Habría que
+													// buscar formas más robustas de hacer que deban ser iguales
 		System.out.println("Número de alumnos: " + alumnos.size());
 
 		// Si intentas insertar un nuevo valor con una clave que ya existe, sustituye el
 		// valor asociado a esa clave por el nuevo, no añade un nuevo objeto
-		alumnos.put("1234", new Alumno());
+		alumnos.put("1234", new Alumno("1234"));
 		System.out.println("Número de alumnos: " + alumnos.size());
 
-		alumnos.put("5678", new Alumno());
+		alumnos.put("5678", new Alumno("5678"));
 		System.out.println("Número de alumnos: " + alumnos.size());
 
 		// Obtener valor (objeto) a partir de una clave. Este es uno de los grandes
@@ -31,7 +36,7 @@ public class Main {
 		// objetos, mirando dentro de cada objeto, para encontrar el que queremos.
 		// Simplemente se itera en un HashSet de claves para encontrar la que buscamos,
 		// y a partir de ahí, accedemos al valor (objeto) asociado a dicha clave
-		alumnos.get("1224");
+		System.out.println(alumnos.get("1234"));
 
 	}
 

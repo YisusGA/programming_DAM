@@ -3,6 +3,10 @@ package empleados;
 import hospital.Turnos;
 
 public class Enfermero extends Empleado {
+	// En cambio, en este caso, sí que tiene todo el sentido meter esta propiedad de
+	// la clase enum en la clase Enfermero, pues Turno es una propiedad que aoporta
+	// datos sobre Enfermero, no es algo que se use para "instanciar un tipo
+	// concreto de enfermero"
 	Turnos turno;
 
 	public Enfermero(String nombre, String dni, double salario, Turnos turno) {
@@ -31,7 +35,8 @@ public class Enfermero extends Empleado {
 
 	@Override
 	public String mostrarDatos() {
-		return "Empleado [nombre=" + nombre + ", dni=" + dni + ", salario base=" + salario + ", turno=" + turno.name() + "]";
+		return "Empleado [nombre=" + nombre + ", dni=" + dni + ", salario base=" + salario + ", turno=" + turno.name()
+				+ "]";
 	}
 
 }

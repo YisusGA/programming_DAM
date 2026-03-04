@@ -17,7 +17,9 @@ public class Planificador2 {
 	// clase anónima, que es lo que se ve aquí debajo. Y así nos ahorramos tener
 	// otra clase en nuestro proyecto si sólo la vamos a usar una vez. Si hubiera
 	// que llamarla varias veces, entonces ya sí que compensa más crear la clase que
-	// implemente Comparator
+	// implemente Comparator. Con saber escribir hasta la parte de apertura de la
+	// llave de Comparator, el compilador ya te permite autocompletar mediante un
+	// warning el método compare no implementado
 	private static Set<Proceso> ejecucion = new TreeSet<>(new Comparator<Proceso>() {
 		@Override
 		public int compare(Proceso o1, Proceso o2) {

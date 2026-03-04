@@ -78,12 +78,12 @@ public class Main {
 														// Collection. Si no ponemos Collection, el compilador nos avisa
 														// del fallo
 
-		// Recorremos con un for-each
+		// Y recorremos con un for-each
 		for (Alumno i : values) {
 			System.out.println(i);
 		}
 		// O con un Iterator, que es obligatorio si queremos modificar o eliminar los
-		// valores
+		// objetos de la Collection
 		Iterator<Alumno> it = values.iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());

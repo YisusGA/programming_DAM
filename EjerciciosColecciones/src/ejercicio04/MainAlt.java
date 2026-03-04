@@ -1,7 +1,6 @@
 package ejercicio04;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +8,7 @@ import java.util.Set;
 
 import teclado.Teclado2;
 
-public class Main {
+public class MainAlt {
 	private static Map<String, String> personas = new HashMap<>();
 
 	public static void main(String[] args) {
@@ -24,33 +23,44 @@ public class Main {
 			insertarPersona(nif, nombre);
 		}
 
-		buscarNifPorNombre();
-		System.out.println("Finalizando programa...");
+		List<String> nifsEncontrados = buscarNifPorNombre();
+		System.out.println("Esta es la lista de nifs encontrados");
+		if (nifsEncontrados != null) {
+			for (String i : nifsEncontrados) {
+				System.out.println(i);
+			}
+		} else {
+			System.err.println("No se ha encontrado ningún nombre con los nifs introducidos");
+		}
+
 	}
 
 	public static void insertarPersona(String nif, String nombre) {
 		personas.put(nif, nombre);
 	}
 
-	public static void buscarNifPorNombre() {
-		Set<Map.Entry<String, String>> mapView = personas.entrySet();
+	public static List<String> buscarNifPorNombre() {
 		String input;
+		List<String> nifsEncontrados = new ArrayList<>();
+		Set<Map.Entry<String, String>> vistaMap = personas.entrySet();
+		boolean encontrado = false;
 		do {
-			boolean encontrado = false;
 			System.out.println("Introduce el nombre a buscar. Introduce fin cuando quieras parar");
 			input = Teclado2.leerCadena();
-			for (Map.Entry<String, String> entry : mapView) {
-				if (entry.getValue().equalsIgnoreCase(input)) {
-					System.out.print("NIF: ");
-					System.out.println(entry.getKey());
-					encontrado = true;
+			if (!input.equalsIgnoreCase("fin")) {
+				for (Map.Entry<String, String> entry : vistaMap) {
+					if (entry.getValue().equalsIgnoreCase(input)) {
+						nifsEncontrados.add(entry.getKey());
+						encontrado = true;
+					}
 				}
 			}
-			if (!input.equalsIgnoreCase("fin") && !encontrado) {
-				System.err.println("No se ha encontrado ningún nombre con el nif introducido");
-			}
-			
 		} while (!input.equalsIgnoreCase("fin"));
+		if (encontrado) {
+			return nifsEncontrados;
+		} else {
+			return null;
+		}
 	}
 
 }

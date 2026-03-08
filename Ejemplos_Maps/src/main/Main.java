@@ -25,7 +25,10 @@ public class Main {
 													// primaria) como la clave del valor en el HashMap, coincidan.
 													// Porque aunque no sea obligatorio técnicamente que coincidan,
 													// conceptualmente no tiene sentido que sean diferentes. Habría que
-													// buscar formas más robustas de hacer que deban ser iguales
+													// buscar formas más robustas de hacer que deban ser iguales. Una
+													// solución sería que, al pedir el dni por teclado, se asigne el
+													// valor introducido tanto a la clave del HashMap como a la
+													// propiedad nif del alumno que se asocia a esa clave
 		System.out.println("Número de alumnos: " + alumnos.size());
 
 		// Si intentas insertar un nuevo valor con una clave que ya existe, sustituye el
@@ -89,15 +92,19 @@ public class Main {
 			System.out.println(it.next());
 		}
 
-		// 3- MapEntry: es un envolvente del HashMap. Es "una forma amable" de visualizar
-		// el HashMap, una vista adaptada del Map. Es un poco como las vistas en bases
-		// de datos: son como ventanas que nos sirven para ver sólo los datos que nos
-		// interesan. Y a través de esas ventanas, accedemos y trabajamos con los datos
-		// reales. Las vistas no son copias de los datos reales, sólo ventanas para
-		// acceder de forma más amigable a los datos reales
-		
+		// 3- MapEntry: es un envolvente del HashMap. Es "una forma amable" de
+		// visualizar el HashMap, una vista adaptada del Map. Es un poco como las vistas
+		// en bases de datos: son como ventanas que nos sirven para ver sólo los datos
+		// que nos interesan. Y a través de esas ventanas, accedemos y trabajamos con
+		// los datos reales. Las vistas no son copias de los datos reales, sólo ventanas
+		// para acceder de forma más amigable a los datos reales. Como se puede ver al
+		// dejar puesto el ratón sobre .entrySet, un Set de tipo Map.Entry creado con el
+		// método .entrySet() queda conectado al Map del que proviene: si se modifica o
+		// elimina un elemento del Set, se modifica o elimina del Map del que proviene,
+		// y viceversa
+
 		Set<Map.Entry<String, Alumno>> vistaMap = alumnos.entrySet();
-		
+
 		for (Map.Entry<String, Alumno> entry : vistaMap) {
 			System.out.println(entry.getKey());
 			System.out.println(entry.getValue());

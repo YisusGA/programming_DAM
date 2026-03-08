@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Objects;
+
 public class Alumno {
 	private String nombre;
 	private String nif; // No es necesario para trabajar con el HashMap darle una propiedad nif a
@@ -49,6 +51,26 @@ public class Alumno {
 	@Override
 	public String toString() {
 		return "Alumno [nombre=" + nombre + ", nif=" + nif + ", nota=" + nota + "]";
+	}
+
+	// hashCode y equals no son necesarios para el funcionamiento del HashMap, pero
+	// es buena idea sobreescribir estos métodos, pues podríamos querer trabajar con
+	// objetos de la clase Alumno en colecciones en otros contextos
+	@Override
+	public int hashCode() {
+		return Objects.hash(nif);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Alumno other = (Alumno) obj;
+		return Objects.equals(nif, other.nif);
 	}
 
 }

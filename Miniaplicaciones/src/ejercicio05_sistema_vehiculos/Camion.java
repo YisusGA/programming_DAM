@@ -3,12 +3,12 @@ package ejercicio05_sistema_vehiculos;
 public class Camion extends Vehiculo implements Conducible {
 	private int numeroEjes;
 
-	public Camion(String marca, String modelo, int velocidadMaxima, int matricula, int numeroEjes) {
+	public Camion(String marca, String modelo, int velocidadMaxima, String matricula, int numeroEjes) {
 		super(marca, modelo, velocidadMaxima, matricula);
 		this.numeroEjes = numeroEjes;
 	}
 
-	public Camion(String marca, String modelo, int velocidadMaxima, int matricula) {
+	public Camion(String marca, String modelo, int velocidadMaxima, String matricula) {
 		super(marca, modelo, velocidadMaxima, matricula);
 	}
 

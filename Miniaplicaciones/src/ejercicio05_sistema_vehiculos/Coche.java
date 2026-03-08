@@ -1,25 +1,25 @@
 package ejercicio05_sistema_vehiculos;
 
 public class Coche extends Vehiculo implements Conducible {
-	private String numeroPuertas;
+	private int numeroPuertas;
 
-	public Coche(String marca, String modelo, int velocidadMaxima, int matricula, String numeroPuertas) {
+	public Coche(String marca, String modelo, int velocidadMaxima, String matricula, int numeroPuertas) {
 		super(marca, modelo, velocidadMaxima, matricula);
 		this.numeroPuertas = numeroPuertas;
 	}
 
-	public Coche(String marca, String modelo, int velocidadMaxima, int matricula) {
+	public Coche(String marca, String modelo, int velocidadMaxima, String matricula) {
 		super(marca, modelo, velocidadMaxima, matricula);
 	}
 
 	public Coche() {
 	}
 
-	public String getNumeroPuertas() {
+	public int getNumeroPuertas() {
 		return numeroPuertas;
 	}
 
-	public void setNumeroPuertas(String numeroPuertas) {
+	public void setNumeroPuertas(int numeroPuertas) {
 		this.numeroPuertas = numeroPuertas;
 	}
 

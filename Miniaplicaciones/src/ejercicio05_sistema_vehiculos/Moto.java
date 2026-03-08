@@ -3,12 +3,12 @@ package ejercicio05_sistema_vehiculos;
 public class Moto extends Vehiculo implements Conducible {
 	private int cilindrada;
 
-	public Moto(String marca, String modelo, int velocidadMaxima, int matricula, int cilindrada) {
+	public Moto(String marca, String modelo, int velocidadMaxima, String matricula, int cilindrada) {
 		super(marca, modelo, velocidadMaxima, matricula);
 		this.cilindrada = cilindrada;
 	}
 
-	public Moto(String marca, String modelo, int velocidadMaxima, int matricula) {
+	public Moto(String marca, String modelo, int velocidadMaxima, String matricula) {
 		super(marca, modelo, velocidadMaxima, matricula);
 	}
 

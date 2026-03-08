@@ -2,12 +2,12 @@ package ejercicio05_sistema_vehiculos;
 
 import java.util.Objects;
 
-public class Vehiculo implements Conducible {
+public abstract class Vehiculo implements Conducible {
 	protected String marca, modelo;
 	protected int velocidadMaxima;
-	private int matricula;
+	private String matricula;
 
-	public Vehiculo(String marca, String modelo, int velocidadMaxima, int matricula) {
+	public Vehiculo(String marca, String modelo, int velocidadMaxima, String matricula) {
 		this.marca = marca;
 		this.modelo = modelo;
 		this.velocidadMaxima = velocidadMaxima;
@@ -41,11 +41,11 @@ public class Vehiculo implements Conducible {
 		this.velocidadMaxima = velocidadMaxima;
 	}
 
-	public int getMatricula() {
+	public String getMatricula() {
 		return matricula;
 	}
 
-	private void setMatricula(int matricula) {
+	private void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
 

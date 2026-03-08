@@ -7,9 +7,10 @@ import java.util.TreeSet;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Planificador2 {
-	private static List<Proceso> pendientes = new ArrayList<>();
+	private static List<Proceso2> pendientes = new ArrayList<>();
 	// Es más conveniente usar un TreeSet, pues así el TreeSet tiene ya un orden y
 	// no tenemos que usar sort cada vez que listemos los procesos en ejecución
 
@@ -20,15 +21,14 @@ public class Planificador2 {
 	// implemente Comparator. Con saber escribir hasta la parte de apertura de la
 	// llave de Comparator, el compilador ya te permite autocompletar mediante un
 	// warning el método compare no implementado
-	private static Set<Proceso> ejecucion = new TreeSet<>(new Comparator<Proceso>() {
+	private static Set<Proceso2> ejecucion = new TreeSet<>(new Comparator<Proceso2>() {
 		@Override
-		public int compare(Proceso o1, Proceso o2) {
+		public int compare(Proceso2 o1, Proceso2 o2) {
 			return o1.getPid() - o2.getPid();
 		}
 	});
 
 	private static Scanner scan = new Scanner(System.in);
-	private static int pidGenerado = 0;
 
 	public static void main(String[] args) {
 		int opcion;
@@ -98,13 +98,13 @@ public class Planificador2 {
 	}
 
 	public static String agregarProcesoPendiente(int prioridad, int duracion) {
-		pendientes.add(new Proceso(pidGenerado++, prioridad, duracion));
+		pendientes.add(new Proceso2(prioridad, duracion));
 		pendientes.sort(null);
 		return "Proceso agregado a lista de pendientes";
 	}
 
 	public static String ejecutar() {
-		Proceso aux = pendientes.get(0);
+		Proceso2 aux = pendientes.get(0);
 		ejecucion.add(pendientes.get(0));
 		pendientes.remove(0);
 
@@ -119,14 +119,23 @@ public class Planificador2 {
 		return "El proceso con pid " + aux.getPid() + " pasa a ejecutarse";
 	}
 
-	public static List<Proceso> listarEjecucion() {
-		List<Proceso> aux = new ArrayList<>();
+	public static List<Proceso2> listarEjecucion() {
+		List<Proceso2> aux = new ArrayList<>();
 		aux.addAll(ejecucion);
 		return aux;
 	}
 
 	public static boolean abortarProceso(int pid) {
-		return ejecucion.remove(new Proceso(pid));
+		Iterator<Proceso2> it = ejecucion.iterator();
+		boolean eliminado = false;
+		while (!eliminado && it.hasNext()) {
+			Proceso2 p = it.next();
+			if (p.getPid() == pid) {
+				it.remove();
+				eliminado = true;
+			}
+		}
+		return eliminado;
 	}
 
 }

@@ -11,10 +11,6 @@ public class Proceso implements Comparable<Proceso> {
 		this.duracion = duracion;
 	}
 
-	public Proceso(int pid) {
-		this.pid = pid;
-	}
-
 	public Proceso() {
 	}
 

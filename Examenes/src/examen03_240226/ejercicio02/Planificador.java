@@ -7,6 +7,7 @@ import java.util.TreeSet;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Planificador {
 	private static List<Proceso> pendientes = new ArrayList<>();
@@ -132,7 +133,16 @@ public class Planificador {
 	}
 
 	public static boolean abortarProceso(int pid) {
-		return ejecucion.remove(new Proceso(pid));
+		Iterator<Proceso> it = ejecucion.iterator();
+		boolean eliminado = false;
+		while (!eliminado && it.hasNext()) {
+			Proceso p = it.next();
+			if (p.getPid() == pid) {
+				it.remove();
+				eliminado = true;
+			}
+		}
+		return eliminado;
 	}
 
 }

@@ -13,7 +13,7 @@ import java.util.TreeMap;
 
 import teclado.Teclado2;
 
-public class SistemaVotaciones {
+public class SistemaVotacionesAlt {
 	private static Scanner scan = new Scanner(System.in);
 	private static List<String> candidates = new ArrayList<>();
 	// Usamos un TreeMap para que las claves se almacenen en un TreeSet de Strings,
@@ -23,7 +23,7 @@ public class SistemaVotaciones {
 	private static int numberCandidates = 5; // Ponemos el número por defecto en 5, para que sea el número de candidatos
 	// por defecto en el caso de que el usuario no meta un int válido cuando
 	// se le pregunta por el número de candidatos
-	private static int numVotaciones = 30;
+	private static int numVotaciones = 5;
 
 	public static void main(String[] args) {
 		System.out.println("¿Cuántos candidatos quieres añadir?");
@@ -105,21 +105,17 @@ public class SistemaVotaciones {
 	public static boolean rondaVotaciones() {
 		boolean votacionOK = false;
 		if (candidates != null && candidates.size() > 0) {
-			Random generador = new Random();
 			for (int i = 0; i < numVotaciones; i++) {
-				int voto = generador.nextInt(0, candidates.size()); // Generamos un número aleatorio entre el 0 (primera
-																	// posición del ArrayList de candidates) y el tamaño
-																	// máximo de dicho ArrayList
-				String votado = candidates.get(voto); // Y recuperamos de ese ArrayList el candidato cuya posición
-														// coincide con el número generado
-				if (votaciones.containsKey(votado)) { // Si el candidato ya había recibido algún voto, entonces estará
-														// en el TreeMap, y lo que hacemos es sumar un voto a los que ya
-														// tuviera
-					int numVotos = votaciones.get(votado);
-					votaciones.replace(votado, numVotos + 1);
-				} else { // Pero si el candidato no había recibido ningún voto, entonces se añade al
-							// TreeMap con un valor de 1 voto
-					votaciones.put(votado, 1);
+				String voto;
+				do {
+					System.out.println("Introduce el nombre del candidato a las elecciones al que quieres dar tu voto");
+					voto = scan.nextLine();
+				} while (!candidates.contains(voto));
+				if (votaciones.containsKey(voto)) {
+					int numVotos = votaciones.get(voto);
+					votaciones.replace(voto, numVotos + 1);
+				} else {
+					votaciones.put(voto, 1);
 				}
 			}
 			votacionOK = true;

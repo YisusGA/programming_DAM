@@ -13,6 +13,19 @@ import java.util.TreeMap;
 
 import teclado.Teclado2;
 
+/*
+ * Lo que cambia en esta versión con respecto a SistemaVotacionesAlt2 es que ahora no hay un método que realice la ronda
+ * completa de votaciones, sino que el método se ha sustituido por uno que lee una cadena y comprueba si hay un candidato
+ * con ese nombre. Si lo hay, devuelve esa cadena con el nombre; si no lo hay, entonces lanza una Exception de la subclase 
+ * que nosotros hemos creado, VotoNoValidoException. Eso se propaga al main, que es el método que llama a getVoto().
+ * Una vez en el main, lo que hacemos en esta versión es capturar esa Exception con un try-catch, mostrar un mensaje
+ * al respecto y asignar el voto al primer candidado de la lista de candidatos.
+ * Cuando nosotros llamamos desde el método main a un método que puede lanzar una Exception, el compilador nos va a subrayar
+ * esa llamada al método en rojo, avisando de que ese método puede arrojar una Exception. Y si ponemos el ratón sobre él, nos
+ * saldrán 2 opciones: o bien implementar un try-catch para capturar la Exception y hacer algo al respecto (lo que se hace en 
+ * esta clase), o bien hacer un throws para arriba de esa Exception (ver SistemaVotacionesAlt4).
+ */
+
 public class SistemaVotacionesAlt3 {
 	private static Scanner scan = new Scanner(System.in);
 	private static List<String> candidates = new ArrayList<>();
@@ -41,7 +54,9 @@ public class SistemaVotacionesAlt3 {
 				voto = getVoto();
 			} catch (VotoNoValidoException ex) {
 				ex.printStackTrace();
-				System.err.println("Voto no válido, se asignará al primer candidato");
+				System.out.println();
+				System.out.println("Voto no válido, se asignará al primer candidato");
+				System.out.println();
 				voto = candidates.get(0);
 			}
 			if (votaciones.containsKey(voto)) {

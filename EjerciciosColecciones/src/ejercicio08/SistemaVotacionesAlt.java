@@ -13,6 +13,10 @@ import java.util.TreeMap;
 
 import teclado.Teclado2;
 
+/*
+ * Lo que cambia en esta versión con respecto a SistemaVotaciones es que es el usuario el que escribe el nombre del 
+ * candidato a votar, en lugar de repartir los votos de forma pseudoaleatoria
+ */
 public class SistemaVotacionesAlt {
 	private static Scanner scan = new Scanner(System.in);
 	private static List<String> candidates = new ArrayList<>();

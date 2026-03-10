@@ -13,6 +13,12 @@ import java.util.TreeMap;
 
 import teclado.Teclado2;
 
+/*
+ * Lo que es interesante mirar en esta versión con respecto a SistemaVotacionesAlt es la validación que se hace con 
+ * un while y un try-catch dentro del while en el método validaNumero(), para validar la lectura del int cuando se 
+ * pide que el usuario introduzca el numero de candidatos que se presentan a las elecciones
+ */
+
 public class SistemaVotacionesAlt2 {
 	private static Scanner scan = new Scanner(System.in);
 	private static List<String> candidates = new ArrayList<>();
@@ -105,7 +111,9 @@ public class SistemaVotacionesAlt2 {
 		boolean noValido = true;
 		while (noValido) {
 			try {
-				n = scan.nextInt();
+				n = scan.nextInt(); // Si salta el Exception aquí, no ejecuta la línea de noValido = false, sino que
+									// va directamente al catch. De manera que, hasta que no se meta un int válido,
+									// noValido seguirá siendo true y no se saldrá del bucle
 				noValido = false;
 			} catch (InputMismatchException ex) {
 				System.err.println("Numero no válido, prueba de nuevo");

@@ -13,7 +13,7 @@ import java.util.TreeMap;
 
 import teclado.Teclado2;
 
-public class SistemaVotacionesAlt {
+public class SistemaVotacionesAlt2 {
 	private static Scanner scan = new Scanner(System.in);
 	private static List<String> candidates = new ArrayList<>();
 	// Usamos un TreeMap para que las claves se almacenen en un TreeSet de Strings,
@@ -27,46 +27,8 @@ public class SistemaVotacionesAlt {
 
 	public static void main(String[] args) {
 		System.out.println("¿Cuántos candidatos quieres añadir?");
+		numberCandidates = validaNumero();
 
-		// Capturamos la excepción. La ventaja de capturar la excepción es que el
-		// programa no se detiene en ningún caso. CUIDADO: un try-catch abre un bloque.
-		// Así que si declaramos una variable dentro del bloque, no va a ser accesible
-		// desde fuera del bloque. Tenemos que declararla antes del bloque si queremos
-		// que siga siendo accesible fuera del bloque
-
-		int[] numeros = new int[0]; // Creo este array aquí con el único objetivo de generar un
-									// ArrayIndexOutOfBoundsException, para poder probar el bloque try-catch de
-									// debajo. No tiene mayor utilidad que esa en este programa
-		try {
-			numberCandidates = scan.nextInt(); // Esto puede generar un InputMismatchException. Si la excepción se
-												// genera aquí, ya no se ejecutan el resto de sentencias que vengan
-												// debajo dentro del bloque try, se salta directamente a mirar los catch
-			numeros[0] = numberCandidates; // Esto va a generar un ArrayIndexOutOfBoundsException
-		} catch (InputMismatchException ex) { // La superclase de InputMismatchException es Exception. En este caso,
-												// podríamos poner directamente Exception ex. La ventaja de usar
-												// Exception es que me sirve de paraguas para cualquier tipo de
-												// Excepction que pueda salir. El problema de poner Exception es que el
-												// bloque del try me puede generar un montón de cosas distintas, y no
-												// podré distinguir cuál es la que se ha generado exactamente. La
-												// solución es hacer un catch para cada tipo de excepción que se pueda
-												// generar. La forma de saber qué Exceptions genera mi programa, es
-												// probarlo hasta que vayan saliendo. Y conforme vayan saliendo, añadiré
-												// un catch para cada caso y la trataré de la forma más conveniente
-
-			// Esto es lo que se ejecuta si salta una excepción
-
-			ex.printStackTrace(); // Se suele poner esto por defecto en los catch, para ver los detalles de las
-									// excepciones que se generan. Así puedes saber en qué puntos está fallando tu
-									// programa. Te muestra los datos de la excepción, pero no se detiene el
-									// programa. Cuando ya he pasado las fases de prueba y quiero subir el
-									// programa a producción, quito esta parte para que no salgan print con los
-									// errores. Lo que se suele hacer en verdad es sustituir esto por una escritura,
-									// en un log externo, de los errores que se generan
-			System.err.println("Número no válido. Número de candidatos establecido por defecto en 5");
-		} catch (ArrayIndexOutOfBoundsException ex) { // El ex es sólo el nombre que le damos al objeto que se genera
-														// con la Exception, podría llamarlo como quisiera
-			System.err.println("No he podido rellenar el array");
-		}
 		scan.nextLine(); // Limpiamos el buffer del Scanner
 		for (int i = 0; i < numberCandidates; i++) {
 			System.out.println("Introduce el nombre del candidato");
@@ -136,6 +98,24 @@ public class SistemaVotacionesAlt {
 			}
 		}
 		return null;
+	}
+
+	public static int validaNumero() {
+		int n = 0;
+		boolean noValido = true;
+		while (noValido) {
+			try {
+				n = scan.nextInt();
+				noValido = false;
+			} catch (InputMismatchException ex) {
+				System.err.println("Numero no válido, prueba de nuevo");
+				scan.nextLine(); // Limpiar buffer
+			} finally {
+				// El finally normalmente se usa para cerrar recursos que se hayan abierto en el
+				// try-catch
+			}
+		}
+		return n;
 	}
 
 }

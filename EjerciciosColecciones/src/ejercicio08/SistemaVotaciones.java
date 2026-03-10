@@ -38,7 +38,9 @@ public class SistemaVotaciones {
 									// ArrayIndexOutOfBoundsException, para poder probar el bloque try-catch de
 									// debajo. No tiene mayor utilidad que esa en este programa
 		try {
-			numberCandidates = scan.nextInt(); // Esto puede generar un InputMismatchException
+			numberCandidates = scan.nextInt(); // Esto puede generar un InputMismatchException. Si la excepción se
+												// genera aquí, ya no se ejecutan el resto de sentencias que vengan
+												// debajo dentro del bloque try, se salta directamente a mirar los catch
 			numeros[0] = numberCandidates; // Esto va a generar un ArrayIndexOutOfBoundsException
 		} catch (InputMismatchException ex) { // La superclase de InputMismatchException es Exception. En este caso,
 												// podríamos poner directamente Exception ex. La ventaja de usar

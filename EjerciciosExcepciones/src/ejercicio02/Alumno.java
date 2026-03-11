@@ -6,13 +6,10 @@ public class Alumno {
 	private String nif, nombre;
 	private int year;
 
-	public Alumno(String nif, String nombre, int year) {
+	private Alumno(String nif, String nombre, int year) {
 		this.nif = nif;
 		this.nombre = nombre;
 		this.year = year;
-	}
-
-	public Alumno() {
 	}
 
 	public String getNif() {
@@ -37,6 +34,14 @@ public class Alumno {
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+	
+	public static Alumno createAlumno(String nif, String nombre, int year) throws CreateAlumnoException {
+		if (year < 0) {
+			throw new CreateAlumnoException();
+		}
+		Alumno a = new Alumno(nif, nombre, year);
+		return a;
 	}
 
 	@Override

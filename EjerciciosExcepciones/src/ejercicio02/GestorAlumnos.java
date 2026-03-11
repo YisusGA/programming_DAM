@@ -24,7 +24,10 @@ public class GestorAlumnos {
 //				ex.printStackTrace();
 				System.err.println("Número no válido, prueba de nuevo");
 				scan.nextLine(); // ¿Por qué es necesario poner este scan.nextLine() para que no entre en un
-									// bucle infinito?
+									// bucle infinito? Aunque no tiene ningún sentido tener que ponerlo, porque lee
+									// int en cada iteración, parece ser que es necesario, por el motivo que sea. Se
+									// debe de quedar pillado algo en el buffer y nos obliga a tener que descartar
+									// una línea para que funcione el siguiente scan.nextInt()
 			}
 		}
 

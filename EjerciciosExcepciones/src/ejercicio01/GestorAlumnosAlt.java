@@ -5,6 +5,11 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+/*
+ * Lo que cambia en esta versión con respecto a GestorAlumnos es que nunca devuelvo un objeto de Alumno que 
+ * sea null, sino que valido el año mediante una clase Exception que yo creo y obligo a introducir un año válido
+ */
+
 public class GestorAlumnosAlt {
 	private static Map<String, AlumnoAlt> alumnos = new TreeMap<>();
 
@@ -37,13 +42,20 @@ public class GestorAlumnosAlt {
 					System.out.println("Introduce el año de nacimiento del alumno");
 					year = scan.nextInt();
 					yearValido = validarYear(year);
-					scan.nextLine();
+					scan.nextLine(); // Este es necesario para limpiar buffer porque si no da problemas al pedir el
+										// nombre del siguiente alumno en la siguiente iteración del bucle. Si no fuera
+										// por eso, no haría falta
 				} catch (InputMismatchException ex) {
 					ex.printStackTrace();
 					System.out.println();
 					System.out.println("El año introducido no tiene un formato válido");
 					System.out.println();
-					scan.nextLine();
+					scan.nextLine(); // ¿Por qué es necesario poner este scan.nextLine() para que no entre en un
+					// bucle infinito? Aunque no tiene ningún sentido tener que ponerlo, porque lee
+					// int en cada iteración, parece ser que es necesario, por el motivo que sea. Se
+					// debe de quedar pillado algo en el buffer y nos obliga a tener que descartar
+					// una línea para que funcione el siguiente scan.nextInt()
+
 				} catch (YearNoValidoExceptionAlt ex) { // Esto también podría validarse en el propio try, con un if que
 														// sólo actualice yearValido a true si el año es positivo. O
 														// metiendo la condición de que sólo se salga del bucle while si
@@ -51,7 +63,8 @@ public class GestorAlumnosAlt {
 														// opciones adicionales a la de crear una Exception como he
 														// hecho yo aquí. La opción de crear una clase Exception (ya sea
 														// interna o externa) es la opción más engorrosa. Mejor meter la
-														// validación dentro del propio try, con un if
+														// validación dentro del propio try, con un if. Ver
+														// GestorAlumnosAlt2
 					ex.printStackTrace();
 					System.out.println();
 					System.out.println("Ese año no es válido, debe ser positivo");

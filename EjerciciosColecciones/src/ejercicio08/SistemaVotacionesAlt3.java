@@ -130,7 +130,11 @@ public class SistemaVotacionesAlt3 {
 				noValido = false;
 			} catch (InputMismatchException ex) {
 				System.err.println("Numero no válido, prueba de nuevo");
-				scan.nextLine(); // Limpiar buffer
+				scan.nextLine(); // ¿Por qué es necesario poner este scan.nextLine() para que no entre en un
+				// bucle infinito? Aunque no tiene ningún sentido tener que ponerlo, porque lee
+				// int en cada iteración, parece ser que es necesario, por el motivo que sea. Se
+				// debe de quedar pillado algo en el buffer y nos obliga a tener que descartar
+				// una línea para que funcione el siguiente scan.nextInt()
 			} finally {
 				// El finally normalmente se usa para cerrar recursos que se hayan abierto en el
 				// try-catch

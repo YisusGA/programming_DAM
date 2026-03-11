@@ -46,7 +46,7 @@ public class GestorAlumnos {
 					scan.nextLine();
 				}
 			}
-			Alumno a = crearAlumno(nif, nombre, year);
+			Alumno a = Alumno.crearAlumno(nif, nombre, year);
 			if (a != null) {
 				alumnos.put(nif, a);
 				System.out.println("Alumno añadido");
@@ -57,14 +57,6 @@ public class GestorAlumnos {
 		System.out.println("Finalizando programa...");
 		scan.close();
 
-	}
-
-	public static Alumno crearAlumno(String nombre, String nif, int year) {
-		Alumno a = null;
-		if (year >= 0) {
-			a = new Alumno(nombre, nif, year);
-		}
-		return a;
 	}
 
 	public static boolean validarNif(String nif) throws NifExistenteException {

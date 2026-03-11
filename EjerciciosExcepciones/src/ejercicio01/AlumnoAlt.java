@@ -2,13 +2,13 @@ package ejercicio01;
 
 import java.util.Objects;
 
-public class Alumno {
+public class AlumnoAlt {
 	private String nombre, nif;
 	private int yearBirth;
 
 	// Hacemos el constructor privado para que la única forma que haya de crear un
 	// Alumno sea el método crearAlumno que ofrecemos
-	private Alumno(String nombre, String nif, int yearBirth) {
+	private AlumnoAlt(String nombre, String nif, int yearBirth) {
 		this.nombre = nombre;
 		this.nif = nif;
 		this.yearBirth = yearBirth;
@@ -41,11 +41,8 @@ public class Alumno {
 	// Este método debe ser static, porque como no ofrecemos ningún constructor,
 	// debemos poder llamar al método sin instanciar ningún objeto de la clase
 	// Alumno
-	public static Alumno crearAlumno(String nombre, String nif, int year) {
-		Alumno a = null;
-		if (year >= 0) {
-			a = new Alumno(nombre, nif, year);
-		}
+	public static AlumnoAlt crearAlumno(String nombre, String nif, int year) {
+		AlumnoAlt a = new AlumnoAlt(nombre, nif, year);
 		return a;
 	}
 
@@ -62,7 +59,7 @@ public class Alumno {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Alumno other = (Alumno) obj;
+		AlumnoAlt other = (AlumnoAlt) obj;
 		return Objects.equals(nif, other.nif);
 	}
 

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-	static List<String> nombres = new ArrayList<>();
+	private static List<String> nombres = new ArrayList<>();
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
@@ -36,6 +36,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		scan.close();
+		System.out.println("Programa finalizado");
 	}
 
 	private static void guardarNombres() throws IOException {
@@ -52,28 +53,27 @@ public class Main {
 		// escribir. Si no ponemos ninguna ruta, guarda el fichero en la carpeta
 		// del proyecto donde se encuentra esta clase. Es muy desaconsejable usar rutas
 		// absolutas, pues dejarán de funcionar cuando mueva la aplicación de sitio. Hay
-		// que usar rutas relativas al proyecto
+		// que usar rutas relativas al proyecto.
 		// FileWriter puede lanzar una IOException, que hereda de Exception y no de
 		// RuntimeException. O sea que tenemos que gestionarla en tiempo de escritura de
-		// código. Podemos capturarla o propagarla. La mejor opción en este caso es
-		// capturarla, pero vamos a hacer un throws
+		// código. Podemos capturarla o propagarla.
 		// El segundo parámetro del constructor indica si quiero añadir o borrar. True
 		// lo que hace es añadir el nuevo contenido al que ya tuviera el fichero, y
 		// false borra el contenido previo del fichero y añade el nuevo. Si no pongo
-		// nada, por defecto es false
+		// nada, por defecto es false. Si el fichero no existe, directamente lo crea y
+		// escribe en él, dando igual si el segundo parámetro es true o false
 		FileWriter fw = new FileWriter(nomFich, true);
 
 		// 2. Escribimos
 
 		for (String n : nombres) {
-			fw.write(n + "\n"); // La "\n" para meter salto de línea entre cada String
+			fw.write(n + "\n"); // La "\n" es el caracter para meter salto de línea entre cada String, y se
+								// convertiría en este caso en el separador entre cada una de las String
 		}
 
 		// 3. Cerramos
 
 		fw.close(); // Cerramos el flujo, muy importante
-		scan.close();
-		System.out.println("Programa finalizado");
 	}
 
 	private static void leerNombres() throws IOException { // El compilador elimina la FileNotFoundException de read al
@@ -105,13 +105,24 @@ public class Main {
 
 		String s = "";
 
-		int c;
-		while ((c = fr.read()) != -1) { // el método read() devuelve un -1 cuando alcanza el final del fichero
+		int c; // Declaramos una variable de tipo int, pues el método read() de FileReader leer
+				// caracter a caracter y devuelve el int que se corresponde a cada caracter
+		while ((c = fr.read()) != -1) { // el método read() lee caracter a caracter y devuelve el int que se corresponde
+										// al caracter. Y devuelve un -1 cuando alcanza el final del fichero
 			// Hacemos con c lo que queramos
-			s += (char)c;
+			s += (char) c; // Si queremos que el caracter, que se ha leído y almacenado como int, se
+							// almacene como caracter ASCII, tenemos que hacer el casting a char antes de
+							// concatenarlo con el String
 		}
 
-		for(String n : s.split("\n")) {
+		// Lo que sale de aquí es una mega String cuyo separador entre nombres es \n.
+		// Por ejemplo, "Adrian\nYisus\nIsma". Por lo tanto, no podemos hacer
+		// simplemente un nombres.add(s) para añadirlo al ArrayList, sino que tenemos
+		// que hacer un split por el caracter separador, \n. Si tuviéramos otro caracter
+		// separador, como una coma o punto y coma, pondríamos eso como parámetro del
+		// split
+
+		for (String n : s.split("\n")) {
 			nombres.add(n);
 		}
 

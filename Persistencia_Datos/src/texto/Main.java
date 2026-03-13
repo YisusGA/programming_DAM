@@ -17,11 +17,16 @@ public class Main {
 
 		try {
 			leerNombres();
+			System.out.println();
+			System.out.println("Lectura de datos correcta");
+			System.out.println();
 		} catch (IOException e) {
 			System.err.println("No se ha podido leer el archivo");
 			e.printStackTrace();
 		}
 
+		System.out.println("Nueva lectura de datos");
+		System.out.println();
 		for (int i = 0; i < 10; i++) {
 			System.out.println("Introduce nombre: ");
 			nombres.add(scan.nextLine());

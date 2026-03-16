@@ -14,7 +14,7 @@ public class Datos {
 
 		// Esto genera un objeto file de la clase File, con la ruta pasada por
 		// parámetro, pero no genera un fichero físico
-		File file = new File("datos\\" + mes); // Hay que poner la doble barra. Estamos usando ruta relativa al proyecto
+		File file = new File("datos\\" + mes + ".csv"); // Hay que poner la doble barra. Estamos usando ruta relativa al proyecto
 												// aquí
 		// Y aquí comprueba si ese objeto file, con esa ruta, tiene asociado un fichero
 		// físico que existe

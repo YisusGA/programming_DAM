@@ -41,5 +41,6 @@ Thumbs.db
 hs_err_pid*
 replay_pid*
 
-# txt files
+# text files
 *.txt
+*.csv

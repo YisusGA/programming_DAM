@@ -1,11 +1,11 @@
 package texto;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -133,6 +133,37 @@ public class Main {
 
 		// 3. Cerrar fichero
 		fr.close();
+	}
+
+	private static void leerNombresv2() throws IOException {
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("¿De qué fichero quieres leer los datos?");
+		String nomFich = scan.nextLine();
+
+		// Gestionamos la posibilidad de que el fichero introducido no exista. Si no
+		// existe, hacemos un return vacío y terminamos el método
+		File file = new File(nomFich);
+		if (!file.exists()) {
+			System.err.println("El fichero no existe");
+			return;
+		}
+
+		// 1. Abrir fichero para leer caracteres
+
+//		 FileReader fr = new FileReader(file); // Se puede instanciar directamente en el BufferedReader
+		BufferedReader buffer = new BufferedReader(new FileReader(file));
+
+		String linea;
+
+		while ((linea = buffer.readLine()) != null) { // Lee una línea completa, hasta que se encuentre un salto de
+														// línea
+			// Hacer lo que sea con la línea
+			nombres.add(linea + "\n");
+		}
+		// 3. Cerrar recursos
+		buffer.close();
+//		fr.close();
 	}
 
 }

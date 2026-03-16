@@ -25,7 +25,7 @@ public class Thanos_sort {
 		array = rellenarArray(array);
 		System.out.print("Array inicial: ");
 		for (double i : array) {
-			System.out.print(i + ", ");
+			System.out.printf("%.2f, ", i);
 		}
 		System.out.println();
 		while(!isSorted(array)) {
@@ -33,7 +33,7 @@ public class Thanos_sort {
 		}
 		System.out.print("Array superviviente: ");
 		for (double i : array) {
-			System.out.print(i + ", ");
+			System.out.printf("%.2f, ", i);
 		}
 		scan.close();
 	}

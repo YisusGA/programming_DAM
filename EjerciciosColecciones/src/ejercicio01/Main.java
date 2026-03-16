@@ -1,6 +1,6 @@
 package ejercicio01;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Main {
 
@@ -8,7 +8,7 @@ public class Main {
 		MiStack<String> pila = new MiStack<>();
 		for (int i = 0; i < 10; i++) {
 			System.out.println("Introduzca cadena: ");
-			String cad = Teclado2.leerCadena();
+			String cad = TecladoOK.leerCadena();
 			pila.push(cad);
 		}
 		

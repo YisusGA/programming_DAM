@@ -4,7 +4,7 @@ import modelo.Habitacion;
 import modelo.HabitacionFamiliar;
 import modelo.TipoHabitacion;
 import teclado.Teclado;
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class GestorHotel {
 	private static Habitacion[] habitaciones = new Habitacion[0];
@@ -18,9 +18,9 @@ public class GestorHotel {
 			numeroHabitacion = Teclado.leerEntero();
 		} while (numeroHabitacion < 0 && !nuevoNumeroHabitacionValido(numeroHabitacion));
 		System.out.println("Introduce el número de camas individuales");
-		int numeroCamas = Teclado2.leerEntero();
+		int numeroCamas = TecladoOK.leerEntero();
 		System.out.println("Introduce el precio");
-		double precio = Teclado2.leerDecimal();
+		double precio = TecladoOK.leerDecimal();
 		TipoHabitacion tipo;
 		do {
 			System.out.println("Introduce un tipo de habitacion válido: HABITACION / HABITACIONFAMILIAR");
@@ -33,7 +33,7 @@ public class GestorHotel {
 		}
 		case HABITACIONFAMILIAR -> {
 			System.out.println("Introduce el número de camas dobles");
-			int numeroCamasDobles = Teclado2.leerEntero();
+			int numeroCamasDobles = TecladoOK.leerEntero();
 			habitacion = new HabitacionFamiliar(numeroHabitacion, numeroCamas, precio, numeroCamasDobles);
 		}
 		default -> {
@@ -109,13 +109,13 @@ public class GestorHotel {
 						3. Precio
 						0. Salir
 						""");
-				opcion = Teclado2.leerEntero();
+				opcion = TecladoOK.leerEntero();
 				switch (opcion) {
 				case 1 -> {
 					int num;
 					do {
 						System.out.println("Introduce el número de camas individuales. Debe ser >= 0");
-						num = Teclado2.leerEntero();
+						num = TecladoOK.leerEntero();
 					} while (num < 0);
 					habitacion.setNumeroCamas(num);
 				}
@@ -124,7 +124,7 @@ public class GestorHotel {
 						int num;
 						do {
 							System.out.println("Introduce el número de camas dobles. Debe ser >= 0");
-							num = Teclado2.leerEntero();
+							num = TecladoOK.leerEntero();
 						} while (num < 0);
 						((HabitacionFamiliar) habitacion).setNumeroCamasDobles(num);
 					} else {
@@ -135,7 +135,7 @@ public class GestorHotel {
 					double precio;
 					do {
 						System.out.println("Introduce el nuevo precio. Debe ser > 0");
-						precio = Teclado2.leerDecimal();
+						precio = TecladoOK.leerDecimal();
 					} while (precio <= 0);
 					habitacion.setPrecio(precio);
 

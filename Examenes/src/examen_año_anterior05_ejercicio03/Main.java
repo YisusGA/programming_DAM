@@ -3,7 +3,7 @@ package examen_año_anterior05_ejercicio03;
 import java.util.ArrayList;
 import java.util.List;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Main {
 	private static List<Planta> lista = new ArrayList<>();
@@ -17,13 +17,13 @@ public class Main {
 
 	public static void addPlantas() {
 		System.out.println("Cuantas plantas quieres añadir");
-		int num = Teclado2.leerEntero();
+		int num = TecladoOK.leerEntero();
 		for (int i = 0; i < num; i++) {
 			Planta planta = new Planta();
 			System.out.println("Introduce el nombre de la planta");
-			planta.setNombreCientifico(Teclado2.leerCadena());
+			planta.setNombreCientifico(TecladoOK.leerCadena());
 			System.out.println("Introduce la altura máxima de la planta");
-			planta.setAlturaMaxima(Teclado2.leerEntero());
+			planta.setAlturaMaxima(TecladoOK.leerEntero());
 			lista.add(planta);
 
 		}

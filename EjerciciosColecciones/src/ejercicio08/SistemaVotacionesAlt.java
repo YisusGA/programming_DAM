@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 /*
  * Lo que cambia en esta versión con respecto a SistemaVotaciones es que es el usuario el que escribe el nombre del 

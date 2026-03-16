@@ -93,8 +93,11 @@ public class Main {
 
 		// Gestionamos la posibilidad de que el fichero introducido no exista. Si no
 		// existe, hacemos un return vacío y terminamos el método
-		File file = new File(nomFich);
-		if (!file.exists()) {
+		File file = new File(nomFich); // Esto crea un objeto de la clase File, no un fichero físico
+		if (!file.exists()) { // Y tiene un método que comprueba si en la ruta que se pasó por parámetros al
+								// crear el objeto file (que en este caso, al ser simplemente un String con el
+								// nombre, es la ruta raíz del proyecto) existe un fichero físico con esa misma
+								// ruta y nombre
 			System.err.println("El fichero no existe");
 			return;
 		}
@@ -110,7 +113,7 @@ public class Main {
 
 		String s = "";
 
-		int c; // Declaramos una variable de tipo int, pues el método read() de FileReader leer
+		int c; // Declaramos una variable de tipo int, pues el método read() de FileReader lee
 				// caracter a caracter y devuelve el int que se corresponde a cada caracter
 		while ((c = fr.read()) != -1) { // el método read() lee caracter a caracter y devuelve el int que se corresponde
 										// al caracter. Y devuelve un -1 cuando alcanza el final del fichero
@@ -156,8 +159,11 @@ public class Main {
 
 		String linea;
 
-		while ((linea = buffer.readLine()) != null) { // Lee una línea completa, hasta que se encuentre un salto de
-														// línea
+		while ((linea = buffer.readLine()) != null) { // Cada vez que llamamos al método readLine(), lee una línea
+														// completa, entendiendo por línea completa una sucesión de
+														// caracteres (espacios incluidos) hasta que se encuentre un
+														// caracter de salto de línea (\n). Devuelve un null cuando se
+														// alcanza el final del fichero y ya no hay más líneas que leer
 			// Hacer lo que sea con la línea
 			nombres.add(linea + "\n");
 		}

@@ -1,7 +1,7 @@
 package main;
 
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Main {
 
@@ -9,17 +9,17 @@ public class Main {
 		
 		//Leer entero
 		System.out.println("Introduce un número entero");
-		int numInt = Teclado2.leerEntero();
+		int numInt = TecladoOK.leerEntero();
 		System.out.println("El número introducido es: " + numInt);
 		
 		//Leer decimal
 		System.out.println("Introduce un número decimal");
-		double numDouble = Teclado2.leerDecimal();
+		double numDouble = TecladoOK.leerDecimal();
 		System.out.println("El número introducido es: " + numDouble);
 		
 		//Leer cadena
 		System.out.println("Introduce una palabra o frase");
-		String cadena = Teclado2.leerCadena();
+		String cadena = TecladoOK.leerCadena();
 		System.out.println("La frase introducida es: " + cadena);
 	}
 

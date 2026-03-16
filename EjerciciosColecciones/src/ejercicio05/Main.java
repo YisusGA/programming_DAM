@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Main {
 	private static Map<String, Double> listaProductos = new HashMap<>();
@@ -24,9 +24,9 @@ public class Main {
 			case 1 -> {
 				if (listaProductos != null) {
 					System.out.println("Introduce el códido del producto:");
-					codigo = Teclado2.leerCadena();
+					codigo = TecladoOK.leerCadena();
 					System.out.println("Introduce el precio del producto:");
-					precio = Teclado2.leerDecimal();
+					precio = TecladoOK.leerDecimal();
 					Double result = guardarProducto(codigo, precio);
 					if (result == null) {
 						System.out.println("Producto añadido");
@@ -38,9 +38,9 @@ public class Main {
 			case 2 -> {
 				if (listaProductos != null && listaProductos.size() > 0) {
 					System.out.println("Introduce el códido del producto del que quieres cambiar el precio:");
-					codigo = Teclado2.leerCadena();
+					codigo = TecladoOK.leerCadena();
 					System.out.println("Introduce el nuevo precio del producto:");
-					precio = Teclado2.leerDecimal();
+					precio = TecladoOK.leerDecimal();
 					if (modificarPrecio(codigo, precio)) {
 						System.out.println("Precio modificado con éxito");
 					} else {
@@ -61,7 +61,7 @@ public class Main {
 			case 4 -> {
 				if (listaProductos != null && listaProductos.size() > 0) {
 					System.out.println("Introduce el códido del producto que quieres eliminar:");
-					codigo = Teclado2.leerCadena();
+					codigo = TecladoOK.leerCadena();
 					if (eliminarProducto(codigo)) {
 						System.out.println("Producto eliminado con éxito");
 					} else {
@@ -92,7 +92,7 @@ public class Main {
 				4. Eliminar producto
 				0. Salir del menú
 				""");
-		return Teclado2.leerEntero();
+		return TecladoOK.leerEntero();
 	}
 
 	public static Double guardarProducto(String codigo, double precio) {

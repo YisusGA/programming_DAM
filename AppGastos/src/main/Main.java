@@ -38,12 +38,22 @@ public class Main {
 			case 2 -> {
 				System.out.println("Mes a consultar");
 				String mes = scan.nextLine();
-				System.out.println(Datos.gastosMes(mes));
+				try {
+					System.out.println(Datos.gastosMes(mes));
+				} catch (IOException e) {
+					System.err.println("No pudo hacerse la consulta");
+					e.printStackTrace();
+				}
 			}
 			case 3 -> {
 				System.out.println("Mes a consultar");
 				String mes = scan.nextLine();
-				System.out.println(Datos.diaMayorGasto(mes));
+				try {
+					System.out.println(Datos.diaMayorGasto(mes));
+				} catch (IOException e) {
+					System.err.println("No pudo hacerse la consulta");
+					e.printStackTrace();
+				}
 			}
 			case 0 -> {
 				System.out.println("Cerrando programa...");
@@ -53,6 +63,7 @@ public class Main {
 			}
 			}
 		} while(op != 0);
+		scan.close();
 
 	}
 

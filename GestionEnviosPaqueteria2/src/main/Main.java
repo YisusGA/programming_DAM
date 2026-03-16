@@ -3,7 +3,7 @@ package main;
 import empresa.CentralEnvios;
 import model.EstadoEnvio;
 import repositorio.RepositorioEnvios;
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Main {
 
@@ -34,7 +34,7 @@ public class Main {
 			case 5 -> {
 				if (RepositorioEnvios.hayEnvios()) {
 					System.out.println("¿Introduce el código de pedido?");
-					int codigo = Teclado2.leerEntero();
+					int codigo = TecladoOK.leerEntero();
 					EstadoEnvio estado;
 					do {
 						System.out.println(
@@ -49,7 +49,7 @@ public class Main {
 			case 6 -> {
 				if (RepositorioEnvios.hayEnvios()) {
 					System.out.println("Introduce el código del envío a eliminar");
-					int codigo = Teclado2.leerEntero();
+					int codigo = TecladoOK.leerEntero();
 					if (RepositorioEnvios.eliminarEnvio(codigo)) {
 						System.out.println("Pedido eliminado correctamente");
 					} else {
@@ -82,7 +82,7 @@ public class Main {
 				6. Eliminar pedido
 				0. Salir del programa
 				""");
-		return Teclado2.leerEntero();
+		return TecladoOK.leerEntero();
 	}
 
 }

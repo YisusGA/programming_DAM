@@ -1,12 +1,12 @@
 package model;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public enum EstadoEnvio {
 	CREADO, ENVIADO, RECIBIDO, DEVUELTO;
 	
 	public static EstadoEnvio leerTeclado() {
-		String input = Teclado2.leerCadena();
+		String input = TecladoOK.leerCadena();
 		EstadoEnvio[] estados = values();
 		for (EstadoEnvio estado : estados) {
 			if (estado.name().equalsIgnoreCase(input)) {

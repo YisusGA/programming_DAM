@@ -7,7 +7,7 @@ import empleados.Medico;
 import hospital.Hospital;
 import hospital.TipoEmpleado;
 import hospital.Turnos;
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Main {
 
@@ -29,11 +29,11 @@ public class Main {
 				} while (tipo == null);
 				
 				System.out.println("¿Cuál es el nombre del empleado?");
-				String nombre = Teclado2.leerCadena();
+				String nombre = TecladoOK.leerCadena();
 				System.out.println("¿Cuál es el dni del empleado?");
-				String dni = Teclado2.leerCadena();
+				String dni = TecladoOK.leerCadena();
 				System.out.println("¿Cuál es el salario base del empleado?");
-				double salario = Teclado2.leerDecimal();
+				double salario = TecladoOK.leerDecimal();
 				switch (tipo) {
 				case ENFERMERO -> {
 					Turnos turno;
@@ -45,14 +45,14 @@ public class Main {
 				}
 				case MEDICO -> {
 					System.out.println("¿Cuál es la especialidad del médico?");
-					String especialidad = Teclado2.leerCadena();
+					String especialidad = TecladoOK.leerCadena();
 					System.out.println("¿Cuántas guardias hace este médico?");
-					int numeroGuardias = Teclado2.leerEntero();
+					int numeroGuardias = TecladoOK.leerEntero();
 					empleado = new Medico(nombre, dni, salario, especialidad, numeroGuardias);
 				}
 				case ADMINISTRATIVO -> {
 					System.out.println("¿Cuántas horas extra hace este administrativo?");
-					double horasExtra = Teclado2.leerDecimal();
+					double horasExtra = TecladoOK.leerDecimal();
 					empleado = new Administrativo(nombre, dni, salario, horasExtra);
 				}
 				}
@@ -93,7 +93,7 @@ public class Main {
 				3. Calcular gasto total del hospital
 				0. Salir del programa
 				""");
-		return Teclado2.leerEntero();
+		return TecladoOK.leerEntero();
 	}
 
 }

@@ -1,12 +1,12 @@
 package hospital;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public enum Turnos {
 	MAÑANA, TARDE, NOCHE;
 
 	public static Turnos leerTeclado() {
-		String input = Teclado2.leerCadena();
+		String input = TecladoOK.leerCadena();
 		Turnos[] turnos = values();
 		for (Turnos turno : turnos) {
 			if (turno.name().equalsIgnoreCase(input)) {

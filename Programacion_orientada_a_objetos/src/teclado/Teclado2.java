@@ -28,6 +28,7 @@ public class Teclado2 {
 	public static int leerEntero() {
 
 		Scanner scan = new Scanner(System.in);
+		scan.close();
 		return Integer.parseInt(scan.nextLine());
 	}
 
@@ -35,12 +36,14 @@ public class Teclado2 {
 											// convertirla a número double. Y java
 											// necesita que el decimal esté puesto con punto
 		Scanner scan = new Scanner(System.in);
+		scan.close();
 		return Double.parseDouble(scan.nextLine());
 	}
 
 	public static String leerCadena() {
 
 		Scanner scan = new Scanner(System.in);
+		scan.close();
 		return scan.nextLine();
 	}
 

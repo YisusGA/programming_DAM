@@ -14,18 +14,21 @@ public class Datos {
 
 		// Esto genera un objeto file de la clase File, con la ruta pasada por
 		// parámetro, pero no genera un fichero físico
-		File file = new File("datos\\" + mes + ".csv"); // Hay que poner la doble barra. Estamos usando ruta relativa al proyecto
-												// aquí
+		File file = new File("datos\\" + mes + ".csv"); // Hay que poner la doble barra, para indicarle que \ es un
+														// caracter de ruta, y no otra cosa. Estamos usando ruta
+														// relativa al proyecto aquí
+
 		// Y aquí comprueba si ese objeto file, con esa ruta, tiene asociado un fichero
 		// físico que existe
 		if (!file.exists()) {
-			FileWriter fw = new FileWriter(file); // Si no exixte, FileWriter lo crea y le asigna la ruta del objeto
-													// file
+			FileWriter fw = new FileWriter(file); // Si no existe físicamente el fichero, FileWriter lo crea y le asigna
+													// la ruta del objeto file
+
 			fw.write(dia + ";" + gasto + "\n"); // Y lo rellena con datos
 			fw.close();
 		} else {
-			// Si el objeto file se asocia a un fichero físico, abrimos un BufferedReader
-			// para poder leerlo línea a línea
+			// Si el objeto file se asocia a un fichero físico (existe ese fichero
+			// físicamente, abrimos un BufferedReader para poder leerlo línea a línea
 			BufferedReader br = new BufferedReader(new FileReader(file)); // Abro un nuevo BufferedReader a partir del
 																			// fichero que ya existe
 			// Y creamos un fichero físico temporal
@@ -53,20 +56,46 @@ public class Datos {
 			br.close();
 			fw.close();
 
-			File temp = new File("datos\\temp");
+			File temp = new File("datos\\temp"); // Se crea un objeto File llamado temp, y se asocia con el fichero
+													// físico datos\\temp que creamos y rellenamos antes
+			
 			file.delete(); // Aquí se borra el fichero físico asociado al objeto file, pero el objeto file
 							// sigue existiendo en memoria
-			temp.renameTo(file);
+			temp.renameTo(file); // Y se renombra el fichero datos\\temp con el nombre que está almacenado en el objeto file, que es "datos\\mes.csv"
 
 		}
 	}
 
-	public static double gastosMes(String mes) {
-		return 0;
+	public static double gastosMes(String mes) throws IOException {
+		double gastos = 0;
+		File file = new File("datos\\" + mes + ".csv");
+		if (file.exists()) {
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String line;
+			while((line = br.readLine()) != null) {
+				gastos += Double.parseDouble(line.split(";")[1]);
+			}
+			br.close();
+		}
+		return gastos;
 	}
 
-	public static int diaMayorGasto(String mes) {
-		return 0;
+	public static int diaMayorGasto(String mes) throws IOException {
+		int dia = 0;
+		File file = new File("datos\\" + mes + ".csv");
+		if(file.exists()) {
+			double mayorGasto = 0;
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String line;
+			while((line = br.readLine()) != null) {
+				if(Double.parseDouble(line.split(";")[1]) > mayorGasto) {
+					mayorGasto = Double.parseDouble(line.split(";")[1]); 
+					dia = Integer.parseInt(line.split(";")[0]);
+				}
+			}
+			br.close();
+		}
+		return dia;
 	}
 
 }

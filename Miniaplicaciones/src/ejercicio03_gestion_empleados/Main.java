@@ -3,7 +3,7 @@ package ejercicio03_gestion_empleados;
 import java.util.ArrayList;
 import java.util.List;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Main {
 	public static void main(String[] args) {
@@ -15,19 +15,19 @@ public class Main {
 			switch (opcion) {
 			case 1 -> {
 				System.out.println("Introduce el nombre del empleado");
-				String nombre = Teclado2.leerCadena();
+				String nombre = TecladoOK.leerCadena();
 				System.out.println("Introduce el salario base del emplelado");
-				double salarioBase = Teclado2.leerDecimal();
+				double salarioBase = TecladoOK.leerDecimal();
 				TipoEmpleado tipo;
 				do {
 					System.out.println("Introduce un tipo de empleado válido: PROGRAMADOR o DISEÑADOR");
-					tipo = TipoEmpleado.leerTeclado(Teclado2.leerCadena());
+					tipo = TipoEmpleado.leerTeclado(TecladoOK.leerCadena());
 				} while (tipo == null);
 				System.out.println(
 						"Introduce el lenguaje principal (si es programador) o la herramienta de diseño (si es diseñador)");
-				String distintivo = Teclado2.leerCadena();
+				String distintivo = TecladoOK.leerCadena();
 				System.out.println("Introduce el plus que cobra el empleado");
-				double plus = Teclado2.leerDecimal();
+				double plus = TecladoOK.leerDecimal();
 				GestorEmpleados.addEmpleado(nombre, salarioBase, distintivo, plus, tipo);
 			}
 			case 2 -> {
@@ -43,7 +43,7 @@ public class Main {
 			}
 			case 4 -> {
 				System.out.println("Introduce el nombre del empleado a eliminar");
-				if (GestorEmpleados.eliminarEmpleado(Teclado2.leerCadena())) {
+				if (GestorEmpleados.eliminarEmpleado(TecladoOK.leerCadena())) {
 					System.out.println("Empleado eliminado correctamente");
 				} else {
 					System.err.println("El empleado no existe");
@@ -69,7 +69,7 @@ public class Main {
 				4. Eliminar empleado
 				0. Salir del menú
 				""");
-		return Teclado2.leerEntero();
+		return TecladoOK.leerEntero();
 	}
 
 }

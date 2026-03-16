@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Profesor {
 	private String nif, nombre;

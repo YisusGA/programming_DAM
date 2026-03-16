@@ -44,9 +44,6 @@ public class Teclado {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		try {
 			return br.readLine();
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			return null;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;

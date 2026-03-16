@@ -3,7 +3,7 @@ package ejercicio02_catalogo_libros;
 import java.util.ArrayList;
 import java.util.List;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Main {
 
@@ -15,11 +15,11 @@ public class Main {
 			case 1 -> {
 				Libro libro = new Libro();
 				System.out.println("Introduce el ISBN");
-				libro.setIsbn(Teclado2.leerCadena());
+				libro.setIsbn(TecladoOK.leerCadena());
 				System.out.println("Introduce el título");
-				libro.setTitulo(Teclado2.leerCadena());
+				libro.setTitulo(TecladoOK.leerCadena());
 				System.out.println("Introduce el autor");
-				libro.setAutor(Teclado2.leerCadena());
+				libro.setAutor(TecladoOK.leerCadena());
 				GestorLibros.addLibro(libro);
 			}
 			case 2 -> {
@@ -49,7 +49,7 @@ public class Main {
 				2. Mostrar catálogo
 				3. Salir
 				""");
-		return Teclado2.leerEntero();
+		return TecladoOK.leerEntero();
 	}
 
 }

@@ -1,12 +1,12 @@
 package modelo;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public enum TipoHabitacion {
 	HABITACION, HABITACIONFAMILIAR;
 	
 	public static TipoHabitacion leerTeclado() {
-		String input = Teclado2.leerCadena();
+		String input = TecladoOK.leerCadena();
 		TipoHabitacion[] tipos = values();
 		for (TipoHabitacion tipo : tipos) {
 			if (tipo.name().equalsIgnoreCase(input)) {

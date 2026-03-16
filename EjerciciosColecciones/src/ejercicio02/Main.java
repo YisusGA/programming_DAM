@@ -3,7 +3,7 @@ package ejercicio02;
 import java.util.ArrayList;
 import java.util.List;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Main {
 	static List<Profesor> profesores = new ArrayList<>();
@@ -19,10 +19,10 @@ public class Main {
 				Profesor profesor = new Profesor();
 				do {
 					System.out.println("Escribe el dni del profesor, no debe existir uno igual");
-					profesor.setNif(Teclado2.leerCadena());
+					profesor.setNif(TecladoOK.leerCadena());
 				} while (profesores.contains(profesor));
 				System.out.println("Escribe el nombre del profesor");
-				profesor.setNombre(Teclado2.leerCadena());
+				profesor.setNombre(TecladoOK.leerCadena());
 				profesores.addLast(profesor);
 				System.out.println("Profesor agregado correctamente");
 			}
@@ -32,10 +32,10 @@ public class Main {
 					Alumno alumno = new Alumno();
 					do {
 						System.out.println("Escribe el dni del alumno, no debe existir uno igual");
-						alumno.setNif(Teclado2.leerCadena());
+						alumno.setNif(TecladoOK.leerCadena());
 					} while (profesor.getAlumnos().contains(alumno));
 					System.out.println("Inserta el nombre del alumno");
-					alumno.setNombre(Teclado2.leerCadena());
+					alumno.setNombre(TecladoOK.leerCadena());
 					profesor.addAlumno(alumno);
 					System.out.println("Profesor agregado correctamente");
 				} else {
@@ -50,13 +50,13 @@ public class Main {
 						int index;
 						do {
 							System.out.println("Introduce el dni del alumno, debe existir");
-							index = profesor.devolverIndexAlumno(Teclado2.leerCadena());
+							index = profesor.devolverIndexAlumno(TecladoOK.leerCadena());
 						} while (index < 0);
 						alumno = profesor.getAlumnos().get(index);
 						double nota;
 						do {
 							System.out.println("Introduce la nota del alumno, debe estar comprendida entre 0 y 10");
-							nota = Teclado2.leerDecimal();
+							nota = TecladoOK.leerDecimal();
 						} while (nota < 0 || nota > 10);
 
 						profesor.ponerNota(nota, alumno);
@@ -85,7 +85,7 @@ public class Main {
 				if (profesores.size() > 0) {
 					Alumno alumno = new Alumno();
 					System.out.println("Introduce el dni del alumno");
-					String nif = Teclado2.leerCadena();
+					String nif = TecladoOK.leerCadena();
 					alumno.setNif(nif);
 					for (Profesor p : profesores) {
 						if (p.tieneAlumno(alumno)) {
@@ -126,7 +126,7 @@ public class Main {
 						int index;
 						do {
 							System.out.println("Introduce el dni del alumno, debe existir");
-							index = profesor.devolverIndexAlumno(Teclado2.leerCadena());
+							index = profesor.devolverIndexAlumno(TecladoOK.leerCadena());
 						} while (index < 0);
 						alumno = profesor.getAlumnos().get(index);
 						profesor.eliminarAlumno(alumno);
@@ -162,7 +162,7 @@ public class Main {
 				7. Eliminar un alumno de un profesor
 				0. Salir del menú
 				""");
-		return Teclado2.leerEntero();
+		return TecladoOK.leerEntero();
 	}
 
 //	public static Profesor devolverProfesor(String nif) {
@@ -178,7 +178,7 @@ public class Main {
 		int index = -1;
 		do {
 			System.out.println("Introduce el dni del profesor, debe existir");
-			String input = Teclado2.leerCadena();
+			String input = TecladoOK.leerCadena();
 			Profesor profe = new Profesor(input);
 			index = profesores.indexOf(profe);
 		} while (index < 0);

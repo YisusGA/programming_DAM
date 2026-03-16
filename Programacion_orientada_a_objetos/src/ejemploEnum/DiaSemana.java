@@ -1,13 +1,13 @@
 package ejemploEnum;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public enum DiaSemana {
 
 	LUNES, MARTES, MIERCOLES, JUEVES, VIERNES;
 
 	public static DiaSemana leerTeclado() {
-		String input = Teclado2.leerCadena();
+		String input = TecladoOK.leerCadena();
 		DiaSemana[] dias = values(); // values() es un método de enum que devuelve un array con los valores de la
 										// clase enum
 		for (DiaSemana dia : dias) { // También se podría poner directamente for (DiaSemana dia : values()) {, sin

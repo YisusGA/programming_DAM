@@ -1,7 +1,7 @@
 package ejercicios.herencia.geometria.profe;
 
 import ejemploEnum.DiaSemana;
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public enum TipoFigura {
 	
@@ -9,7 +9,7 @@ public enum TipoFigura {
 	
 	public static TipoFigura leerTeclado() {
 		
-		String input = Teclado2.leerCadena();
+		String input = TecladoOK.leerCadena();
 		TipoFigura[] figs = values();
 		for(TipoFigura fig : figs) {
 			if(fig.name().equalsIgnoreCase(input))

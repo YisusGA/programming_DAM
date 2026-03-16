@@ -1,6 +1,6 @@
 package ejercicios.herencia.geometria.profe;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Main {
 
@@ -9,7 +9,7 @@ public class Main {
 		FiguraGeometrica[] figuras = new FiguraGeometrica[0];
 
 		System.out.println("Cuántas va a crear?");
-		int num = Teclado2.leerEntero();
+		int num = TecladoOK.leerEntero();
 		do {
 			System.out.println("Crear figura");
 			TipoFigura tipoFigura;
@@ -19,27 +19,27 @@ public class Main {
 			} while (tipoFigura == null);
 			FiguraGeometrica fig = null;
 			System.out.println("Dime nombre de figura:");
-			String nombre = Teclado2.leerCadena();
+			String nombre = TecladoOK.leerCadena();
 
 			switch (tipoFigura) {
 
 			case TRIANGULO -> {
 				System.out.println("Introduce la longitud del lado 1");
-				double lado1 = Teclado2.leerDecimal();
+				double lado1 = TecladoOK.leerDecimal();
 				System.out.println("Introduce la longitud del lado 2");
-				double lado2 = Teclado2.leerDecimal();
+				double lado2 = TecladoOK.leerDecimal();
 				System.out.println("Introduce la longitud del lado 3");
-				double lado3 = Teclado2.leerDecimal();
+				double lado3 = TecladoOK.leerDecimal();
 				fig = new Triangulo(nombre, lado1, lado2, lado3);
 			}
 			case CIRCULO -> {
 				System.out.println("Introduce la longitud del radio");
-				double radio = Teclado2.leerDecimal();
+				double radio = TecladoOK.leerDecimal();
 				fig = new Circulo(nombre, radio);
 			}
 			case CUADRADO -> {
 				System.out.println("Introduce la longitud del lado");
-				double lado = Teclado2.leerDecimal();
+				double lado = TecladoOK.leerDecimal();
 				fig = new Cuadrado(nombre, lado);
 			}
 

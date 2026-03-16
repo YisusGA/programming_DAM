@@ -6,7 +6,7 @@ import model.EnvioRefrigerado;
 import model.EnvioUrgente;
 import model.EstadoEnvio;
 import model.TipoEnvio;
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class CentralEnvios {
 	Envio[] envios = new Envio[0];
@@ -59,27 +59,27 @@ public class CentralEnvios {
 		} while (tipo == null);
 
 		System.out.println("Introduce el peso");
-		double peso = Teclado2.leerDecimal();
+		double peso = TecladoOK.leerDecimal();
 		System.out.println("Introduce el origen");
-		String origen = Teclado2.leerCadena();
+		String origen = TecladoOK.leerCadena();
 		System.out.println("Introduce el destino");
-		String destino = Teclado2.leerCadena();
+		String destino = TecladoOK.leerCadena();
 		int codigo = this.codigo++;
 
 		switch (tipo) {
 		case ENVIOESTANDAR -> {
 			System.out.println("Introduce los días estimados de envío");
-			int dias = Teclado2.leerEntero();
+			int dias = TecladoOK.leerEntero();
 			envio = new EnvioEstandar(codigo, peso, origen, destino, dias);
 		}
 		case ENVIOREFRIGERADO -> {
 			System.out.println("Introduce la temperatura");
-			double temperatura = Teclado2.leerDecimal();
+			double temperatura = TecladoOK.leerDecimal();
 			envio = new EnvioRefrigerado(codigo, peso, origen, destino, temperatura);
 		}
 		case ENVIOURGENTE -> {
 			System.out.println("Introduce el recargo por envío urgente");
-			double recargo = Teclado2.leerDecimal();
+			double recargo = TecladoOK.leerDecimal();
 			envio = new EnvioUrgente(codigo, peso, origen, destino, recargo);
 		}
 		default -> {

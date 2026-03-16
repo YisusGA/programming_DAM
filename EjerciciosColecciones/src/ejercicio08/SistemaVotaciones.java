@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class SistemaVotaciones {
 	private static Scanner scan = new Scanner(System.in);

@@ -6,20 +6,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class MainAlt {
 	private static Map<String, String> personas = new HashMap<>();
 
 	public static void main(String[] args) {
 		System.out.println("¿Cuántas personas quieres insertar?");
-		int num = Teclado2.leerEntero();
+		int num = TecladoOK.leerEntero();
 
 		for (int i = 0; i < num; i++) {
 			System.out.println("Introduce el nif");
-			String nif = Teclado2.leerCadena();
+			String nif = TecladoOK.leerCadena();
 			System.out.println("Introduce el nombre");
-			String nombre = Teclado2.leerCadena();
+			String nombre = TecladoOK.leerCadena();
 			insertarPersona(nif, nombre);
 		}
 
@@ -46,7 +46,7 @@ public class MainAlt {
 		boolean encontrado = false;
 		do {
 			System.out.println("Introduce el nombre a buscar. Introduce fin cuando quieras parar");
-			input = Teclado2.leerCadena();
+			input = TecladoOK.leerCadena();
 			if (!input.equalsIgnoreCase("fin")) {
 				for (Map.Entry<String, String> entry : vistaMap) {
 					if (entry.getValue().equalsIgnoreCase(input)) {

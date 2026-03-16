@@ -7,7 +7,7 @@ import model.EnvioRefrigerado;
 import model.EnvioUrgente;
 import model.EstadoEnvio;
 import model.TipoEnvio;
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Main {
 
@@ -39,7 +39,7 @@ public class Main {
 			case 5 -> {
 				if (central.hayEnvios()) {
 					System.out.println("¿Introduce el código de pedido?");
-					int codigo = Teclado2.leerEntero();
+					int codigo = TecladoOK.leerEntero();
 					EstadoEnvio estado;
 					do {
 						System.out.println(
@@ -73,7 +73,7 @@ public class Main {
 				5. Actualizar el estado de un envío rastreable
 				0. Salir del programa
 				""");
-		return Teclado2.leerEntero();
+		return TecladoOK.leerEntero();
 	}
 
 }

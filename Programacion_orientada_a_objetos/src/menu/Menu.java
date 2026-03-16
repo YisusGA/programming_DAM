@@ -1,6 +1,6 @@
 package menu;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 public class Menu {
 	
@@ -15,6 +15,6 @@ public class Menu {
 				5. Opción 5
 				0. Salir del menú
 				""");
-		return Teclado2.leerEntero();
+		return TecladoOK.leerEntero();
 	}
 }

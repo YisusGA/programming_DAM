@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 /*
  * Lo que es interesante mirar en esta versión con respecto a SistemaVotacionesAlt es la validación que se hace con 

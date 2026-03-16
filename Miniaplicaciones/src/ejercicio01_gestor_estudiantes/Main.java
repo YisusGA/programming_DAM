@@ -1,6 +1,6 @@
 package ejercicio01_gestor_estudiantes;
 
-import teclado.Teclado2;
+import teclado.TecladoOK;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +19,16 @@ public class Main {
 			case 1 -> {
 				Estudiante estudiante = new Estudiante();
 				System.out.println("Introduce el nombre del estudiante");
-				estudiante.setNombre(Teclado2.leerCadena());
+				estudiante.setNombre(TecladoOK.leerCadena());
 				int edad;
 				do {
 					System.out.println("Introduce una edad válida: [3-100]");
-					edad = Teclado2.leerEntero();
+					edad = TecladoOK.leerEntero();
 				} while (edad < 3 || edad > 100);
 				double nota;
 				do {
 					System.out.println("Introduce una nota válida: [0-10]");
-					nota = Teclado2.leerEntero();
+					nota = TecladoOK.leerEntero();
 				} while (nota < 0 || nota > 10);
 				estudiante.setNotaMedia(nota);
 				GestorEstudiantes.addEstudiante(estudiante);
@@ -39,7 +39,7 @@ public class Main {
 			case 3 -> {
 				Estudiante aux = new Estudiante();
 				System.out.println("Introduce el nombre del estudiante");
-				String nombre = Teclado2.leerCadena();
+				String nombre = TecladoOK.leerCadena();
 				aux = GestorEstudiantes.buscarEstudiante(nombre);
 				if (aux != null) {
 					System.out.println(aux);
@@ -78,7 +78,7 @@ public class Main {
 				5. Salir
 				""");
 
-		return Teclado2.leerEntero();
+		return TecladoOK.leerEntero();
 	}
 
 }

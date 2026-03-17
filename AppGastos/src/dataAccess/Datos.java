@@ -161,17 +161,20 @@ public class Datos {
 					String mes = "";
 					if (i.isFile()) {
 						BufferedReader br = new BufferedReader(new FileReader(i));
-						String line = br.readLine();
-						gastoMes += Double.parseDouble(line.split(";")[1]);
+						String line;
+						while ((line = br.readLine()) != null) {
+							gastoMes += Double.parseDouble(line.split(";")[1]);
+						}
 						mes = i.getName();
+//						mes = i.getName().split(".")[0]; // Por algún motivo, esto no funciona
 					}
 					if (gastoMes > mayorGasto) {
 						mayorGasto = gastoMes;
-						mesMayorGasto = mes;
+						mesMayorGasto = mes.replace(".csv", "");
 					}
 				}
 				if (mayorGasto != 0) {
-					result = "El mes con mayor gasto ha sido " + mesMayorGasto + " y se gastó " + mayorGasto;
+					result = "\n\nEl mes con mayor gasto ha sido el mes de " + mesMayorGasto + " y se gastaron " + mayorGasto + " euros\n\n";
 				}
 			}
 		}

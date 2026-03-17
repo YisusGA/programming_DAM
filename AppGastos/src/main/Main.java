@@ -26,16 +26,36 @@ public class Main {
 			case 1 -> {
 				System.out.println("Mes: ");
 				String mes = scan.nextLine();
-				System.out.println("Día: ");
-				int dia = Integer.parseInt(scan.nextLine());
-				System.out.println("Gasto: ");
-				double gasto = Double.parseDouble(scan.nextLine());
+				boolean diaValido = false;
+				int dia = 0;
+				while (!diaValido) {
+					try {
+						System.out.println("Día a añadir el gasto");
+						dia = Integer.parseInt(scan.nextLine());
+						diaValido = true;
+					} catch (NumberFormatException e) {
+						System.err.println("Día no válido, prueba de nuevo");
+//						e.printStackTrace();
+					}
+				}
+				boolean gastoValido = false;
+				double gasto = 0;
+				while (!gastoValido) {
+					try {
+						System.out.println("Gasto a añadir");
+						gasto = Double.parseDouble(scan.nextLine());
+						gastoValido = true;
+					} catch (NumberFormatException e) {
+						System.err.println("Gasto no válido, prueba de nuevo");
+//						e.printStackTrace();
+					}
+				}
 				try {
 					Datos.addGasto(mes, dia, gasto);
 					System.out.println("Gasto añadido");
 				} catch (IOException e) {
 					System.err.println("No pudo añadirse el gasto");
-					e.printStackTrace();
+//					e.printStackTrace();
 				}
 
 			}
@@ -43,20 +63,25 @@ public class Main {
 				System.out.println("Mes a consultar");
 				String mes = scan.nextLine();
 				try {
-					System.out.println(Datos.gastosMes(mes));
+					System.out.printf("%n%nLos gastos del mes de %s fueron %.2f%n%n", mes, Datos.gastosMes(mes));
 				} catch (IOException e) {
 					System.err.println("No pudo hacerse la consulta");
-					e.printStackTrace();
+//					e.printStackTrace();
 				}
 			}
 			case 3 -> {
 				System.out.println("Mes a consultar");
 				String mes = scan.nextLine();
 				try {
-					System.out.println(Datos.diaMayorGasto(mes));
+					int dia = Datos.diaMayorGasto(mes);
+					if (dia != 0) {
+						System.out.printf("%n%nEl día de mayor gasto del mes de %s fue el %d%n%n", mes, dia);
+					} else {
+						System.err.println("No pudo hacerse la consulta");
+					}
 				} catch (IOException e) {
 					System.err.println("No pudo hacerse la consulta");
-					e.printStackTrace();
+//					e.printStackTrace();
 				}
 			}
 			case 4 -> {
@@ -67,12 +92,11 @@ public class Main {
 				while (!diaValido) {
 					try {
 						System.out.println("Día a eliminar");
-						dia = scan.nextInt();
+						dia = Integer.parseInt(scan.nextLine());
 						diaValido = true;
-						scan.nextLine();
-					} catch (InputMismatchException e) {
+					} catch (NumberFormatException e) {
 						System.err.println("Día no válido, prueba de nuevo");
-						e.printStackTrace();
+//						e.printStackTrace();
 					}
 				}
 				boolean eliminado = false;
@@ -80,7 +104,7 @@ public class Main {
 					eliminado = Datos.eliminarDia(mes, dia);
 				} catch (IOException e) {
 					System.err.println("No se pudo eliminar ese día");
-					e.printStackTrace();
+//					e.printStackTrace();
 				}
 				if (eliminado) {
 					System.out.println("Día eliminado con éxito");
@@ -93,7 +117,7 @@ public class Main {
 					System.out.println(Datos.mesMayorGasto());
 				} catch (IOException e) {
 					System.err.println("No pudo hacerse la consulta");
-					e.printStackTrace();
+//					e.printStackTrace();
 				}
 			}
 			case 6 -> {
@@ -104,11 +128,11 @@ public class Main {
 					if (result != null) {
 						System.out.println(result);
 					} else {
-						System.out.println("No se pudo hacer la consulta");
+						System.err.println("No se pudo hacer la consulta");
 					}
 				} catch (IOException e) {
 					System.err.println("No pudo hacerse la consulta");
-					e.printStackTrace();
+//					e.printStackTrace();
 				}
 			}
 			case 0 -> {

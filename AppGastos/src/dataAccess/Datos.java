@@ -8,6 +8,14 @@ import java.io.IOException;
 
 public class Datos {
 
+	/**
+	 * Método para añadir un nuevo gasto al sistema de ficheros
+	 * 
+	 * @param mes   del gasto a añadir
+	 * @param dia   del gasto a añadir
+	 * @param gasto realizado
+	 * @throws IOException
+	 */
 	public static void addGasto(String mes, int dia, double gasto) throws IOException { // Lanzamos la excepción para
 																						// que se decida en la clase con
 																						// el main qué hacer si aparece
@@ -67,8 +75,16 @@ public class Datos {
 		}
 	}
 
+	/**
+	 * Método para devolver un double con la suma de los gastos de un mes
+	 * 
+	 * @param mes del que se quiere calcular el gasto total
+	 * @return un double con los gastos totales del mes introducido, o -1 si no se
+	 *         encontró el mes en el sistema de ficheros
+	 * @throws IOException
+	 */
 	public static double gastosMes(String mes) throws IOException {
-		double gastos = 0;
+		double gastos = -1;
 		File file = new File("datos\\" + mes + ".csv");
 		if (file.exists()) {
 			BufferedReader br = new BufferedReader(new FileReader(file));
@@ -81,6 +97,15 @@ public class Datos {
 		return gastos;
 	}
 
+	/**
+	 * Método que busca el día de mayor gasto de un mes y devuelve un int con ese
+	 * día
+	 * 
+	 * @param mes a consultar
+	 * @return int con el día del mes, o 0 si no se si no se encontró el mes en el
+	 *         sistema de ficheros
+	 * @throws IOException
+	 */
 	public static int diaMayorGasto(String mes) throws IOException {
 		int dia = 0;
 		File file = new File("datos\\" + mes + ".csv");
@@ -141,12 +166,13 @@ public class Datos {
 	/**
 	 * Devuelve el mes con mayor gasto y el gasto de ese mes
 	 * 
-	 * @return El mes con mayor gasto y el gasto de ese mes. Si no existe el
-	 *         directorio o si no hay ficheros dentro del directorio, devuelve null
+	 * @return Un String con el mes con mayor gasto y el gasto de ese mes. Si no
+	 *         existe el directorio o si no hay ficheros dentro del directorio,
+	 *         devuelve null
 	 * @throws IOException
 	 */
 	public static String mesMayorGasto() throws IOException {
-		int mayorGasto = 0;
+		double mayorGasto = 0;
 		String mesMayorGasto = null;
 		String result = null;
 		File directorio = new File("datos"); // Un objeto File no tiene por qué asociarse a un fichero, puede asociarse
@@ -157,7 +183,7 @@ public class Datos {
 														// objeto File. Lo que devuelve es un array de objetos File
 			if (archivos.length > 0) {
 				for (File i : archivos) {
-					int gastoMes = 0;
+					double gastoMes = 0;
 					String mes = "";
 					if (i.isFile()) {
 						BufferedReader br = new BufferedReader(new FileReader(i));
@@ -167,14 +193,19 @@ public class Datos {
 						}
 						mes = i.getName();
 //						mes = i.getName().split(".")[0]; // Por algún motivo, esto no funciona
+						br.close();
 					}
 					if (gastoMes > mayorGasto) {
-						mayorGasto = gastoMes;
+						mayorGasto = Math.round(gastoMes * 100) / 100.0; // Redondear a 2 cifras decimales: multiplicar
+																			// por 100, redondear el resultado con el
+																			// método
+																			// round() de Math y luego dividir entre 100
 						mesMayorGasto = mes.replace(".csv", "");
 					}
 				}
 				if (mayorGasto != 0) {
-					result = "\n\nEl mes con mayor gasto ha sido el mes de " + mesMayorGasto + " y se gastaron " + mayorGasto + " euros\n\n";
+					result = "\n\nEl mes con mayor gasto ha sido el mes de " + mesMayorGasto + " y se gastaron "
+							+ mayorGasto + " euros\n\n";
 				}
 			}
 		}
@@ -186,8 +217,8 @@ public class Datos {
 	 * para ese mes
 	 * 
 	 * @param mes del que se quiere hacer el listado
-	 * @return Devuelve un String con los gastos de un mes, o null si no existe el
-	 *         fichero para ese mes
+	 * @return Un String con los gastos de un mes, o null si no existe el fichero
+	 *         para ese mes
 	 * @throws IOException
 	 */
 	public static String listadoGastosMes(String mes) throws IOException {
@@ -198,8 +229,10 @@ public class Datos {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = br.readLine()) != null) {
-				lista += line.split(";")[1] + " €, ";
+				// Lo muestro redondeado a 2 decimales, pero podría mostrarlo en crudo
+				lista += (Math.round(Double.parseDouble(line.split(";")[1]) * 100) / 100.0) + " €, ";
 			}
+			br.close();
 		}
 		return lista;
 	}

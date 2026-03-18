@@ -63,7 +63,12 @@ public class Main {
 				System.out.println("Mes a consultar");
 				String mes = scan.nextLine();
 				try {
-					System.out.printf("%n%nLos gastos del mes de %s fueron %.2f%n%n", mes, Datos.gastosMes(mes));
+					double gastos = Datos.gastosMes(mes);
+					if (gastos == -1) {
+						System.err.println("Mes no encontrado entre los ficheros");
+					} else {
+						System.out.printf("%n%nLos gastos del mes de %s fueron %.2f%n%n", mes, gastos);
+					}
 				} catch (IOException e) {
 					System.err.println("No pudo hacerse la consulta");
 //					e.printStackTrace();
@@ -77,7 +82,7 @@ public class Main {
 					if (dia != 0) {
 						System.out.printf("%n%nEl día de mayor gasto del mes de %s fue el %d%n%n", mes, dia);
 					} else {
-						System.err.println("No pudo hacerse la consulta");
+						System.err.println("Mes no encontrado entre los ficheros");
 					}
 				} catch (IOException e) {
 					System.err.println("No pudo hacerse la consulta");
@@ -109,12 +114,17 @@ public class Main {
 				if (eliminado) {
 					System.out.println("Día eliminado con éxito");
 				} else {
-					System.out.println("No se pudo eliminar ese día");
+					System.err.println("No se pudo eliminar ese día");
 				}
 			}
 			case 5 -> {
 				try {
-					System.out.println(Datos.mesMayorGasto());
+					String result = Datos.mesMayorGasto();
+					if (result != null) {
+						System.out.println(result);
+					} else {
+						System.err.println("El directorio de ficheros no existe o está vacío");
+					}
 				} catch (IOException e) {
 					System.err.println("No pudo hacerse la consulta");
 //					e.printStackTrace();

@@ -17,6 +17,7 @@ public class Main {
 	public static String fichero = "datos\\alumnos.dat";
 
 	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
 		// Lo primero que debería hacer mi app al abrirse es recuperar los alumnos que
 		// ya existieran
 		// En una aplicación que trabaje con muchos alumnos, lo ideal no sería volcar
@@ -29,8 +30,26 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		addAlumno();
-		addAlumno();
+		int numAlumnosToAdd = 0;
+		boolean validQuantity = false;
+		while (!validQuantity) {
+			try {
+				System.out.println("¿Cuántos alumnos quieres añadir?");
+				numAlumnosToAdd = Integer.parseInt(scan.nextLine());
+				validQuantity = true;
+			} catch (NumberFormatException e) {
+				System.err.println("Número no válido, prueba de nuevo");
+			}
+		}
+
+		for (int i = 0; i < numAlumnosToAdd; i++) {
+			if (addAlumno()) {
+				System.out.println("Alumno añadido");
+			} else {
+				System.err.println("No se pudo añadir el alumno");
+			}
+		}
+
 		for (Alumno a : alumnos) {
 			a.matricularAlumno();
 			System.out.println("Alumno matriculado");
@@ -92,10 +111,13 @@ public class Main {
 
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichero));
 
-		boolean fin = false;
+		boolean fin = false; // En el proceso de deserialización, la única forma de saber que hemos terminado
+								// de leer el fichero es mediante la aparición de una excepción. Por lo tanto,
+								// podemos capturarla y aprovechar para cambiar el valor de un boolean que haga
+								// que se salga del bucle
 		while (!fin) {
 			try {
-				alumnos.add((Alumno) ois.readObject()); // Si no hacemos el casting,
+				alumnos.add((Alumno) ois.readObject()); // Si no hacemos el casting, nos da error
 			} catch (EOFException e) {
 				fin = true;
 			}

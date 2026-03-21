@@ -10,6 +10,7 @@ public class Alumno implements Serializable { // Serializable es una interface s
 												// de decirle a la JVM que tiene permiso para serializar objetos de
 												// nuestra clase
 	private String nif, nombre;
+	private static int generadorCodigoMatricula = 0;
 	private Matricula matricula;
 
 	public Alumno(String nif, String nombre) { // Cuando creamos un alumno, su matrícula comienza siendo null. Y luego
@@ -70,6 +71,7 @@ public class Alumno implements Serializable { // Serializable es una interface s
 			}
 		} while (!modulo.equals("fin"));
 		this.matricula = new Matricula();
+		matricula.setCodigo(generadorCodigoMatricula++);
 		matricula.setModulos(modulos);
 	}
 

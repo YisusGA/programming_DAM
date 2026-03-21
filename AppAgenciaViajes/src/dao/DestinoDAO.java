@@ -18,56 +18,99 @@ public class DestinoDAO {
 
 	public static boolean insert(Destino d) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean inserted = false;
-		if (file.exists() && validarDestino(d)) {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, true));
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, true));
+		if (!existeDestino(d)) {
 			oos.writeObject(d);
 			inserted = true;
-			oos.close();
 		}
+		oos.close();
 		return inserted;
 	}
 
 	public static boolean delete(String nombre) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean deleted = false;
-		if (file.exists() && !validarDestino(nombre)) {
+		if (file.exists() && existeDestino(nombre)) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos//temp"));
-			boolean fin = false;
-			while (!deleted && !fin) {
+			while (!deleted) {
 				try {
-					Destino d = (Destino)ois.readObject();
+					Destino d = (Destino) ois.readObject();
 					if (!d.getNombre().equalsIgnoreCase(nombre)) {
 						oos.writeObject(d);
 					}
 				} catch (EOFException e) {
-					fin = true;
-				} finally {
-					ois.close();
-					oos.close();
 					deleted = true;
 				}
 			}
+
+			ois.close();
+			oos.close();
+
+			File temp = new File("datos//temp");
+			file.delete();
+			temp.renameTo(file);
 		}
 		return deleted;
 	}
 
-	public static boolean update(Destino destino) {
-		return false;
+	public static boolean update(String nombre, Destino destino) throws FileNotFoundException, ClassNotFoundException, IOException {
+		boolean updated = false;
+		if (file.exists() && existeDestino(nombre)) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos//temp"));
+			boolean fin = false;
+			while (!fin && !updated) {
+				try {
+					Destino d = (Destino) ois.readObject();
+					if (d.getNombre().equalsIgnoreCase(nombre)) {
+						oos.writeObject(destino);
+						updated = true;
+					}
+				} catch (EOFException e) {
+					fin = true;
+				}
+			}
+
+			ois.close();
+			oos.close();
+
+			File temp = new File("datos//temp");
+			file.delete();
+			temp.renameTo(file);
+		}
+		return updated;
 	}
 
-	public static Destino get(String nombre) {
-		return null;
+	public static Destino get(String nombre) throws FileNotFoundException, IOException, ClassNotFoundException {
+		Destino d = null;
+		if (file.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+			boolean encontrado = false;
+			boolean fin = false;
+			while (!fin && !encontrado) {
+				try {
+					Destino temp = (Destino) ois.readObject();
+					if (temp.getNombre().equalsIgnoreCase(nombre)) {
+						d = temp;
+						encontrado = true;
+					}
+				} catch (EOFException e) {
+					fin = true;
+				}
+			}
+		}
+		return d;
 	}
 
-	public static boolean validarDestino(Destino d) throws FileNotFoundException, IOException, ClassNotFoundException {
-		boolean valido = true;
+	public static boolean existeDestino(Destino d) throws FileNotFoundException, IOException, ClassNotFoundException {
+		boolean existe = false;
 		if (file.exists()) {
 			ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file));
 			boolean fin = false;
-			while (!fin) {
+			while (!fin && !existe) {
 				try {
-					if (((Destino) oos.readObject()).getNombre().equalsIgnoreCase(d.getNombre())) {
-						valido = false;
+					if (((Destino) oos.readObject()).equals(d)) {
+						existe = true;
 					}
 				} catch (EOFException e) {
 					fin = true;
@@ -75,18 +118,19 @@ public class DestinoDAO {
 			}
 			oos.close();
 		}
-		return valido;
+		return existe;
 	}
-	
-	public static boolean validarDestino(String nombre) throws FileNotFoundException, IOException, ClassNotFoundException {
-		boolean valido = true;
+
+	public static boolean existeDestino(String nombre)
+			throws FileNotFoundException, IOException, ClassNotFoundException {
+		boolean existe = false;
 		if (file.exists()) {
 			ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file));
 			boolean fin = false;
-			while (!fin) {
+			while (!fin && !existe) {
 				try {
 					if (((Destino) oos.readObject()).getNombre().equalsIgnoreCase(nombre)) {
-						valido = false;
+						existe = true;
 					}
 				} catch (EOFException e) {
 					fin = true;
@@ -94,7 +138,7 @@ public class DestinoDAO {
 			}
 			oos.close();
 		}
-		return valido;
+		return existe;
 	}
 
 }

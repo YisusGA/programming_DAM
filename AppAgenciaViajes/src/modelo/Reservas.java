@@ -1,18 +1,32 @@
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
-public class Reservas {
+public class Reservas implements Serializable {
 	private long codigo;
 	private String cliente;
 	private LocalDate fecha;
 	private Destino destino;
+	private static long generadorCodigo = 0;
+
+	public Reservas(String cliente, LocalDate fecha, Destino destino) {
+		this.cliente = cliente;
+		this.fecha = fecha;
+		this.destino = destino;
+		this.codigo = generadorCodigo++;
+	}
+
+	public Reservas() {
+		this.codigo = generadorCodigo++;
+	}
 
 	public long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(long codigo) {
+	private void setCodigo(long codigo) {
 		this.codigo = codigo;
 	}
 
@@ -38,6 +52,29 @@ public class Reservas {
 
 	public void setDestino(Destino destino) {
 		this.destino = destino;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Reservas other = (Reservas) obj;
+		return codigo == other.codigo;
+	}
+
+	@Override
+	public String toString() {
+		return "Reservas [codigo=" + codigo + ", cliente=" + cliente + ", fecha=" + fecha + ", destino=" + destino
+				+ "]";
 	}
 
 }

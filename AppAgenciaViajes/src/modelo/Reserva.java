@@ -4,21 +4,21 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Reservas implements Serializable {
+public class Reserva implements Serializable {
 	private long codigo;
 	private String cliente;
 	private LocalDate fecha;
 	private Destino destino;
 	private static long generadorCodigo = 0;
 
-	public Reservas(String cliente, LocalDate fecha, Destino destino) {
+	public Reserva(String cliente, LocalDate fecha, Destino destino) {
 		this.cliente = cliente;
 		this.fecha = fecha;
 		this.destino = destino;
 		this.codigo = generadorCodigo++;
 	}
 
-	public Reservas() {
+	public Reserva() {
 		this.codigo = generadorCodigo++;
 	}
 
@@ -67,7 +67,7 @@ public class Reservas implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Reservas other = (Reservas) obj;
+		Reserva other = (Reserva) obj;
 		return codigo == other.codigo;
 	}
 

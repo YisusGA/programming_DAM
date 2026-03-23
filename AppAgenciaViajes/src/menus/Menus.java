@@ -77,7 +77,7 @@ public class Menus {
 						System.err.println("El destino no pudo añadirse");
 					}
 				} catch (ClassNotFoundException | IOException e) {
-					System.err.println("El destino no pudo añadirse");
+					System.err.println("Error en la operación");
 					e.printStackTrace();
 				}
 			}
@@ -92,7 +92,7 @@ public class Menus {
 						System.err.println("No se pudo recuperar el destino");
 					}
 				} catch (ClassNotFoundException | IOException e) {
-					System.err.println("No se pudo recuperar el destino");
+					System.err.println("Error en la operación");
 					e.printStackTrace();
 				}
 			}
@@ -106,7 +106,7 @@ public class Menus {
 						System.err.println("No se pudo eliminar el destino");
 					}
 				} catch (ClassNotFoundException | IOException e) {
-					System.err.println("No se pudo eliminar el destino");
+					System.err.println("Error en la operación");
 					e.printStackTrace();
 				}
 			}
@@ -124,7 +124,7 @@ public class Menus {
 						System.err.println("No se pudo actualizar el destino");
 					}
 				} catch (ClassNotFoundException | IOException e) {
-					System.err.println("No se pudo actualizar el destino");
+					System.err.println("Error en la operación");
 					e.printStackTrace();
 				}
 			}
@@ -139,7 +139,7 @@ public class Menus {
 						System.err.println("No hay destinos añadidos");
 					}
 				} catch (ClassNotFoundException | IOException e) {
-					System.err.println("No se pudieron recuperar los destinos");
+					System.err.println("Error en la operación");
 					e.printStackTrace();
 				}
 			}

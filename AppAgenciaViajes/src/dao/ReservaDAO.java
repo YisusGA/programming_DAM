@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -21,22 +22,23 @@ public class ReservaDAO {
 	// (completar)
 	private Map<Long, Reserva> reservas;
 
-	public ReservaDAO(File datos) throws FileNotFoundException, IOException {
+	public ReservaDAO(File datos) throws IOException, ClassNotFoundException {
 		this.datos = datos;
-		// Volcamos el fichero en el Map:
+		// Volcamos el fichero en el Map. Usaremos un TreeMap, que ordena las claves
+		// (según el compareTo de Long en este caso), aunque en este ejemplo nos daría
+		// igual un HashMap que un TreeMap (normalmente es mejor un HashMap, pero así
+		// practicamos con TreeMap)
 		reservas = new TreeMap<>();
 		if (datos.exists()) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
 			boolean fin = false;
 			while (!fin) {
-				try {
-					Reserva r = (Reserva) ois.readObject();
-					reservas.put(r.getCodigo(), r);
-				} catch (ClassNotFoundException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				Reserva r = (Reserva) ois.readObject();
+				reservas.put(r.getCodigo(), r);
 			}
+			// Si no se entra en el if porque no existe el fichero, habríamos instanciado un
+			// TreeMap vacío para trabajar con él luego
+			ois.close();
 		}
 	}
 
@@ -51,7 +53,7 @@ public class ReservaDAO {
 
 	public boolean delete(long codReserva) {
 		boolean deleted = false;
-		
+
 		persiste();
 		return deleted;
 	}
@@ -76,13 +78,21 @@ public class ReservaDAO {
 		// Opción 1: iterar en el Map y guardamos las reservas una a una
 		// Opción 2: guardar el objeto Map en el fichero.
 		// La opción 2 es la más cómoda, pero vamos a hacer la primera.
-		
-		ObjectOutputStreamADD oos = new ObjectOutputStreamADD(new FileOutputStream(datos));
+
 		Collection<Reserva> aux = reservas.values();
-		for(Reserva r : aux) {
-			oos.writeObject(r);
+		if (datos.exists()) {
+			ObjectOutputStreamADD oos = new ObjectOutputStreamADD(new FileOutputStream(datos, true));
+			for (Reserva r : aux) {
+				oos.writeObject(r);
+			}
+			oos.close();
+		} else {
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(datos));
+			for (Reserva r : aux) {
+				oos.writeObject(r);
+			}
+			oos.close();
 		}
-		oos.close();
 	}
 
 }

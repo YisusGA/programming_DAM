@@ -14,28 +14,35 @@ import java.util.List;
 import modelo.Destino;
 
 public class DestinoDAO {
-	private static File file = new File("datos//destinos.dat");
+	private File datos; // Mejor no inicializar el archivo de datos aquí, si no en el Main (o en la
+						// clase Menus en mi caso), para así no condenar a la clase DestinoDAO a
+						// funcionar con un sólo fichero de datos, haciendo que el DAO sea más general
+	
 	// Aquí meteríamos lo que se puede hacer con los datos, el CRUD: insertar,
 	// borrar, consultar y modificar
 
-	public static boolean insert(Destino destino) throws FileNotFoundException, ClassNotFoundException, IOException {
+	public DestinoDAO(File datos) {
+		this.datos = datos;
+	}
+
+	public boolean insert(Destino destino) throws ClassNotFoundException, IOException {
 		boolean inserted = false;
 		// Si el fichero existe, lo abrimos con nuestra versión del OOS, que no escribe
 		// cabecera
-		if (file.exists() && !existeDestino(destino)) {
+		if (datos.exists() && !existeDestino(destino)) {
 			// Super importante poner aquí el true, porque queremos añadir el nuevo objeto
 			// al fichero ya existente, y no vamos a escribir cabecera. Si no ponemos el
 			// true, como por defecto es false, lo que va a suceder es que se va a cargar el
 			// contenido del fichero y va a empezar a escribir de nuevo, pero sin cabecera,
 			// y luego el OIS dará excepción de StreamCorruptedException
-			ObjectOutputStreamADD oos = new ObjectOutputStreamADD(new FileOutputStream(file, true));
+			ObjectOutputStreamADD oos = new ObjectOutputStreamADD(new FileOutputStream(datos, true));
 			oos.writeObject(destino);
 			inserted = true;
 //			ois.close();
 			oos.close();
 			// Si el fichero no existe, lo abrimos con la versión de java.io de OOS
-		} else if (!file.exists()) {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+		} else if (!datos.exists()) {
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(datos));
 			oos.writeObject(destino);
 			inserted = true;
 			oos.close();
@@ -43,11 +50,11 @@ public class DestinoDAO {
 		return inserted;
 	}
 
-	public static boolean insertOLD(Destino destino) throws FileNotFoundException, IOException, ClassNotFoundException {
+	public boolean insertOLD(Destino destino) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean inserted = false;
-		if (file.exists() && !existeDestino(destino)) {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos/temp"));
+		if (datos.exists() && !existeDestino(destino)) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos//temp"));
 			while (!inserted) {
 				try {
 					Destino d = (Destino) ois.readObject();
@@ -61,10 +68,10 @@ public class DestinoDAO {
 			oos.close();
 
 			File temp = new File("datos//temp");
-			file.delete();
-			temp.renameTo(file);
-		} else if (!file.exists()) {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+			datos.delete();
+			temp.renameTo(datos);
+		} else if (!datos.exists()) {
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(datos));
 			oos.writeObject(destino);
 			inserted = true;
 			oos.close();
@@ -72,10 +79,10 @@ public class DestinoDAO {
 		return inserted;
 	}
 
-	public static boolean delete(String nombre) throws FileNotFoundException, IOException, ClassNotFoundException {
+	public boolean delete(String nombre) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean deleted = false;
-		if (file.exists() && existeDestino(nombre)) {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		if (datos.exists() && existeDestino(nombre)) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos//temp"));
 			while (!deleted) { // Como para entrar aquí ha tenido que salir true en existeDestino(nombre),
 								// puedo permitirme usar el propio boolean deleted para salir del bucle, pues sí
@@ -94,17 +101,17 @@ public class DestinoDAO {
 			oos.close();
 
 			File temp = new File("datos//temp");
-			file.delete();
-			temp.renameTo(file);
+			datos.delete();
+			temp.renameTo(datos);
 		}
 		return deleted;
 	}
 
-	public static boolean update(String nombre, Destino destino)
+	public boolean update(String nombre, Destino destino)
 			throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean updated = false;
-		if (file.exists() && existeDestino(nombre)) {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		if (datos.exists() && existeDestino(nombre)) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos//temp"));
 			boolean fin = false;
 			while (!fin) {
@@ -125,16 +132,16 @@ public class DestinoDAO {
 			oos.close();
 
 			File temp = new File("datos//temp");
-			file.delete();
-			temp.renameTo(file);
+			datos.delete();
+			temp.renameTo(datos);
 		}
 		return updated;
 	}
 
-	public static Destino get(String nombre) throws FileNotFoundException, IOException, ClassNotFoundException {
+	public Destino get(String nombre) throws FileNotFoundException, IOException, ClassNotFoundException {
 		Destino d = null;
-		if (file.exists()) {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		if (datos.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
 			boolean encontrado = false;
 			boolean fin = false;
 			while (!fin && !encontrado) {
@@ -153,11 +160,11 @@ public class DestinoDAO {
 		return d;
 	}
 
-	public static List<Destino> listarDestinos() throws FileNotFoundException, IOException, ClassNotFoundException {
+	public List<Destino> findAll() throws FileNotFoundException, IOException, ClassNotFoundException {
 		List<Destino> destinos = null;
 		List<Destino> aux = null;
-		if (file.exists()) {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		if (datos.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
 			aux = new ArrayList<>();
 			boolean fin = false;
 			while (!fin) {
@@ -175,11 +182,10 @@ public class DestinoDAO {
 		return destinos;
 	}
 
-	public static boolean existeDestino(Destino destino)
-			throws FileNotFoundException, IOException, ClassNotFoundException {
+	public boolean existeDestino(Destino destino) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean existe = false;
-		if (file.exists()) {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		if (datos.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
 			boolean fin = false;
 			while (!fin && !existe) {
 				try {
@@ -195,11 +201,10 @@ public class DestinoDAO {
 		return existe;
 	}
 
-	public static boolean existeDestino(String nombre)
-			throws FileNotFoundException, IOException, ClassNotFoundException {
+	public boolean existeDestino(String nombre) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean existe = false;
-		if (file.exists()) {
-			ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file));
+		if (datos.exists()) {
+			ObjectInputStream oos = new ObjectInputStream(new FileInputStream(datos));
 			boolean fin = false;
 			while (!fin && !existe) {
 				try {

@@ -4,29 +4,27 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Reserva implements Serializable {
+public class Reserva implements Serializable, Comparable<Reserva> {
 	private int codigo;
 	private String cliente;
 	private LocalDate fecha;
 	private Destino destino;
-	private static int generadorCodigo = 0;
 
-	public Reserva(String cliente, LocalDate fecha, Destino destino) {
+	public Reserva(int codigo, String cliente, LocalDate fecha, Destino destino) {
+		this.codigo = codigo;
 		this.cliente = cliente;
 		this.fecha = fecha;
 		this.destino = destino;
-		this.codigo = generadorCodigo++;
 	}
 
 	public Reserva() {
-		this.codigo = generadorCodigo++;
 	}
 
 	public int getCodigo() {
 		return codigo;
 	}
 
-	private void setCodigo(int codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
@@ -75,6 +73,11 @@ public class Reserva implements Serializable {
 	public String toString() {
 		return "Reservas [codigo=" + codigo + ", cliente=" + cliente + ", fecha=" + fecha + ", destino=" + destino
 				+ "]";
+	}
+
+	@Override
+	public int compareTo(Reserva o) {
+		return this.codigo - o.getCodigo();
 	}
 
 }

@@ -7,8 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,16 +16,14 @@ import java.util.TreeMap;
 import modelo.Reserva;
 
 public class ReservaDAO {
-	private static File datos; // Mejor no definir el fichero físico aquí, así la aplicación puede trabajar con
-								// cualquier fichero que le pase el usuario. Se pedirá el fichero en el main
-	// Tiene más sentido usar un HashMap en lugar de un TreeMap en este caso, porque
-	// (completar)
-	private Map<Long, Reserva> reservas;
+	private File datos; // Mejor no definir el fichero físico aquí, así la aplicación puede trabajar con
+						// cualquier fichero que le pase el usuario. Se pedirá el fichero en el main
+	private Map<Integer, Reserva> reservas;
 
 	public ReservaDAO(File datos) throws IOException, ClassNotFoundException {
 		this.datos = datos;
 		// Volcamos el fichero en el Map. Usaremos un TreeMap, que ordena las claves
-		// (según el compareTo de Long en este caso), aunque en este ejemplo nos daría
+		// (según el compareTo de Integer en este caso), aunque en este ejemplo nos daría
 		// igual un HashMap que un TreeMap (normalmente es mejor un HashMap, pero así
 		// practicamos con TreeMap)
 		reservas = new TreeMap<>();
@@ -42,34 +40,46 @@ public class ReservaDAO {
 		}
 	}
 
-	public boolean insert(Reserva reserva) {
+	public boolean insert(Reserva reserva) throws FileNotFoundException, IOException {
 		boolean inserted = false;
-		if (reservas.containsKey(reserva.getCodigo())) {
+		if (!reservas.containsKey(reserva.getCodigo())) {
 			reservas.put(reserva.getCodigo(), reserva);
 			persiste();
+			inserted = true;
 		}
 		return inserted;
 	}
 
-	public boolean delete(long codReserva) {
+	public boolean delete(int codReserva) throws FileNotFoundException, IOException {
 		boolean deleted = false;
-
-		persiste();
+		if (reservas.remove(codReserva) != null) {
+			deleted = true;
+			persiste();
+		}
 		return deleted;
 	}
 
-	public Reserva get(long codReserva) {
-		return null;
+	public Reserva get(int codReserva) {
+		Reserva r = reservas.get(codReserva);
+		return r;
 	}
 
-	public boolean update(Reserva reserva) {
-		// TODO
-		persiste();
-		return false;
+	public boolean update(Reserva reserva) throws FileNotFoundException, IOException {
+		boolean updated = false;
+		if (reservas.replace(reserva.getCodigo(), reserva) != null) {
+			updated = true;
+			persiste();
+		}
+		return updated;
 	}
 
 	public List<Reserva> findAll() {
-		return null;
+		Collection<Reserva> collectionReservas = reservas.values();
+		List<Reserva> listReservas = new ArrayList<>();
+		if (!listReservas.addAll(collectionReservas)) {
+			listReservas = null;
+		}
+		return listReservas;
 	}
 
 	private void persiste() throws FileNotFoundException, IOException {

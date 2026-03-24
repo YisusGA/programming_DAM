@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Reserva implements Serializable {
-	private long codigo;
+	private int codigo;
 	private String cliente;
 	private LocalDate fecha;
 	private Destino destino;
-	private static long generadorCodigo = 0;
+	private static int generadorCodigo = 0;
 
 	public Reserva(String cliente, LocalDate fecha, Destino destino) {
 		this.cliente = cliente;
@@ -22,11 +22,11 @@ public class Reserva implements Serializable {
 		this.codigo = generadorCodigo++;
 	}
 
-	public long getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
 
-	private void setCodigo(long codigo) {
+	private void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 

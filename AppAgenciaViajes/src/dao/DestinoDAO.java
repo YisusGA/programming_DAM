@@ -107,17 +107,17 @@ public class DestinoDAO {
 		return deleted;
 	}
 
-	public boolean update(String nombre, Destino destino)
+	public boolean update(Destino destino)
 			throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean updated = false;
-		if (datos.exists() && existeDestino(nombre)) {
+		if (datos.exists() && existeDestino(destino.getNombre())) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos//temp"));
 			boolean fin = false;
 			while (!fin) {
 				try {
 					Destino d = (Destino) ois.readObject();
-					if (d.getNombre().equalsIgnoreCase(nombre)) {
+					if (d.getNombre().equalsIgnoreCase(destino.getNombre())) {
 						oos.writeObject(destino);
 						updated = true;
 					} else {

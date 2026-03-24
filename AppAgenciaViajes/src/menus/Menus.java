@@ -2,11 +2,14 @@ package menus;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import dao.DestinoDAO;
 import dao.ReservaDAO;
 import modelo.Destino;
+import modelo.Reserva;
 import teclado.TecladoOK;
 
 public class Menus {
@@ -135,13 +138,11 @@ public class Menus {
 			}
 			case 4 -> {
 				System.out.println("Introduce el nombre del destino a modificar");
-				String nombreOld = TecladoOK.leerCadena();
-				System.out.println("Introduce el nuevo nombre del destino");
-				String nombreNew = TecladoOK.leerCadena();
+				String nombre = TecladoOK.leerCadena();
 				System.out.println("Introduce el nuevo precio del destino");
 				double precio = TecladoOK.leerDecimal();
 				try {
-					if (destinodao.update(nombreOld, new Destino(nombreNew, precio))) {
+					if (destinodao.update(new Destino(nombre, precio))) {
 						System.out.println("Destino actualizado");
 					} else {
 						System.err.println("No se pudo actualizar el destino");
@@ -178,8 +179,9 @@ public class Menus {
 	}
 
 	public static void gestionReservas() {
+		ReservaDAO reservadao = null;
 		try {
-			ReservaDAO reservadao = new ReservaDAO(new File("datos//reservas.dat"));
+			reservadao = new ReservaDAO(new File("datos//reservas.dat"));
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 			System.err.println("Error en la lectura del fichero");
@@ -192,13 +194,72 @@ public class Menus {
 
 			switch (opcion) {
 			case 1 -> {
-				// TODO
+				Reserva r = new Reserva();
+				System.out.println("Introduce el nombre del cliente");
+				String nombreCliente = TecladoOK.leerCadena();
+				LocalDate fecha = null;
+				boolean fechaValida = false;
+				while (!fechaValida) {
+					try {
+						System.out.println("Introduce la fecha en el formato aaaa-mm-dd");
+						fecha = LocalDate.parse(TecladoOK.leerCadena());
+						fechaValida = true;
+					} catch (DateTimeParseException e) {
+						System.err.println("Formato de fecha no válido, prueba de neuvo");
+					}
+				}
+				DestinoDAO destinodao = new DestinoDAO(new File("datos//destinos.dat"));
+				System.out.println("Introduce el nombre del destino");
+				String nombreDestino = TecladoOK.leerCadena();
+				Destino d = null;
+				try {
+					if ((d = destinodao.get(nombreDestino)) == null) {
+						System.err.println("No se pudo recuperar el destino");
+					}
+				} catch (ClassNotFoundException | IOException e) {
+					System.err.println("Error en la operación de recuración de destino");
+					e.printStackTrace();
+				}
+				if (d != null) {
+					r.setCliente(nombreCliente);
+					r.setFecha(fecha);
+					r.setDestino(d);
+					try {
+						reservadao.insert(r);
+						System.out.println("Reserva creada con éxito");
+					} catch (IOException e) {
+						System.err.println("Error en la operación de añadir reserva");
+						e.printStackTrace();
+					}
+				} else {
+					System.err.println("No se pudo completar la reserva porque el destino no es válido");
+				}
+				
 			}
 			case 2 -> {
-				// TODO
+				System.out.println("Introduce código de reserva");
+				int codReserva = TecladoOK.leerEntero();
+				Reserva r = null;
+				if((r = reservadao.get(codReserva)) != null) {
+					System.out.println("Datos de la reserva: " + r);
+				} else {
+					System.err.println("No se pudo recuperar la reserva");
+				}
 			}
 			case 3 -> {
-				// TODO
+				System.out.println("Introduce código de reserva");
+				int codReserva = TecladoOK.leerEntero();
+				boolean deleted = false;
+				try {
+					if (deleted = reservadao.delete(codReserva)) {
+						System.out.println("Reserva eliminada con éxito");
+					} else {
+						System.err.println("No se encontró la reserva a eliminar");
+					}
+				} catch (IOException e) {
+					System.err.println("Error en la operación");
+					e.printStackTrace();
+				}
 			}
 			case 4 -> {
 				// TODO

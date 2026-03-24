@@ -1,11 +1,11 @@
 package main;
 
-import menus.Menus;
+import gestion.GestionApp;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Menus.gestionGeneral();		
+		GestionApp.gestionGeneral();
 	}
 
 }

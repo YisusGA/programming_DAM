@@ -26,9 +26,8 @@ public class ReservaDAO {
 		this.datos = datos;
 		// Volcamos el fichero en el Map. Usaremos un TreeMap, que ordena las claves
 		// (según el compareTo de Integer en este caso), aunque en este ejemplo nos
-		// daría
-		// igual un HashMap que un TreeMap (normalmente es mejor un HashMap, pero así
-		// practicamos con TreeMap)
+		// daría igual un HashMap que un TreeMap (normalmente es mejor un HashMap, pero
+		// así practicamos con TreeMap)
 		reservas = new TreeMap<>();
 		if (datos.exists()) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
@@ -104,19 +103,6 @@ public class ReservaDAO {
 			oos.writeObject(r);
 		}
 		oos.close();
-//		if (datos.exists()) {
-//			ObjectOutputStreamADD oos = new ObjectOutputStreamADD(new FileOutputStream(datos, true));
-//			for (Reserva r : aux) {
-//				oos.writeObject(r);
-//			}
-//			oos.close();
-//		} else {
-//			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(datos));
-//			for (Reserva r : aux) {
-//				oos.writeObject(r);
-//			}
-//			oos.close();
-//		}
 	}
 
 	public boolean existeReserva(int codReserva) {
@@ -126,11 +112,11 @@ public class ReservaDAO {
 		}
 		return existe;
 	}
-	
+
 	public int getMayorCodigoReserva() {
 		int max = -1;
 		Set<Integer> claves = reservas.keySet();
-		for(Integer i : claves) {
+		for (Integer i : claves) {
 			if (i > max) {
 				max = i;
 			}

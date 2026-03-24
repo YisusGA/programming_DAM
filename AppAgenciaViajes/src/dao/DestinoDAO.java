@@ -17,7 +17,7 @@ public class DestinoDAO {
 	private File datos; // Mejor no inicializar el archivo de datos aquí, si no en el Main (o en la
 						// clase Menus en mi caso), para así no condenar a la clase DestinoDAO a
 						// funcionar con un sólo fichero de datos, haciendo que el DAO sea más general
-	
+
 	// Aquí meteríamos lo que se puede hacer con los datos, el CRUD: insertar,
 	// borrar, consultar y modificar
 
@@ -107,8 +107,7 @@ public class DestinoDAO {
 		return deleted;
 	}
 
-	public boolean update(Destino destino)
-			throws FileNotFoundException, ClassNotFoundException, IOException {
+	public boolean update(Destino destino) throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean updated = false;
 		if (datos.exists() && existeDestino(destino.getNombre())) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));

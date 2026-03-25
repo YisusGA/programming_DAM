@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Reserva implements Serializable, Comparable<Reserva> {
+	
+	// Ver explicación en el cuaderno (25-03-2026) sobre este serial
+	private static final long serialVersionUID = 7308132216401866532L;
 	private int codigo;
 	private String cliente;
 	private LocalDate fecha;

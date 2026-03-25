@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Destino implements Serializable {
+	
+	// Ver explicación en el cuaderno (25-03-2026) sobre este serial
+	private static final long serialVersionUID = 1051040104141150696L;
 	private String nombre;
 	private double precio;
 

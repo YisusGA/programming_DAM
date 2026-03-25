@@ -24,18 +24,23 @@ public class Thanos_sort {
 		double[] array = new double[arraySize];
 		array = rellenarArray(array);
 		System.out.print("Array inicial: ");
-		for (double i : array) {
-			System.out.printf("%.2f, ", i);
-		}
+		showArray(array);
 		System.out.println();
 		while(!isSorted(array)) {
 			array = thanosClean(array);
+			System.out.print("Array intermedio: ");
+			showArray(array);
+			System.out.println();
 		}
 		System.out.print("Array superviviente: ");
+		showArray(array);
+		scan.close();
+	}
+
+	private static void showArray(double[] array) {
 		for (double i : array) {
 			System.out.printf("%.2f, ", i);
 		}
-		scan.close();
 	}
 
 	public static double[] rellenarArray(double[] array) {

@@ -46,7 +46,7 @@ public class Destino implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Destino other = (Destino) obj;
-		return Objects.equals(nombre, other.nombre);
+		return Objects.equals(nombre.toLowerCase(), other.nombre.toLowerCase());
 	}
 
 	@Override

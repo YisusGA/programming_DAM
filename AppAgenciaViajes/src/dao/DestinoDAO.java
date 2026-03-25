@@ -50,34 +50,34 @@ public class DestinoDAO {
 		return inserted;
 	}
 
-	public boolean insertOLD(Destino destino) throws FileNotFoundException, IOException, ClassNotFoundException {
-		boolean inserted = false;
-		if (datos.exists() && !existeDestino(destino)) {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos//temp"));
-			while (!inserted) {
-				try {
-					Destino d = (Destino) ois.readObject();
-					oos.writeObject(d);
-				} catch (EOFException e) {
-					oos.writeObject(destino);
-					inserted = true;
-				}
-			}
-			ois.close();
-			oos.close();
-
-			File temp = new File("datos//temp");
-			datos.delete();
-			temp.renameTo(datos);
-		} else if (!datos.exists()) {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(datos));
-			oos.writeObject(destino);
-			inserted = true;
-			oos.close();
-		}
-		return inserted;
-	}
+//	public boolean insertOLD(Destino destino) throws FileNotFoundException, IOException, ClassNotFoundException {
+//		boolean inserted = false;
+//		if (datos.exists() && !existeDestino(destino)) {
+//			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
+//			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos//temp"));
+//			while (!inserted) {
+//				try {
+//					Destino d = (Destino) ois.readObject();
+//					oos.writeObject(d);
+//				} catch (EOFException e) {
+//					oos.writeObject(destino);
+//					inserted = true;
+//				}
+//			}
+//			ois.close();
+//			oos.close();
+//
+//			File temp = new File("datos//temp");
+//			datos.delete();
+//			temp.renameTo(datos);
+//		} else if (!datos.exists()) {
+//			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(datos));
+//			oos.writeObject(destino);
+//			inserted = true;
+//			oos.close();
+//		}
+//		return inserted;
+//	}
 
 	public boolean delete(String nombre) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean deleted = false;
@@ -109,14 +109,14 @@ public class DestinoDAO {
 
 	public boolean update(Destino destino) throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean updated = false;
-		if (datos.exists() && existeDestino(destino.getNombre())) {
+		if (datos.exists() && existeDestino(destino)) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datos));
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos//temp"));
 			boolean fin = false;
 			while (!fin) {
 				try {
 					Destino d = (Destino) ois.readObject();
-					if (d.getNombre().equalsIgnoreCase(destino.getNombre())) {
+					if (d.equals(destino)) {
 						oos.writeObject(destino);
 						updated = true;
 					} else {

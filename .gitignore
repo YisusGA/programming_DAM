@@ -45,4 +45,5 @@ replay_pid*
 *.txt
 *.csv
 *.dat
-*/datos/*
+datos/
+doc/

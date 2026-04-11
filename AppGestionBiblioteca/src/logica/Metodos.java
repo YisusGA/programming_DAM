@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.Map;
 
-import datos.Inventario;
+import data.Inventario;
 import model.Libro;
 import model.Prestamo;
 

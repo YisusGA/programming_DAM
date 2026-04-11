@@ -165,7 +165,7 @@ public class Main {
 														// caracter de salto de línea (\n). Devuelve un null cuando se
 														// alcanza el final del fichero y ya no hay más líneas que leer
 			// Hacer lo que sea con la línea
-			nombres.add(linea + "\n");
+			nombres.add(linea);
 		}
 		// 3. Cerrar recursos
 		buffer.close();

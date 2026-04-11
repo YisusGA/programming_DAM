@@ -85,7 +85,7 @@ public class Main {
 	private static void guardarDatos() throws IOException {
 		// Hay que pasarle en el constructor un flujo básico de de bytes asociado al
 		// archivo. Se hace con la clase FileOutputStream
-		// Igual que sucedía con FileOutputReader, se le puede pasar como segundo
+		// Igual que sucedía con FileWriter, se le puede pasar como segundo
 		// parámetro un true o un false para decidir si añade a lo que ya tuviera el
 		// fichero o elimina lo previo y añade lo nuevo, respectivamente. Por defecto si
 		// no se pone nada es false

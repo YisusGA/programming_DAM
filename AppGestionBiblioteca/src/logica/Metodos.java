@@ -69,7 +69,9 @@ public class Metodos {
 	
 	public static void guardarLibros(File file) {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
-			//TODO
+			for (Libro l : Inventario.libros) {
+				oos.writeObject(l);
+			}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

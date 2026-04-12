@@ -24,6 +24,8 @@ public class Main {
 		
 		Metodos.guardarLibros(fileL);
 		Metodos.guardarPrestamos(fileP);
+		
+		scan.close();
 
 	}
 

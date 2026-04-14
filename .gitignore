@@ -47,3 +47,6 @@ replay_pid*
 *.dat
 datos/
 doc/
+
+# javafx files
+javafx*/

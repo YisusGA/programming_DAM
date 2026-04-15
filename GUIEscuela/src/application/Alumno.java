@@ -1,12 +1,16 @@
 package application;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Alumno implements Comparable<Alumno> {
+public class Alumno implements Comparable<Alumno>, Serializable { // Aunque serializamos el GestorAlumno, como el Gestor
+																	// tiene una lista de objetos de Alumno, Alumno debe
+																	// ser también Serializable
+	private static final long serialVersionUID = 2L;
 	private String nif;
 	private String nombre;
 	private double notaMedia;
-	
+
 	public Alumno(String nif, String nombre, double notaMedia) {
 		this.nif = nif;
 		this.nombre = nombre;
@@ -59,14 +63,12 @@ public class Alumno implements Comparable<Alumno> {
 
 	@Override
 	public String toString() {
-		return "Alumno [nif=" + nif + ", nombre=" + nombre + ", notaMedia=" + notaMedia + "]";
+		return "Nombre: " + nombre + ", Nif: " + nif + ", Nota media: " + notaMedia;
 	}
 
 	@Override
 	public int compareTo(Alumno o) {
 		return this.nombre.compareTo(o.nombre);
 	}
-	
-	
 
 }

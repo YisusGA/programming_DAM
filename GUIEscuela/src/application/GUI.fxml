@@ -4,10 +4,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="application.GUIController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
   <tabs>
     <Tab text="Crear Alumno">
       <content>
@@ -15,18 +16,36 @@
                <children>
                   <TextField fx:id="nombre" layoutX="259.0" layoutY="129.0" />
                   <TextField fx:id="nota" layoutX="259.0" layoutY="170.0" />
-                  <Button layoutX="259.0" layoutY="218.0" mnemonicParsing="false" onAction="#add" text="Añadir alumno" />
+                  <Button layoutX="286.0" layoutY="217.0" mnemonicParsing="false" onAction="#add" text="Añadir alumno" />
                   <Label layoutX="211.0" layoutY="133.0" text="Nombre" />
                   <Label layoutX="192.0" layoutY="174.0" text="Nota media" />
-                  <TextField layoutX="259.0" layoutY="86.0" />
+                  <TextField fx:id="nif" layoutX="259.0" layoutY="86.0" />
                   <Label layoutX="233.0" layoutY="90.0" text="NIF" />
+                  <Label fx:id="resTxt" alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="252.0" prefHeight="105.0" prefWidth="383.0" textAlignment="CENTER" />
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Untitled Tab 2">
+    <Tab text="Mostrar Alumnos">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="20.0" layoutY="173.0" mnemonicParsing="false" onAction="#anteriorAlumno" text="&lt;" />
+                  <Button layoutX="534.0" layoutY="161.0" mnemonicParsing="false" onAction="#siguienteAlumno" text="&gt;" />
+                  <TextArea fx:id="txtAlumno" layoutX="59.0" layoutY="56.0" prefHeight="266.0" prefWidth="457.0" />
+               </children></AnchorPane>
       </content>
     </Tab>
+      <Tab text="Guardar Alumnos">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="274.0" layoutY="173.0" mnemonicParsing="false" onAction="#guardar" text="Save" />
+                  <TextField fx:id="fichero" layoutX="54.0" layoutY="119.0" prefHeight="41.0" prefWidth="482.0" text="alumnos.dat" />
+                  <Label layoutX="258.0" layoutY="89.0" text="Nombre fichero" />
+                  <Label fx:id="saveTxt" layoutX="202.0" layoutY="225.0" prefHeight="40.0" prefWidth="197.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
   </tabs>
 </TabPane>

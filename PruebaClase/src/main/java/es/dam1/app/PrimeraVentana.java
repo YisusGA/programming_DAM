@@ -3,6 +3,7 @@ package es.dam1.app;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
@@ -27,16 +28,23 @@ public class PrimeraVentana extends Application {
 		boton.setText("SOY UN BOTÓN");
 		boton.setBackground(Background.fill(Paint.valueOf("crimson")));
 
+		Label mensaje = new Label(); // Aquí creamos un objeto etiqueta para poder meter un mensaje en la GUI
+										// en respuesta al click del botón
+
 		// El método setOnAction toma como evento la acción por defecto del elemento.
 		// Que en el caso del botón, es un mouse click. Y metemos entre paréntesis lo
 		// que queremos que se ejecute al recibir el evento. Si empezamos escribiendo
 		// boton.setOn..., nos saldrán los distintos eventos, siendo uno de ellos el
 		// setOnMouseClicked. Aunque en este caso, como se ha comentado, el setOnAction
 		// resuelve el asunto
-		boton.setOnAction(new RespuestaClickBoton()); // Metemos entre paréntesis una clase con mi código
+		boton.setOnAction(new RespuestaClickBoton(mensaje)); // Metemos entre paréntesis una clase con mi código, y le
+																// pasamos como parámetro al constructor de esa clase mi
+																// objeto Label. Para ello, hemos tenido que hacer un
+																// constructor de esa clase que reciba ese objeto Label
 
 		// Situamos el botón en el panel
 		panel.setLeft(boton);
+		panel.setRight(mensaje);
 
 		// Asociamos la escena al Stage
 		Stage.setScene(escena);

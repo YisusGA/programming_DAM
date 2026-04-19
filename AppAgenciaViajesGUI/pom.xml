@@ -34,7 +34,7 @@
 			<version>0.0.8</version>
 			<configuration>
 				<!-- Aquí es necesario poner cuál es la clase principal (con el main) de mi aplicación -->
-				<mainClass>es.dam1.app.Ventana</mainClass>
+				<mainClass>main.Main</mainClass>
 				<!-- Aquí es necesario poner la ruta a mi JDK. Esto es opcional si sólo tenemos un JDK -->
 				<executable>C:\Program Files\Java\jdk-26\bin\java.exe</executable>
 			</configuration>

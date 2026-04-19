@@ -5,23 +5,20 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GeneralController">
   <tabs>
     <Tab text="Gestión de destinos">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="84.0" layoutY="26.0" mnemonicParsing="false" text="Insertar nuevo destino" />
-                  <Button layoutX="95.0" layoutY="80.0" mnemonicParsing="false" text="Recuperar destino" />
-                  <Button layoutX="101.0" layoutY="139.0" mnemonicParsing="false" text="Eliminar destino" />
-                  <Button layoutX="97.0" layoutY="196.0" mnemonicParsing="false" text="Modificar destino" />
-                  <Button layoutX="105.0" layoutY="250.0" mnemonicParsing="false" text="Listar destinos" />
-                  <Label layoutX="137.0" layoutY="306.0" text="Label" />
-                  <TextField layoutX="206.0" layoutY="302.0" prefHeight="25.0" prefWidth="182.0" />
-                  <TextArea layoutX="335.0" layoutY="52.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Button layoutX="233.0" layoutY="25.0" mnemonicParsing="false" onAction="#insertarDestino" text="Insertar nuevo destino" />
+                  <Button layoutX="244.0" layoutY="79.0" mnemonicParsing="false" text="Recuperar destino" />
+                  <Button layoutX="250.0" layoutY="138.0" mnemonicParsing="false" text="Eliminar destino" />
+                  <Button layoutX="246.0" layoutY="195.0" mnemonicParsing="false" text="Modificar destino" />
+                  <Button layoutX="254.0" layoutY="249.0" mnemonicParsing="false" text="Listar destinos" />
+                  <Label fx:id="labelDestinos" layoutX="142.0" layoutY="295.0" prefHeight="62.0" prefWidth="323.0" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -38,8 +35,7 @@
                   <Button layoutX="67.0" layoutY="260.0" mnemonicParsing="false" text="Ver reservas de cliente" />
                   <Button layoutX="29.0" layoutY="296.0" mnemonicParsing="false" text="Eliminar reservas asociadas a destino" />
                   <Button layoutX="230.0" layoutY="14.0" mnemonicParsing="false" text="Aplicar descuento a cliente" />
-                  <Label layoutX="296.0" layoutY="57.0" text="Label" />
-                  <TextField layoutX="236.0" layoutY="89.0" />
+                  <Label fx:id="labelReservas" layoutX="237.0" layoutY="57.0" prefHeight="66.0" prefWidth="346.0" />
                   <TextArea layoutX="339.0" layoutY="139.0" prefHeight="200.0" prefWidth="200.0" />
                </children></AnchorPane>
       </content>

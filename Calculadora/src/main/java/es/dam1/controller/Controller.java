@@ -2,29 +2,51 @@ package es.dam1.controller;
 
 import es.dam1.model.Calculadora;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class Controller {
-	//int op1; // Esto es una solución para poder almacenar el primer número que metamos en el
-				// campo de texto, pero no es una buena decisión de diseño meter datos en el
-				// Controller, sería mejor sacarlo a otro lado
-	
+	// int op1; // Esto es una solución para poder almacenar el primer número que
+	// metamos en el
+	// campo de texto, pero no es una buena decisión de diseño meter datos en el
+	// Controller, sería mejor sacarlo a otro lado
+	boolean suma = false;
+	boolean resta = false;
 
 	@FXML
 	TextField dato;
-	
+	@FXML
+	Label result;
+
 	Calculadora calculadora = new Calculadora();
 
 	@FXML
 	public void botonSuma() {
 		calculadora.setOp1(Integer.parseInt(dato.getText()));
+		resta = false;
+		suma = true;
+		dato.clear();
+	}
+
+	@FXML
+	public void botonResta() {
+		calculadora.setOp1(Integer.parseInt(dato.getText()));
+		suma = false;
+		resta = true;
 		dato.clear();
 	}
 
 	@FXML
 	public void botonIgual() {
 		calculadora.setOp2(Integer.parseInt(dato.getText()));
-		dato.setText(calculadora.sumar() + "");
+		if (suma) {
+			result.setText(calculadora.sumar() + "");
+		}
+		if (resta) {
+			result.setText(calculadora.restar() + "");
+		}
+		suma = false;
+		resta = false;
 	}
 
 	/*

@@ -1,4 +1,4 @@
-package presistencia;
+package es.dam1.data;
 
 import java.io.EOFException;
 import java.io.File;
@@ -10,8 +10,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Map;
 
-import data.Inventario;
-import model.Libro;
+import es.dam1.data.Inventario;
+import es.dam1.model.Libro;
 
 public class PersistenciaDatos {
 

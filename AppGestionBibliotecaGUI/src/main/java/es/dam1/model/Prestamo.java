@@ -108,6 +108,13 @@ public class Prestamo implements Serializable, Comparable<Prestamo> {
 	}
 
 	@Override
+	public String toString() {
+		return "Prestamo [idPrestamo=" + idPrestamo + ", libro=" + libro + ", cantidad=" + cantidad + ", fecha=" + fecha
+				+ ", tipoMovimiento=" + tipoMovimiento + ", precioVenta=" + precioVenta + ", totalVenta=" + totalVenta
+				+ "]";
+	}
+
+	@Override
 	public int compareTo(Prestamo o) {
 		return this.fecha.compareTo(o.getFecha());
 	}

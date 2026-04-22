@@ -15,7 +15,7 @@ public class Biblioteca extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("GUI.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI.fxml"));
 		Scene scene = new Scene(loader.load());	
 		stage.setTitle("Biblioteca");
 		stage.setScene(scene);
@@ -24,7 +24,7 @@ public class Biblioteca extends Application {
 	
 	@Override
 	public void stop() {
-		System.out.println("Guardando datos y finalizando aplicación...");
+		System.out.println("Guardando datos y finalizando aplicacion...");
 		PersistenciaDatos.guardarLibros();
 		PersistenciaDatos.guardarPrestamos();
 	}

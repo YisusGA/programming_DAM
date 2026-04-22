@@ -82,6 +82,12 @@ public class Libro implements Serializable, Comparable<Libro> {
 	}
 
 	@Override
+	public String toString() {
+		return "Libro [isbn=" + isbn + ", nombre=" + nombre + ", descripcion=" + descripcion + ", categoria="
+				+ categoria + ", stock=" + stock + "]";
+	}
+
+	@Override
 	public int compareTo(Libro o) {		
 		return this.nombre.compareToIgnoreCase(o.getNombre());
 	}

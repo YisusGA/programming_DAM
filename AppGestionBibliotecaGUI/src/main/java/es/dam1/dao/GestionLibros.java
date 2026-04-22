@@ -1,7 +1,9 @@
 package es.dam1.dao;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -68,14 +70,15 @@ public class GestionLibros {
 		return librosCategoria;
 	}
 	
-	public static Set<Libro> listadoLibros() {
-		Set<Libro> setLibros = null;
+	public static List<Libro> listadoLibros() {
+		List<Libro> listaLibros = null;
 		Collection<Libro> librosAux = Inventario.libros.values();
 		if (librosAux.size() > 0) {
-			setLibros = new TreeSet<>();
-			setLibros.addAll(librosAux);
+			listaLibros = new ArrayList<>();
+			listaLibros.addAll(librosAux);
+			listaLibros.sort(null);
 		}
-		return setLibros;
+		return listaLibros;
 	}
 
 }

@@ -21,37 +21,39 @@ public class PersistenciaDatos {
 		int librosRecuperados = 0;
 		if (ficheroLibros.exists()) {
 			boolean fin = false;
-			while (!fin) {
-				try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ficheroLibros))) {
+			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ficheroLibros))) {
+				while (!fin) {
 					Libro l = (Libro) ois.readObject();
 					Inventario.libros.put(l.getIsbn(), l);
-				} catch (EOFException e) {
-					fin = true;
-				} catch (FileNotFoundException e) {
-					System.err.println("Error, no se encontró el fichero");
-					e.printStackTrace();
-				} catch (IOException e) {
-					System.err.println("Error en proceso IO");
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					System.err.println("No se pudo leer el libro, se ignoró");
-					e.printStackTrace();
+					librosRecuperados++;
 				}
+			} catch (EOFException e) {
+				fin = true;
+			} catch (FileNotFoundException e) {
+				System.err.println("Error, no se encontró el fichero");
+				e.printStackTrace();
+			} catch (IOException e) {
+				System.err.println("Error en proceso IO");
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				System.err.println("No se pudo leer el libro, se ignoró");
+				e.printStackTrace();
 			}
 		} else if (!directorio.exists()) {
 			directorio.mkdir();
 		}
+		System.out.println(librosRecuperados);
 		return librosRecuperados;
 	}
 
 	public static int guardarLibros() {
 		int librosGuardados = 0;
-		if (ficheroLibros.exists() && Inventario.libros.size() > 0) {
+		if (Inventario.libros.size() > 0) {
 			try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ficheroLibros))) {
 				for (Map.Entry<Integer, Libro> i : Inventario.libros.entrySet()) {
 					oos.writeObject(i.getValue());
+					librosGuardados++;
 				}
-				librosGuardados++;
 			} catch (FileNotFoundException e) {
 				System.err.println("Error, no se encontró el fichero");
 				e.printStackTrace();
@@ -62,42 +64,43 @@ public class PersistenciaDatos {
 		}
 		return librosGuardados;
 	}
-	
+
 	public static int recuperarPrestamos() {
 		int prestamosRecuperados = 0;
 		if (ficheroPrestamos.exists()) {
 			boolean fin = false;
-			while (!fin) {
-				try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ficheroPrestamos))) {
+			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ficheroPrestamos))) {
+				while (!fin) {
 					Prestamo p = (Prestamo) ois.readObject();
 					Inventario.prestamos.put(p.getIdPrestamo(), p);
-				} catch (EOFException e) {
-					fin = true;
-				} catch (FileNotFoundException e) {
-					System.err.println("Error, no se encontró el fichero");
-					e.printStackTrace();
-				} catch (IOException e) {
-					System.err.println("Error en proceso IO");
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					System.err.println("No se pudo leer el préstamo, se ignoró");
-					e.printStackTrace();
+					prestamosRecuperados++;
 				}
+			} catch (EOFException e) {
+				fin = true;
+			} catch (FileNotFoundException e) {
+				System.err.println("Error, no se encontró el fichero");
+				e.printStackTrace();
+			} catch (IOException e) {
+				System.err.println("Error en proceso IO");
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				System.err.println("No se pudo leer el préstamo, se ignoró");
+				e.printStackTrace();
 			}
 		} else if (!directorio.exists()) {
 			directorio.mkdir();
 		}
 		return prestamosRecuperados;
 	}
-	
+
 	public static int guardarPrestamos() {
 		int prestamosGuardados = 0;
-		if (ficheroLibros.exists() && Inventario.libros.size() > 0) {
+		if (Inventario.prestamos.size() > 0) {
 			try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ficheroPrestamos))) {
 				for (Map.Entry<Integer, Prestamo> i : Inventario.prestamos.entrySet()) {
 					oos.writeObject(i.getValue());
+					prestamosGuardados++;
 				}
-				prestamosGuardados++;
 			} catch (FileNotFoundException e) {
 				System.err.println("Error, no se encontró el fichero");
 				e.printStackTrace();

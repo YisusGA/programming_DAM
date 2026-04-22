@@ -1,5 +1,6 @@
 package es.dam1.app;
 
+import es.dam1.data.PersistenciaDatos;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +20,13 @@ public class Biblioteca extends Application {
 		stage.setTitle("Biblioteca");
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	@Override
+	public void stop() {
+		System.out.println("Guardando datos y finalizando aplicación...");
+		PersistenciaDatos.guardarLibros();
+		PersistenciaDatos.guardarPrestamos();
 	}
 
 }

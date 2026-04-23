@@ -1,7 +1,7 @@
 package es.dam1.controller;
 
 import java.util.List;
-import es.dam1.dao.GestionApp;
+
 import es.dam1.dao.GestionLibros;
 import es.dam1.data.PersistenciaDatos;
 import es.dam1.model.Libro;
@@ -25,7 +25,7 @@ public class Controller {
 
 	@FXML
 	public void addLibro() {
-		if (GestionApp.getDataAndAddLibro()) {
+		if (ServiceController.getDataAndAddLibro()) {
 			resultado.setText("Libro añadido");
 			resultado.setTextFill(Paint.valueOf("black"));
 		} else {
@@ -35,15 +35,15 @@ public class Controller {
 	}
 
 	@FXML
-	public void mostrar10PrimerosLibros() {
+	public void mostrarPrimerosLibros() {
 		siguientesLibros.setDisable(true);
-		List<Libro> listadoLibros = GestionApp.listado10PrimerosLibros();
+		List<Libro> listadoLibros = ServiceController.listadoPrimerosLibros();
 		if (listadoLibros != null) {
 			String lista = "";
 			for (Libro l : listadoLibros) {
 				lista += l + "\n";
 			}
-			if (GestionLibros.listadoLibros().size() > 10) {
+			if (GestionLibros.listadoLibros().size() > ServiceController.sizeListado) {
 				siguientesLibros.setDisable(false);
 			}
 			listaLibros.setText(lista);
@@ -52,7 +52,7 @@ public class Controller {
 
 	@FXML
 	public void mostrarSiguientesLibros() {
-		List<Libro> listadoLibros = GestionApp.listadoSiguientesLibros();
+		List<Libro> listadoLibros = ServiceController.listadoSiguientesLibros();
 		String lista = "";
 		for (Libro l : listadoLibros) {
 			lista += l + "\n";

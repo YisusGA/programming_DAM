@@ -1,32 +1,44 @@
-package es.dam1.dao;
+package es.dam1.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import es.dam1.dao.GestionLibros;
 import es.dam1.model.Libro;
 import javafx.scene.control.TextInputDialog;
 
-public class GestionApp {
+public class ServiceController {
 	private static int contador = 0;
 	private static TextInputDialog dialog;
+	static int sizeListado = 5;
 
-	public static List<Libro> listado10PrimerosLibros() {
+	public static void setSizeListado(int sizeListado) {
+		ServiceController.sizeListado = sizeListado;
+	}
+
+	public static List<Libro> listadoPrimerosLibros() {
 		contador = 0;
+		dialog = new TextInputDialog();
+		dialog.setTitle("Tamaño vista de lista");
+		dialog.setHeaderText(" ");
+		dialog.setContentText("Por favor, introduce tamaño vista lista:");
+		sizeListado = readIntFromTextInput();
 		List<Libro> listadoLibros = GestionLibros.listadoLibros();
-		List<Libro> listado10Libros = null;
+		List<Libro> listadoPrimerosLibros = null;
 		if (listadoLibros != null) {
-			listado10Libros = new ArrayList<>();
-			for (int i = 0; i < listadoLibros.size() && i < 10; i++, contador++) {
-				listado10Libros.add(listadoLibros.get(i));
+			listadoPrimerosLibros = new ArrayList<>();
+			for (int i = 0; i < listadoLibros.size() && i < sizeListado; i++, contador++) {
+				listadoPrimerosLibros.add(listadoLibros.get(i));
 			}
 		}
-		return listado10Libros;
+		return listadoPrimerosLibros;
 	}
 
 	public static List<Libro> listadoSiguientesLibros() {
 		List<Libro> listadoLibros = GestionLibros.listadoLibros();
 		List<Libro> listadoSiguientesLibros = new ArrayList<>();
-		for (int i = 0; contador < listadoLibros.size() && i < 10; i++, contador++) {
+		for (int i = 0; contador < listadoLibros.size() && i < sizeListado; i++, contador++) {
 			listadoSiguientesLibros.add(listadoLibros.get(contador));
 		}
 		if (contador == listadoLibros.size()) {

@@ -14,7 +14,7 @@
                <children>
                   <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addLibro" text="Añadir libro" />
                   <Label fx:id="resultado" alignment="CENTER" contentDisplay="CENTER" layoutX="181.0" layoutY="43.0" prefHeight="40.0" prefWidth="208.0" textAlignment="CENTER" wrapText="true" />
-                  <Button layoutX="243.0" layoutY="14.0" mnemonicParsing="false" onAction="#mostrar10PrimerosLibros" text="Listar libros" />
+                  <Button layoutX="243.0" layoutY="14.0" mnemonicParsing="false" onAction="#mostrarPrimerosLibros" text="Listar libros" />
                   <Label fx:id="listaLibros" alignment="CENTER" layoutX="9.0" layoutY="109.0" prefHeight="227.0" prefWidth="585.0" wrapText="true" />
                   <Label layoutX="244.0" layoutY="86.0" text="Listado libros" />
                   <Button fx:id="siguientesLibros" disable="true" layoutX="254.0" layoutY="341.0" mnemonicParsing="false" onAction="#mostrarSiguientesLibros" text="Siguientes" />

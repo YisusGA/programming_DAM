@@ -3,7 +3,6 @@ package es.dam1.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import es.dam1.dao.GestionLibros;
 import es.dam1.model.Libro;
 import javafx.scene.control.TextInputDialog;
@@ -57,9 +56,6 @@ public class ServiceController {
 		dialog.setContentText("Por favor, introduce ISBN del libro:");
 		int isbn = readIntFromTextInput();
 
-		dialog.setContentText("Por favor, introduce stock del libro:");
-		int stock = readIntFromTextInput();
-
 		dialog.setContentText("Por favor, introduce nombre del libro:");
 		String nombre = readTextFromTextInput();
 
@@ -68,11 +64,48 @@ public class ServiceController {
 
 		dialog.setContentText("Por favor, introduce categoría del libro:");
 		String categoria = readTextFromTextInput();
+		
+		dialog.setContentText("Por favor, introduce stock del libro:");
+		int stock = readIntFromTextInput();
 
 		if (GestionLibros.addLibro(isbn, nombre, descripcion, categoria, stock)) {
 			added = true;
 		}
 		return added;
+	}
+	
+	public static boolean eliminarLibro() {
+		dialog = new TextInputDialog();
+		dialog.setTitle("Eliminar libro");
+		dialog.setHeaderText(" ");
+		
+		dialog.setContentText("Por favor, introduce nombre del libro:");
+		String nombre = readTextFromTextInput();
+		
+		boolean removed = GestionLibros.eliminarLibro(nombre);
+		return removed;
+	}
+	
+	public static List<Libro> buscarLibrosPorNombre() {
+		dialog = new TextInputDialog();
+		dialog.setTitle("Buscar libro por nombre");
+		dialog.setHeaderText(" ");
+		
+		dialog.setContentText("Por favor, introduce nombre del libro:");
+		String nombre = readTextFromTextInput();
+		List<Libro> librosNombre = GestionLibros.buscarLibrosPorNombre(nombre);
+		return librosNombre;
+	}
+	
+	public static List<Libro> buscarLibrosPorCategoria() {
+		dialog = new TextInputDialog();
+		dialog.setTitle("Buscar libro por categoría");
+		dialog.setHeaderText(" ");
+		
+		dialog.setContentText("Por favor, introduce categoría del libro:");
+		String categoria = readTextFromTextInput();
+		List<Libro> librosCategoria = GestionLibros.buscarLibrosPorCategoria(categoria);
+		return librosCategoria;
 	}
 
 	public static String readTextFromTextInput() {

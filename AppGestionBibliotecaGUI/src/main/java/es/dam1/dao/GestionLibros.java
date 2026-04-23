@@ -3,10 +3,10 @@ package es.dam1.dao;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import es.dam1.data.Inventario;
 import es.dam1.model.Libro;
@@ -36,11 +36,11 @@ public class GestionLibros {
 		return eliminado;
 	}
 	
-	public static Set<Libro> buscarPorNombre(String nombre) {
-		Set<Libro> librosNombre = null;
+	public static List<Libro> buscarLibrosPorNombre(String nombre) {
+		List<Libro> librosNombre = null;
 		Collection<Libro> librosAux = Inventario.libros.values();
 		if (librosAux.size() > 0) {
-			librosNombre = new TreeSet<>();
+			librosNombre = new LinkedList<>();
 			for (Libro l : librosAux) {
 				if(l.getNombre().equalsIgnoreCase(nombre)) {
 					librosNombre.add(l);
@@ -48,16 +48,18 @@ public class GestionLibros {
 			}
 			if(librosNombre.size() == 0) {
 				librosNombre = null;
+			} else {
+				librosNombre.sort(null);
 			}
 		}
 		return librosNombre;
 	}
 	
-	public static Set<Libro> buscarPorCategoria(String categoria) {
-		Set<Libro> librosCategoria = null;
+	public static List<Libro> buscarLibrosPorCategoria(String categoria) {
+		List<Libro> librosCategoria = null;
 		Collection<Libro> librosAux = Inventario.libros.values();
 		if (librosAux.size() > 0) {
-			librosCategoria = new TreeSet<>();
+			librosCategoria = new LinkedList<>();
 			for (Libro l : librosAux) {
 				if(l.getCategoria().equalsIgnoreCase(categoria)) {
 					librosCategoria.add(l);
@@ -65,6 +67,8 @@ public class GestionLibros {
 			}
 			if(librosCategoria.size() == 0) {
 				librosCategoria = null;
+			} else {
+				librosCategoria.sort(null);
 			}
 		}
 		return librosCategoria;

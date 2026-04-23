@@ -1,106 +1,31 @@
 package es.dam1.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
-
+import es.dam1.dao.GestionApp;
 import es.dam1.dao.GestionLibros;
 import es.dam1.data.PersistenciaDatos;
 import es.dam1.model.Libro;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.paint.Paint;
 
 public class Controller {
-	private static int contador = 0;
-	
+
 	@FXML
-	Label resultado;
+	private Label resultado;
 	@FXML
-	Label listaLibros;
-	
+	private Label listaLibros;
+	@FXML
+	private Button siguientesLibros;
+
 	public void initialize() {
-		PersistenciaDatos.recuperarLibros();
-		PersistenciaDatos.recuperarPrestamos();
+		resultado.setText(PersistenciaDatos.recuperarLibros() + " libros recuperados\n" + PersistenciaDatos.recuperarPrestamos() + " préstamos recuperados");
 	}
-	
+
 	@FXML
 	public void addLibro() {
-		int isbn = 0;
-		String nombre = "";
-		String descripcion = "";
-		String categoria = "";
-		int stock = 0;
-		TextInputDialog dialog = new TextInputDialog();
-		dialog.setTitle("Añadir libro");
-		dialog.setHeaderText(" ");
-		boolean valid = false;
-		while (!valid) {
-			dialog.setContentText("Por favor, introduce ISBN del libro:");
-			Optional<String> result = dialog.showAndWait();
-			String isbnAux = result.get().trim();
-			try {
-				isbn = Integer.parseInt(isbnAux);
-				valid = true;
-			} catch (NumberFormatException e) {
-				System.err.println("Numero no valido");
-			}
-		} 
-		valid = false;
-		while (!valid) {
-			dialog.setContentText("Por favor, introduce nombre del libro:");
-			Optional<String> result = dialog.showAndWait();
-			if (result.isPresent()) {
-				nombre = result.get().trim();
-				if (!nombre.isBlank()) {
-					valid = true;
-				} else {
-					System.err.println("Nombre no valido");
-				}
-			}
-		}
-		valid = false;
-		while (!valid) {
-			dialog.setContentText("Por favor, introduce descripción del libro:");
-			Optional<String> result = dialog.showAndWait();
-			if (result.isPresent()) {
-				descripcion = result.get().trim();
-				if (!descripcion.isBlank()) {
-					valid = true;
-				} else {
-					System.err.println("Descripción no valida");
-				}
-			}
-		}
-		valid = false;
-		while (!valid) {
-			dialog.setContentText("Por favor, introduce categoría del libro:");
-			Optional<String> result = dialog.showAndWait();
-			if (result.isPresent()) {
-				categoria = result.get().trim();
-				if (!categoria.isBlank()) {
-					valid = true;
-				} else {
-					System.err.println("Categoria no valida");
-				}
-			}
-		}
-		valid = false;
-		while (!valid) {
-			dialog.setContentText("Por favor, introduce stock del libro:");
-			Optional<String> result = dialog.showAndWait();
-			String stockAux = result.get().trim();
-			try {
-				stock = Integer.parseInt(stockAux);
-				valid = true;
-			} catch (NumberFormatException e) {
-				System.err.println("Numero no valido");
-			}
-		}
-		if (GestionLibros.addLibro(isbn, nombre, descripcion, categoria, stock)) {
+		if (GestionApp.getDataAndAddLibro()) {
 			resultado.setText("Libro añadido");
 			resultado.setTextFill(Paint.valueOf("black"));
 		} else {
@@ -108,20 +33,30 @@ public class Controller {
 			resultado.setTextFill(Paint.valueOf("red"));
 		}
 	}
-	
-	public void listarLibros() {
-		// NO FUNCIONA DEL TODO BIEN AÚN
-		List<Libro> listadoLibros = new ArrayList<>();
-		listadoLibros.addAll(GestionLibros.listadoLibros());
+
+	@FXML
+	public void mostrar10PrimerosLibros() {
+		siguientesLibros.setDisable(true);
+		List<Libro> listadoLibros = GestionApp.listado10PrimerosLibros();
 		if (listadoLibros != null) {
 			String lista = "";
-			for (int i = 0; i < 10 && i < listadoLibros.size() && contador < listadoLibros.size(); i++, contador++) {
-				if (contador == listadoLibros.size() -1) {
-					contador = 0;
-				}
-				lista += listadoLibros.get(contador).toString() + "\n";
+			for (Libro l : listadoLibros) {
+				lista += l + "\n";
+			}
+			if (GestionLibros.listadoLibros().size() > 10) {
+				siguientesLibros.setDisable(false);
 			}
 			listaLibros.setText(lista);
 		}
+	}
+
+	@FXML
+	public void mostrarSiguientesLibros() {
+		List<Libro> listadoLibros = GestionApp.listadoSiguientesLibros();
+		String lista = "";
+		for (Libro l : listadoLibros) {
+			lista += l + "\n";
+		}
+		listaLibros.setText(lista);
 	}
 }

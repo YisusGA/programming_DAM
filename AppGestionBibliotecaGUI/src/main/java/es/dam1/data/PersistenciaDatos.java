@@ -42,7 +42,6 @@ public class PersistenciaDatos {
 		} else if (!directorio.exists()) {
 			directorio.mkdir();
 		}
-		System.out.println(librosRecuperados);
 		return librosRecuperados;
 	}
 

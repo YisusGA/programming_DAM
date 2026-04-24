@@ -5,82 +5,77 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import es.dam1.logica.GestorFicheros;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 
 public class GUIController {
-	private File file;
-	private boolean opened = false;
+
+	GestorFicheros gestor = new GestorFicheros();
 
 	@FXML
 	TextArea textArea;
+	@FXML
+	Label panelMensajes;
 
 	public void openFile() {
-		// 1. Crear el selector de archivos
+		// Crear el selector de archivos
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Buscar archivo de texto");
-
-		// 2. Agregar un filtro para archivos .txt
+		// Agregar un filtro para archivos .txt
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de Texto", "*.txt"));
-
-		// 3. Mostrar el diálogo de "Abrir"
+		// Mostrar el diálogo de "Abrir"
 		File selectedFile = fileChooser.showOpenDialog(null);
-
-		// 4. Verificar si el usuario seleccionó algo
+		// Verificar si el usuario seleccionó algo
 		if (selectedFile != null) {
-			try {
-				// Leer todo el contenido del archivo
-				file = new File(selectedFile.toPath().toString());
-				String contenido = Files.readString(selectedFile.toPath());
-
-				// 5. Cargar el contenido en el TextArea
-				textArea.setText(contenido);
-
-				opened = true;
-
-			} catch (IOException e) {
-				System.err.println("Error al leer el archivo: " + e.getMessage());
+			gestor.setFile(new File(selectedFile.toPath().toString()));
+			// Leer todo el contenido del archivo y cargarlo en el TextArea
+			String textRead = gestor.read();
+			if (textRead != null) {
+				textArea.setText(textRead);
+				// Actualizar el booleano de que se ha abierto un fichero
+				gestor.setOpened(true);
+			} else {
+				panelMensajes.setText("No se pudo leer el fichero");
+				panelMensajes.setTextFill(Paint.valueOf("red"));
 			}
 		} else {
-			System.out.println("Operación cancelada por el usuario.");
+			panelMensajes.setText("Operación cancelada por el usuario");
+			panelMensajes.setTextFill(Paint.valueOf("red"));
 		}
-
 	}
 
 	@FXML
 	private void save() {
 		String text = textArea.getText();
-		if (opened) {
-			File temp = new File(file.getParent() + "temp.txt");
-			try (FileWriter fw = new FileWriter(temp)) {
-				fw.write(text);
-			} catch (IOException e) {
-				System.out.println("Error de escritura");
-				e.printStackTrace();
+		if (gestor.isOpened()) {
+			if (gestor.write(text)) {
+				panelMensajes.setText("Fichero guardado");
+				panelMensajes.setTextFill(Paint.valueOf("black"));
+			} else {
+				panelMensajes.setText("No se pudo guardar el fichero");
+				panelMensajes.setTextFill(Paint.valueOf("red"));
 			}
-			file.delete();
-			temp.renameTo(file);
-			opened = false;
 		} else {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Guardar archivo de texto");
-
-			// 2. Agregar un filtro para archivos .txt
 			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de Texto", "*.txt"));
-
-			// 3. Mostrar el diálogo de "Guardar"
+			// Mostrar el diálogo de guardar
 			File selectedFile = fileChooser.showSaveDialog(null);
-			
 			if (selectedFile != null) {
-				try (FileWriter fw = new FileWriter(selectedFile)) {
-					fw.write(text);
-				} catch (IOException e) {
-					System.out.println("Error de escritura");
-					e.printStackTrace();
-				}
+				gestor.setFile(selectedFile);
+				gestor.write(text);
+				gestor.setOpened(true);
+				panelMensajes.setText("Fichero guardado");
+				panelMensajes.setTextFill(Paint.valueOf("black"));
+			} else {
+				panelMensajes.setText("Operación cancelada por el usuario");
+				panelMensajes.setTextFill(Paint.valueOf("red"));
 			}
-			
+
 		}
 	}
 

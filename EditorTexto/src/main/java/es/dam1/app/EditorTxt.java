@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
 
-public class Main extends Application {
+public class EditorTxt extends Application {
 	@Override
 	public void start(Stage stage) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI.fxml"));

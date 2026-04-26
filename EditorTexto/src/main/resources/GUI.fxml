@@ -10,24 +10,26 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.dam1.controller.GUIController">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open" />
                   <MenuItem mnemonicParsing="false" onAction="#save" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="SaveAs" />
-              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveAs" text="Save as" />
+              <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="m to M" />
+              <MenuItem mnemonicParsing="false" onAction="#toUpperCase" text="m to M" />
+                  <MenuItem mnemonicParsing="false" onAction="#toLowerCase" text="M to m" />
+                  <MenuItem mnemonicParsing="false" onAction="#firstCharOfEachWordToUpperCase" text="mmm to Mmm" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#mostrarInfo" text="About" />
             </items>
           </Menu>
         </menus>

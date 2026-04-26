@@ -74,15 +74,15 @@ public class ServiceController {
 					if (!palabras[j].isEmpty()) {
 						palabras[j] = palabras[j].substring(0, 1).toUpperCase()
 								+ palabras[j].substring(1).toLowerCase();
-						if (j == palabras.length - 1) {
-							lineas[i] += palabras[j];
-						} else {
-							lineas[i] += palabras[j] + " ";
-						}
+					}
+					if (j == palabras.length - 1) {
+						lineas[i] += palabras[j];
+					} else {
+						lineas[i] += palabras[j] + " ";
 					}
 				}
 				if (i == lineas.length - 1) {
-					result += lineas[i] + "\n";
+					result += lineas[i];
 				} else {
 					result += lineas[i] + "\n";
 				}

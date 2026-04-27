@@ -2,24 +2,22 @@ package es.dam1.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
-
+import es.dam1.data.Data;
 import es.dam1.logica.LogicaTareas;
 import es.dam1.model.Tarea;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class GUIControllerTableView {
-
-	LogicaTareas logicaTareas = new LogicaTareas();
 
 	@FXML
 	private TableView<Tarea> tabla; // El compilador nos avisa de que debemos parametrizarla
@@ -36,15 +34,7 @@ public class GUIControllerTableView {
 		colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 		colFecha.setCellValueFactory(new PropertyValueFactory<>("fechaLimite"));
 
-//		// PRUEBA
-//		Tarea prueba = new Tarea();
-//		prueba.setId(1);
-//		prueba.setNombre("Comer");
-//		prueba.setDescripcion("Macarrones");
-//		prueba.setFechaLimite(LocalDate.parse("2027-03-01"));
-//		prueba.setCompletada(false);
-//		tareas.add(prueba);
-//		tabla.setItems(tareas);
+		tabla.setItems(Data.tareas);
 
 	}
 
@@ -58,35 +48,40 @@ public class GUIControllerTableView {
 		switch (textoBoton) {
 		case "Añadir tarea" -> {
 			// Pillamos el Stage del programa
-			Stage stage = (Stage) ((Node) button).getScene().getWindow(); // Se castea el botón a Nodo, y de ahí se saca
-																			// su Scene, y de su Scene se saca su
-																			// Window. Y esa Window se castea a Stage, y
-																			// se almacena dentro de un objeto Stage
+			Stage stage = (Stage) button.getScene().getWindow(); // Se pilla la escena de la que viene el botón, y la
+																	// ventana de la que viene esa escena. Y eso se
+																	// castea a Stage y se almacena en un objeto Stage.
+																	// No hace falta castear button a Node, pues un
+																	// botón ya es un Node
 			// Cargamos la nueva interfaz gráfica
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUIControllerAddTarea.fxml"));
-			// Creamos una nueva escena
-			Scene escenaAddTarea = null;
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUIAddTarea.fxml"));
 			try {
-				// A esa escena le cargamos la interfaz gráfica
-				escenaAddTarea = loader.load();
+				// Creamos una nueva escena y le cargamos la interfaz gráfica
+				Scene escenaAddTarea = new Scene(loader.load());
+				// Y cambiamos en el stage la escena a la nueva escena que hemos creado
+				stage.setScene(escenaAddTarea);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			// Y cambiamos en el stage la escena a la nueva escena que hemos creado
-			stage.setScene(escenaAddTarea);
-
 		}
 		case "Completar tarea" -> {
 			if (tareaSeleccionada != null) {
-				logicaTareas.completarTarea(tareaSeleccionada.getId());
+				LogicaTareas.completarTarea(tareaSeleccionada.getId());
 			}
 		}
 		case "Eliminar tarea" -> {
 			if (tareaSeleccionada != null) {
-				logicaTareas.eliminarTarea(tareaSeleccionada.getId());
+				LogicaTareas.eliminarTarea(tareaSeleccionada.getId());
 			}
 		}
+		}
+	}
+
+	public void clicksRaton(MouseEvent event) {
+		int numberClicks = event.getClickCount();
+		if (numberClicks == 2) {
+			mostrarTarea();
 		}
 	}
 

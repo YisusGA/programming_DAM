@@ -5,18 +5,23 @@ import java.util.Objects;
 
 public class Tarea {
 
+	private static Integer idGen = 0;
 	private Integer id; // ID único identificativo
 	private String nombre;
 	private String descripcion;
 	private LocalDate fechaLimite;
 	private boolean completada;
 
-	public Integer getId() {
-		return id;
+	public Tarea(String nombre, String descripcion, LocalDate fechaLimite) {
+		this.id = idGen++;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.fechaLimite = fechaLimite;
+		this.completada = false;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public Integer getId() {
+		return id;
 	}
 
 	public String getNombre() {

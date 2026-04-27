@@ -1,21 +1,25 @@
 package es.dam1.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import es.dam1.logica.LogicaTareas;
 import es.dam1.model.Tarea;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class GUIControllerTableView {
-	
+
 	LogicaTareas logicaTareas = new LogicaTareas();
-	
 
 	@FXML
 	private TableView<Tarea> tabla; // El compilador nos avisa de que debemos parametrizarla
@@ -31,7 +35,7 @@ public class GUIControllerTableView {
 		// Le decimos a cada columna qué propiedad de Tarea tiene que mostrar
 		colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 		colFecha.setCellValueFactory(new PropertyValueFactory<>("fechaLimite"));
-		
+
 //		// PRUEBA
 //		Tarea prueba = new Tarea();
 //		prueba.setId(1);
@@ -51,9 +55,27 @@ public class GUIControllerTableView {
 		Tarea tareaSeleccionada = tabla.getSelectionModel().getSelectedItem();
 		Button button = (Button) event.getSource();
 		String textoBoton = button.getText();
-		switch(textoBoton) {
+		switch (textoBoton) {
 		case "Añadir tarea" -> {
-			
+			// Pillamos el Stage del programa
+			Stage stage = (Stage) ((Node) button).getScene().getWindow(); // Se castea el botón a Nodo, y de ahí se saca
+																			// su Scene, y de su Scene se saca su
+																			// Window. Y esa Window se castea a Stage, y
+																			// se almacena dentro de un objeto Stage
+			// Cargamos la nueva interfaz gráfica
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUIControllerAddTarea.fxml"));
+			// Creamos una nueva escena
+			Scene escenaAddTarea = null;
+			try {
+				// A esa escena le cargamos la interfaz gráfica
+				escenaAddTarea = loader.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// Y cambiamos en el stage la escena a la nueva escena que hemos creado
+			stage.setScene(escenaAddTarea);
+
 		}
 		case "Completar tarea" -> {
 			if (tareaSeleccionada != null) {

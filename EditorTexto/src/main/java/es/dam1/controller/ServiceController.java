@@ -72,6 +72,7 @@ public class ServiceController {
 				lineas[i] = "";
 				for (int j = 0; j < palabras.length; j++) {
 					if (!palabras[j].isEmpty()) {
+						System.out.println(palabras[j]);
 						palabras[j] = palabras[j].substring(0, 1).toUpperCase()
 								+ palabras[j].substring(1).toLowerCase();
 					}

@@ -5,9 +5,9 @@ import interfaz.Operar;
 public class Main {
 
 	public static void main(String[] args) {
+		
 		// Este objeto no está pensado para contener números, cadenas, etc. Sólo está
 		// pensado para contener una secuencia de instrucciones
-
 		Operar suma = new Sumar(); // Creo una instancia de Operar cuya implementación es Sumar (o la que sea)
 
 		Operar multiplica = new Multiplicar(); // Creo una instancia de Operar cuya implementación es Multiplicar (o la

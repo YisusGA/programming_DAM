@@ -15,6 +15,6 @@
       </TableView>
       <Button layoutX="108.0" layoutY="355.0" mnemonicParsing="false" onAction="#accionTarea" prefHeight="26.0" prefWidth="106.0" text="Añadir tarea" />
       <Button layoutX="411.0" layoutY="356.0" mnemonicParsing="false" onAction="#accionTarea" text="Eliminar tarea" />
-      <Button layoutX="264.0" layoutY="356.0" mnemonicParsing="false" onAction="#accionTarea" text="Completar tarea" />
+      <Button layoutX="251.0" layoutY="356.0" mnemonicParsing="false" onAction="#accionTarea" text="Cambiar estado tarea" />
    </children>
 </AnchorPane>

@@ -19,7 +19,11 @@ public class Main2 {
 		// lambda). Y le tienes que pasar una lambda que se adapte a lo que hace ese
 		// método
 
-		// Esto es lo mismo que el for de encima, pero nos ahorramos hacer ese for
+		// Esto es lo mismo que el for-each de encima, pero nos ahorramos hacer ese for.
+		// Este método forEach necesita que le pasemos un Consumer, que básicamente
+		// significa que le pasamos un dato y lo consume sin devolver absolutamente
+		// nada. En este caso, cuando el Consumer "consume" ese dato, le decimos que lo
+		// imprima por consola
 		numeros.forEach(x -> System.out.println("Soy " + x));
 
 		// removeIf necesita una función lambda de tipo Predicate. Una función lambda

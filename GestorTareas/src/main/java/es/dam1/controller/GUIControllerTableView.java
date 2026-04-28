@@ -65,9 +65,9 @@ public class GUIControllerTableView {
 				e.printStackTrace();
 			}
 		}
-		case "Completar tarea" -> {
+		case "Cambiar estado tarea" -> {
 			if (tareaSeleccionada != null) {
-				LogicaTareas.completarTarea(tareaSeleccionada.getId());
+				LogicaTareas.cambiarEstadoTarea(tareaSeleccionada.getId());
 				// TODO meter tachado de texto en tarea completada
 				tabla.getSelectionModel().selectedItemProperty();
 			}

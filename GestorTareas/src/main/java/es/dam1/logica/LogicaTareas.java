@@ -12,19 +12,23 @@ public class LogicaTareas {
 	public LogicaTareas() {
 	}
 
-	public static void completarTarea(int id) {
-		boolean completada = false;
-		
-		for (int i = 0; i < Data.tareas.size() && !completada; i++) {
-			Tarea aux = Data.tareas.get(i);
-			if (aux.getId() == id) {
-				aux.setCompletada(!aux.isCompletada()); // Esto invierte el valor que tenga el boolean
-				Data.tareas.set(i, aux);
-				completada = true;
-			}
-		}
-		// Hacer lo mismo con programación funcional
-//		Data.tareas.stream().filter(x -> x.getId() == id).forEach(x -> x.isCompletada());
+	public static void cambiarEstadoTarea(int id) {
+		//Esto comentado es cómo lo habría hecho hasta ahora, sin programación funcional
+//		boolean cambiada = false;
+//
+//		for (int i = 0; i < Data.tareas.size() && !cambiada; i++) {
+//			Tarea aux = Data.tareas.get(i);
+//			if (aux.getId() == id) {
+//				aux.setCompletada(!aux.isCompletada()); // Esto invierte el valor que tenga el boolean
+//				Data.tareas.set(i, aux);
+//				cambiada = true;
+//			}
+//		}
+		// Hacer lo mismo con programación funcional: creamos un stream de la colección,
+		// y la filtramos de manera que nos quedemos con aquellas tareas cuyo id
+		// coincida con el pasado por parámetro. Y para cada una de esas (forEach),
+		// invertimos el valor de su boolean
+		Data.tareas.stream().filter(x -> x.getId() == id).forEach(x -> x.setCompletada(!x.isCompletada()));
 	}
 
 	public static boolean eliminarTarea(int id) {

@@ -12,17 +12,19 @@ public class LogicaTareas {
 	public LogicaTareas() {
 	}
 
-	public static boolean completarTarea(int id) {
+	public static void completarTarea(int id) {
 		boolean completada = false;
+		
 		for (int i = 0; i < Data.tareas.size() && !completada; i++) {
 			Tarea aux = Data.tareas.get(i);
 			if (aux.getId() == id) {
-				aux.setCompletada(true);
+				aux.setCompletada(!aux.isCompletada()); // Esto invierte el valor que tenga el boolean
 				Data.tareas.set(i, aux);
 				completada = true;
 			}
 		}
-		return completada;
+		// Hacer lo mismo con programación funcional
+//		Data.tareas.stream().filter(x -> x.getId() == id).forEach(x -> x.isCompletada());
 	}
 
 	public static boolean eliminarTarea(int id) {
@@ -40,10 +42,10 @@ public class LogicaTareas {
 
 	public static boolean addTarea(String nombre, String descripcion, String fecha) {
 		boolean added = false;
-		if (!nombre.isBlank() || !descripcion.isBlank() || !fecha.isBlank()) {
+		if (!nombre.isBlank() && !fecha.isBlank()) {
 			try {
 				LocalDate fechaParseada = LocalDate.parse(fecha);
-				Data.tareas.add(new Tarea(nombre, descripcion, fechaParseada));
+				Data.tareas.add(new Tarea(nombre.trim(), descripcion.trim(), fechaParseada));
 				added = true;
 			} catch (DateTimeParseException ex) {
 				System.err.println("Formato de fecha no valido");

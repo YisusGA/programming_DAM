@@ -68,7 +68,8 @@ public class GUIControllerTableView {
 		case "Completar tarea" -> {
 			if (tareaSeleccionada != null) {
 				LogicaTareas.completarTarea(tareaSeleccionada.getId());
-		        //TODO meter tachado de texto en tarea completada
+				// TODO meter tachado de texto en tarea completada
+				tabla.getSelectionModel().selectedItemProperty();
 			}
 		}
 		case "Eliminar tarea" -> {
@@ -90,20 +91,25 @@ public class GUIControllerTableView {
 	public void mostrarTarea() {
 		Tarea tareaSeleccionada = tabla.getSelectionModel().getSelectedItem();
 
-		// Alerta de JavaFX
-		// 1. Crear la instancia definiendo el tipo (CONFIRMATION, ERROR, INFORMATION,
-		// NONE, WARNING)
-		Alert alerta = new Alert(Alert.AlertType.INFORMATION); // Hay varios tipos de Alert, podemos probar a poner otro
-																// tipo en lugar de INFORMATION
+		if (tareaSeleccionada != null) {
+			// Alerta de JavaFX
+			// 1. Crear la instancia definiendo el tipo (CONFIRMATION, ERROR, INFORMATION,
+			// NONE, WARNING)
+			Alert alerta = new Alert(Alert.AlertType.INFORMATION); // Hay varios tipos de Alert, podemos probar a poner
+																	// otro
+																	// tipo en lugar de INFORMATION
 
-		// 2. Configurar los textos
-		alerta.setTitle("DATOS TAREA");
-		alerta.setHeaderText(null);
-		alerta.setContentText(tareaSeleccionada.getDescripcion() + " "
-				+ (tareaSeleccionada.isCompletada() ? "Completada" : "Pendiente"));
+			// 2. Configurar los textos
+			alerta.setTitle("DATOS TAREA");
+			alerta.setHeaderText(null);
+			alerta.setContentText(tareaSeleccionada.getDescripcion() + " "
+					+ (tareaSeleccionada.isCompletada() ? "Completada" : "Pendiente"));
 
-		// 3. Mostrar y esperar respuesta
-		alerta.showAndWait();
+			// 3. Mostrar y esperar respuesta
+			alerta.showAndWait();
+			// Deseleccionamos la tarea
+			tabla.getSelectionModel().clearSelection();
+		}
 	}
 
 }

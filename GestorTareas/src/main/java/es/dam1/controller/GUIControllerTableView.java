@@ -68,6 +68,7 @@ public class GUIControllerTableView {
 		case "Completar tarea" -> {
 			if (tareaSeleccionada != null) {
 				LogicaTareas.completarTarea(tareaSeleccionada.getId());
+		        //TODO meter tachado de texto en tarea completada
 			}
 		}
 		case "Eliminar tarea" -> {

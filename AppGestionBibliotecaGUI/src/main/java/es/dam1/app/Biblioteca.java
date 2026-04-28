@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Biblioteca extends Application {
+	public static int numeroLibrosRecuperados;
+	public static int numeroPrestamosRecuperados;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -15,6 +17,8 @@ public class Biblioteca extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		numeroLibrosRecuperados = PersistenciaDatos.recuperarLibros();
+		numeroPrestamosRecuperados = PersistenciaDatos.recuperarPrestamos();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI.fxml"));
 		Scene scene = new Scene(loader.load());
 		stage.setTitle("Biblioteca");

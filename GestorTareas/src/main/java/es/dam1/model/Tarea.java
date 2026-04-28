@@ -1,10 +1,12 @@
 package es.dam1.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Tarea {
-
+public class Tarea implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private static Integer idGen = 0;
 	private Integer id; // ID único identificativo
 	private String nombre;

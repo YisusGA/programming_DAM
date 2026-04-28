@@ -1,8 +1,9 @@
 package es.dam1.controller;
 
 import java.util.List;
+
+import es.dam1.app.Biblioteca;
 import es.dam1.dao.GestionLibros;
-import es.dam1.data.PersistenciaDatos;
 import es.dam1.model.Libro;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,7 +20,7 @@ public class Controller {
 	private Button siguientesLibros;
 
 	public void initialize() {
-		resultado.setText(PersistenciaDatos.recuperarLibros() + " libros recuperados\n" + PersistenciaDatos.recuperarPrestamos() + " préstamos recuperados");
+		resultado.setText(Biblioteca.numeroLibrosRecuperados + " libros recuperados\n" + Biblioteca.numeroPrestamosRecuperados + " préstamos recuperados");
 	}
 
 	@FXML

@@ -20,6 +20,10 @@ public class GestorMovimientos {
 					nuevoStock = l.getStock() + numeroCopias;
 				} else {
 					nuevoStock = l.getStock() - numeroCopias;
+					if (nuevoStock < 0) {
+						numeroCopias = l.getStock();
+						nuevoStock = 0;
+					}
 				}
 				p = new Movimiento(idMovimientoGenerado++, l, numeroCopias, fecha, tipoMovimiento);
 				l.setStock(nuevoStock);

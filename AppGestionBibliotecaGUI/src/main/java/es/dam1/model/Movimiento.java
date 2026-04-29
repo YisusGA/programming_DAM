@@ -6,40 +6,33 @@ import java.util.Objects;
 
 import es.dam1.other.TipoMovimiento;
 
-public class Prestamo implements Serializable, Comparable<Prestamo> {
+public class Movimiento implements Serializable, Comparable<Movimiento> {
 
 	private static final long serialVersionUID = 2L;
 
-	private int idPrestamo;
+	private int idMovimiento;
 	private Libro libro;
 	private int cantidad;
 	private LocalDate fecha;
 	private TipoMovimiento tipoMovimiento;
 
-	// Atributos solicitados para el informe de préstamos
-	private double precioVenta;
-	private double totalVenta;
-
-	public Prestamo(int idPrestamo, Libro libro, int cantidad, LocalDate fecha, TipoMovimiento tipoMovimiento,
-			double precioVenta, double totalVenta) {
-		this.idPrestamo = idPrestamo;
+	public Movimiento(int idMovimiento, Libro libro, int cantidad, LocalDate fecha, TipoMovimiento tipoMovimiento) {
+		this.idMovimiento = idMovimiento;
 		this.libro = libro;
 		this.cantidad = cantidad;
 		this.fecha = fecha;
 		this.tipoMovimiento = tipoMovimiento;
-		this.precioVenta = precioVenta;
-		this.totalVenta = totalVenta;
 	}
 
-	public Prestamo() {
+	public Movimiento() {
 	}
 
 	public int getIdPrestamo() {
-		return idPrestamo;
+		return idMovimiento;
 	}
 
-	public void setIdPrestamo(int idPrestamo) {
-		this.idPrestamo = idPrestamo;
+	private void setIdPrestamo(int idPrestamo) {
+		this.idMovimiento = idPrestamo;
 	}
 
 	public Libro getLibro() {
@@ -74,25 +67,9 @@ public class Prestamo implements Serializable, Comparable<Prestamo> {
 		this.tipoMovimiento = tipoMovimiento;
 	}
 
-	public double getPrecioVenta() {
-		return precioVenta;
-	}
-
-	public void setPrecioVenta(double precioVenta) {
-		this.precioVenta = precioVenta;
-	}
-
-	public double getTotalVenta() {
-		return totalVenta;
-	}
-
-	public void setTotalVenta(double totalVenta) {
-		this.totalVenta = totalVenta;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(idPrestamo);
+		return Objects.hash(idMovimiento);
 	}
 
 	@Override
@@ -103,19 +80,18 @@ public class Prestamo implements Serializable, Comparable<Prestamo> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Prestamo other = (Prestamo) obj;
-		return idPrestamo == other.idPrestamo;
+		Movimiento other = (Movimiento) obj;
+		return idMovimiento == other.idMovimiento;
 	}
 
 	@Override
 	public String toString() {
-		return "Prestamo [idPrestamo=" + idPrestamo + ", libro=" + libro + ", cantidad=" + cantidad + ", fecha=" + fecha
-				+ ", tipoMovimiento=" + tipoMovimiento + ", precioVenta=" + precioVenta + ", totalVenta=" + totalVenta
-				+ "]";
+		return "Prestamo [idPrestamo=" + idMovimiento + ", libro=" + libro + ", cantidad=" + cantidad + ", fecha=" + fecha
+				+ ", tipoMovimiento=" + tipoMovimiento + "]";
 	}
 
 	@Override
-	public int compareTo(Prestamo o) {
+	public int compareTo(Movimiento o) {
 		return this.fecha.compareTo(o.getFecha());
 	}
 

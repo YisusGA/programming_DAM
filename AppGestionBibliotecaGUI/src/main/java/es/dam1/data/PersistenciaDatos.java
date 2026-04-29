@@ -10,7 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Map;
 import es.dam1.model.Libro;
-import es.dam1.model.Prestamo;
+import es.dam1.model.Movimiento;
 
 public class PersistenciaDatos {
 	private static File directorio = new File("data");
@@ -70,8 +70,8 @@ public class PersistenciaDatos {
 			boolean fin = false;
 			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ficheroPrestamos))) {
 				while (!fin) {
-					Prestamo p = (Prestamo) ois.readObject();
-					Inventario.prestamos.put(p.getIdPrestamo(), p);
+					Movimiento p = (Movimiento) ois.readObject();
+					Inventario.movimientos.put(p.getIdPrestamo(), p);
 					prestamosRecuperados++;
 				}
 			} catch (EOFException e) {
@@ -94,9 +94,9 @@ public class PersistenciaDatos {
 
 	public static int guardarPrestamos() {
 		int prestamosGuardados = 0;
-		if (Inventario.prestamos.size() > 0) {
+		if (Inventario.movimientos.size() > 0) {
 			try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ficheroPrestamos))) {
-				for (Map.Entry<Integer, Prestamo> i : Inventario.prestamos.entrySet()) {
+				for (Map.Entry<Integer, Movimiento> i : Inventario.movimientos.entrySet()) {
 					oos.writeObject(i.getValue());
 					prestamosGuardados++;
 				}

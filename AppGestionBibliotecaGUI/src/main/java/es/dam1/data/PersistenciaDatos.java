@@ -71,7 +71,7 @@ public class PersistenciaDatos {
 			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ficheroPrestamos))) {
 				while (!fin) {
 					Movimiento p = (Movimiento) ois.readObject();
-					Inventario.movimientos.put(p.getIdPrestamo(), p);
+					Inventario.movimientos.add(p);
 					prestamosRecuperados++;
 				}
 			} catch (EOFException e) {
@@ -96,8 +96,8 @@ public class PersistenciaDatos {
 		int prestamosGuardados = 0;
 		if (Inventario.movimientos.size() > 0) {
 			try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ficheroPrestamos))) {
-				for (Map.Entry<Integer, Movimiento> i : Inventario.movimientos.entrySet()) {
-					oos.writeObject(i.getValue());
+				for (Movimiento i : Inventario.movimientos) {
+					oos.writeObject(i);
 					prestamosGuardados++;
 				}
 			} catch (FileNotFoundException e) {

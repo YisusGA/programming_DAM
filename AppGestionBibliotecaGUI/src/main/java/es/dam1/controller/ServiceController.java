@@ -6,10 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import es.dam1.dao.GestionLibros;
+import es.dam1.dao.GestorMovimientos;
 import es.dam1.model.Libro;
+import es.dam1.other.TipoMovimiento;
 import javafx.scene.control.TextInputDialog;
 
 public class ServiceController {
+	// En este controlador mezclo cosas, para trabajar con una lista no observable
+	// de libros (obtenida a partir de un Map) que se muestra en un TextArea y para
+	// trabajar con una lista observable de préstamos que se muestra en una
+	// TableView. El objetivo de hacer esta mezcla es practicar varias cosas. Lo
+	// ideal en una app final sería unificar todo en un diseño común
+	
 	private static int contador = 0;
 	private static TextInputDialog dialog;
 	static int sizeListado = 5;
@@ -110,7 +118,23 @@ public class ServiceController {
 		return librosCategoria;
 	}
 	
-	
+	/**
+	 * Método auxiliar para parsear todos los datos leídos desde los TextField de la escena de añadir movimientos
+	 * @param isbnTxt el isbn del libro
+	 * @param numCopiasTxt el número de copias que se devuelven/prestan del libro
+	 * @param fechaTxt la fecha del movimiento
+	 * @param tipoMovimientoTxt el tipo de movimiento (Prestamo/Devolucion)
+	 * @return true si se pudo registrar el movimiento, false si hubo algún problema
+	 */
+	public static boolean registrarMovimiento(String isbnTxt, String numCopiasTxt, String fechaTxt, String tipoMovimientoTxt) {
+		int isbn = parsearNumero(isbnTxt);
+		int numCopias = parsearNumero(numCopiasTxt);
+		LocalDate fecha = parsearFecha(fechaTxt);
+		TipoMovimiento tipo = TipoMovimiento.leerTipo(tipoMovimientoTxt);
+		boolean registrado = GestorMovimientos.registrarMovimiento(isbn, numCopias, fecha, tipo);
+		
+		return registrado;
+	}
 
 	public static String readTextFromTextInput() {
 		String result = "";
@@ -146,20 +170,24 @@ public class ServiceController {
 		return result;
 	}
 
-	public static LocalDate readFechaFromTextInput() {
-		LocalDate fecha = null;
-		boolean valid = false;
-		while (!valid) {
-			dialog.getEditor().clear();
-			Optional<String> input = dialog.showAndWait();
+	public static LocalDate parsearFecha(String fecha) {
+		LocalDate fechaResult = null;
 			try {
-				fecha = LocalDate.parse(input.get().trim());
-				valid = true;
+				fechaResult = LocalDate.parse(fecha);
 			} catch (DateTimeParseException e) {
-				System.err.println("Numero no valido");
+				System.err.println("Fecha no válida");
 			}
-		}
-		return fecha;
+		return fechaResult;
+	}
+	
+	public static Integer parsearNumero(String num) {
+		Integer result = null;
+			try {
+				result = Integer.parseInt(num);
+			} catch (DateTimeParseException e) {
+				System.err.println("Fecha no válida");
+			}
+		return result;
 	}
 
 }

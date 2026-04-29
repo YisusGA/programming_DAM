@@ -24,7 +24,7 @@ public class GUIControllerTableView {
 
 	// Columnas de la tabla
 	@FXML
-	private TableColumn<Tarea, String> colNombre; // Dos parámetros necesarios, la clase de los objetos de la tabla, y
+	private TableColumn<Tarea, String> colNombre; // Dos parámetros necesarios, la clase de los objetos de la tabla, y el tipo de dato a mostrar en la columna
 	@FXML
 	private TableColumn<Tarea, LocalDate> colFecha;
 

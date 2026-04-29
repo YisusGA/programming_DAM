@@ -10,9 +10,16 @@ public class Movimiento implements Serializable, Comparable<Movimiento> {
 
 	private static final long serialVersionUID = 2L;
 
-	private int idMovimiento;
+	private Integer idMovimiento;
 	private Libro libro;
-	private int cantidad;
+	// Tengo que hacer esta trampita de aquí de meter el nombre del libro para poder
+	// darle la propiedad a la columna de la tabla, pues sólo puede leer propiedades
+	// de la clase con la que se vincula (no puede leer libro.getNombre()). Y la
+	// tabla necesita que exista un método getter para pillar el valor de la
+	// propiedad, por lo que en esta clase he metido un método getter para
+	// nombreLibro que lo que hace es devolver libro.getNombre()
+	private String nombreLibro;
+	private Integer cantidad;
 	private LocalDate fecha;
 	private TipoMovimiento tipoMovimiento;
 
@@ -27,12 +34,12 @@ public class Movimiento implements Serializable, Comparable<Movimiento> {
 	public Movimiento() {
 	}
 
-	public int getIdPrestamo() {
+	public Integer getIdMovimiento() {
 		return idMovimiento;
 	}
 
-	private void setIdPrestamo(int idPrestamo) {
-		this.idMovimiento = idPrestamo;
+	private void setIdMovimiento(Integer idMovimiento) {
+		this.idMovimiento = idMovimiento;
 	}
 
 	public Libro getLibro() {
@@ -41,6 +48,10 @@ public class Movimiento implements Serializable, Comparable<Movimiento> {
 
 	public void setLibro(Libro libro) {
 		this.libro = libro;
+	}
+
+	public String getNombreLibro() {
+		return libro.getNombre();
 	}
 
 	public int getCantidad() {
@@ -86,8 +97,8 @@ public class Movimiento implements Serializable, Comparable<Movimiento> {
 
 	@Override
 	public String toString() {
-		return "Prestamo [idPrestamo=" + idMovimiento + ", libro=" + libro + ", cantidad=" + cantidad + ", fecha=" + fecha
-				+ ", tipoMovimiento=" + tipoMovimiento + "]";
+		return "Prestamo [idPrestamo=" + idMovimiento + ", libro=" + libro + ", cantidad=" + cantidad + ", fecha="
+				+ fecha + ", tipoMovimiento=" + tipoMovimiento + "]";
 	}
 
 	@Override

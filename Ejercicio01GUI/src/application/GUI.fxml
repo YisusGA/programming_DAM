@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
+   <children>
+      <TextField fx:id="nombreTxt" layoutX="227.0" layoutY="72.0" />
+      <TextField fx:id="apellidosTxt" layoutX="228.0" layoutY="134.0" />
+      <ComboBox fx:id="provinciaTxt" layoutX="226.0" layoutY="204.0" prefWidth="150.0" />
+      <Label layoutX="166.0" layoutY="76.0" text="Nombre:" />
+      <Label layoutX="161.0" layoutY="138.0" text="Apellidos:" />
+      <Label layoutX="164.0" layoutY="208.0" text="Provincia:" />
+      <Label layoutX="276.0" layoutY="249.0" text="Género" />
+      <Label fx:id="result" alignment="CENTER" layoutX="344.0" layoutY="338.0" prefHeight="46.0" prefWidth="202.0" />
+      <Label alignment="CENTER" layoutX="189.0" layoutY="28.0" text="FORMULARIO DE REGISTRO">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Button layoutX="166.0" layoutY="353.0" mnemonicParsing="false" onAction="#validarFormulario" text="Enviar" />
+      <HBox layoutX="162.0" layoutY="299.0" prefHeight="39.0" prefWidth="308.0" spacing="20.0">
+         <children>
+            <RadioButton mnemonicParsing="false" text="Masculino">
+               <toggleGroup>
+                  <ToggleGroup fx:id="generoTxt" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton mnemonicParsing="false" text="Femenino" toggleGroup="$generoTxt" />
+            <RadioButton mnemonicParsing="false" text="Otro" toggleGroup="$generoTxt" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

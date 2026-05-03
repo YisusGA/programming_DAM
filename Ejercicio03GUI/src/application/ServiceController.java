@@ -9,28 +9,29 @@ import java.io.IOException;
 
 public class ServiceController {
 	private static File fichero;
-	
+
 	public static String cargarDesdeFichero(String ruta) {
 		String texto = null;
 		fichero = new File(ruta);
-		if (fichero.exists()) {
-			texto = "";
-			String linea = "";
-			try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
-				while ((linea = br.readLine()) != null) {
-					texto += linea;
-				}
-			} catch (FileNotFoundException e) {
-				System.err.println("Fichero no encontrado");
-				e.printStackTrace();
-			} catch (IOException e1) {
-				System.err.println("Error de lectura");
-				e1.printStackTrace();
+		texto = "";
+		String linea = "";
+		try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
+			while ((linea = br.readLine()) != null) {
+				texto += linea;
 			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Fichero no encontrado");
+			texto = null;
+			e.printStackTrace();
+		} catch (IOException e1) {
+			System.err.println("Error de lectura");
+			texto = null;
+			e1.printStackTrace();
 		}
+
 		return texto;
 	}
-	
+
 	public static String guardarEnFichero(String ruta, String input) {
 		String output = null;
 		boolean escrito = false;

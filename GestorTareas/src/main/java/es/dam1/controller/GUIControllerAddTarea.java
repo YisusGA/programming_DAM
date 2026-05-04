@@ -41,7 +41,7 @@ public class GUIControllerAddTarea {
 		if (added) { // Si se añadió la tarea con éxito, se devuelve a la anterior escena (la de la tabla)
 			
 			Button botonAdd = (Button) event.getSource();
-			Stage stage = (Stage) ((Node) botonAdd).getScene().getWindow();
+			Stage stage = (Stage) botonAdd.getScene().getWindow();
 			// Cargamos la nueva interfaz gráfica
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUITareas.fxml"));
 			try {

@@ -3,6 +3,8 @@ package application;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
@@ -17,6 +19,12 @@ public class GUIController {
 	TextField rutaFichero;
 	@FXML
 	Label result;
+	@FXML
+	TabPane tabPane;
+	@FXML
+	Tab tabTexto;
+	@FXML
+	Tab tabIO;
 	
 	@FXML
 	public void cargarFichero() {
@@ -27,6 +35,12 @@ public class GUIController {
 			result.setText("Contenido del fichero cargado con éxito");
 			result.setTextFill(Paint.valueOf("black"));
 			rutaFichero.clear();
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			tabPane.getSelectionModel().select(tabTexto);
 		} else {
 			result.setText("No se pudo cargar el contenido del fichero");
 			result.setTextFill(Paint.valueOf("red"));

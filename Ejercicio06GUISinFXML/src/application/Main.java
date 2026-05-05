@@ -28,7 +28,12 @@ public class Main extends Application {
 			pane.getChildren().add(nameCoordenadas);
 			// Le añadimos al Pane la capacidad generación de un evento cada vez que se
 			// mueva el ratón por él, y hacemos que el evento lance el método que tenemos en
-			// la clase del controlador
+			// la clase del controlador. Esto es programación funcional, y lo que estamos
+			// haciendo es usar la interface EventHandler, le pasamos un MouseEvent, lo
+			// gestiona con su método abstracto handle() y se lo pasa al método al que yo
+			// llamo de GUIController. A la derecha de la flecha también podría pasarle las
+			// instrucciones que he metido en el método, en lugar de haber hecho un método
+			// aparte en otra clase. Pero quedaría más feo.
 			pane.setOnMouseMoved(event -> controller.mostrarCoordenadas(event));
 			// Le añadimos al Pane la capacidad de generación de un evento cada vez que se
 			// pulse una tecla, y hacemos que el evento lance el método que tenemos en la

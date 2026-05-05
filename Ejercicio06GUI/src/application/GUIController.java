@@ -20,9 +20,7 @@ public class GUIController {
 	public void mostrarCoordenadas(MouseEvent event) {
 		x = event.getX();
 		y = event.getY();
-		if (x != null && y != null) {
-			coordenadasTxt.setText("" + x + ", " + y);
-		}
+		coordenadasTxt.setText("" + x + ", " + y);
 	}
 
 	@FXML

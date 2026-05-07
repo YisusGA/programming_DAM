@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.dam1.controller.GUIController">
   <tabs>
@@ -27,7 +33,95 @@
     </Tab>
     <Tab text="Utilidades">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="283.0" layoutY="14.0" text="Meses" />
+                  <HBox layoutX="31.0" layoutY="48.0" prefHeight="138.0" prefWidth="549.0">
+                     <children>
+                        <VBox prefHeight="138.0" prefWidth="137.0" spacing="30.0">
+                           <children>
+                              <RadioButton mnemonicParsing="false" text="Enero">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="meses" />
+                                 </toggleGroup>
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="Febrero" toggleGroup="$meses">
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="Marzo" toggleGroup="$meses">
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="138.0" prefWidth="137.0" spacing="30.0">
+                           <children>
+                              <RadioButton mnemonicParsing="false" text="Abril" toggleGroup="$meses">
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="Mayo" toggleGroup="$meses">
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="Junio" toggleGroup="$meses">
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="138.0" prefWidth="137.0" spacing="30.0">
+                           <children>
+                              <RadioButton mnemonicParsing="false" text="Julio" toggleGroup="$meses">
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="Agosto" toggleGroup="$meses">
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="Septiembre" toggleGroup="$meses">
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="138.0" prefWidth="137.0" spacing="30.0">
+                           <children>
+                              <RadioButton mnemonicParsing="false" text="Octubre" toggleGroup="$meses">
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="Noviembre" toggleGroup="$meses">
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="Diciembre" toggleGroup="$meses">
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </RadioButton>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Button layoutX="464.0" layoutY="195.0" mnemonicParsing="false" onAction="#mostrarGastos" text="Mostrar" />
+                  <ListView fx:id="listViewGastos" layoutX="33.0" layoutY="201.0" prefHeight="166.0" prefWidth="404.0" />
+               </children></AnchorPane>
       </content>
     </Tab>
   </tabs>

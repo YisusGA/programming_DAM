@@ -6,13 +6,13 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class MesesDias {
+public class Calendario {
 	
 	public Map<String, Integer> mapMesesDias = new LinkedHashMap<>();
 	public ObservableList<String> listaMeses = FXCollections.observableArrayList();
 	public ObservableList<Integer> listaDias = FXCollections.observableArrayList();
 	
-	public MesesDias() {
+	public Calendario() {
 		mapMesesDias.put("Enero", 31);
 		mapMesesDias.put("Febrero", 28);
 		mapMesesDias.put("Marzo", 31);

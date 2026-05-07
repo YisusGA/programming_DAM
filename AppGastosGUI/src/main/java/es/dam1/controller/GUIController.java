@@ -1,18 +1,22 @@
 package es.dam1.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import es.dam1.dataAccess.Datos;
-import es.dam1.utils.MesesDias;
+import es.dam1.utils.Calendario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Paint;
 
 public class GUIController {
-	private MesesDias mesesDias = new MesesDias();
+	private Calendario mesesDias = new Calendario();
 
 	@FXML
 	private ComboBox<String> comboMes;
@@ -24,12 +28,17 @@ public class GUIController {
 	private Button add;
 	@FXML
 	private Label resultadoOperacion;
+	@FXML
+	private ToggleGroup meses;
+	@FXML
+	private ListView<String> listViewGastos;
 
 	@FXML
 	public void initialize() {
 		mesesDias.listaMeses.addAll(mesesDias.mapMesesDias.keySet());
 		comboMes.setItems(mesesDias.listaMeses);
 		comboDia.setItems(mesesDias.listaDias);
+		listViewGastos.setItems(ServiceController.listaGastos);
 	}
 
 	@FXML
@@ -51,7 +60,7 @@ public class GUIController {
 		if (mesSeleccionado != null) {
 			Integer diaSeleccionado = comboDia.getSelectionModel().getSelectedItem();
 			if (diaSeleccionado != null) {
-				Double gasto = ServiceController.parsearGasto(gastoTxt.getText());
+				Double gasto = ServiceController.parsearDouble(gastoTxt.getText());
 				if (gasto != null) {
 					try {
 						Datos.addGasto(mesSeleccionado, diaSeleccionado, gasto);
@@ -66,6 +75,23 @@ public class GUIController {
 						resultadoOperacion.setTextFill(Paint.valueOf("red"));
 					}
 				}
+			}
+		}
+	}
+	
+	@FXML
+	public void mostrarGastos() {
+		ServiceController.listaGastos.clear();
+		RadioButton mesSeleccionado = (RadioButton)meses.getSelectedToggle();
+		if (mesSeleccionado != null) {
+			try {
+				List<String> lista = Datos.listadoGastosMes(mesSeleccionado.getText());
+				if (lista != null) {
+					ServiceController.listaGastos.addAll(lista);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

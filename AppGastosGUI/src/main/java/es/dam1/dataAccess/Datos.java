@@ -5,8 +5,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import es.dam1.controller.ServiceController;
 
 public class Datos {
+	private static File directorio = new File("datos");
+	private static File file;
 
 	/**
 	 * Método para añadir un nuevo gasto al sistema de ficheros
@@ -19,10 +25,13 @@ public class Datos {
 	public static void addGasto(String mes, int dia, double gasto) throws IOException { // Lanzamos la excepción para
 																						// que se decida en la clase con
 																						// el main qué hacer si aparece
+		if (!directorio.exists()) {
+			directorio.mkdir();
+		}
 
 		// Esto genera un objeto file de la clase File, con la ruta pasada por
 		// parámetro, pero no genera un fichero físico
-		File file = new File("datos\\" + mes + ".csv"); // Hay que poner la doble barra, para indicarle que \ es un
+		file = new File("datos\\" + mes + ".csv"); // Hay que poner la doble barra, para indicarle que \ es un
 														// caracter de ruta, y no otra cosa. Estamos usando ruta
 														// relativa al proyecto aquí
 
@@ -47,7 +56,7 @@ public class Datos {
 			while ((linea = br.readLine()) != null) {
 				if (linea.split(";")[0].equals(dia + "")) { // Split me va a dar un array con dos cosas, el dia y el
 															// gasto. Me quedo con la posición 0, que es el día
-					double nuevoGasto = Double.parseDouble(linea.split(";")[1]) + gasto;
+					double nuevoGasto = ServiceController.parsearDouble(linea.split(";")[1]) + gasto;
 					fw.write(dia + ";" + nuevoGasto + "\n");
 					existeDia = true;
 				} else {
@@ -85,12 +94,12 @@ public class Datos {
 	 */
 	public static double gastosMes(String mes) throws IOException {
 		double gastos = -1;
-		File file = new File("datos\\" + mes + ".csv");
+		file = new File("datos\\" + mes + ".csv");
 		if (file.exists()) {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = br.readLine()) != null) {
-				gastos += Double.parseDouble(line.split(";")[1]);
+				gastos += ServiceController.parsearDouble(line.split(";")[1]);
 			}
 			br.close();
 		}
@@ -108,15 +117,15 @@ public class Datos {
 	 */
 	public static int diaMayorGasto(String mes) throws IOException {
 		int dia = 0;
-		File file = new File("datos\\" + mes + ".csv");
+		file = new File("datos\\" + mes + ".csv");
 		if (file.exists()) {
 			double mayorGasto = 0;
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = br.readLine()) != null) {
-				if (Double.parseDouble(line.split(";")[1]) > mayorGasto) {
-					mayorGasto = Double.parseDouble(line.split(";")[1]);
-					dia = Integer.parseInt(line.split(";")[0]);
+				if (ServiceController.parsearDouble(line.split(";")[1]) > mayorGasto) {
+					mayorGasto = ServiceController.parsearDouble(line.split(";")[1]);
+					dia = ServiceController.parsearInteger(line.split(";")[0]);
 				}
 			}
 			br.close();
@@ -133,7 +142,7 @@ public class Datos {
 	 */
 	public static boolean eliminarDia(String mes, int dia) throws IOException {
 		boolean result = false;
-		File file = new File("datos\\" + mes + ".csv");
+		file = new File("datos\\" + mes + ".csv");
 		if (file.exists()) {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line;
@@ -175,8 +184,6 @@ public class Datos {
 		double mayorGasto = 0;
 		String mesMayorGasto = null;
 		String result = null;
-		File directorio = new File("datos"); // Un objeto File no tiene por qué asociarse a un fichero, puede asociarse
-												// a un directorio
 		if (directorio.exists()) {
 			File[] archivos = directorio.listFiles(); // El método listFiles() de File nos permite listar los archivos
 														// (ficheros y directorios) dentro del archivo asociado al
@@ -189,7 +196,7 @@ public class Datos {
 						BufferedReader br = new BufferedReader(new FileReader(i));
 						String line;
 						while ((line = br.readLine()) != null) {
-							gastoMes += Double.parseDouble(line.split(";")[1]);
+							gastoMes += ServiceController.parsearDouble(line.split(";")[1]);
 						}
 						mes = i.getName();
 //						mes = i.getName().split(".")[0]; // Por algún motivo, esto no funciona
@@ -213,28 +220,28 @@ public class Datos {
 	}
 
 	/**
-	 * Devuelve un String con los gastos de un mes, o null si no existe el fichero
+	 * Devuelve una List con los gastos de un mes, o null si no existe el fichero
 	 * para ese mes
 	 * 
 	 * @param mes del que se quiere hacer el listado
-	 * @return Un String con los gastos de un mes, o null si no existe el fichero
+	 * @return Una List<String> con los gastos de un mes, o null si no existe el fichero
 	 *         para ese mes
 	 * @throws IOException
 	 */
-	public static String listadoGastosMes(String mes) throws IOException {
-		String lista = null;
-		File file = new File("datos\\" + mes + ".csv");
+	public static List<String> listadoGastosMes(String mes) throws IOException {
+		List<String> gastos = null;
+		file = new File("datos\\" + mes + ".csv");
 		if (file.exists()) {
-			lista = "";
+			gastos = new ArrayList<>();
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = br.readLine()) != null) {
 				// Lo muestro redondeado a 2 decimales, pero podría mostrarlo en crudo
-				lista += (Math.round(Double.parseDouble(line.split(";")[1]) * 100) / 100.0) + " €, ";
+				gastos.add("Mes: " + mes + ". Día: " + line.split(";")[0] + ". Gasto: " + Math.round(ServiceController.parsearDouble(line.split(";")[1]) * 100) / 100.0 + " €");
 			}
 			br.close();
 		}
-		return lista;
+		return gastos;
 	}
 
 }

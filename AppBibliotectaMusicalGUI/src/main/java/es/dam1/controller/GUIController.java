@@ -1,16 +1,25 @@
 package es.dam1.controller;
 
+import java.util.Optional;
+
 import es.dam1.model.Album;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Paint;
 
 public class GUIController {
-	
+
 	@FXML
-	private ComboBox<String> comboGenero;
+	ComboBox<String> comboGenero;
+	@FXML
+	ListView<Album> listaAlbumes;
 	@FXML
 	private TextField txtNombre;
 	@FXML
@@ -18,16 +27,19 @@ public class GUIController {
 	@FXML
 	private TextArea areaNotas;
 	@FXML
-	ListView<String> listaAlbumes;
-	
+	private Label resultadoOperacion;
+	@FXML
+	private Button btnAdd;
+
 	@FXML
 	public void initialize() {
 		cargaGeneros();
 		cargaAlbumes();
 	}
-	
+
 	@FXML
 	public void addAlbum() {
+		resultadoOperacion.setText("");
 		boolean added = false;
 		String nombre = txtNombre.getText().trim();
 		String artista = txtArtista.getText().trim();
@@ -36,18 +48,93 @@ public class GUIController {
 		if (genero != null) {
 			genero.trim();
 			added = ServiceController.addAlbum(nombre, artista, genero, notas);
-			cargaAlbumes();
+		}
+		if (added) {
+			resultadoOperacion.setText("Álbum añadido");
+			resultadoOperacion.setTextFill(Paint.valueOf("black"));
+			limpiarFormulario();
+		} else {
+			resultadoOperacion.setText("No se pudo añadir el álbum");
+			resultadoOperacion.setTextFill(Paint.valueOf("red"));
+		}
+	}
+
+	@FXML
+	public void mostrarDatosAlbum(MouseEvent event) {
+		int numeroClicks = event.getClickCount();
+		if (numeroClicks == 2) {
+			Album albumSeleccionado = listaAlbumes.getSelectionModel().getSelectedItem();
+			if (albumSeleccionado != null) {
+				txtNombre.setText(albumSeleccionado.getNombre());
+				txtArtista.setText(albumSeleccionado.getArtista());
+				comboGenero.setValue(albumSeleccionado.getGenero());
+				String notasYCanciones = String.format("""
+						Notas:
+
+						%s
+
+						Canciones(%d):
+
+						%s
+						""", albumSeleccionado.getNotas(), albumSeleccionado.getCanciones().size(),
+						albumSeleccionado.obtenerStringListaCanciones());
+				areaNotas.setText(notasYCanciones);
+				resultadoOperacion.setText("Archivo>Limpiar formulario para añadir nuevo álbum");
+				btnAdd.setDisable(true);
+			}
+		}
+	}
+
+	@FXML
+	public void addSong() {
+		resultadoOperacion.setText("");
+		Album albumSeleccionado = listaAlbumes.getSelectionModel().getSelectedItem();
+		if (albumSeleccionado != null) {
+			TextInputDialog dialog = new TextInputDialog();
+			dialog.setTitle("Datos de la canción");
+			dialog.setHeaderText("");
+			dialog.setContentText("Introduce el nombre de la canción");
+			Optional<String> nombre = dialog.showAndWait();
+			dialog.getEditor().clear();
+			dialog.setContentText("Introduce duración de la canción");
+			Optional<String> duracion = dialog.showAndWait();
+			if (nombre.isPresent() && duracion.isPresent()) {
+				ServiceController.addSongToAlbum(albumSeleccionado, nombre.get(), duracion.get());
+				limpiarFormulario();
+				resultadoOperacion.setText("Canción añadida");
+				resultadoOperacion.setTextFill(Paint.valueOf("black"));
+			}
+		}
+	}
+
+	@FXML
+	public void eliminarAlbum() {
+		Album albumSeleccionado = listaAlbumes.getSelectionModel().getSelectedItem();
+		if (albumSeleccionado != null) {
+			ServiceController.eliminarAlbum(albumSeleccionado);
+			limpiarFormulario();
 		}
 	}
 	
-	public void cargaGeneros() {
-		ServiceController.listaGeneros.add("Rock");
-		ServiceController.listaGeneros.add("Pop");
-		comboGenero.setItems(ServiceController.listaGeneros);
+	@FXML
+	public void limpiarFormulario() {
+		comboGenero.setValue("");
+		txtNombre.setText("");
+		txtArtista.setText("");
+		areaNotas.setText("");
+		resultadoOperacion.setText("");
+		btnAdd.setDisable(false);
+		listaAlbumes.getSelectionModel().clearSelection();
 	}
-	
+
+	public void cargaGeneros() {
+		ServiceController.getListaGeneros().add("Rock");
+		ServiceController.getListaGeneros().add("Pop");
+		comboGenero.setItems(ServiceController.getListaGeneros());
+	}
+
 	public void cargaAlbumes() {
-		listaAlbumes.setItems(ServiceController.listaAlbumes);
+		listaAlbumes.setItems(ServiceController.getListaAlbumes());
 	}
 
 }

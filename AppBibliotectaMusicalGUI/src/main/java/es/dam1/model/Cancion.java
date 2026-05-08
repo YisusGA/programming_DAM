@@ -1,5 +1,7 @@
 package es.dam1.model;
 
+import java.util.Objects;
+
 public class Cancion {
 	private String titulo;
 	private String duracion;
@@ -32,6 +34,23 @@ public class Cancion {
 	@Override
 	public String toString() {
 		return titulo + " - " + duracion;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(duracion, titulo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cancion other = (Cancion) obj;
+		return Objects.equals(duracion, other.duracion) && Objects.equals(titulo, other.titulo);
 	}
 
 }

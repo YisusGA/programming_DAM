@@ -1,25 +1,29 @@
 package es.dam1.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Album {
-
+public class Album implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String nombre;
 	private String artista;
 	private String genero;
 	private String notas;
-	private List<Cancion> canciones; // Colección de canciones [cite: 6]
+	private List<Cancion> canciones; // Colección de canciones
 
 	public Album(String nombre, String artista, String genero) {
 		this.nombre = nombre;
 		this.artista = artista;
 		this.genero = genero;
 		this.notas = "";
-		this.canciones = new ArrayList<>(); // Inicialización de la lista [cite: 6]
+		this.canciones = new ArrayList<>(); // Inicialización de la lista
 	}
 
 	public Album() {
+		this.canciones = new ArrayList<>();
 	}
 
 	// Getters y Setters
@@ -73,6 +77,48 @@ public class Album {
 	@Override
 	public String toString() {
 		return nombre;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nombre);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Album other = (Album) obj;
+		return Objects.equals(nombre, other.nombre);
+	}
+
+	public String infoCompleta() {
+		String txtCanciones = "";
+		for (Cancion c : canciones) {
+			txtCanciones += c + ", ";
+		}
+		String result = String.format("""
+				Nombre: %s
+				Artista: %s
+				Género: %s
+				Notas: %s
+				Canciones(%d): %s
+				""", this.nombre, this.artista, this.genero, this.notas, canciones.size(), txtCanciones);
+		return result;
+	}
+
+	public String obtenerStringListaCanciones() {
+		String txtCanciones = "";
+		if (this.canciones != null) {
+			for (Cancion c : canciones) {
+				txtCanciones += c + "\n";
+			}
+		}
+		return txtCanciones;
 	}
 
 }

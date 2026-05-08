@@ -2,6 +2,7 @@ package es.dam1.app;
 
 import java.io.IOException;
 
+import es.dam1.data.PersistenciaDatos;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,16 +18,23 @@ public class BibliotecaMusical extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		try {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI.fxml"));
-		Scene scene = new Scene(loader.load());
-		stage.setScene(scene);
-		stage.setTitle("Biblioteca musical");
-		stage.show();
-		} catch(IOException e) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI.fxml"));
+			Scene scene = new Scene(loader.load());
+			stage.setScene(scene);
+			stage.setTitle("Biblioteca musical");
+			System.out.println("Arrancando aplicacion");
+			System.out.println(PersistenciaDatos.recuperarAlbumes() + " albumes recuperados");
+			stage.show();
+		} catch (IOException e) {
 			System.err.println("Error en la carga del FXML");
 			e.printStackTrace();
 		}
-		
+	}
+	
+	@Override
+	public void stop() {
+		System.out.println("Finzalizando aplicacion...");
+		System.out.println(PersistenciaDatos.guardarAlbumes() + " albumes guardados");
 	}
 
 }

@@ -18,17 +18,17 @@
 
 <BorderPane prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.dam1.controller.GUIController">
 	<top>
-		<MenuBar BorderPane.alignment="CENTER">
+		<MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
 			<menus>
 				<Menu text="Archivo">
 					<items>
 						<MenuItem fx:id="menuLimpiar" onAction="#limpiarFormulario" text="Limpiar Formulario" />
-						<MenuItem fx:id="menuSalir" text="Salir" />
+						<MenuItem fx:id="menuSalir" onAction="#cerrarPrograma" text="Salir" />
 					</items>
 				</Menu>
 				<Menu text="Ayuda">
 					<items>
-						<MenuItem fx:id="menuAcercaDe" text="Acerca de..." />
+						<MenuItem fx:id="menuAcercaDe" onAction="#mostrarInfoApp" text="Acerca de..." />
 					</items>
 				</Menu>
 			</menus>

@@ -8,11 +8,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class GUIController {
 
@@ -30,7 +33,9 @@ public class GUIController {
 	private Label resultadoOperacion;
 	@FXML
 	private Button btnAdd;
-
+	@FXML
+	private MenuBar menuBar;
+	
 	@FXML
 	public void initialize() {
 		cargaGeneros();
@@ -125,6 +130,18 @@ public class GUIController {
 		resultadoOperacion.setText("");
 		btnAdd.setDisable(false);
 		listaAlbumes.getSelectionModel().clearSelection();
+	}
+	
+	@FXML
+	public void cerrarPrograma() {
+		Stage stage = (Stage) menuBar.getScene().getWindow();
+		stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+	}
+	
+	@FXML
+	public void mostrarInfoApp() {
+		resultadoOperacion.setText("Yisus Music Services S.L.");
+		resultadoOperacion.setTextFill(Paint.valueOf("black"));
 	}
 
 	public void cargaGeneros() {

@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.dam1.controller.GUIControllerTableView">
    <children>
-      <TableView fx:id="tabla" layoutX="91.0" layoutY="26.0" onMouseClicked="#clicksRaton" prefHeight="314.0" prefWidth="418.0">
+      <TableView fx:id="tabla" layoutX="91.0" layoutY="26.0" onMouseClicked="#mostrarTarea" prefHeight="314.0" prefWidth="418.0">
         <columns>
           <TableColumn fx:id="colNombre" prefWidth="198.39996337890625" text="NOMBRE" />
           <TableColumn fx:id="colFecha" prefWidth="220.800048828125" text="FECHA" />

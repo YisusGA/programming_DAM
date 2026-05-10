@@ -2,7 +2,6 @@ package es.dam1.logica;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Iterator;
 
 import es.dam1.data.Data;
 import es.dam1.model.Tarea;
@@ -32,15 +31,17 @@ public class LogicaTareas {
 	}
 
 	public static boolean eliminarTarea(int id) {
-		boolean eliminada = false;
-		Iterator<Tarea> it = Data.tareas.iterator();
-		while (it.hasNext() && !eliminada) {
-			Tarea t = it.next();
-			if (t.getId() == id) {
-				it.remove();
-				eliminada = true;
-			}
-		}
+//		boolean eliminada = false;
+//		Iterator<Tarea> it = Data.tareas.iterator();
+//		while (it.hasNext() && !eliminada) {
+//			Tarea t = it.next();
+//			if (t.getId() == id) {
+//				it.remove();
+//				eliminada = true;
+//			}
+//		}
+		// Simplificado con programación funcional
+		boolean eliminada = Data.tareas.removeIf(x -> x.getId() == id);
 		return eliminada;
 	}
 

@@ -1,6 +1,7 @@
 package es.dam1.controller;
 
 import java.io.File;
+import java.util.Optional;
 
 import es.dam1.logica.GestorFicheros;
 import javafx.fxml.FXML;
@@ -30,10 +31,12 @@ public class GUIController {
 		// Agregar un filtro para archivos .txt
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de Texto", "*.txt"));
 		// Mostrar el diálogo de "Abrir"
-		File selectedFile = fileChooser.showOpenDialog(null);
+//		File selectedFile = fileChooser.showOpenDialog(null);
+		Optional<File> selectedFile = Optional.of(fileChooser.showOpenDialog(null)); // Si lo hacemos con un Optional,
+																						// evitamos null
 		// Verificar si el usuario seleccionó algo
-		if (selectedFile != null) {
-			gestor.setFile(new File(selectedFile.toPath().toString()));
+		if (selectedFile.isPresent()) {
+			gestor.setFile(selectedFile.get());
 			// Leer todo el contenido del archivo y cargarlo en el TextArea
 			String textRead = gestor.read();
 			if (textRead != null) {
@@ -159,7 +162,7 @@ public class GUIController {
 			textArea.setText(result);
 		}
 	}
-	
+
 	@FXML
 	public void mostrarInfo() {
 		panelMensajes.setText("Yisus TextEditor v0.8");

@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,7 +25,8 @@ public class GUIControllerTableView {
 
 	// Columnas de la tabla
 	@FXML
-	private TableColumn<Tarea, String> colNombre; // Dos parámetros necesarios, la clase de los objetos de la tabla, y el tipo de dato a mostrar en la columna
+	private TableColumn<Tarea, String> colNombre; // Dos parámetros necesarios, la clase de los objetos de la tabla, y
+													// el tipo de dato a mostrar en la columna
 	@FXML
 	private TableColumn<Tarea, LocalDate> colFecha;
 
@@ -69,7 +71,6 @@ public class GUIControllerTableView {
 			if (tareaSeleccionada != null) {
 				LogicaTareas.cambiarEstadoTarea(tareaSeleccionada.getId());
 				// TODO meter tachado de texto en tarea completada
-				tabla.getSelectionModel().selectedItemProperty();
 			}
 		}
 		case "Eliminar tarea" -> {
@@ -80,35 +81,32 @@ public class GUIControllerTableView {
 		}
 	}
 
-	public void clicksRaton(MouseEvent event) {
+	@FXML
+	public void mostrarTarea(MouseEvent event) { // Así gestionamos el número de clicks del ratón
 		int numberClicks = event.getClickCount();
 		if (numberClicks == 2) {
-			mostrarTarea();
-		}
-	}
+			Tarea tareaSeleccionada = tabla.getSelectionModel().getSelectedItem();
 
-	@FXML
-	public void mostrarTarea() {
-		Tarea tareaSeleccionada = tabla.getSelectionModel().getSelectedItem();
+			if (tareaSeleccionada != null) {
+				// Alerta de JavaFX
+				// 1. Crear la instancia definiendo el tipo (CONFIRMATION, ERROR, INFORMATION,
+				// NONE, WARNING)
+				Alert alerta = new Alert(AlertType.INFORMATION); // Hay varios tipos de Alert, podemos probar a
+																		// poner
+																		// otro
+																		// tipo en lugar de INFORMATION
 
-		if (tareaSeleccionada != null) {
-			// Alerta de JavaFX
-			// 1. Crear la instancia definiendo el tipo (CONFIRMATION, ERROR, INFORMATION,
-			// NONE, WARNING)
-			Alert alerta = new Alert(Alert.AlertType.INFORMATION); // Hay varios tipos de Alert, podemos probar a poner
-																	// otro
-																	// tipo en lugar de INFORMATION
+				// 2. Configurar los textos
+				alerta.setTitle("DATOS TAREA");
+				alerta.setHeaderText(null);
+				alerta.setContentText(tareaSeleccionada.getDescripcion() + " "
+						+ (tareaSeleccionada.isCompletada() ? "Completada" : "Pendiente"));
 
-			// 2. Configurar los textos
-			alerta.setTitle("DATOS TAREA");
-			alerta.setHeaderText(null);
-			alerta.setContentText(tareaSeleccionada.getDescripcion() + " "
-					+ (tareaSeleccionada.isCompletada() ? "Completada" : "Pendiente"));
-
-			// 3. Mostrar y esperar respuesta
-			alerta.showAndWait();
-			// Deseleccionamos la tarea
-			tabla.getSelectionModel().clearSelection();
+				// 3. Mostrar y esperar respuesta
+				alerta.showAndWait();
+				// Deseleccionamos la tarea
+				tabla.getSelectionModel().clearSelection();
+			}
 		}
 	}
 

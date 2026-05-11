@@ -17,7 +17,7 @@ public class ServiceController {
 		String linea = "";
 		try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
 			while ((linea = br.readLine()) != null) {
-				texto += linea;
+				texto += linea + "\n";
 			}
 		} catch (FileNotFoundException e) {
 			System.err.println("Fichero no encontrado");

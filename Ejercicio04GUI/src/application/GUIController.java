@@ -16,7 +16,7 @@ public class GUIController {
 	@FXML
 	private ComboBox<Integer> descuentoInt;
 	@FXML
-	Label precioFinalTxt;
+	private Label precioFinalTxt;
 	
 	@FXML
 	public void initialize() {

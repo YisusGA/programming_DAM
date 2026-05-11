@@ -79,7 +79,7 @@ public class GUIController {
 				// ComboBox. En definitiva, esto nos permite que el ComboBox se cargue con
 				// elementos File, pero que muestre los nombres de los File, en lugar de la ruta
 				// completa de cada File, que es lo que hace el método toString por defecto de
-				// la clase Fille
+				// la clase File
 				comboFicheros.setConverter(new StringConverter<File>() {
 
 					@Override

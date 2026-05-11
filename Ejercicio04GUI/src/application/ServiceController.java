@@ -17,7 +17,7 @@ public class ServiceController {
 			result = Double.parseDouble(precioBase);
 		} catch (NumberFormatException e) {
 			System.err.println("No se pudo parsear el dato introducido");
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return result;
 	}

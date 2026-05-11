@@ -1,5 +1,6 @@
 package application;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -18,20 +19,40 @@ public class GUIController {
 		listaGUI.setItems(ServiceController.getLista());
 	}
 
-	@FXML
-	public void addToListButton() {
-		String input = inputTxt.getText().trim();
-		if (!input.isBlank()) {
-			ServiceController.addToList(input);
-			inputTxt.clear();
-		}
-	}
+//	@FXML
+//	public void addToListButton() {
+//		String input = inputTxt.getText().trim();
+//		if (!input.isBlank()) {
+//			ServiceController.addToList(input);
+//			inputTxt.clear();
+//		}
+//	}
+//
+//	@FXML
+//	public void addToListEnter(KeyEvent event) {
+//		String input = inputTxt.getText().trim();
+//		if (!input.isBlank()) {
+//			if (event.getCode().toString().equals("ENTER")) {
+//				ServiceController.addToList(input);
+//				inputTxt.clear();
+//			}
+//		}
+//	}
 
+	// Como KeyEvent y ActionEvent heredan ambos de Event, podemos generalizar los 2
+	// métodos de arriba en uno sólo, y luego distinguiendo dentro del método de qué
+	// clase viene el evento, que es necesario para poder gestionar que la tecla que
+	// se pulse sea la de Enter y no otra
 	@FXML
-	public void addToListEnter(KeyEvent event) {
+	public void addToList(Event event) {
 		String input = inputTxt.getText().trim();
 		if (!input.isBlank()) {
-			if (event.getCode().toString().equals("ENTER")) {
+			if (event.getClass().equals(KeyEvent.class)) {
+				if (((KeyEvent) event).getCode().toString().equals("ENTER")) {
+					ServiceController.addToList(input);
+					inputTxt.clear();
+				}
+			} else {
 				ServiceController.addToList(input);
 				inputTxt.clear();
 			}

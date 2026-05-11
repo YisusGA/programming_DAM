@@ -63,7 +63,14 @@ public class GUIController {
 				// que comprueba, para cada elemento, si es true o false para la expresión
 				// boolean que le pasamos. Si es true, lo lista, si no, no lo lista. Y como esa
 				// lista se la estamos pasando a un addAll de la ObservableList, sólo se
-				// añadirán a la ObservableList aquellos files que cumplan el filtro
+				// añadirán a la ObservableList aquellos files que cumplan el filtro. Si ponemos
+				// el ratón sobre listFiles, nos dice que por parámetro admite un FileFilter. Si
+				// hacemos click en FileFilter para que nos lleve a la clase, vemos que es una
+				// interface funcional cuyo método vacío es accept, que admite un File y
+				// devuelve un boolean. Por lo tanto, a la izquierda de la expresión lambda
+				// ponemos un File (la x aquí es cada uno de los File que salen de listFiles). Y
+				// a la derecha, ponemos una concatenación de métodos que devuelven un boolean
+				// en función de si contiene o no ".txt" en el nombre
 				listaFicheros.addAll(directorio.listFiles(x -> x.getName().contains(".txt")));
 				// Aquí lo que estamos haciendo es crear una clase anónima de StringConverter
 				// para sobreescribir su método toString por uno que nos convenga más. Y lo que

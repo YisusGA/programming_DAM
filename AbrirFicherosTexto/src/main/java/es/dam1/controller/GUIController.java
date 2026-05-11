@@ -39,9 +39,22 @@ public class GUIController {
 			dc.setTitle("Elige archivo para abrir");
 			dc.setInitialDirectory(null);
 			// A .showDialog le podemos pasar un Stage (obteniendo el Stage a partir de un
-			// evento o un elemento de la GUI. Pero si lo dejamos en null, nos pilla el
+			// evento o un elemento de la GUI). Pero si lo dejamos en null, nos pilla el
 			// Stage por defecto, que en este caso, es el único que hay, el actual
-			Optional<File> input = Optional.of(dc.showDialog(null));
+			Optional<File> input = Optional.of(dc.showDialog(null)); // El método showDialog() de DirectoryChooser no
+																		// devuelve un Optional como si ocurría con el
+																		// método showAndWait() de TextInputDialog. Por
+																		// lo tanto, si queremos almacenar el return en
+																		// un Optional, tenemos que crear un envolvente
+																		// del return en un Optional, con Optional.of()
+																		// (el parámetro que se pasa depende del tipo de
+																		// objeto al que se haya parametrizado
+																		// Optional<T>. En este caso, es un File.
+																		// Podríamos directamente pasar de usar un
+																		// Optional y gestionar sólo el null, como hago
+																		// en el método cargarContenido(). Lo de usar el
+																		// Optional tiene más sentido en el caso de
+																		// TextInputDialog
 			if (input.isPresent()) {
 				listaFicheros.clear();
 				File directorio = input.get();
@@ -85,28 +98,23 @@ public class GUIController {
 
 	@FXML
 	public void cargarContenido() {
-		try {
-			Optional<File> input = Optional.of(comboFicheros.getSelectionModel().getSelectedItem());
-			if (input.isPresent()) {
-				File file = input.get();
-				List<String> lineas;
-				try {
-					lineas = Files.readAllLines(file.toPath());
-					String contenido = "";
-					for (String s : lineas) {
-						contenido += s + "\n";
-					}
-					text.setText(contenido);
-				} catch (IOException e) {
-					System.err.println("Error en la lectura del fichero");
-					e.printStackTrace();
+		File file = comboFicheros.getSelectionModel().getSelectedItem();
+		if (file != null) {
+			List<String> lineas;
+			try {
+				lineas = Files.readAllLines(file.toPath());
+				String contenido = "";
+				for (String s : lineas) {
+					contenido += s + "\n";
 				}
-
+				text.setText(contenido);
+			} catch (IOException e) {
+				System.err.println("Error en la lectura del fichero");
+				e.printStackTrace();
 			}
-		} catch (NullPointerException npe) {
-			System.err.println("No se pudo cargar el fichero");
-//			npe.printStackTrace();
+
 		}
+
 	}
 
 	@FXML

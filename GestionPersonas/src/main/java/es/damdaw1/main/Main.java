@@ -57,6 +57,8 @@ public class Main {
 			}
 			
 		}while(op != 0);
+		
+		scan.close();
 
 	}
 

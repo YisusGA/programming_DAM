@@ -20,6 +20,13 @@ public class Persona {
 		this.nombre = nombre;
 	}
 
+	public Persona(Integer id) {
+		this.id = id;
+	}
+
+	public Persona() {
+	}
+
 	public Integer getId() {
 		return id;
 	}

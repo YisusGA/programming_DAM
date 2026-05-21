@@ -56,14 +56,18 @@ public class Operaciones {
 		return true;
 	}
 
-	public static boolean insertPersona2(Persona persona) {
+	// Podemos aprovechar que el método executeUpdate devuelve el número de filas
+	// afectadas de la tabla para devolver ese int
+	public static int insertPersona2(Persona persona) {
+		int personasInsertadas = 0;
 
 		// CON TRY-WITH-RESOURCES:
 		// Parámetros: url con la dirección de la BBDD(API, connector, IP:puerto,
 		// nombreBBDD), usuario y contraseña
 		// Como ya vimos, podemos usar los recursos de esta forma dentro de un try, y
 		// así no tenemos que cerrarlos luego, pues se cierran automáticamente al
-		// terminar
+		// terminar. Podemos poner varios recursos dentro de los paréntesis del try,
+		// separados por punto y coma
 		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebadam1", "root", "1234");
 				Statement sentencia = con.createStatement()) {
 
@@ -77,29 +81,43 @@ public class Operaciones {
 					persona.getEdad());
 			// El método executeUpdate se usa para hacer INSERT, UPDATE y DELETE (las
 			// operaciones DML)
-			sentencia.executeUpdate(insert);
+			personasInsertadas = sentencia.executeUpdate(insert);
 			// Así es como lo hizo Noelia, pero es más sencillo de la forma que lo he hecho
 			// yo encima, porque puedo escribir con un formato
 //			sentencia.executeUpdate("INSERT INTO personas(nombre,edad) " + "VALUES ('" + persona.getNombre() + "',"
 //					+ persona.getEdad() + ")");
-
 		} catch (SQLException e) {
-
 			e.printStackTrace();
-			return false;
 		}
 
-		return true;
+		return personasInsertadas;
 	}
 
-	public boolean deletePersona(Integer id) {
-		// ELIMINARÍA DE LA TABLA LA PERSONA CON ID = id
-		return true;
+	public static int deletePersona(Integer id) {
+		int personasEliminadas = 0;
+		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebadam1", "root", "1234");
+				Statement sentencia = con.createStatement()) {
+			String delete = String.format("DELETE FROM personas WHERE id=%d", id);
+			personasEliminadas = sentencia.executeUpdate(delete);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return personasEliminadas;
 	}
 
-	public boolean updatePersona(Persona p) {
+	public static int updatePersona(Persona p) {
 		// ACTUALIZARÍA LA PERSONA CON ID = p.id CON LOS VALORES p.nombre y p.edad
-		return true;
+		int personasActualizadas = 0;
+		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebadam1", "root", "1234");
+				Statement sentencia = con.createStatement()) {
+			String update = String.format("UPDATE personas SET nombre='%s', edad=%d WHERE id='%d'", p.getNombre(),
+					p.getEdad(), p.getId());
+			personasActualizadas = sentencia.executeUpdate(update);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return personasActualizadas;
 	}
 
 	public static Persona getPersona(Integer id) {
@@ -109,8 +127,15 @@ public class Operaciones {
 		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebadam1", "root", "1234");
 				Statement sentencia = con.createStatement()) {
 
+			// Aquí sólo va a devolver un registro, pues estamos buscando por id. Pero
+			// dependiendo de la consulta,
+			// podría devolver varios registros. Por ello, almacenamos el resultado de la
+			// consulta en un ResultSet
 			ResultSet registros = sentencia.executeQuery("SELECT * FROM personas WHERE id = " + id);
 
+			// El método .next() de ResultSet avanza una posición en la consulta y devuelve
+			// true si hay regitro,
+			// o false si ya no hay más registros
 			while (registros.next()) {
 
 				String nombre = registros.getString("nombre");
@@ -127,6 +152,9 @@ public class Operaciones {
 		return persona;
 	}
 
+	// Esta versión es susceptible de que alguien haga una inyección SQL, pues
+	// pueden pasarte como String pepe' OR '1' = '1, y consiguen la base de
+	// datos entera, pues la condición a la derecha del OR siempre es cierta
 	public static List<Persona> getPersonasByNombre(String nombre) {
 
 		List<Persona> personas = new ArrayList<>();
@@ -134,7 +162,8 @@ public class Operaciones {
 		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebadam1", "root", "1234");
 				Statement sentencia = con.createStatement()) {
 
-			ResultSet registros = sentencia.executeQuery("SELECT * FROM personas WHERE nombre = '" + nombre + "'");
+			String query = String.format("SELECT * FROM personas WHERE nombre= '%s'", nombre);
+			ResultSet registros = sentencia.executeQuery(query);
 
 			while (registros.next()) {
 				Integer id = registros.getInt("id");
@@ -153,13 +182,18 @@ public class Operaciones {
 		return personas;
 	}
 
-	// VERSIÓN SEGURA:
+	// VERSIÓN SEGURA
 	public static List<Persona> getPersonasByNombre2(String nombre) {
 
 		List<Persona> personas = new ArrayList<>();
 
 		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebadam1", "root", "1234")) {
 
+			// Aquí está la clave: Le decimos que sólo podemos pasar un parámetro,
+			// admitiendo sólo un valor para nombre, para que no puedan pasarnos el OR y
+			// hacer la inyección SQL. Para ello, usamos PreparedStatement, para decirle el
+			// tipo de sentencia que vamos a usar, y así sólo admita lo que decimos que
+			// admita
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM personas WHERE nombre = ?");
 			ps.setString(1, nombre);
 
@@ -189,6 +223,8 @@ public class Operaciones {
 		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebadam1", "root", "1234")) {
 
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM personas WHERE nombre = ? AND edad >= ?");
+			// Como en la consulta hacen falta 2 parámetros, pasamos los 2 y especificamos
+			// la posición en la que va cada uno
 			ps.setString(1, nombre);
 			ps.setInt(2, 18);
 

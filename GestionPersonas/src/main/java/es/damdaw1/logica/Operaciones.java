@@ -195,7 +195,8 @@ public class Operaciones {
 			// tipo de sentencia que vamos a usar, y así sólo admita lo que decimos que
 			// admita
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM personas WHERE nombre = ?");
-			ps.setString(1, nombre);
+			ps.setString(1, nombre); // Indicamos que lo que pasamos, sustituye a la ? en la posición 1 (que en este
+										// caso, es la única que hay)
 
 			ResultSet registros = ps.executeQuery();
 

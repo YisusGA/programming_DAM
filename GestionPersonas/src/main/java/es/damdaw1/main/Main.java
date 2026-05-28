@@ -62,7 +62,7 @@ public class Main {
 			case 4 -> {
 				System.out.println("Dame nombre:");
 				String nombre = scan.nextLine();
-				List<Persona> listaPersonas = Operaciones.getPersonasByNombre2(nombre);
+				List<Persona> listaPersonas = Operaciones.getPersonasMayoresEdadByNombre(nombre);
 				if (listaPersonas.size() > 0) {
 					System.out.println("""
 							

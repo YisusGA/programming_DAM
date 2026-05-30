@@ -31,6 +31,12 @@ public class Persona {
 		this.edad = edad;
 		this.nombre = nombre;
 	}
+	
+
+	public Persona(Integer edad, String nombre) {
+		this.edad = edad;
+		this.nombre = nombre;
+	}
 
 	public Persona() {
 	}

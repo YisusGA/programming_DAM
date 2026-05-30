@@ -13,10 +13,15 @@ import es.damdaw1.modelo.Mascota;
 import es.damdaw1.modelo.Persona;
 
 public class PersonaDAO {
+	// Un DAO ofrece operaciones genéricas para hacer con los datos (CRUD), es
+	// decir, funciones que no tienen un significado relacionado con mi app
+
+	// No hacemos que los métodos sean static, porque vamos a instanciar un
+	// PersonaDAO diferente por cada Service que instanciemos
 
 	// Podemos aprovechar que el método executeUpdate devuelve el número de filas
 	// afectadas de la tabla para devolver ese int
-	public static int insertPersona(Persona persona) {
+	public int insertPersona(Persona persona) {
 		int personasInsertadas = 0;
 
 		// CON TRY-WITH-RESOURCES:
@@ -51,7 +56,7 @@ public class PersonaDAO {
 		return personasInsertadas;
 	}
 
-	public static int deletePersona(Integer id) {
+	public int deletePersona(Integer id) {
 		int personasEliminadas = 0;
 		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebadam1", "root", "1234");
 				Statement sentencia = con.createStatement()) {
@@ -63,7 +68,7 @@ public class PersonaDAO {
 		return personasEliminadas;
 	}
 
-	public static int updatePersona(Persona p) {
+	public int updatePersona(Persona p) {
 		// ACTUALIZARÍA LA PERSONA CON ID = p.id CON LOS VALORES p.nombre y p.edad
 		int personasActualizadas = 0;
 		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebadam1", "root", "1234");
@@ -97,13 +102,14 @@ public class PersonaDAO {
 				List<Mascota> mascotas = new ArrayList<>();
 				ResultSet masc = ps.executeQuery();
 				while (masc.next()) {
-					Mascota m = new Mascota(masc.getInt(id), masc.getString("nombre"), masc.getDate("prox_vacuna"));
+					// El método getDate es un método de java.sql.Date que devuelve un Date, que es
+					// completamente intercambiable con un java.util.Date. Si quisiéramos un
+					// LocalDate, tendríamos que gestionar la conversión mediante código
+					Mascota m = new Mascota(masc.getInt("id"), masc.getString("nombre"), masc.getDate("prox_vacuna"));
 					mascotas.add(m);
 					m.setPropietario(persona);
-
 				}
 				persona.setMascotas(mascotas);
-
 			}
 
 		} catch (SQLException e) {
@@ -116,7 +122,7 @@ public class PersonaDAO {
 	}
 
 	public List<Persona> getPersonas() {
-
+		// TODO
 		return null;
 	}
 

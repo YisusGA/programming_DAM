@@ -64,4 +64,9 @@ public class Mascota {
 		this.propietario = propietario;
 	}
 
+	@Override
+	public String toString() {
+		return "Mascota [nombre=" + nombre + "]";
+	}
+
 }

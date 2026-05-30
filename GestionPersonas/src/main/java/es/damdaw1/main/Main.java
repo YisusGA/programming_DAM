@@ -2,15 +2,17 @@ package es.damdaw1.main;
 
 import java.util.List;
 import java.util.Scanner;
-
+import es.damdaw1.dao.PersonaDAO;
 import es.damdaw1.logica.Operaciones;
 import es.damdaw1.modelo.Persona;
+import es.damdaw1.service.Service;
 
 public class Main {
 
 	public static void main(String[] args) {
 
 		Scanner scan = new Scanner(System.in);
+		Service service = new Service(new PersonaDAO());
 
 		int op;
 
@@ -21,6 +23,7 @@ public class Main {
 			System.out.println("4. Recupera personas mayores de edad por nombre");
 			System.out.println("5. Eliminar persona");
 			System.out.println("6. Actualiza persona");
+			System.out.println("7. Mostrar mascotas de una persona");
 			System.out.println("0. Salir");
 			op = Integer.parseInt(scan.nextLine());
 			switch (op) {
@@ -49,10 +52,10 @@ public class Main {
 				List<Persona> listaPersonas = Operaciones.getPersonasByNombre2(nombre);
 				if (listaPersonas.size() > 0) {
 					System.out.println("""
-							
+
 							Se recuperaron estas personas:
 							------------------------------
-							
+
 							""");
 					listaPersonas.stream().forEach(p -> System.out.println(p));
 				} else {
@@ -65,14 +68,15 @@ public class Main {
 				List<Persona> listaPersonas = Operaciones.getPersonasMayoresEdadByNombre(nombre);
 				if (listaPersonas.size() > 0) {
 					System.out.println("""
-							
+
 							Se recuperaron estas personas:
 							------------------------------
-							
+
 							""");
 					listaPersonas.stream().forEach(p -> System.out.println(p));
 				} else {
-					System.err.println("No se encontró ninguna persona mayor de edad con ese nombre en la base de datos");
+					System.err
+							.println("No se encontró ninguna persona mayor de edad con ese nombre en la base de datos");
 				}
 			}
 			case 5 -> {
@@ -90,6 +94,11 @@ public class Main {
 				int edad = Integer.parseInt(scan.nextLine());
 				int result = Operaciones.updatePersona(new Persona(id, edad, nombre));
 				System.out.println(result + " personas actualizada(s)");
+			}
+			case 7 -> {
+				System.out.println("Dame id:");
+				int id = Integer.parseInt(scan.nextLine());
+				service.getMascotasUsuario(id).forEach(x -> System.out.println(x));
 			}
 			case 0 -> {
 				System.out.println("Finalizando programa...");

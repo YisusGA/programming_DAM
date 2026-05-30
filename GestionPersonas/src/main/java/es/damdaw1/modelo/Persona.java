@@ -1,5 +1,6 @@
 package es.damdaw1.modelo;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Persona {
@@ -8,24 +9,32 @@ public class Persona {
 	// vayamos a sacar las personas
 	private Integer id, edad;
 	private String nombre;
+	private List<Mascota> mascotas; // Una persona puede tener muchas mascotas. Esto habilita la navegabilidad entre
+									// clases
 
+	public Persona(Integer id, Integer edad, String nombre, List<Mascota> mascotas) {
+		this.id = id;
+		this.edad = edad;
+		this.nombre = nombre;
+		this.mascotas = mascotas;
+	}
+
+	public Persona(Integer edad, String nombre, List<Mascota> mascotas) {
+		this.edad = edad;
+		this.nombre = nombre;
+		this.mascotas = mascotas;
+	}
+	
+	
 	public Persona(Integer id, Integer edad, String nombre) {
 		this.id = id;
 		this.edad = edad;
 		this.nombre = nombre;
 	}
 
-	public Persona(Integer edad, String nombre) {
-		this.edad = edad;
-		this.nombre = nombre;
-	}
-
-	public Persona(Integer id) {
-		this.id = id;
-	}
-
 	public Persona() {
 	}
+
 
 	public Integer getId() {
 		return id;
@@ -49,6 +58,14 @@ public class Persona {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public List<Mascota> getMascotas() {
+		return mascotas;
+	}
+
+	public void setMascotas(List<Mascota> mascotas) {
+		this.mascotas = mascotas;
 	}
 
 	@Override

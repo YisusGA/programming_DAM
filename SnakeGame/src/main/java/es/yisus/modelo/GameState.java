@@ -14,6 +14,13 @@ public class GameState {
 		this.snake = new Snake();
 		this.food = new Point(0, 0);
 	}
+	
+	public GameState(int width, int height, Snake snake, Point food) {
+		this.boardWidth = width;
+		this.boardHeight = height;
+		this.snake = snake;
+		this.food = food;
+	}
 
 	public GameState() {
 	}

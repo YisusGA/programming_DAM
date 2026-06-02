@@ -1,5 +1,8 @@
 package es.yisus.engine;
 
+import java.sql.SQLException;
+
+import es.yisus.dao.GameDAO;
 import es.yisus.modelo.Game;
 import es.yisus.modelo.GameState;
 import es.yisus.modelo.Point;
@@ -21,8 +24,8 @@ public class GameEngine {
 	// Control de velocidad: 150.000.000 nanosegundos = 150 milisegundos por frame.
 	// Reducir para que vaya más rápido
 	private static long FRAME_TIME_NANO = 150_000_000L; // Las _ son eliminadas por el compilador y no afectan
-																// negativamente, pero sirven de ayuda visual para la
-																// persona que lee el número
+														// negativamente, pero sirven de ayuda visual para la
+														// persona que lee el número
 
 	private final Canvas canvas;
 	private final GraphicsContext gc;
@@ -33,6 +36,7 @@ public class GameEngine {
 	private long lastTick = 0;
 
 	public GameEngine(Canvas canvas, User user, int boardWidth, int boardHeight) {
+
 		this.canvas = canvas;
 		this.gc = canvas.getGraphicsContext2D();
 
@@ -94,12 +98,29 @@ public class GameEngine {
 		case DOWN, S -> gameState.getSnake().changeDirection(Direction.DOWN);
 		case LEFT, A -> gameState.getSnake().changeDirection(Direction.LEFT);
 		case RIGHT, D -> gameState.getSnake().changeDirection(Direction.RIGHT);
+
+		// Guardado de emergencia rápido para probar
+		case G -> {
+			try {
+				GameDAO gameDao = new GameDAO();
+				// Le pasamos el objeto gameSession que el motor actualiza constantemente
+				boolean guardadoOk = gameDao.saveGame(this.gameSession);
+				if (guardadoOk) {
+					System.out.println("¡Partida guardada con éxito! ID de Partida: " + gameSession.getId());
+				}
+			} catch (SQLException e) {
+				System.err.println("Error al guardar la partida en la BD.");
+				e.printStackTrace();
+			}
+		}
+
 		default -> {
-		} // Ignorar otras teclas
+			// Ignoramos cualquier otra tecla
+		}
 		}
 	}
 
-	// LÓGICA DE FÍSICAS Y REGLAS
+	// Lógica de físicas y reglas
 	private void update() {
 		Snake snake = gameState.getSnake();
 		Point nextHead = snake.calculateNextHead();
@@ -107,6 +128,15 @@ public class GameEngine {
 		// Control de colisiones fatales (Muros o chocarse consigo misma)
 		if (gameState.isWallCollision(nextHead) || snake.containsPoint(nextHead)) {
 			gameSession.setFinished(true);
+			// Si el jugador pierde, se guarda automáticamente el Game (no el GameState),
+			// para así poder almacenar la puntuación, entre otras cosas
+			try {
+				GameDAO gameDao = new GameDAO();
+				gameDao.saveGame(this.gameSession);
+				System.out.println("Partida finalizada registrada en el historial.");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return;
 		}
 
@@ -116,7 +146,7 @@ public class GameEngine {
 			gameState.generateRandomFood(); // El escenario calcula la nueva posición libre
 			gameSession.setScore(gameSession.getScore() + 10); // Incrementa puntuación
 			if (gameSession.getScore() % 100 == 0) {
-				long newSpeed = (long)(FRAME_TIME_NANO - FRAME_TIME_NANO * 0.10);
+				long newSpeed = (long) (FRAME_TIME_NANO - FRAME_TIME_NANO * 0.10);
 				if (newSpeed < 50_000_000L) {
 					newSpeed = 50_000_000L;
 				}

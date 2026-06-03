@@ -21,32 +21,43 @@ import es.yisus.utils.Direction;
 public class GameDAO {
 
 	public static List<Game> getGames() throws SQLException {
-		List<Game> retrievedGames = null;
+		List<Game> retrievedGames = new ArrayList<>();
 		String sqlGame = "SELECT * FROM games";
-		try (Connection con = DBContext.getConnection(); Statement stGame = con.createStatement()) {
+		String sqlUser = "SELECT * FROM users WHERE id = ?";
+		try (Connection con = DBContext.getConnection();
+				Statement stGame = con.createStatement();
+				PreparedStatement psUser = con.prepareStatement(sqlUser)) {
 			try (ResultSet rsGame = stGame.executeQuery(sqlGame)) {
 				while (rsGame.next()) {
-					retrievedGames = new ArrayList<>();
 					Game game = new Game();
 					game.setId(rsGame.getInt("id"));
 					game.setScore(rsGame.getInt("score"));
 					game.setFinished(rsGame.getInt("finished") == 1);
-
+					psUser.setInt(1, rsGame.getInt("user_id"));
+					try (ResultSet rsUser = psUser.executeQuery()) {
+						if (rsUser.next()) {
+							User user = new User();
+							user.setId(rsUser.getInt("id"));
+							user.setNickname(rsUser.getString("nickname"));
+							game.setUser(user);
+						}
+					}
 					String dateTime = rsGame.getString("date_time");
 					if (dateTime != null) {
 						try {
 							game.setDateTime(LocalDateTime.parse(dateTime.replace(" ", "T")));
 						} catch (DateTimeParseException e) {
-							System.err.println(
-									"Error parsing date and time. Current date and time will be used instead");
+							System.err
+									.println("Error parsing date and time. Current date and time will be used instead");
 							game.setDateTime(LocalDateTime.now());
 						}
 					}
+					retrievedGames.add(game);
 				}
 			}
 		}
 
-	return retrievedGames;
+		return retrievedGames;
 
 	}
 

@@ -9,20 +9,22 @@ import es.yisus.modelo.Game;
 import es.yisus.utils.Leaderboard;
 
 public class GameService {
-	
+
 	public static List<Leaderboard> getLeaderBoard() throws SQLException {
-		List<Leaderboard> leaderboard = null;
+		List<Leaderboard> preLeaderboard = new ArrayList<>();
 		List<Game> games = GameDAO.getGames();
-		if (games != null) {
-			leaderboard = new ArrayList<>();
-			for (int i = 0; i < games.size() && i < 10; i++) {
-				Game g = games.get(i);
-				leaderboard.add(new Leaderboard(g.getUser().getNickname(), g.getScore()));
-				leaderboard = leaderboard.reversed();
-			}
+		for (int i = 0; i < games.size(); i++) {
+			Game g = games.get(i);
+			preLeaderboard.add(new Leaderboard(g.getUser().getNickname(), g.getScore()));
 		}
-				
+		preLeaderboard.sort(null);
+		preLeaderboard = preLeaderboard.reversed();
+		List<Leaderboard> leaderboard = new ArrayList<>();
+		for (int i = 0; i < preLeaderboard.size() && i < 10; i++) {
+			leaderboard.add(preLeaderboard.get(i));
+		}
+
 		return leaderboard;
-		
+
 	}
 }

@@ -102,9 +102,8 @@ public class GameEngine {
 		// Guardado de emergencia rápido para probar
 		case G -> {
 			try {
-				GameDAO gameDao = new GameDAO();
 				// Le pasamos el objeto gameSession que el motor actualiza constantemente
-				boolean guardadoOk = gameDao.saveGame(this.gameSession);
+				boolean guardadoOk = GameDAO.saveGame(this.gameSession);
 				if (guardadoOk) {
 					System.out.println("¡Partida guardada con éxito! ID de Partida: " + gameSession.getId());
 				}
@@ -131,8 +130,8 @@ public class GameEngine {
 			// Si el jugador pierde, se guarda automáticamente el Game (no el GameState),
 			// para así poder almacenar la puntuación, entre otras cosas
 			try {
-				GameDAO gameDao = new GameDAO();
-				gameDao.saveGame(this.gameSession);
+//				GameDAO gameDao = new GameDAO();
+				GameDAO.saveGame(this.gameSession);
 				System.out.println("Partida finalizada registrada en el historial.");
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -189,7 +188,10 @@ public class GameEngine {
 		// Dibujamos el HUD de la puntuación en la esquina superior izquierda
 		gc.setFill(Color.WHITE);
 		gc.setFont(new Font("Arial", 14));
-		gc.fillText("Score: " + gameSession.getScore(), 10, 20);
+		gc.fillText(gameSession.getUser().getNickname(), 10, 20); 
+		gc.setFill(Color.WHITE);
+		gc.setFont(new Font("Arial", 14));
+		gc.fillText("Score: " + gameSession.getScore(), 10, 35);
 	}
 
 	private void renderGameOver() {
@@ -203,6 +205,10 @@ public class GameEngine {
 
 		gc.setFont(new Font("Arial", 16));
 		gc.setFill(Color.WHITE);
-		gc.fillText("Final Score: " + gameSession.getScore(), canvas.getWidth() / 2 - 50, canvas.getHeight() / 2 + 20);
+		gc.fillText(gameSession.getUser().getNickname(), canvas.getWidth() / 2 - 25, canvas.getHeight() / 2 + 20);
+		
+		gc.setFont(new Font("Arial", 16));
+		gc.setFill(Color.WHITE);
+		gc.fillText("Final Score: " + gameSession.getScore(), canvas.getWidth() / 2 - 50, canvas.getHeight() / 2 + 40);
 	}
 }

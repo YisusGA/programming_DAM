@@ -9,8 +9,8 @@
 	<description>School project of the classic Snake minigame</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>21</maven.compiler.release>
-		<javafx.version>21</javafx.version>
+		<maven.compiler.release>26</maven.compiler.release>
+		<javafx.version>26</javafx.version>
 	</properties>
 	<dependencies>
 		<dependency>

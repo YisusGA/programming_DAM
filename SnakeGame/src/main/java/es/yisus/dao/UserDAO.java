@@ -11,7 +11,7 @@ import es.yisus.modelo.User;
 
 public class UserDAO {
 
-	public int insertUser(User user) throws SQLException {
+	public static int insertUser(User user) throws SQLException {
 		int inserted = 0;
 		// try-with-resources, para que se cierre tanto Connection como
 		// PreparedStatement al terminar de usarse
@@ -34,7 +34,7 @@ public class UserDAO {
 		return inserted;
 	}
 
-	public int deleteUser(User user) throws SQLException {
+	public static int deleteUser(User user) throws SQLException {
 		int inserted = 0;
 		try (Connection con = DBContext.getConnection();
 				PreparedStatement ps = con.prepareStatement("DELETE FROM users WHERE id = ?")) {
@@ -44,7 +44,7 @@ public class UserDAO {
 		return inserted;
 	}
 
-	public int updateUser(User user) throws SQLException {
+	public static int updateUser(User user) throws SQLException {
 		int inserted = 0;
 		try (Connection con = DBContext.getConnection();
 				PreparedStatement ps = con.prepareStatement("UPDATE users SET nickname = ? WHERE id = ?")) {
@@ -55,7 +55,7 @@ public class UserDAO {
 		return inserted;
 	}
 
-	public User getUser(int id) throws SQLException {
+	public static User getUser(int id) throws SQLException {
 		User retrievedUser = null;
 		try (Connection con = DBContext.getConnection();
 				PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE id = ?")) {
@@ -70,5 +70,6 @@ public class UserDAO {
 		}
 		return retrievedUser;
 	}
-
+	
+	
 }

@@ -22,6 +22,9 @@ public class Game {
 		this.gameState = null;
 	}
 
+	public Game() {
+	}
+
 	public int getId() {
 		return id;
 	}

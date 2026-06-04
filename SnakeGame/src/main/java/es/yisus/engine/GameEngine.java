@@ -2,12 +2,12 @@ package es.yisus.engine;
 
 import java.sql.SQLException;
 
-import es.yisus.dao.GameDAO;
 import es.yisus.modelo.Game;
 import es.yisus.modelo.GameState;
 import es.yisus.modelo.Point;
 import es.yisus.modelo.Snake;
 import es.yisus.modelo.User;
+import es.yisus.service.GameService;
 import es.yisus.utils.Direction;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
@@ -140,7 +140,7 @@ public class GameEngine {
 		case G -> {
 			try {
 				// Le pasamos el objeto gameSession que el motor actualiza constantemente
-				boolean guardadoOk = GameDAO.saveGame(this.gameSession);
+				boolean guardadoOk = GameService.saveGame(this.gameSession);
 				if (guardadoOk) {
 					System.out.println("Partida guardada con exito! ID de Partida: " + gameSession.getId());
 				}
@@ -167,7 +167,7 @@ public class GameEngine {
 			// Si el jugador pierde, se guarda automáticamente el Game (no el GameState),
 			// para así poder almacenar la puntuación, entre otras cosas
 			try {
-				GameDAO.saveGame(this.gameSession);
+				GameService.saveGame(this.gameSession);
 				System.out.println("Partida finalizada registrada en el historial.");
 			} catch (SQLException e) {
 				e.printStackTrace();

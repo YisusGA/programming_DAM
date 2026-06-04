@@ -11,7 +11,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.yisus.controller.GUIController">
    <children>
       <TextField fx:id="nicknameInput" layoutX="225.0" layoutY="40.0" />
-      <Button layoutX="385.0" layoutY="40.0" mnemonicParsing="false" onAction="#searchUserByNickname" text="Enter nickname" />
+      <Button layoutX="385.0" layoutY="40.0" mnemonicParsing="false" onAction="#loadGameByNickname" text="Enter nickname" />
       <Label layoutX="155.0" layoutY="44.0" text="Nickname:" />
       
       <TableView fx:id="leaderboardTable" layoutX="59.0" layoutY="125.0" prefHeight="200.0" prefWidth="200.0">
@@ -27,6 +27,6 @@
       
       <Label fx:id="resultLabel" alignment="CENTER" layoutX="59.0" layoutY="335.0" prefHeight="53.0" prefWidth="250.0" wrapText="true" />
       
-      <Button layoutX="386.0" layoutY="345.0" mnemonicParsing="false" onAction="#startNewGame" text="Nueva Partida" />
+      <Button layoutX="386.0" layoutY="345.0" mnemonicParsing="false" onAction="#startNewGame" text="New Game" />
    </children>
 </AnchorPane>

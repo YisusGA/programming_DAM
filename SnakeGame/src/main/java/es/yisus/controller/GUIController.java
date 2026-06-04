@@ -2,7 +2,6 @@ package es.yisus.controller;
 
 import java.sql.SQLException;
 import es.yisus.app.SnakeGame;
-import es.yisus.dao.GameDAO;
 import es.yisus.dao.UserDAO;
 import es.yisus.modelo.Game;
 import es.yisus.modelo.User;
@@ -23,6 +22,7 @@ import javafx.stage.Stage;
 public class GUIController {
 	private ObservableList<Leaderboard> leaderboard;
 	private ObservableList<Game> savedGames;
+	
 	@FXML
 	private TextField nicknameInput;
 	@FXML
@@ -37,6 +37,8 @@ public class GUIController {
 	private ListView<Game> savedGamesView;
 
 	public void initialize() {
+		savedGames = FXCollections.observableArrayList();
+		savedGamesView.setItems(savedGames);
 		nicknameColumn.setCellValueFactory(new PropertyValueFactory<>("nickname"));
 		scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
 		try {
@@ -53,88 +55,110 @@ public class GUIController {
 	}
 
 	@FXML
-	public User searchUserByNickname() throws SQLException {
-	    String nickname = nicknameInput.getText();
-	    if (nickname.isBlank()) {
-	        nickname = "RandomUser";
-	    }
-	    
-	    User user;
-	    try {
-	        user = UserService.getUserByNickname(nickname);
-	    } catch (SQLException e) {
-	        System.err.println("Error loading user, starting new game with random user");
-	        user = UserService.getUserByNickname("RandomUser");
-	        e.printStackTrace();
-	    }
-	    
-	    Stage stage = (Stage) (nicknameInput.getScene().getWindow());
+	public void loadGameByNickname() {
+		String nickname = nicknameInput.getText();
+		if (nickname.isBlank()) {
+			nickname = "RandomUser";
+		}
 
-	    if (user == null) {
-	        // El usuario no existe: Lo creamos y le lanzamos una partida nueva
-	        user = new User(nickname);
-	        UserDAO.insertUser(user);
-	        SnakeGame.playGame(stage, user);
-	    } else {
-	        // El usuario existe: Buscamos sus partidas
-	        savedGames = FXCollections.observableArrayList();
-	        savedGames.addAll(GameService.getUnfinishedGamesByUser(user));
-	        
-	        // ¡ESTO FALTABA! Enlazar la lista recuperada con la vista de JavaFX
-	        savedGamesView.setItems(savedGames);
+		User user = null;
+		
+		try {
+			user = UserService.getUserByNickname(nickname);
+		} catch (SQLException e) {
+			System.err.println("Error loading user, starting new game with random user");
+			try {
+				user = UserService.getUserByNickname("RandomUser");
+			} catch (SQLException e1) {
+				System.err.println("Error accesing DB to get RandomUser");
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
 
-	        if (savedGames.isEmpty()) {
-	            // Si existe pero no tiene partidas a medias, le creamos una nueva directamente
-	            SnakeGame.playGame(stage, user);
-	        } else {
-	            resultLabel.setText("Haz doble clic en una partida de la lista para continuar.");
-	            
-	            // Evento: Escuchar el doble clic en el ListView
-	            final User finalUser = user;
-	            savedGamesView.setOnMouseClicked(event -> {
-	                if (event.getClickCount() == 2) {
-	                    Game selectedSummary = savedGamesView.getSelectionModel().getSelectedItem();
-	                    if (selectedSummary != null) {
-	                        try {
-	                            // Cargamos TODO el árbol del juego (Serpiente, comida, etc.)
-	                            Game fullGame = GameDAO.loadGame(selectedSummary.getId(), finalUser);
-	                            // Llamamos a un nuevo método que crearemos en el Paso 2
-	                            SnakeGame.playLoadedGame(stage, fullGame);
-	                        } catch (SQLException e) {
-	                            e.printStackTrace();
-	                        }
-	                    }
-	                }
-	            });
-	        }
-	    }
-	    return user;
+		Stage stage = (Stage) (nicknameInput.getScene().getWindow());
+
+		if (user == null) {
+			// If no user was found, a new game with RandomUser as nickname is launched
+			user = new User(nickname);
+			try {
+				UserDAO.insertUser(user);
+			} catch (SQLException e) {
+				System.err.println("Error inserting RandomUser in the DB");
+				e.printStackTrace();
+			}
+			SnakeGame.playGame(stage, user);
+		} else {
+			// If user exists, program tries to retrieve a save game and add it to an
+			// ObservableList, that is linked to a ListView in the GUI
+			try {
+				savedGames.addAll(GameService.getUnfinishedGamesByUser(user));
+			} catch (SQLException e) {
+				System.err.println("Error accesing DB to get user's saved games");
+				e.printStackTrace();
+			}
+
+			if (savedGames.isEmpty()) {
+				// If user exists but no saved game was recovered, a new game is launched for
+				// that user
+				System.out.println("No saved games recovered for that user, a new game is started");
+				SnakeGame.playGame(stage, user);
+			} else {
+				// If user exists and they have a saved game associated, user is given the
+				// option to load it by double clicking on it
+				// User can also ignore it and click on New Game, which will launch method
+				// startNewGame
+				resultLabel.setText("Haz doble clic en una partida de la lista para continuar.");
+
+				// Evento: Escuchar el doble clic en el ListView
+				final User finalUser = user;
+				getSelectedGameFromList(stage, finalUser);
+			}
+		}
 	}
-	
+
+	private void getSelectedGameFromList(Stage stage, final User finalUser) {
+		savedGamesView.setOnMouseClicked(event -> {
+			if (event.getClickCount() == 2) {
+				Game selectedGame = savedGamesView.getSelectionModel().getSelectedItem();
+				if (selectedGame != null) {
+					try {
+						// Program loads the whole game
+						Game fullGame = GameService.loadGame(selectedGame.getId(), finalUser);
+						// Program launches game
+						SnakeGame.playLoadedGame(stage, fullGame);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+	}
+
 	@FXML
 	public void startNewGame() {
-	    String nickname = nicknameInput.getText();
-	    if (nickname.isBlank()) {
-	        nickname = "RandomUser";
-	    }
-	    
-	    try {
-	        // Recuperamos el usuario (o lo creamos si es totalmente nuevo)
-	        User user = UserService.getUserByNickname(nickname);
-	        if (user == null) {
-	            user = new User(nickname);
-	            UserDAO.insertUser(user);
-	        }
-	        
-	        // Obtenemos la ventana actual y lanzamos el juego vacío usando tu método original
-	        Stage stage = (Stage) (nicknameInput.getScene().getWindow());
-	        SnakeGame.playGame(stage, user);
-	        
-	    } catch (SQLException e) {
-	        System.err.println("Error al intentar iniciar una nueva partida.");
-	        e.printStackTrace();
-	    }
+		String nickname = nicknameInput.getText();
+		if (nickname.isBlank()) {
+			nickname = "RandomUser";
+		}
+
+		try {
+			// Program tries to retrieve the user with entered nickname, or creates a new
+			// one with RandomUser if it returned nothing
+			User user = UserService.getUserByNickname(nickname);
+			if (user == null) {
+				user = new User(nickname);
+				UserDAO.insertUser(user);
+			}
+
+			// Program gets Stage and launch game
+			Stage stage = (Stage) (nicknameInput.getScene().getWindow());
+			SnakeGame.playGame(stage, user);
+
+		} catch (SQLException e) {
+			System.err.println("Error al intentar iniciar una nueva partida.");
+			e.printStackTrace();
+		}
 	}
-	
-	
+
 }

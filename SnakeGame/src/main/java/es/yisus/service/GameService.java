@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import es.yisus.dao.GameDAO;
+import es.yisus.dao.GameStateDAO;
 import es.yisus.dao.SnakeDAO;
 import es.yisus.dbcontext.DBContext;
 import es.yisus.modelo.Game;
@@ -115,7 +116,7 @@ public class GameService {
 
 					Snake snake = new Snake(body, dir);
 					Point food = new Point(foodX, foodY);
-					GameState gameState = new GameState(width, height, snake, food);
+					GameState gameState = new GameState(gameId, width, height, snake, food);
 
 					game.setGameState(gameState);
 				}
@@ -124,14 +125,9 @@ public class GameService {
 	}
 
 	public static boolean saveGame(Game game) throws SQLException {
-		String sqlSaveState = "INSERT OR REPLACE INTO game_states(game_id, board_width, board_height, food_x, food_y, current_direction) VALUES (?, ?, ?, ?, ?, ?)";
-		String sqlDeleteSaveStates = "DELETE FROM game_states WHERE game_id = ?";
-		String sqlDeleteSegments = "DELETE FROM snake_segments WHERE game_id = ?";
-	
 		try (Connection con = DBContext.getConnection()) {
-			// Desactivamos auto-commit para manejar la transacción de forma manual
+			// Autocommit deactivated, so that we can decide when changes are commited
 			con.setAutoCommit(false);
-	
 			try {
 				// Save Game in games table
 				if (game.getId() == 0) {
@@ -142,47 +138,27 @@ public class GameService {
 					GameDAO.updateGame(game, con);
 				}
 				// Save GameState in game_states (if game isn't finished)
-				if (game.getGameState() != null && !game.isFinished()) {
-					GameState state = game.getGameState();
-	
-					try (PreparedStatement psState = con.prepareStatement(sqlSaveState)) {
-						psState.setInt(1, game.getId());
-						psState.setInt(2, state.getBoardWidth());
-						psState.setInt(3, state.getBoardHeight());
-						psState.setInt(4, state.getFood().getX());
-						psState.setInt(5, state.getFood().getY());
-						psState.setString(6, state.getSnake().getDirection().name());
-						psState.executeUpdate();
-					}
-	
-					// Guardar los segmentos de la serpiente en la tabla snake_segments
-					// Primero borramos los segmentos previos de esta partida para evitar duplicados
-					// accidentales
-					try (PreparedStatement psDel = con.prepareStatement(sqlDeleteSegments)) {
-						psDel.setInt(1, game.getId());
-						psDel.executeUpdate();
-					}
-	
-					// Usamos el SnakeDAO, reutilizando la misma conexión abierta
+				GameState state = game.getGameState();
+				if (state != null && !game.isFinished()) {
+					GameStateDAO.insertGameState(state, game, con);
+					// Save snake segments in snake_segments table
+					// First, previous saved segments are deleted to avoid duplicates
+					SnakeDAO.deleteSnakeByGameId(game.getId(), con);
+					// Save snake body
 					SnakeDAO.saveSnakeBody(game.getId(), con, state.getSnake());
-					// Si se ha terminado el juego, se borran todos los estados guardados asociados
+					// If game is finished, all save data associated is deleted
 				} else if (game.isFinished()) {
-					try (PreparedStatement psState = con.prepareStatement(sqlDeleteSaveStates)) {
-						psState.setInt(1, game.getId());
-						psState.executeUpdate();
-					}
+					GameStateService.deleteGameStateByGame(game, con);
 				}
-	
-				// Si todo ha ido bien, consolidamos los cambios en la Base de Datos
+				// If everything was ok, all changes are commited together
 				con.commit();
 				return true;
-	
 			} catch (SQLException e) {
-				// Si algo falla en cualquier punto, deshacemos todo para mantener la integridad
+				System.err.println("An error happened during saving state process, no changes have been commited to DB");
 				con.rollback();
 				throw e;
 			} finally {
-				// Volvemos a activar el autocommit
+				// Autocommit activated again
 				con.setAutoCommit(true);
 			}
 		}

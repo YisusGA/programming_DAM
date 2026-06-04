@@ -6,6 +6,7 @@ import java.util.List;
 
 import es.yisus.dao.GameDAO;
 import es.yisus.modelo.Game;
+import es.yisus.modelo.User;
 import es.yisus.utils.Leaderboard;
 
 public class GameService {
@@ -25,6 +26,23 @@ public class GameService {
 		}
 
 		return leaderboard;
-
+	}
+	
+	public static List<Game> getGamesByUser(User user) throws SQLException {
+		List<Game> allGames = GameDAO.getGames();
+		List<Game> filteredGames = new ArrayList<>();
+		if (allGames.size() > 0) {
+			filteredGames.addAll(allGames.stream().filter(g -> g.getUser().equals(user)).toList());
+		}
+		return filteredGames;
+	}
+	
+	public static List<Game> getUnfinishedGamesByUser(User user) throws SQLException {
+		List<Game> allGames = getGamesByUser(user);
+		List<Game> filteredGames = new ArrayList<>();
+		if (allGames.size() > 0) {
+			filteredGames.addAll(allGames.stream().filter(g -> !g.isFinished()).toList());
+		}
+		return filteredGames;
 	}
 }

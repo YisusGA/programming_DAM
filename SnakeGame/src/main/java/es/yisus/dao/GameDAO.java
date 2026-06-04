@@ -58,8 +58,66 @@ public class GameDAO {
 		}
 
 		return retrievedGames;
-
 	}
+
+	public static Game getGame(int id) throws SQLException {
+		String sqlGame = "SELECT * FROM games WHERE id = ?";
+		String sqlUser = "SELECT * FROM users WHERE id = ?";
+		Game game = null;
+		try (Connection con = DBContext.getConnection();
+				PreparedStatement psGame = con.prepareStatement(sqlGame);
+				PreparedStatement psUser = con.prepareStatement(sqlUser)) {
+			psGame.setInt(1, id);
+			try (ResultSet rsGame = psGame.executeQuery()) {
+				if (rsGame.next()) {
+					game = new Game();
+					game.setId(rsGame.getInt("id"));
+					game.setScore(rsGame.getInt("score"));
+					game.setFinished(rsGame.getInt("finished") == 1);
+					psUser.setInt(1, rsGame.getInt("user_id"));
+					try (ResultSet rsUser = psUser.executeQuery()) {
+						if (rsUser.next()) {
+							User user = new User();
+							user.setId(rsUser.getInt("id"));
+							user.setNickname(rsUser.getString("nickname"));
+							game.setUser(user);
+						}
+					}
+					String dateTime = rsGame.getString("date_time");
+					if (dateTime != null) {
+						try {
+							game.setDateTime(LocalDateTime.parse(dateTime.replace(" ", "T")));
+						} catch (DateTimeParseException e) {
+							System.err
+									.println("Error parsing date and time. Current date and time will be used instead");
+							game.setDateTime(LocalDateTime.now());
+						}
+					}
+				}
+			}
+		}
+		return game;
+	}
+
+//	public static GameState getGameState(int gameId) throws SQLException {
+//		String sqlGameState = "SELECT * FROM game_states WHERE game_id = ?";
+//		GameState gs = null;
+//		try (Connection con = DBContext.getConnection();
+//				PreparedStatement psGameState = con.prepareStatement(sqlGameState)) {
+//			psGameState.setInt(1, gameId);
+//			try (ResultSet rsGameState = psGameState.executeQuery()) {
+//				if (rsGameState.next()) {
+//					gs = new GameState();
+//					gs.setGame(getGame(gameId));
+//					gs.setBoardWidth(rsGameState.getInt("board_width"));
+//					gs.setBoardHeight(rsGameState.getInt("board_height"));
+//					gs.setFood(new Point(rsGameState.getInt("food_x"), rsGameState.getInt("food_y")));
+//					String direccion = rsGameState.getString("current_direction");
+//					// TODO
+//				}
+//			}
+//		}
+//	}
 
 	public static boolean saveGame(Game game) throws SQLException {
 		String sqlInsertGame = "INSERT INTO games(user_id, score, finished) VALUES (?, ?, ?)";

@@ -3,6 +3,7 @@ package es.yisus.app;
 import java.io.IOException;
 import es.yisus.dao.UserDAO;
 import es.yisus.engine.GameEngine;
+import es.yisus.modelo.Game;
 import es.yisus.modelo.User;
 import es.yisus.service.UserService;
 import javafx.application.Application;
@@ -85,8 +86,26 @@ public class SnakeGame extends Application {
 		// Arrancamos el bucle del juego
 		gameEngine.startGame();
 	}
+	
+	public static void playLoadedGame(Stage stage, Game loadedGame) {
+	    // Reutilizamos el Canvas
+	    Canvas gameCanvas = new Canvas();
+
+	    // Usamos un constructor especial del motor (que añadiremos en el Paso 3)
+	    GameEngine gameEngine = new GameEngine(gameCanvas, loadedGame);
+
+	    Group root = new Group(gameCanvas);
+	    Scene scene = new Scene(root);
+	    
+	    scene.setOnKeyPressed(event -> gameEngine.handleInput(event));
+	    stage.setScene(scene);
+	    stage.show();
+
+	    // Arrancamos el bucle
+	    gameEngine.startGame();
+	}
 
 }
 
 // For debugging, uncomment next line. Right click on SnakeGame project and Debug as Java Application
-//class SnakeGameLauncher {public static void main(String[] args) {SnakeGame.main(args);}}
+class SnakeGameLauncher {public static void main(String[] args) {SnakeGame.main(args);}}

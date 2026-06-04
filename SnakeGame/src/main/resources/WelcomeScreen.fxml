@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -12,13 +13,20 @@
       <TextField fx:id="nicknameInput" layoutX="225.0" layoutY="40.0" />
       <Button layoutX="385.0" layoutY="40.0" mnemonicParsing="false" onAction="#searchUserByNickname" text="Enter nickname" />
       <Label layoutX="155.0" layoutY="44.0" text="Nickname:" />
-      <TableView fx:id="leaderboardTable" layoutX="199.0" layoutY="125.0" prefHeight="200.0" prefWidth="200.0">
+      
+      <TableView fx:id="leaderboardTable" layoutX="59.0" layoutY="125.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="nicknameColumn" prefWidth="95.20001220703125" text="Name" />
+          <TableColumn fx:id="nicknameColumn" prefWidth="95.2" text="Name" />
           <TableColumn fx:id="scoreColumn" prefWidth="104.0" text="Score" />
         </columns>
       </TableView>
-      <Label layoutX="265.0" layoutY="95.0" text="Leaderboard" />
-      <Label fx:id="resultLabel" alignment="CENTER" layoutX="127.0" layoutY="336.0" prefHeight="53.0" prefWidth="346.0" wrapText="true" />
+      <Label layoutX="125.0" layoutY="95.0" text="Leaderboard" />
+      
+      <ListView fx:id="savedGamesView" layoutX="336.0" layoutY="125.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="400.0" layoutY="95.0" text="Saved games" />
+      
+      <Label fx:id="resultLabel" alignment="CENTER" layoutX="59.0" layoutY="335.0" prefHeight="53.0" prefWidth="250.0" wrapText="true" />
+      
+      <Button layoutX="386.0" layoutY="345.0" mnemonicParsing="false" onAction="#startNewGame" text="Nueva Partida" />
    </children>
 </AnchorPane>

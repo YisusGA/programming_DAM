@@ -90,4 +90,12 @@ public class Game {
 		return id == other.id;
 	}
 
+	@Override
+	public String toString() {
+		return this.user.getNickname() + " | " + this.score + " | "
+				+ this.dateTime.toString().replace("T", " ");
+	}
+	
+	
+
 }

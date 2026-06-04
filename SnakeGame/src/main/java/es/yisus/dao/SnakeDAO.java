@@ -14,7 +14,7 @@ public class SnakeDAO {
 
 	// Gestionar la excepción en el GameEngine, para crear una serpiente nueva si no
 	// se pudo recuperar la guardada
-	public List<Point> getSnakeBody(int gameId, Connection con) throws SQLException {
+	public static List<Point> getSnakeBody(int gameId, Connection con) throws SQLException {
 		List<Point> body = new ArrayList<>();
 		// Este try-with-resources hace que se cierre el recurso PreparedStatement al terminar
 		try (PreparedStatement ps = con.prepareStatement(
@@ -34,9 +34,8 @@ public class SnakeDAO {
 		return body;
 	}
 
-	// Lanzamos la excepción para no guardar la partida si no se pudo guardarse la
-	// serpiente
-	public boolean saveSnakeBody(int gameId, Connection con, Snake snake) throws SQLException {
+	// An exception is launched if saved was not completed, so that GameState won't save
+	public static boolean saveSnakeBody(int gameId, Connection con, Snake snake) throws SQLException {
 		List<Point> body = snake.getBody();
 		try (PreparedStatement ps = con.prepareStatement("INSERT INTO snake_segments VALUES(?, ?, ?, ?)")) {
 			for (int i = 0; i < body.size(); i++) {

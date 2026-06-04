@@ -2,12 +2,12 @@ package es.yisus.engine;
 
 import java.sql.SQLException;
 
-import es.yisus.dao.GameDAO;
 import es.yisus.modelo.Game;
 import es.yisus.modelo.GameState;
 import es.yisus.modelo.Point;
 import es.yisus.modelo.Snake;
 import es.yisus.modelo.User;
+import es.yisus.service.GameService;
 import es.yisus.utils.Direction;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
@@ -51,6 +51,43 @@ public class GameEngine {
 
 		initGame();
 	}
+
+	
+
+	// CONSTRUCTOR PARA PARTIDAS CARGADAS
+	public GameEngine(Canvas canvas, Game loadedGame) {
+	    this.canvas = canvas;
+	    this.gc = canvas.getGraphicsContext2D();
+
+	    this.gameSession = loadedGame;
+	    this.gameState = loadedGame.getGameState();
+
+	    // Ajustamos el lienzo a las dimensiones que tenía el mapa al guardarse
+	    this.canvas.setWidth(gameState.getBoardWidth() * BLOCK_SIZE);
+	    this.canvas.setHeight(gameState.getBoardHeight() * BLOCK_SIZE);
+
+	    initLoadedGame();
+	}
+
+	// INICIALIZADOR SIN REINICIAR LA SERPIENTE NI LA COMIDA
+	private void initLoadedGame() {
+	    this.gameLoop = new AnimationTimer() {
+	        @Override
+	        public void handle(long now) {
+	            if (gameSession.isFinished()) {
+	                stopGame();
+	                return;
+	            }
+	            if (lastTick == 0 || now - lastTick >= FRAME_TIME_NANO) {
+	                lastTick = now;
+	                update();
+	                render();
+	            }
+	        }
+	    };
+	}
+
+
 
 	private void initGame() {
 		// Colocamos la cabeza en el centro del escenario para empezar
@@ -103,9 +140,9 @@ public class GameEngine {
 		case G -> {
 			try {
 				// Le pasamos el objeto gameSession que el motor actualiza constantemente
-				boolean guardadoOk = GameDAO.saveGame(this.gameSession);
+				boolean guardadoOk = GameService.saveGame(this.gameSession);
 				if (guardadoOk) {
-					System.out.println("¡Partida guardada con éxito! ID de Partida: " + gameSession.getId());
+					System.out.println("Partida guardada con exito! ID de Partida: " + gameSession.getId());
 				}
 			} catch (SQLException e) {
 				System.err.println("Error al guardar la partida en la BD.");
@@ -130,8 +167,7 @@ public class GameEngine {
 			// Si el jugador pierde, se guarda automáticamente el Game (no el GameState),
 			// para así poder almacenar la puntuación, entre otras cosas
 			try {
-//				GameDAO gameDao = new GameDAO();
-				GameDAO.saveGame(this.gameSession);
+				GameService.saveGame(this.gameSession);
 				System.out.println("Partida finalizada registrada en el historial.");
 			} catch (SQLException e) {
 				e.printStackTrace();

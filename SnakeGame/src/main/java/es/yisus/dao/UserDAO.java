@@ -45,14 +45,14 @@ public class UserDAO {
 	}
 
 	public static int updateUser(User user) throws SQLException {
-		int inserted = 0;
+		int updated = 0;
 		try (Connection con = DBContext.getConnection();
 				PreparedStatement ps = con.prepareStatement("UPDATE users SET nickname = ? WHERE id = ?")) {
 			ps.setString(1, user.getNickname());
 			ps.setInt(2, user.getId());
-			inserted = ps.executeUpdate();
+			updated = ps.executeUpdate();
 		}
-		return inserted;
+		return updated;
 	}
 
 	public static User getUser(int id) throws SQLException {

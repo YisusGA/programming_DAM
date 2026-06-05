@@ -33,11 +33,9 @@ public class SnakeGame extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
 			Scene welcomeScreen = new Scene(loader.load());
 			stage.setScene(welcomeScreen);
-			System.out.println("Entre por el try");
 			stage.show();
 		} catch (IOException e) {
 			System.err.println("Error loading welcome screen, starting new game with random user");
-			System.out.println("Entre por el catch");
 			e.printStackTrace();
 			User randomUser = UserService.getUserByNickname("RandomUser");
 			if (randomUser == null) {

@@ -56,6 +56,7 @@ public class GUIController {
 
 	@FXML
 	public void loadGameByNickname() {
+		savedGames.clear();
 		String nickname = nicknameInput.getText();
 		if (nickname.isBlank()) {
 			nickname = "RandomUser";
@@ -108,7 +109,7 @@ public class GUIController {
 				// option to load it by double clicking on it
 				// User can also ignore it and click on New Game, which will launch method
 				// startNewGame
-				resultLabel.setText("Haz doble clic en una partida de la lista para continuar.");
+				resultLabel.setText("Double click a game on the list to load save state");
 
 				// Evento: Escuchar el doble clic en el ListView
 				final User finalUser = user;
@@ -156,7 +157,7 @@ public class GUIController {
 			SnakeGame.playGame(stage, user);
 
 		} catch (SQLException e) {
-			System.err.println("Error al intentar iniciar una nueva partida.");
+			System.err.println("Error starting game due to DB access error...");
 			e.printStackTrace();
 		}
 	}

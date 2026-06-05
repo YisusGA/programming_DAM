@@ -34,6 +34,7 @@ public class GameEngine {
 	private GameState gameState;
 	private AnimationTimer gameLoop;
 	private long lastTick = 0;
+	private static boolean isPaused; // boolean to determined if the game is paused or not
 
 	public GameEngine(Canvas canvas, User user, int boardWidth, int boardHeight) {
 
@@ -48,46 +49,25 @@ public class GameEngine {
 		this.gameSession = new Game(user);
 		this.gameState = new GameState(boardWidth, boardHeight);
 		this.gameSession.setGameState(gameState);
+		isPaused = false;
 
 		initGame();
 	}
 
-	
-
 	// CONSTRUCTOR PARA PARTIDAS CARGADAS
 	public GameEngine(Canvas canvas, Game loadedGame) {
-	    this.canvas = canvas;
-	    this.gc = canvas.getGraphicsContext2D();
+		this.canvas = canvas;
+		this.gc = canvas.getGraphicsContext2D();
 
-	    this.gameSession = loadedGame;
-	    this.gameState = loadedGame.getGameState();
+		this.gameSession = loadedGame;
+		this.gameState = loadedGame.getGameState();
 
-	    // Ajustamos el lienzo a las dimensiones que tenía el mapa al guardarse
-	    this.canvas.setWidth(gameState.getBoardWidth() * BLOCK_SIZE);
-	    this.canvas.setHeight(gameState.getBoardHeight() * BLOCK_SIZE);
-
-	    initLoadedGame();
+		// Ajustamos el lienzo a las dimensiones que tenía el mapa al guardarse
+		this.canvas.setWidth(gameState.getBoardWidth() * BLOCK_SIZE);
+		this.canvas.setHeight(gameState.getBoardHeight() * BLOCK_SIZE);
+		isPaused = false;
+		initLoadedGame();
 	}
-
-	// INICIALIZADOR SIN REINICIAR LA SERPIENTE NI LA COMIDA
-	private void initLoadedGame() {
-	    this.gameLoop = new AnimationTimer() {
-	        @Override
-	        public void handle(long now) {
-	            if (gameSession.isFinished()) {
-	                stopGame();
-	                return;
-	            }
-	            if (lastTick == 0 || now - lastTick >= FRAME_TIME_NANO) {
-	                lastTick = now;
-	                update();
-	                render();
-	            }
-	        }
-	    };
-	}
-
-
 
 	private void initGame() {
 		// Colocamos la cabeza en el centro del escenario para empezar
@@ -111,8 +91,29 @@ public class GameEngine {
 				// deseado
 				if (lastTick == 0 || now - lastTick >= FRAME_TIME_NANO) {
 					lastTick = now;
-					update();
-					render();
+					if (!isPaused) {
+						update();
+						render();
+					}
+				}
+			}
+		};
+	}
+
+	private void initLoadedGame() {
+		this.gameLoop = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				if (gameSession.isFinished()) {
+					stopGame();
+					return;
+				}
+				if (lastTick == 0 || now - lastTick >= FRAME_TIME_NANO) {
+					lastTick = now;
+					if (!isPaused) {
+						update();
+						render();
+					}
 				}
 			}
 		};
@@ -136,22 +137,40 @@ public class GameEngine {
 		case LEFT, A -> gameState.getSnake().changeDirection(Direction.LEFT);
 		case RIGHT, D -> gameState.getSnake().changeDirection(Direction.RIGHT);
 
+		case ESCAPE -> {
+			// Si el juego ya ha terminado (Game Over), ignoramos el ESC
+			if (gameSession.isFinished())
+				return;
+
+			isPaused = !isPaused; // Invertimos el estado (de false a true, o de true a false)
+
+			if (isPaused) {
+				// Acabamos de pausar el juego, dibujamos la pantalla de pausa UNA sola vez
+				renderPauseScreen();
+			}
+			// Si isPaused es false, no hacemos nada. El AnimationTimer en el próximo
+			// fotograma volverá a ejecutar render() y borrará esta pantalla de pausa al
+			// instante.
+		}
+
 		// Guardado de emergencia rápido para probar
 		case G -> {
-			try {
-				// Le pasamos el objeto gameSession que el motor actualiza constantemente
-				boolean guardadoOk = GameService.saveGame(this.gameSession);
-				if (guardadoOk) {
-					System.out.println("Partida guardada con exito! ID de Partida: " + gameSession.getId());
+			if (isPaused) {
+				try {
+					// Le pasamos el objeto gameSession que el motor actualiza constantemente
+					boolean guardadoOk = GameService.saveGame(this.gameSession);
+					if (guardadoOk) {
+						System.out.println("Saved state created. Game ID: " + gameSession.getId());
+					}
+				} catch (SQLException e) {
+					System.err.println("An error happened saving game state to DB");
+					e.printStackTrace();
 				}
-			} catch (SQLException e) {
-				System.err.println("Error al guardar la partida en la BD.");
-				e.printStackTrace();
 			}
 		}
 
 		default -> {
-			// Ignoramos cualquier otra tecla
+			// Any other key is ignored
 		}
 		}
 	}
@@ -168,7 +187,7 @@ public class GameEngine {
 			// para así poder almacenar la puntuación, entre otras cosas
 			try {
 				GameService.saveGame(this.gameSession);
-				System.out.println("Partida finalizada registrada en el historial.");
+				System.out.println("Finished game score was registered");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -224,10 +243,44 @@ public class GameEngine {
 		// Dibujamos el HUD de la puntuación en la esquina superior izquierda
 		gc.setFill(Color.WHITE);
 		gc.setFont(new Font("Arial", 14));
-		gc.fillText(gameSession.getUser().getNickname(), 10, 20); 
+		gc.fillText(gameSession.getUser().getNickname(), 10, 20);
+		
 		gc.setFill(Color.WHITE);
 		gc.setFont(new Font("Arial", 14));
 		gc.fillText("Score: " + gameSession.getScore(), 10, 35);
+		
+		gc.setFill(Color.WHITE);
+		gc.setFont(new Font("Arial", 14));
+		gc.fillText("Press ESC key to pause game", canvas.getWidth() / 2 - 100, 20);
+	}
+
+	private void renderPauseScreen() {
+		// Capa negra semitransparente
+		gc.setFill(Color.color(0, 0, 0, 0.75));
+		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+		// Título
+		gc.setFont(new Font("Arial Bold", 30));
+		gc.setFill(Color.WHITE);
+		gc.fillText("PAUSE", canvas.getWidth() / 2 - 55, canvas.getHeight() / 2 - 20);
+
+		// Instrucciones
+		gc.setFont(new Font("Arial", 16));
+		gc.fillText("Press ESC key to resume", canvas.getWidth() / 2 - 95, canvas.getHeight() / 2 + 5);
+
+		// Aprovechamos para recordarle lo del guardado
+		gc.setFill(Color.LIGHTGRAY);
+		gc.setFont(new Font("Arial", 14));
+		gc.fillText("Press G to save game", canvas.getWidth() / 2 - 75,
+				canvas.getHeight() / 2 + 50);
+		gc.setFill(Color.LIGHTGRAY);
+		gc.setFont(new Font("Arial", 14));
+		gc.fillText("Only one saved game per user is allowed.", canvas.getWidth() / 2 - 130,
+				canvas.getHeight() / 2 + 70);
+		gc.setFill(Color.LIGHTGRAY);
+		gc.setFont(new Font("Arial", 14));
+		gc.fillText("Subsequent saved games will overwrite previous ones.", canvas.getWidth() / 2 - 170,
+				canvas.getHeight() / 2 + 90);
 	}
 
 	private void renderGameOver() {
@@ -242,7 +295,7 @@ public class GameEngine {
 		gc.setFont(new Font("Arial", 16));
 		gc.setFill(Color.WHITE);
 		gc.fillText(gameSession.getUser().getNickname(), canvas.getWidth() / 2 - 25, canvas.getHeight() / 2 + 20);
-		
+
 		gc.setFont(new Font("Arial", 16));
 		gc.setFill(Color.WHITE);
 		gc.fillText("Final Score: " + gameSession.getScore(), canvas.getWidth() / 2 - 50, canvas.getHeight() / 2 + 40);

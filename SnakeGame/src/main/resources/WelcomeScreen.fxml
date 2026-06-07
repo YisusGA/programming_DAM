@@ -25,7 +25,7 @@
       <ListView fx:id="savedGamesView" layoutX="336.0" layoutY="125.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="400.0" layoutY="95.0" text="Saved games" />
       
-      <Label fx:id="resultLabel" alignment="CENTER" layoutX="59.0" layoutY="335.0" prefHeight="53.0" prefWidth="250.0" wrapText="true" />
+      <Label fx:id="resultLabel" alignment="CENTER" layoutX="59.0" layoutY="335.0" prefHeight="53.0" prefWidth="200.0" wrapText="true" />
       
       <Button layoutX="401.0" layoutY="345.0" mnemonicParsing="false" onAction="#startNewGame" text="New Game" />
    </children>

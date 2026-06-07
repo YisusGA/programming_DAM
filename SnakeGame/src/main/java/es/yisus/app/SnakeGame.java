@@ -2,6 +2,7 @@ package es.yisus.app;
 
 import java.io.IOException;
 import es.yisus.dao.UserDAO;
+import es.yisus.dbcontext.DBContext;
 import es.yisus.engine.GameEngine;
 import es.yisus.modelo.Game;
 import es.yisus.modelo.User;
@@ -25,6 +26,10 @@ public class SnakeGame extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+//		String URL = System.getenv("LOCALAPPDATA") + "\\snakegame\\snakegame.db";
+//		URL = URL.replace("\\", "/");
+//		System.out.println(URL);
+		DBContext.dbCheckingAndCreation();
 
 		stage.setTitle("Snake Game");
 		// Window resize is disabled
@@ -93,8 +98,8 @@ public class SnakeGame extends Application {
 }
 
 // For debugging, uncomment the following  lines. Right click on SnakeGame project and Debug as Java Application
-//class SnakeGameLauncher {
-//	public static void main(String[] args) {
-//		SnakeGame.main(args);
-//	}
-//}
+class SnakeGameLauncher {
+	public static void main(String[] args) {
+		SnakeGame.main(args);
+	}
+}

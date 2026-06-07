@@ -271,6 +271,11 @@ public class GameEngine {
 		gc.setFont(new Font("Arial", 14));
 		gc.fillText("Subsequent saved games will overwrite previous ones.", canvas.getWidth() / 2 - 170,
 				canvas.getHeight() / 2 + 90);
+		
+		gc.setFill(Color.LIGHTGRAY);
+		gc.setFont(new Font("Arial", 14));
+		gc.fillText("Close Window to exit game", canvas.getWidth() / 2 - 95,
+				canvas.getHeight() / 2 + 130);
 	}
 
 	// Game Over screen rendering method

@@ -70,6 +70,5 @@ public class UserDAO {
 		}
 		return retrievedUser;
 	}
-	
-	
+
 }

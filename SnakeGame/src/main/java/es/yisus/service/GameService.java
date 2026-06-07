@@ -154,7 +154,8 @@ public class GameService {
 				con.commit();
 				return true;
 			} catch (SQLException e) {
-				System.err.println("An error happened during saving state process, no changes have been commited to DB");
+				System.err
+						.println("An error happened during saving state process, no changes have been commited to DB");
 				con.rollback();
 				throw e;
 			} finally {

@@ -40,14 +40,29 @@ public class GameStateDAO {
 		return inserted;
 	}
 	
-	public static int deleteGameState(GameState gameState) throws SQLException {
+	public static int deleteGameState(int gameId) throws SQLException {
 		int deleted = 0;
 		String sqlDeleteSaveStates = "DELETE FROM game_states WHERE game_id = ?";
 		try (Connection con = DBContext.getConnection();
 				PreparedStatement ps = con.prepareStatement(sqlDeleteSaveStates)) {
-			ps.setInt(1, gameState.getGameId());
+			ps.setInt(1, gameId);
 			deleted = ps.executeUpdate();
 		}
 		return deleted;
+	}
+	
+	public static int updateGameState(GameState gameState) throws SQLException {
+		String sqlSaveState = "UPDATE game_states SET board_width = ?, board_height = ?, food_x = ?, food_y = ?, current_direction = ? WHERE game_id = ?";
+		int inserted = 0;
+		try (Connection con = DBContext.getConnection();
+				PreparedStatement psState = con.prepareStatement(sqlSaveState)) {
+			psState.setInt(1, gameState.getBoardWidth());
+			psState.setInt(2, gameState.getBoardHeight());
+			psState.setInt(3, gameState.getFood().getX());
+			psState.setInt(4, gameState.getFood().getY());
+			psState.setString(5, gameState.getSnake().getDirection().name());
+			psState.executeUpdate();
+		}
+		return inserted;
 	}
 }

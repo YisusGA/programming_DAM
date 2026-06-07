@@ -10,11 +10,11 @@ import es.yisus.dbcontext.DBContext;
 import es.yisus.modelo.User;
 
 public class UserService {
-	
+
 	/**
 	 * 
 	 * @param nickname the username
-	 * @return the user with provided nickname, or null if it wasn't  found
+	 * @return the user with provided nickname, or null if it wasn't found
 	 * @throws SQLException
 	 */
 	public static User getUserByNickname(String nickname) throws SQLException {
@@ -32,25 +32,24 @@ public class UserService {
 		}
 		return retrievedUser;
 	}
-	
+
 	public static User getOrCreateUser(String nickname) throws SQLException {
-	    // Primero buscamos si el usuario ya existe en la BD
-	    try (Connection con = DBContext.getConnection();
-	         PreparedStatement ps = con.prepareStatement("SELECT id FROM users WHERE nickname = ?")) {
-	        ps.setString(1, nickname);
-	        try (ResultSet rs = ps.executeQuery()) {
-	            if (rs.next()) {
-	                // Si existe, lo recuperamos con el ID que ya tenía
-	                return new User(rs.getInt("id"), nickname);
-	            }
-	        }
-	    }
+		// Primero buscamos si el usuario ya existe en la BD
+		try (Connection con = DBContext.getConnection();
+				PreparedStatement ps = con.prepareStatement("SELECT id FROM users WHERE nickname = ?")) {
+			ps.setString(1, nickname);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					// Si existe, lo recuperamos con el ID que ya tenía
+					return new User(rs.getInt("id"), nickname);
+				}
+			}
+		}
 
-	    // Si no existe, lo insertamos de cero
-	    User newUser = new User(nickname);
-	    UserDAO.insertUser(newUser); // Tu método actual que le asigna el ID autogenerado
-	    return newUser;
+		// Si no existe, lo insertamos de cero
+		User newUser = new User(nickname);
+		UserDAO.insertUser(newUser); // Tu método actual que le asigna el ID autogenerado
+		return newUser;
 	}
-
 
 }

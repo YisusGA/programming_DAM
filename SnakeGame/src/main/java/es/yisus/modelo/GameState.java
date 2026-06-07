@@ -16,7 +16,7 @@ public class GameState {
 		this.food = new Point(0, 0);
 	}
 
-	public GameState(int id , int width, int height, Snake snake, Point food) {
+	public GameState(int id, int width, int height, Snake snake, Point food) {
 		this.boardWidth = width;
 		this.boardHeight = height;
 		this.snake = snake;

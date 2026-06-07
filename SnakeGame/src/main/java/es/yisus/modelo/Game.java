@@ -8,10 +8,10 @@ public class Game {
 	private User user;
 	private int score;
 	private LocalDateTime dateTime;
-	private boolean finished; // El conector de jdbc de sqlite traduce el true a 1 y el false a 0 (y
-								// viceversa)
-	// Relación de composición: si la partida se guarda "en curso",
-	// tendrá esta instancia poblada. Si se finaliza, puede quedar en null.
+	// jdbc sqlite connector translated true to 1 and false to 0 (and viceversa)
+	private boolean finished;
+	// Composition relationship: if game is saved but not over, GameState instance
+	// will be populated, otherwise, it will be null
 	private GameState gameState;
 
 	public Game(User user) {
@@ -92,10 +92,7 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return this.user.getNickname() + " | " + this.score + " | "
-				+ this.dateTime.toString().replace("T", " ");
+		return this.user.getNickname() + " | " + this.score + " | " + this.dateTime.toString().replace("T", " ");
 	}
-	
-	
 
 }

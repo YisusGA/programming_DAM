@@ -18,11 +18,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class GameEngine {
-	// Cada celda de la cuadrícula medirá 20x20 píxeles en pantalla
+	// Size of each screen blocl: 20 x 20 pixels
 	private static final int BLOCK_SIZE = 20;
 
-	// Control de velocidad: 150.000.000 nanosegundos = 150 milisegundos por frame.
-	// Reducir para que vaya más rápido
+	// Speed control: 150 miliseconds per frame
+	// A lower value will increase speed
 	private static long FRAME_TIME_NANO = 150_000_000L; // Las _ son eliminadas por el compilador y no afectan
 														// negativamente, pero sirven de ayuda visual para la
 														// persona que lee el número
@@ -34,18 +34,19 @@ public class GameEngine {
 	private GameState gameState;
 	private AnimationTimer gameLoop;
 	private long lastTick = 0;
-	private static boolean isPaused; // boolean to determined if the game is paused or not
+	private static boolean isPaused; // boolean to determine if the game is paused or not
 
+	// Constructor for New Game
 	public GameEngine(Canvas canvas, User user, int boardWidth, int boardHeight) {
 
 		this.canvas = canvas;
 		this.gc = canvas.getGraphicsContext2D();
 
-		// Ajustamos las dimensiones reales del lienzo según el tamaño del tablero
+		// Canvas dimensions calculation
 		this.canvas.setWidth(boardWidth * BLOCK_SIZE);
 		this.canvas.setHeight(boardHeight * BLOCK_SIZE);
 
-		// Instanciamos el modelo de sesión y el estado de la partida
+		// Game and GameState are instanced
 		this.gameSession = new Game(user);
 		this.gameState = new GameState(boardWidth, boardHeight);
 		this.gameSession.setGameState(gameState);
@@ -54,7 +55,7 @@ public class GameEngine {
 		initGame();
 	}
 
-	// CONSTRUCTOR PARA PARTIDAS CARGADAS
+	// Constructor for loaded game
 	public GameEngine(Canvas canvas, Game loadedGame) {
 		this.canvas = canvas;
 		this.gc = canvas.getGraphicsContext2D();
@@ -62,45 +63,35 @@ public class GameEngine {
 		this.gameSession = loadedGame;
 		this.gameState = loadedGame.getGameState();
 
-		// Ajustamos el lienzo a las dimensiones que tenía el mapa al guardarse
+		// Canvas dimensions are calculated according to size of saved board dimensions
 		this.canvas.setWidth(gameState.getBoardWidth() * BLOCK_SIZE);
 		this.canvas.setHeight(gameState.getBoardHeight() * BLOCK_SIZE);
 		isPaused = false;
+
 		initLoadedGame();
 	}
 
+	// Method to initialize new game
 	private void initGame() {
-		// Colocamos la cabeza en el centro del escenario para empezar
+		// Snake's head will start in the center
 		int startX = gameState.getBoardWidth() / 2;
 		int startY = gameState.getBoardHeight() / 2;
 		gameState.getSnake().getBody().add(new Point(startX, startY));
 
-		// Colocamos la primera comida en el tablero
+		// First food is generated
 		gameState.generateRandomFood();
 
-		// Construimos el bucle principal del juego
-		this.gameLoop = new AnimationTimer() {
-			@Override
-			public void handle(long now) {
-				if (gameSession.isFinished()) {
-					stopGame();
-					return;
-				}
-
-				// Throttling: El AnimationTimer va a 60fps+, limitamos la ejecución al delay
-				// deseado
-				if (lastTick == 0 || now - lastTick >= FRAME_TIME_NANO) {
-					lastTick = now;
-					if (!isPaused) {
-						update();
-						render();
-					}
-				}
-			}
-		};
+		// Main gameloop is created
+		gameLoopCreation();
 	}
 
 	private void initLoadedGame() {
+		// Main gameloop is created
+		gameLoopCreation();
+	}
+
+	// Main gameloop
+	private void gameLoopCreation() {
 		this.gameLoop = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
@@ -128,7 +119,6 @@ public class GameEngine {
 		renderGameOver();
 	}
 
-	// Vincula este método al evento OnKeyPressed de tu escena o Stage principal
 	public void handleInput(KeyEvent event) {
 		KeyCode code = event.getCode();
 		switch (code) {
@@ -138,26 +128,25 @@ public class GameEngine {
 		case RIGHT, D -> gameState.getSnake().changeDirection(Direction.RIGHT);
 
 		case ESCAPE -> {
-			// Si el juego ya ha terminado (Game Over), ignoramos el ESC
+			// If Game Over), ESC is ignored
 			if (gameSession.isFinished())
 				return;
 
-			isPaused = !isPaused; // Invertimos el estado (de false a true, o de true a false)
+			isPaused = !isPaused;
 
 			if (isPaused) {
-				// Acabamos de pausar el juego, dibujamos la pantalla de pausa UNA sola vez
+				// Pause screen is rendered just once
 				renderPauseScreen();
 			}
-			// Si isPaused es false, no hacemos nada. El AnimationTimer en el próximo
-			// fotograma volverá a ejecutar render() y borrará esta pantalla de pausa al
-			// instante.
+
+			// If !isPaused, nothing is done. Gameloop will execute render() on next frame
+			// and this pause screen will be deleted
 		}
 
-		// Guardado de emergencia rápido para probar
 		case G -> {
 			if (isPaused) {
 				try {
-					// Le pasamos el objeto gameSession que el motor actualiza constantemente
+					// Game and GameState are saved
 					boolean guardadoOk = GameService.saveGame(this.gameSession);
 					if (guardadoOk) {
 						System.out.println("Saved state created. Game ID: " + gameSession.getId());
@@ -175,16 +164,15 @@ public class GameEngine {
 		}
 	}
 
-	// Lógica de físicas y reglas
+	// Physic and rule logic
 	private void update() {
 		Snake snake = gameState.getSnake();
 		Point nextHead = snake.calculateNextHead();
 
-		// Control de colisiones fatales (Muros o chocarse consigo misma)
+		// Collision calculations
 		if (gameState.isWallCollision(nextHead) || snake.containsPoint(nextHead)) {
 			gameSession.setFinished(true);
-			// Si el jugador pierde, se guarda automáticamente el Game (no el GameState),
-			// para así poder almacenar la puntuación, entre otras cosas
+			// If game over, Game is saved, but not GameState
 			try {
 				GameService.saveGame(this.gameSession);
 				System.out.println("Finished game score was registered");
@@ -194,11 +182,12 @@ public class GameEngine {
 			return;
 		}
 
-		// Control de objetivos (si alcanza la comida)
+		// Food eating logic
 		if (nextHead.equals(gameState.getFood())) {
-			snake.grow(nextHead); // Añade la cabeza pero no corta la cola
-			gameState.generateRandomFood(); // El escenario calcula la nueva posición libre
-			gameSession.setScore(gameSession.getScore() + 10); // Incrementa puntuación
+			snake.grow(nextHead); // Snake grows
+			gameState.generateRandomFood(); // New food generation
+			gameSession.setScore(gameSession.getScore() + 10); // Score is increased by 10
+			// Speed is increased every 100 points
 			if (gameSession.getScore() % 100 == 0) {
 				long newSpeed = (long) (FRAME_TIME_NANO - FRAME_TIME_NANO * 0.10);
 				if (newSpeed < 50_000_000L) {
@@ -207,53 +196,55 @@ public class GameEngine {
 				FRAME_TIME_NANO = newSpeed;
 			}
 		} else {
-			// Movimiento ordinario en el espacio en blanco
+			// Snake movement if no food is eaten
 			snake.move(nextHead);
 		}
 	}
 
-	// CAPA GRÁFICA (Pintado del Lienzo)
+	// Graphical interface rendering
 	private void render() {
-		// Limpiamos la pantalla con fondo negro
+		// Black background
 		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-		// Pintamos la comida (un círculo rojo)
+		// Food painting
 		gc.setFill(Color.RED);
 		Point food = gameState.getFood();
 		gc.fillOval(food.getX() * BLOCK_SIZE, food.getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
 
-		// Pintamos la serpiente
+		// Snake painting
 		Snake snake = gameState.getSnake();
 		for (int i = 0; i < snake.getBody().size(); i++) {
 			Point segment = snake.getBody().get(i);
 
-			// Diferenciamos visualmente la cabeza del cuerpo
+			// Visual differentiation between head and rest of Snake's body
 			if (i == 0) {
 				gc.setFill(Color.GREENYELLOW);
 			} else {
 				gc.setFill(Color.GREEN);
 			}
 
-			// BLOCK_SIZE - 1 genera un pequeño borde de separación negro entre los
-			// segmentos de la serpiente
+			// Small black space between Snake's segments
 			gc.fillRect(segment.getX() * BLOCK_SIZE, segment.getY() * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1);
 		}
 
-		// Dibujamos el HUD de la puntuación en la esquina superior izquierda
+		// HUD painting for username
 		gc.setFill(Color.WHITE);
 		gc.setFont(new Font("Arial", 14));
 		gc.fillText(gameSession.getUser().getNickname(), 10, 20);
-		
+
+		// HUD painting for score
 		gc.setFill(Color.WHITE);
 		gc.setFont(new Font("Arial", 14));
 		gc.fillText("Score: " + gameSession.getScore(), 10, 35);
-		
+
+		// HUD painting for message of how to pause game
 		gc.setFill(Color.WHITE);
 		gc.setFont(new Font("Arial", 14));
 		gc.fillText("Press ESC key to pause game", canvas.getWidth() / 2 - 100, 20);
 	}
 
+	// Pause screen rendering method
 	private void renderPauseScreen() {
 		// Capa negra semitransparente
 		gc.setFill(Color.color(0, 0, 0, 0.75));
@@ -271,8 +262,7 @@ public class GameEngine {
 		// Aprovechamos para recordarle lo del guardado
 		gc.setFill(Color.LIGHTGRAY);
 		gc.setFont(new Font("Arial", 14));
-		gc.fillText("Press G to save game", canvas.getWidth() / 2 - 75,
-				canvas.getHeight() / 2 + 50);
+		gc.fillText("Press G to save game", canvas.getWidth() / 2 - 75, canvas.getHeight() / 2 + 50);
 		gc.setFill(Color.LIGHTGRAY);
 		gc.setFont(new Font("Arial", 14));
 		gc.fillText("Only one saved game per user is allowed.", canvas.getWidth() / 2 - 130,
@@ -283,6 +273,7 @@ public class GameEngine {
 				canvas.getHeight() / 2 + 90);
 	}
 
+	// Game Over screen rendering method
 	private void renderGameOver() {
 		// Oscurecemos el fondo aplicando una capa negra con transparencia alfa
 		gc.setFill(Color.color(0, 0, 0, 0.75));

@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 public class GUIController {
 	private ObservableList<Leaderboard> leaderboard;
 	private ObservableList<Game> savedGames;
-	
+
 	@FXML
 	private TextField nicknameInput;
 	@FXML
@@ -63,7 +63,7 @@ public class GUIController {
 		}
 
 		User user = null;
-		
+
 		try {
 			user = UserService.getUserByNickname(nickname);
 		} catch (SQLException e) {
@@ -111,7 +111,7 @@ public class GUIController {
 				// startNewGame
 				resultLabel.setText("Double click a game on the list to load save state");
 
-				// Evento: Escuchar el doble clic en el ListView
+				// Event listener: double click on ListView
 				final User finalUser = user;
 				getSelectedGameFromList(stage, finalUser);
 			}

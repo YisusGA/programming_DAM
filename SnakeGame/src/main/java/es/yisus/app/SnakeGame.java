@@ -14,7 +14,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
 
 public class SnakeGame extends Application {
-	// Dimensions of the game board, defined in number of blocks
+	// Dimensions of the game board, defined in number of blocks (block size in
+	// pixels is defined in GameEngine class
 	private static final int defaultBoardWidth = 30;
 	private static final int defaultBoardHeight = 20;
 

@@ -97,9 +97,9 @@ public class SnakeGame extends Application {
 
 }
 
-// For debugging, uncomment the following  lines. Right click on SnakeGame project and Debug as Java Application
-class SnakeGameLauncher {
-	public static void main(String[] args) {
-		SnakeGame.main(args);
-	}
-}
+//For debugging and generating a standalone executable, uncomment the following  lines. For debugging, right click on SnakeGame project and Debug as Java Application
+//class SnakeGameLauncher {
+//	public static void main(String[] args) {
+//		SnakeGame.main(args);
+//	}
+//}

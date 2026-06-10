@@ -276,6 +276,11 @@ public class GameEngine {
 		gc.setFont(new Font("Arial", 14));
 		gc.fillText("Close Window to exit game", canvas.getWidth() / 2 - 95,
 				canvas.getHeight() / 2 + 130);
+		
+		gc.setFill(Color.LIGHTGRAY);
+		gc.setFont(new Font("Arial", 14));
+		gc.fillText("Copyright: Jesús Gómez Alonso. 2026", canvas.getWidth() / 2 - 130,
+				canvas.getHeight() / 2 + 170);
 	}
 
 	// Game Over screen rendering method

@@ -20,11 +20,21 @@ public class GestorEmpresa {
 
 	private static Map<String, Set<Empleado>> asignaciones;
 
+	private static Map<String, Map<Empleado, Integer>> horasPorProyecto;
+
+	private static int numIteraciones = 3;
+
 	public static void main(String[] args) {
 
+		
+		// Añadir empleados
+		
+		System.out.println("Añadir empleados");
+		System.out.println("----------------");
+		
 		plantilla = new ArrayList<>();
 		System.out.println("Datos del primer empleado");
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < numIteraciones; i++) {
 			System.out.println("¿Cuál es el nombre del empleado?");
 			String nombre = TecladoOK.leerCadena();
 			int nivel;
@@ -53,29 +63,74 @@ public class GestorEmpresa {
 		double salarioMedio = plantilla.stream().mapToDouble(e -> e.getSalario()).average().orElse(0.0);
 		System.out.printf("El salario medio de los empleados en plantilla es de %.2f\n", salarioMedio);
 
+		// Registrar proyectos
+		
+		System.out.println("Registrar proyectos");
+		System.out.println("-------------------");
+		
 		proyectos = new TreeSet<>();
 
-		int i = 0;
-		while (i < 3) {
+		for (int i = 0; i < numIteraciones; i++) {
 			System.out.println("Introduce código de proyecto");
 			String codigo = TecladoOK.leerCadena();
 			if (altaProyecto(proyectos, codigo)) {
 				System.out.println("Proyecto creado correctamente");
-				i++;
 			} else {
 				System.err
 						.println("Ese código de proyecto ya existe, no se añadió el proyecto. Prueba con otro código");
+				i--;
 			}
 		}
 
+		// Asignar proyectos a empleados
+		
+		System.out.println("Asignar proyectos a empleados");
+		System.out.println("-----------------------------");
+		
+		asignaciones = new HashMap<>();
+
+		for (int i = 0; i < numIteraciones; i++) {
+			String codProy;
+			do {
+				System.out.println("¿Cuál es el código de proyecto al que quieres asignar un empleado? Debe existir");
+				codProy = TecladoOK.leerCadena();
+			} while (!proyectos.contains(codProy));
+			System.out.println("¿Qué empleado quieres asignar al proyecto?");
+			plantilla.stream().forEach(e -> System.out
+					.println("Código de empleado: " + e.getId() + ", Nombre de empleado: " + e.getNombre()));
+			Empleado emp;
+			do {
+				System.out.println("Introduce código de empleado");
+				String codigo = TecladoOK.leerCadena();
+				emp = buscarEmpleado(crearMapaEmpleados(plantilla), codigo);
+				if (emp == null) {
+					System.err.println("Código de empleado no válido, prueba de nuevo");
+				}
+			} while (emp == null);
+
+			asignarEmpleadoAProyecto(asignaciones, codProy, emp);
+		}
+
+		// Mostrar empleados sobrecargados
+		
+		System.out.println("Empleados sobrecargados");
+		System.out.println("-----------------------");
+		empleadosSobrecargados(asignaciones).forEach(e -> System.out.println(e));
+		
+		// Registrar horas de un empleado en un proyecto
+		
+		System.out.println("Registrar horas de un empleado en un proyecto");
+		System.out.println("---------------------------------------------");
+		
 		String codProy;
 		do {
-			System.out.println("¿Cuál es el código de proyecto al que quieres asignar un empleado? Debe existir");
+			System.out.println("¿Cuál es el código de proyecto en el que quieres registrar horas? Debe existir");
 			codProy = TecladoOK.leerCadena();
 		} while (!proyectos.contains(codProy));
-		System.out.println("¿Qué empleado quieres asignar al proyecto?");
-		plantilla.stream().forEach(
-				e -> System.out.println("Código de empleado: " + e.getId() + ", Nombre de empleado: " + e.getNombre()));
+		
+		System.out.println("¿Para qué empleado quieres registrar horas?");
+		plantilla.stream().forEach(e -> System.out
+				.println("Código de empleado: " + e.getId() + ", Nombre de empleado: " + e.getNombre()));
 		Empleado emp;
 		do {
 			System.out.println("Introduce código de empleado");
@@ -85,10 +140,17 @@ public class GestorEmpresa {
 				System.err.println("Código de empleado no válido, prueba de nuevo");
 			}
 		} while (emp == null);
-
-		asignaciones = new HashMap<>();
-		asignarEmpleadoAProyecto(asignaciones, codProy, emp);
-
+		
+		System.out.println("¿Cuántas horas quieres registrar? Debe ser un número entero mayor que 0");
+		int horas;
+		do {
+			horas = TecladoOK.leerEntero();
+			if (horas <= 0) {
+				System.err.println("El valor introducido no es válido");
+			}
+		} while (horas <= 0);
+		
+		registrarHoras(horasPorProyecto, codProy, emp, horas);
 	}
 
 	public static boolean altaProyecto(Set<String> proyectos, String codigo) {
@@ -126,6 +188,39 @@ public class GestorEmpresa {
 			asignaciones.put(codProy, empleadosProyecto);
 			System.out.println("Empleado asignado correctamente a proyecto");
 		}
+	}
+
+	public static Set<Empleado> empleadosSobrecargados(Map<String, Set<Empleado>> asignaciones) {
+		Map<Empleado, Integer> conteoProyectos = new HashMap<>();
+		for (Set<Empleado> empleadosEnProyecto : asignaciones.values()) {
+			for (Empleado emp : empleadosEnProyecto) {
+				conteoProyectos.put(emp, conteoProyectos.getOrDefault(emp, 0) + 1);
+			}
+		}
+		Set<Empleado> sobrecargados = new HashSet<>();
+		for (Map.Entry<Empleado, Integer> entryMapEmpleados : conteoProyectos.entrySet()) {
+			if (entryMapEmpleados.getValue() >= 2) {
+				sobrecargados.add(entryMapEmpleados.getKey());
+			}
+		}
+		return sobrecargados;
+	}
+
+	public static void registrarHoras(Map<String, Map<Empleado, Integer>> horasPorProyecto, String codProy,
+			Empleado emp, int horas) {
+		horasPorProyecto.putIfAbsent(codProy, new HashMap<>()); // Si no hay mapa asociado a ese código de proyecto,
+																// crea un mapa y se lo asigna
+		
+		Map<Empleado, Integer> registroEmpleados = horasPorProyecto.get(codProy); // Esto devuelve una referencia en
+																					// memoria al mapa que ya vive
+																					// dentro de horasPorProyecto
+		
+		registroEmpleados.put(emp, registroEmpleados.getOrDefault(emp, 0) + horas); // Por lo tanto, al actualizar el
+																					// valor del mapa registroEmpleados,
+																					// ya se está actualizando dentro
+																					// del mapa horasPorProyecto
+		
+//        horasPorProyecto.put(codProy, registroEmpleados); // Y hacer esto, aunque no diera error, sería completamente redundante
 	}
 
 }

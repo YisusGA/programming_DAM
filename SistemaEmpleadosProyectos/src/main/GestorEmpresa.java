@@ -26,12 +26,11 @@ public class GestorEmpresa {
 
 	public static void main(String[] args) {
 
-		
 		// Añadir empleados
-		
+
 		System.out.println("Añadir empleados");
 		System.out.println("----------------");
-		
+
 		plantilla = new ArrayList<>();
 		System.out.println("Datos del primer empleado");
 		for (int i = 0; i < numIteraciones; i++) {
@@ -64,10 +63,10 @@ public class GestorEmpresa {
 		System.out.printf("El salario medio de los empleados en plantilla es de %.2f\n", salarioMedio);
 
 		// Registrar proyectos
-		
+
 		System.out.println("Registrar proyectos");
 		System.out.println("-------------------");
-		
+
 		proyectos = new TreeSet<>();
 
 		for (int i = 0; i < numIteraciones; i++) {
@@ -83,10 +82,10 @@ public class GestorEmpresa {
 		}
 
 		// Asignar proyectos a empleados
-		
+
 		System.out.println("Asignar proyectos a empleados");
 		System.out.println("-----------------------------");
-		
+
 		asignaciones = new HashMap<>();
 
 		for (int i = 0; i < numIteraciones; i++) {
@@ -112,25 +111,26 @@ public class GestorEmpresa {
 		}
 
 		// Mostrar empleados sobrecargados
-		
+
 		System.out.println("Empleados sobrecargados");
 		System.out.println("-----------------------");
+		horasPorProyecto = new HashMap<>();
 		empleadosSobrecargados(asignaciones).forEach(e -> System.out.println(e));
-		
+
 		// Registrar horas de un empleado en un proyecto
-		
+
 		System.out.println("Registrar horas de un empleado en un proyecto");
 		System.out.println("---------------------------------------------");
-		
+
 		String codProy;
 		do {
 			System.out.println("¿Cuál es el código de proyecto en el que quieres registrar horas? Debe existir");
 			codProy = TecladoOK.leerCadena();
 		} while (!proyectos.contains(codProy));
-		
+
 		System.out.println("¿Para qué empleado quieres registrar horas?");
-		plantilla.stream().forEach(e -> System.out
-				.println("Código de empleado: " + e.getId() + ", Nombre de empleado: " + e.getNombre()));
+		plantilla.stream().forEach(
+				e -> System.out.println("Código de empleado: " + e.getId() + ", Nombre de empleado: " + e.getNombre()));
 		Empleado emp;
 		do {
 			System.out.println("Introduce código de empleado");
@@ -140,7 +140,7 @@ public class GestorEmpresa {
 				System.err.println("Código de empleado no válido, prueba de nuevo");
 			}
 		} while (emp == null);
-		
+
 		System.out.println("¿Cuántas horas quieres registrar? Debe ser un número entero mayor que 0");
 		int horas;
 		do {
@@ -149,7 +149,7 @@ public class GestorEmpresa {
 				System.err.println("El valor introducido no es válido");
 			}
 		} while (horas <= 0);
-		
+
 		registrarHoras(horasPorProyecto, codProy, emp, horas);
 	}
 
@@ -174,7 +174,8 @@ public class GestorEmpresa {
 	public static void asignarEmpleadoAProyecto(Map<String, Set<Empleado>> asignaciones, String codProy, Empleado e) {
 		Set<Empleado> empleadosProyecto = asignaciones.get(codProy); // Devuelve un Set de empleados, o null si no
 																		// existe el código de proyecto
-		if (empleadosProyecto != null) {
+
+		if (empleadosProyecto != null) { // Ver cómo se reduce este if-else a usar un método en el método registrarHoras
 			if (empleadosProyecto.add(e)) {
 				asignaciones.replace(codProy, empleadosProyecto); // Sólo se reemplaza el Set si existe el código de //
 																	// proyecto, si no, no hace nada
@@ -209,17 +210,19 @@ public class GestorEmpresa {
 	public static void registrarHoras(Map<String, Map<Empleado, Integer>> horasPorProyecto, String codProy,
 			Empleado emp, int horas) {
 		horasPorProyecto.putIfAbsent(codProy, new HashMap<>()); // Si no hay mapa asociado a ese código de proyecto,
-																// crea un mapa y se lo asigna
-		
+																// crea un mapa y se lo asigna. Esto es lo mismo que he
+																// hecho en el if-else de asignarEmpleadoAProyecto, pero
+																// reducido a usar un único método
+
 		Map<Empleado, Integer> registroEmpleados = horasPorProyecto.get(codProy); // Esto devuelve una referencia en
 																					// memoria al mapa que ya vive
 																					// dentro de horasPorProyecto
-		
+
 		registroEmpleados.put(emp, registroEmpleados.getOrDefault(emp, 0) + horas); // Por lo tanto, al actualizar el
 																					// valor del mapa registroEmpleados,
 																					// ya se está actualizando dentro
 																					// del mapa horasPorProyecto
-		
+
 //        horasPorProyecto.put(codProy, registroEmpleados); // Y hacer esto, aunque no diera error, sería completamente redundante
 	}
 
